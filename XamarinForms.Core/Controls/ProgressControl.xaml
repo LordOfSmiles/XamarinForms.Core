@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ContentView x:Class="XamarinForms.Core.Controls.ProgressControl"
-             xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Name="ctrlProgressRoot">
+<ContentView
+    x:Class="XamarinForms.Core.Controls.ProgressControl"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="ctrlProgressRoot">
     <ContentView.Content>
         <Grid x:Name="grdRoot" ColumnSpacing="0">
             <Grid.ColumnDefinitions>
@@ -10,10 +11,11 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <ContentView BackgroundColor="{Binding Path=LeftColor}" BindingContext="{x:Reference ctrlProgressRoot}" />
-            <ContentView Grid.Column="1"
-                         BackgroundColor="{Binding Path=RightColor}"
-                         BindingContext="{x:Reference ctrlProgressRoot}" />
+            <BoxView BackgroundColor="{Binding Path=LeftColor}" BindingContext="{x:Reference ctrlProgressRoot}" />
+            <BoxView
+                Grid.Column="1"
+                BackgroundColor="{Binding Path=RightColor}"
+                BindingContext="{x:Reference ctrlProgressRoot}" />
         </Grid>
     </ContentView.Content>
 </ContentView>

@@ -5,7 +5,7 @@
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</ProjectGuid>
+    <ProjectGuid>{98320B56-2D35-4406-88F0-2B6A2C9A5F13}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>XamarinForms.Core</RootNamespace>
@@ -35,11 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Controls\AutoCompleteView.cs" />
     <Compile Include="Controls\CheckBox.cs" />
     <Compile Include="Controls\ContentControl.cs" />
-    <Compile Include="Controls\CustomBindablePicker.cs" />
+    <Compile Include="Controls\CustomToolbarItem.cs" />
     <Compile Include="Controls\Entry\FloatingEntry.cs" />
     <Compile Include="Controls\FloatingActionButtonView.cs" />
     <Compile Include="Controls\GradientContentView.cs" />
@@ -71,14 +70,11 @@
     <Compile Include="Helpers\TextPluralHelper.cs" />
     <Compile Include="Infrastructure\IIAPService.cs" />
     <Compile Include="Infrastructure\IMemoryService.cs" />
-    <Compile Include="Infrastructure\NavigationManager.cs" />
+    <Compile Include="Infrastructure\Navigation\NavigationState.cs" />
     <Compile Include="Infrastructure\NotifyTaskCompletion.cs" />
     <Compile Include="Interfaces\IAdvInterstitial.cs" />
     <Compile Include="Interfaces\IFileUtility.cs" />
     <Compile Include="Interfaces\IPageBase.cs" />
-    <Compile Include="Interfaces\ISelectable.cs" />
-    <Compile Include="Interfaces\ISupportDelayInitialization.cs" />
-    <Compile Include="Interfaces\ISupportEditable.cs" />
     <Compile Include="Models\ISelectable.cs" />
     <Compile Include="Models\NotifyObject.cs" />
     <Compile Include="Models\PreserveAttribute.cs" />
@@ -90,7 +86,6 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\ContentPageBase.cs" />
     <Compile Include="Views\MasterDetailPageBase.cs" />
-    <Compile Include="Views\PageBase.cs" />
     <Compile Include="Views\TabbedPageBase.cs" />
   </ItemGroup>
   <ItemGroup>

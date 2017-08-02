@@ -1,46 +1,73 @@
-﻿using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
+using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.Interfaces;
 using XamarinForms.Core.ViewModels;
 
 namespace XamarinForms.Core.Views
 {
-    public class TabbedPageBase : TabbedPage, IPageBase
+    public abstract class TabbedPageBase : TabbedPage
     {
-        #region Virtial Methods
+        #region Overrides
 
-        protected virtual void OnAppearingImplementation()
-        {
-            ViewModel?.OnAppearing();
-        }
-
-        protected virtual void OnDisappearingImplementation()
-        {
-            ViewModel?.OnDisappearing();
-        }
-
-        #endregion
-
-        #region ViewModel
-
-        public ViewModelBase ViewModel => _viewModel ?? (_viewModel = BindingContext as ViewModelBase);
-        private ViewModelBase _viewModel;
-
-        #endregion
-
-        #region Navigation
-
+        /// <inheritdoc />
         protected override void OnAppearing()
         {
-            base.OnAppearing();
+            var vm = BindingContext as ViewModelBase;
+            if (vm != null)
+            {
+                var currentType = GetType();
 
-            OnAppearingImplementation();
+                var parameters = NavigationState.GetParametersByPageType(currentType);
+
+                vm.OnAppearingAsync(parameters);
+            }
+
+            OnAppearingImplementationAsync();
+
+            base.OnAppearing();
         }
 
+        /// <inheritdoc />
         protected override void OnDisappearing()
         {
-            base.OnDisappearing();
+            var vm = BindingContext as ViewModelBase;
+            vm?.OnDisappearingAsync();
 
-            OnDisappearingImplementation();
+            OnDisappearingImplementationAsync();
+
+            base.OnDisappearing();
+        }
+
+        #endregion
+
+        #region Constrcutor
+
+        protected TabbedPageBase()
+        {
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
+                    BackgroundColor = Color.White;
+                    break;
+                case Device.iOS:
+                    NavigationPage.SetBackButtonTitle(this, "");
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region Virtual Methods
+
+        public virtual Task OnAppearingImplementationAsync()
+        {
+            return Task.FromResult<object>(null);
+        }
+
+        public virtual Task OnDisappearingImplementationAsync()
+        {
+            return Task.FromResult<object>(null);
         }
 
         #endregion

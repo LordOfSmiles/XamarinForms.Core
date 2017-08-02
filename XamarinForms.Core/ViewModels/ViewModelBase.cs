@@ -4,28 +4,24 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using XamarinForms.Core.Models;
 using XamarinForms.Core.ViewModels.ErrorValidation;
 
 namespace XamarinForms.Core.ViewModels
 {
-    public class ViewModelBase : NotifyObject//, INotifyDataErrorInfo
+    public class ViewModelBase : NotifyObject
     {
         #region Public Methods
 
-        public virtual Task InitViewModelAsync(IDictionary<string, object> values)
+        public virtual Task OnAppearingAsync(IDictionary<string, object> navigationParameters)
         {
-            return Task.Delay(1);
+            return Task.FromResult<object>(null);
         }
 
-        public virtual void OnAppearing()
+        public virtual Task OnDisappearingAsync()
         {
-
-        }
-
-        public virtual void OnDisappearing()
-        {
-
+            return Task.FromResult<object>(null);
         }
 
         #endregion
@@ -43,6 +39,12 @@ namespace XamarinForms.Core.ViewModels
         protected ViewModelBase()
         {
         }
+
+        #endregion
+
+        #region Properties
+
+        public INavigation Navigation { get; set; }
 
         #endregion
 

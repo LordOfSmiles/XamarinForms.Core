@@ -23,6 +23,8 @@ namespace XamarinForms.Core.Controls
         {
             InitializeComponent();
 
+            Spacing = 0;
+
             _selectedCommand = new Command<object>(item => SelectedItem = item);
         }
 
@@ -43,6 +45,12 @@ namespace XamarinForms.Core.Controls
             var ctrl = bindable as ItemsControl;
             if (ctrl == null)
                 return;
+
+            var oldNotify = oldValue as INotifyCollectionChanged;
+            if (oldNotify != null)
+            {
+                oldNotify.CollectionChanged -= ctrl.NotifyCollection_CollectionChanged;
+            }
 
             var newCollection = newValue as IList;
             if (newCollection == null)
@@ -124,7 +132,7 @@ namespace XamarinForms.Core.Controls
 
             var orientation = (StackOrientation)newvalue;
 
-            ctrl.stackLayout.Orientation = orientation;
+            ctrl.Orientation = orientation;
         }
 
         #endregion
@@ -141,13 +149,13 @@ namespace XamarinForms.Core.Controls
 
         private void SetItems()
         {
-            stackLayout.Children.Clear();
+            Children.Clear();
 
             if (ItemsSource == null)
                 return;
 
             foreach (var item in ItemsSource)
-                stackLayout.Children.Add(GetItemView(item));
+                Children.Add(GetItemView(item));
 
 
             SelectedItem = ItemsSource.OfType<object>().FirstOrDefault();
@@ -180,7 +188,7 @@ namespace XamarinForms.Core.Controls
         {
             if (e.Action == NotifyCollectionChangedAction.Reset)
             {
-                stackLayout.Children.Clear();
+                Children.Clear();
                 _viewCache.Clear();
 
                 var newItems = sender as IEnumerable<object>;
@@ -190,7 +198,7 @@ namespace XamarinForms.Core.Controls
                     {
                         var view = GetItemView(item);
 
-                        stackLayout.Children.Add(view);
+                        Children.Add(view);
 
                         if (!_viewCache.ContainsKey(item))
                             _viewCache.Add(item, view);
@@ -207,7 +215,7 @@ namespace XamarinForms.Core.Controls
                     {
                         var view = GetItemView(newItem);
 
-                        stackLayout.Children.Add(view);
+                        Children.Add(view);
 
                         if (!_viewCache.ContainsKey(newItem))
                             _viewCache.Add(newItem, view);
@@ -222,7 +230,7 @@ namespace XamarinForms.Core.Controls
                     {
                         if (_viewCache.ContainsKey(oldItem))
                         {
-                            stackLayout.Children.Remove(_viewCache[oldItem]);
+                            Children.Remove(_viewCache[oldItem]);
                             _viewCache.Remove(oldItem);
                         }
                     }

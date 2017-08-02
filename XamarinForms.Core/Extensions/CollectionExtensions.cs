@@ -31,9 +31,9 @@ namespace XamarinForms.Core.Extensions
         public static void AddRange<T>(this ICollection<T> oc, IEnumerable<T> collection)
         {
             if (collection == null)
-            {
-                throw new ArgumentNullException("collection");
-            }
+                throw new ArgumentNullException(nameof(collection));
+
+
             foreach (var item in collection)
             {
                 oc.Add(item);
@@ -46,6 +46,7 @@ namespace XamarinForms.Core.Extensions
         {
             foreach (var i in array)
                 act(i);
+
             return array;
         }
 

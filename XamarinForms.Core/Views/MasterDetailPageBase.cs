@@ -1,46 +1,57 @@
-﻿using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
+using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.Interfaces;
 using XamarinForms.Core.ViewModels;
 
 namespace XamarinForms.Core.Views
 {
-    public abstract class MasterDetailPageBase : MasterDetailPage, IPageBase
+    public class MasterDetailPageBase : MasterDetailPage
     {
-        #region Virtial Methods
+        #region Overrides
 
-        protected virtual void OnAppearingImplementation()
-        {
-            ViewModel?.OnAppearing();
-        }
-
-        protected virtual void OnDisappearingImplementation()
-        {
-            ViewModel?.OnDisappearing();
-        }
-
-        #endregion
-
-        #region ViewModel
-
-        public ViewModelBase ViewModel => _viewModel ?? (_viewModel = BindingContext as ViewModelBase);
-        private ViewModelBase _viewModel;
-
-        #endregion
-
-        #region Navigation
-
+        /// <inheritdoc />
         protected override void OnAppearing()
         {
-            OnAppearingImplementation();
+            var vm = BindingContext as ViewModelBase;
+            if (vm != null)
+            {
+                var currentType = GetType();
+
+                var parameters = NavigationState.GetParametersByPageType(currentType);
+
+                vm.OnAppearingAsync(parameters);
+            }
+
+
+            OnAppearingImplementationAsync();
 
             base.OnAppearing();
         }
 
+        /// <inheritdoc />
         protected override void OnDisappearing()
         {
-            OnDisappearingImplementation();
+            var vm = BindingContext as ViewModelBase;
+            vm?.OnDisappearingAsync();
+
+            OnDisappearingImplementationAsync();
 
             base.OnDisappearing();
+        }
+
+        #endregion
+
+        #region Virtual Methods
+
+        public virtual Task OnAppearingImplementationAsync()
+        {
+            return Task.FromResult<object>(null);
+        }
+
+        public virtual Task OnDisappearingImplementationAsync()
+        {
+            return Task.FromResult<object>(null);
         }
 
         #endregion
