@@ -24,6 +24,11 @@ namespace XamarinForms.Core.ViewModels
             return Task.FromResult<object>(null);
         }
 
+        public virtual Task OnPoppedAsync()
+        {
+            return Task.FromResult<object>(null);
+        }
+
         #endregion
 
         #region Fields

@@ -30,7 +30,7 @@ namespace XamarinForms.Data.DAL
 
         protected abstract Task CreateTablesAsync(SQLiteAsyncConnection db);
 
-        protected abstract Task UpdateTablesAsync(SQLiteAsyncConnection db, int dbVersion);
+        protected abstract Task MigrateTablesAsync(SQLiteAsyncConnection db, int dbVersion);
 
         #endregion
 
@@ -38,14 +38,9 @@ namespace XamarinForms.Data.DAL
 
         private async Task InitRepositoryAsync(SQLiteAsyncConnection db)
         {
-            if (_sqLite.IsFileExist())
-            {
-                await UpdateDbAsync(db).ConfigureAwait(false);
-            }
-            else
-            {
-                await CreateDbAsync(db).ConfigureAwait(false);
-            }
+            await CreateDbAsync(db).ConfigureAwait(false);
+
+            await UpdateDbAsync(db).ConfigureAwait(false);
         }
 
         private async Task CreateDbAsync(SQLiteAsyncConnection db)
@@ -61,7 +56,7 @@ namespace XamarinForms.Data.DAL
 
             if (dbVersion != CurrentDbVersion)
             {
-                await UpdateTablesAsync(db, dbVersion).ConfigureAwait(false);
+                await MigrateTablesAsync(db, dbVersion).ConfigureAwait(false);
             }
         }
 
@@ -94,7 +89,7 @@ namespace XamarinForms.Data.DAL
             return db;
         }
 
-        protected async Task<SQLiteAsyncConnection> GetAsyncConnection()
+        protected async Task<SQLiteAsyncConnection> GetConnectionAsync()
         {
             var db = _sqLite.GetAsyncConnection();
 
