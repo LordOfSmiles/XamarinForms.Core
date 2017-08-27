@@ -40,24 +40,23 @@ namespace XamarinForms.Data.DAL
         {
             await CreateDbAsync(db).ConfigureAwait(false);
 
-            await UpdateDbAsync(db).ConfigureAwait(false);
+            if (CurrentDbVersion > 1)
+            {
+                var dbVersion = await GetDbVersionAsync(db).ConfigureAwait(false);
+
+                if (dbVersion != CurrentDbVersion)
+                {
+                    await MigrateTablesAsync(db, dbVersion).ConfigureAwait(false);
+                }
+            }
         }
+
 
         private async Task CreateDbAsync(SQLiteAsyncConnection db)
         {
             await CreateTablesAsync(db).ConfigureAwait(false);
 
             await SetDbVersionAsync(db, CurrentDbVersion).ConfigureAwait(false);
-        }
-
-        private async Task UpdateDbAsync(SQLiteAsyncConnection db)
-        {
-            var dbVersion = await GetDbVersionAsync(db).ConfigureAwait(false);
-
-            if (dbVersion != CurrentDbVersion)
-            {
-                await MigrateTablesAsync(db, dbVersion).ConfigureAwait(false);
-            }
         }
 
         protected static Task SetDbVersionAsync(SQLiteAsyncConnection db, int version)
@@ -74,19 +73,6 @@ namespace XamarinForms.Data.DAL
         private static Task<int> GetDbVersionAsync(SQLiteAsyncConnection db)
         {
             return db.ExecuteScalarAsync<int>("PRAGMA user_version");
-        }
-
-        protected SQLiteConnection GetConnection()
-        {
-            var db = _sqLite.GetConnection();
-
-            if (!IsInit)
-            {
-                //нужно доделать
-                IsInit = true;
-            }
-
-            return db;
         }
 
         protected async Task<SQLiteAsyncConnection> GetConnectionAsync()

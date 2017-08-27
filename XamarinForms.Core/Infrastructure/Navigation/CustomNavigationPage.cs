@@ -23,6 +23,13 @@ namespace XamarinForms.Core.Infrastructure.Navigation
             Popped += OnPopped;
             PoppedToRoot += OnPoppedToRoot;
 
+            if (Application.Current != null)
+            {
+                Application.Current.ModalPushed += CurrentOnModalPushed;
+                Application.Current.ModalPopped += CurrentOnModalPopped;
+            }
+
+
             _lastPage = root;
 
             if (root != null)
@@ -32,11 +39,16 @@ namespace XamarinForms.Core.Infrastructure.Navigation
             }
         }
 
+
+
+
+        #region Handlers
+
         private void OnPushed(object sender, NavigationEventArgs e)
         {
             if (_lastPage != null)
             {
-                var vm = e.Page.BindingContext as ViewModelBase;
+                var vm = _lastPage.BindingContext as ViewModelBase;
                 vm?.OnDisappearingAsync();
             }
 
@@ -48,8 +60,6 @@ namespace XamarinForms.Core.Infrastructure.Navigation
                 _lastPage = e.Page;
             }
         }
-
-        #region Handlers
 
         private void OnPopped(object sender, NavigationEventArgs e)
         {
@@ -70,7 +80,7 @@ namespace XamarinForms.Core.Infrastructure.Navigation
         {
             if (_lastPage != null)
             {
-                var vm = e.Page.BindingContext as ViewModelBase;
+                var vm = _lastPage.BindingContext as ViewModelBase;
                 vm?.OnDisappearingAsync();
                 vm?.OnPoppedAsync();
             }
@@ -82,8 +92,27 @@ namespace XamarinForms.Core.Infrastructure.Navigation
 
                 _lastPage = e.Page;
             }
-
-            #endregion
         }
+
+        private void CurrentOnModalPopped(object sender, ModalPoppedEventArgs e)
+        {
+            if (e.Modal != null)
+            {
+                var vm = e.Modal.BindingContext as ViewModelBase;
+                vm?.OnDisappearingAsync();
+                vm?.OnPoppedAsync();
+            }
+        }
+
+        private void CurrentOnModalPushed(object sender, ModalPushedEventArgs e)
+        {
+            if (e.Modal != null)
+            {
+                var vm = e.Modal.BindingContext as ViewModelBase;
+                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Modal.GetType()));
+            }
+        }
+
+        #endregion
     }
 }
