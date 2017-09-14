@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinForms.Core", "XamarinForms.Core\XamarinForms.Core.csproj", "{98320B56-2D35-4406-88F0-2B6A2C9A5F13}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinForms.Data", "XamarinForms.Data\XamarinForms.Data.csproj", "{C2E838E9-B8D8-4106-880C-EA74C0F6F2A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinForms.Core1", "XamarinForms.Core1\XamarinForms.Core1.csproj", "{CE985289-F5EB-49DA-BD5F-DBD1DA74ACDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinForms.Data1", "XamarinForms.Data1\XamarinForms.Data1.csproj", "{6F73C386-55D1-46F7-97BD-779A326A35D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +25,19 @@ Global
 		{C2E838E9-B8D8-4106-880C-EA74C0F6F2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2E838E9-B8D8-4106-880C-EA74C0F6F2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2E838E9-B8D8-4106-880C-EA74C0F6F2A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE985289-F5EB-49DA-BD5F-DBD1DA74ACDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE985289-F5EB-49DA-BD5F-DBD1DA74ACDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE985289-F5EB-49DA-BD5F-DBD1DA74ACDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE985289-F5EB-49DA-BD5F-DBD1DA74ACDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F73C386-55D1-46F7-97BD-779A326A35D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F73C386-55D1-46F7-97BD-779A326A35D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F73C386-55D1-46F7-97BD-779A326A35D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F73C386-55D1-46F7-97BD-779A326A35D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C974E497-146A-4C23-9DB1-46EB01BF27F6}
 	EndGlobalSection
 EndGlobal
