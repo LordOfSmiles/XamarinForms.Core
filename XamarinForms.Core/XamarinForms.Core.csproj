@@ -38,6 +38,7 @@
     <Compile Include="Controls\AutoCompleteView.cs" />
     <Compile Include="Controls\CheckBox.cs" />
     <Compile Include="Controls\ContentControl.cs" />
+    <Compile Include="Controls\CustomizableContentView.cs" />
     <Compile Include="Controls\CustomToolbarItem.cs" />
     <Compile Include="Controls\FloatingActionButtonView.cs" />
     <Compile Include="Controls\GradientContentView.cs" />
@@ -67,6 +68,12 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\InputTransparentHelper.cs" />
     <Compile Include="Helpers\TextPluralHelper.cs" />
+    <Compile Include="Infrastructure\FileSystem\Enums\ExistenceCheckResult.cs" />
+    <Compile Include="Extensions\FileExtensions.cs" />
+    <Compile Include="Infrastructure\FileSystem\IFile.cs" />
+    <Compile Include="Infrastructure\FileSystem\IFileSystem.cs" />
+    <Compile Include="Infrastructure\FileSystem\IFolder.cs" />
+    <Compile Include="Infrastructure\FileSystem\NameCollisionOption.cs" />
     <Compile Include="Infrastructure\IIAPService.cs" />
     <Compile Include="Infrastructure\IMemoryService.cs" />
     <Compile Include="Infrastructure\Navigation\CustomNavigationPage.cs" />
@@ -88,7 +95,7 @@
     <Compile Include="Services\StateService.cs" />
     <Compile Include="ViewModels\ErrorValidation\PropertyValidation.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\ContentPageBase.cs" />
+    <Compile Include="Views\CustomizableContentPage.cs" />
     <Compile Include="Views\MasterDetailPageBase.cs" />
     <Compile Include="Views\TabbedPageBase.cs" />
   </ItemGroup>

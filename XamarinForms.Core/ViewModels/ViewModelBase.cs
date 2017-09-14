@@ -14,19 +14,19 @@ namespace XamarinForms.Core.ViewModels
     {
         #region Public Methods
 
-        public virtual Task OnAppearingAsync(IDictionary<string, object> navigationParameters)
+        public virtual void OnAppearingAsync(IDictionary<string, object> navigationParameters)
         {
-            return Task.FromResult<object>(null);
+
         }
 
-        public virtual Task OnDisappearingAsync()
+        public virtual void OnDisappearingAsync()
         {
-            return Task.FromResult<object>(null);
+
         }
 
-        public virtual Task OnPoppedAsync()
+        public virtual void OnPoppedAsync()
         {
-            return Task.FromResult<object>(null);
+
         }
 
         #endregion

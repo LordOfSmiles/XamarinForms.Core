@@ -62,7 +62,7 @@ namespace XamarinForms.Core.Controls
                 notifyCollection.CollectionChanged += ctrl.NotifyCollection_CollectionChanged;
             }
 
-            ctrl?.SetItems();
+            ctrl.SetItems();
         }
 
 

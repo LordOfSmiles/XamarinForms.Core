@@ -8,7 +8,7 @@ using XamarinForms.Core.ViewModels;
 
 namespace XamarinForms.Core.Infrastructure.Navigation
 {
-    public sealed class CustomNavigationPage : NavigationPage
+    public class CustomNavigationPage : NavigationPage
     {
         #region Fields
 
@@ -38,9 +38,6 @@ namespace XamarinForms.Core.Infrastructure.Navigation
                 vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(root.GetType()));
             }
         }
-
-
-
 
         #region Handlers
 
