@@ -33,13 +33,10 @@ namespace XamarinForms.Core.Extensions
             if (collection == null)
                 throw new ArgumentNullException(nameof(collection));
 
-
             foreach (var item in collection)
             {
                 oc.Add(item);
             }
-
-
         }
 
         public static IEnumerable<T> ForEach<T>(this IEnumerable<T> array, Action<T> act)
@@ -52,7 +49,7 @@ namespace XamarinForms.Core.Extensions
 
         public static IEnumerable<T> ForEach<T>(this IEnumerable arr, Action<T> act)
         {
-            return arr.Cast<T>().ForEach<T>(act);
+            return arr.OfType<T>().ForEach<T>(act);
         }
 
         public static IEnumerable<RT> ForEach<T, RT>(this IEnumerable<T> array, Func<T, RT> func)

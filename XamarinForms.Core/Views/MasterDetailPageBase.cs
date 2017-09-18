@@ -33,7 +33,7 @@ namespace XamarinForms.Core.Views
         protected override void OnDisappearing()
         {
             var vm = BindingContext as ViewModelBase;
-            vm?.OnDisappearingAsync();
+            vm?.OnDisappearing();
 
             OnDisappearingImplementationAsync();
 

@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Threading.Tasks;
 using SQLite;
-using Xamarin.Forms;
 
 namespace XamarinForms.Data.DAL
 {
@@ -13,9 +12,9 @@ namespace XamarinForms.Data.DAL
 
         #endregion
 
-        protected BaseRepository()
+        protected BaseRepository(ISqlite sqlite)
         {
-            _sqLite = DependencyService.Get<ISqlite>();
+            _sqLite = sqlite;
         }
 
         #region Properties

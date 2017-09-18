@@ -29,7 +29,6 @@ namespace XamarinForms.Core.Infrastructure.Navigation
                 Application.Current.ModalPopped += CurrentOnModalPopped;
             }
 
-
             _lastPage = root;
 
             if (root != null)
@@ -46,7 +45,7 @@ namespace XamarinForms.Core.Infrastructure.Navigation
             if (_lastPage != null)
             {
                 var vm = _lastPage.BindingContext as ViewModelBase;
-                vm?.OnDisappearingAsync();
+                vm?.OnDisappearing();
             }
 
             if (e.Page != null)
@@ -65,8 +64,8 @@ namespace XamarinForms.Core.Infrastructure.Navigation
                 var vm = e.Page.BindingContext as ViewModelBase;
                 if (vm != null)
                 {
-                    vm.OnDisappearingAsync();
-                    vm.OnPoppedAsync();
+                    vm.OnDisappearing();
+                    vm.OnPopped();
                 }
 
                 _lastPage = e.Page;
@@ -78,8 +77,8 @@ namespace XamarinForms.Core.Infrastructure.Navigation
             if (_lastPage != null)
             {
                 var vm = _lastPage.BindingContext as ViewModelBase;
-                vm?.OnDisappearingAsync();
-                vm?.OnPoppedAsync();
+                vm?.OnDisappearing();
+                vm?.OnPopped();
             }
 
             if (e.Page != null)
@@ -96,8 +95,8 @@ namespace XamarinForms.Core.Infrastructure.Navigation
             if (e.Modal != null)
             {
                 var vm = e.Modal.BindingContext as ViewModelBase;
-                vm?.OnDisappearingAsync();
-                vm?.OnPoppedAsync();
+                vm?.OnDisappearing();
+                vm?.OnPopped();
             }
         }
 

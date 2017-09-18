@@ -38,7 +38,6 @@
     <Compile Include="Controls\AutoCompleteView.cs" />
     <Compile Include="Controls\CheckBox.cs" />
     <Compile Include="Controls\ContentControl.cs" />
-    <Compile Include="Controls\CustomizableContentView.cs" />
     <Compile Include="Controls\CustomToolbarItem.cs" />
     <Compile Include="Controls\FloatingActionButtonView.cs" />
     <Compile Include="Controls\GradientContentView.cs" />
@@ -64,6 +63,7 @@
     <Compile Include="Converters\StringCaseConverter.cs" />
     <Compile Include="Converters\ToVisibilityConverter.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\ContentViewExtensions.cs" />
     <Compile Include="Helpers\ImageCache.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\InputTransparentHelper.cs" />
@@ -121,6 +121,9 @@
     <Folder Include="Infrastructure\Android\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Forms.2.3.4.270\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
@@ -130,9 +133,6 @@
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Forms.2.3.4.270\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.270\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.270\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
