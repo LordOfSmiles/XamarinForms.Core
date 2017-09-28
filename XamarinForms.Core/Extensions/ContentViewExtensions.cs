@@ -51,7 +51,7 @@ namespace XamarinForms.Core.Extensions
                 case Device.iOS:
                     onIos?.Invoke();
                     break;
-                case Device.UWP:
+                case Device.Windows:
                     onUwp?.Invoke();
                     break;
             }
