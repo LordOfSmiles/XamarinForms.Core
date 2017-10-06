@@ -6,6 +6,12 @@ namespace XamarinForms.Data.DAL
 {
     public abstract class BaseRepository
     {
+        #region Fields
+
+        protected readonly object LockObject = new object();
+
+        #endregion
+
         #region Dependencies
 
         private readonly ISqlite _sqLite;
