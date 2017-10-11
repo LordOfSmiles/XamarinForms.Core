@@ -41,6 +41,7 @@
     <Compile Include="Controls\CustomToolbarItem.cs" />
     <Compile Include="Controls\FloatingActionButtonView.cs" />
     <Compile Include="Controls\GradientContentView.cs" />
+    <Compile Include="Controls\NewGridView.cs" />
     <Compile Include="Controls\GridView.cs" />
     <Compile Include="Controls\ItemsControl.xaml.cs">
       <DependentUpon>ItemsControl.xaml</DependentUpon>
@@ -60,6 +61,7 @@
       <DependentUpon>ValidationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\WrapLayout.cs" />
+    <Compile Include="Converters\BytesToImageSourceConverter.cs" />
     <Compile Include="Converters\StringCaseConverter.cs" />
     <Compile Include="Converters\ToVisibilityConverter.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
