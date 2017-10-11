@@ -1,29 +1,8 @@
-﻿// ***********************************************************************
-// Assembly         : XLabs.Forms
-// Author           : XLabs Team
-// Created          : 12-27-2015
-// 
-// Last Modified By : XLabs Team
-// Last Modified On : 01-04-2016
-// ***********************************************************************
-// <copyright file="GridView.cs" company="XLabs Team">
-//     Copyright (c) XLabs Team. All rights reserved.
-// </copyright>
-// <summary>
-//       This project is licensed under the Apache 2.0 license
-//       https://github.com/XLabs/Xamarin-Forms-Labs/blob/master/LICENSE
-//       
-//       XLabs is a open source project that aims to provide a powerfull and cross 
-//       platform set of controls tailored to work with Xamarin Forms.
-// </summary>
-// ***********************************************************************
-// 
-
-using System;
+﻿using System;
 using System.Collections;
 using Xamarin.Forms;
 
-namespace XLabs.Forms.Controls
+namespace XamarinForms.Core.Controls
 {
     /// <summary>
     /// Class GridView.
@@ -85,14 +64,8 @@ namespace XLabs.Forms.Controls
         /// <value>The items source.</value>
         public IEnumerable ItemsSource
         {
-            get
-            {
-                return (IEnumerable)base.GetValue(NewGridView.ItemsSourceProperty);
-            }
-            set
-            {
-                base.SetValue(NewGridView.ItemsSourceProperty, value);
-            }
+            get => (IEnumerable)base.GetValue(NewGridView.ItemsSourceProperty);
+            set => base.SetValue(NewGridView.ItemsSourceProperty, value);
         }
 
         /// <summary>
@@ -101,14 +74,8 @@ namespace XLabs.Forms.Controls
         /// <value>The item template.</value>
         public DataTemplate ItemTemplate
         {
-            get
-            {
-                return (DataTemplate)base.GetValue(NewGridView.ItemTemplateProperty);
-            }
-            set
-            {
-                base.SetValue(NewGridView.ItemTemplateProperty, value);
-            }
+            get => (DataTemplate)base.GetValue(NewGridView.ItemTemplateProperty);
+            set => base.SetValue(NewGridView.ItemTemplateProperty, value);
         }
 
         /// <summary>
@@ -117,14 +84,8 @@ namespace XLabs.Forms.Controls
         /// <value>The row spacing.</value>
         public double RowSpacing
         {
-            get
-            {
-                return (double)base.GetValue(NewGridView.RowSpacingProperty);
-            }
-            set
-            {
-                base.SetValue(NewGridView.RowSpacingProperty, value);
-            }
+            get => (double)base.GetValue(NewGridView.RowSpacingProperty);
+            set => base.SetValue(NewGridView.RowSpacingProperty, value);
         }
 
         /// <summary>
@@ -133,14 +94,8 @@ namespace XLabs.Forms.Controls
         /// <value>The column spacing.</value>
         public double ColumnSpacing
         {
-            get
-            {
-                return (double)base.GetValue(NewGridView.ColumnSpacingProperty);
-            }
-            set
-            {
-                base.SetValue(NewGridView.ColumnSpacingProperty, value);
-            }
+            get => (double)base.GetValue(NewGridView.ColumnSpacingProperty);
+            set => base.SetValue(NewGridView.ColumnSpacingProperty, value);
         }
 
         /// <summary>
@@ -149,14 +104,8 @@ namespace XLabs.Forms.Controls
         /// <value>The width of the item.</value>
         public double ItemWidth
         {
-            get
-            {
-                return (double)base.GetValue(NewGridView.ItemWidthProperty);
-            }
-            set
-            {
-                base.SetValue(NewGridView.ItemWidthProperty, value);
-            }
+            get => (double)base.GetValue(NewGridView.ItemWidthProperty);
+            set => base.SetValue(NewGridView.ItemWidthProperty, value);
         }
 
         /// <summary>
@@ -165,14 +114,8 @@ namespace XLabs.Forms.Controls
         /// <value>The height of the item.</value>
         public double ItemHeight
         {
-            get
-            {
-                return (double)base.GetValue(NewGridView.ItemHeightProperty);
-            }
-            set
-            {
-                base.SetValue(NewGridView.ItemHeightProperty, value);
-            }
+            get => (double)base.GetValue(NewGridView.ItemHeightProperty);
+            set => base.SetValue(NewGridView.ItemHeightProperty, value);
         }
 
         /// <summary>
@@ -181,14 +124,8 @@ namespace XLabs.Forms.Controls
         /// <value>The padding.</value>
         public Thickness Padding
         {
-            get
-            {
-                return (Thickness)base.GetValue(PaddingProperty);
-            }
-            set
-            {
-                base.SetValue(PaddingProperty, value);
-            }
+            get => (Thickness)base.GetValue(PaddingProperty);
+            set => base.SetValue(PaddingProperty, value);
         }
 
         /// <summary>
@@ -203,10 +140,7 @@ namespace XLabs.Forms.Controls
         /// <param name="item">Item.</param>
         public void InvokeItemSelectedEvent(object sender, object item)
         {
-            if (this.ItemSelected != null)
-            {
-                this.ItemSelected.Invoke(sender, item);
-            }
+            ItemSelected?.Invoke(sender, item);
         }
 
         /// <summary>
