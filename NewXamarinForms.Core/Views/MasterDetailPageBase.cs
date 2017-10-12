@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
+using NewXamarinForms.Core.Infrastructure.Navigation;
 using Xamarin.Forms;
-using XamarinForms.Core.Infrastructure.Navigation;
 
-namespace XamarinForms.Core.Views
+namespace NewXamarinForms.Core.Views
 {
-    public abstract class TabbedPageBase : TabbedPage
+    public class MasterDetailPageBase : MasterDetailPage
     {
         #region Overrides
 
@@ -21,6 +21,7 @@ namespace XamarinForms.Core.Views
                 vm.OnAppearingAsync(parameters);
             }
 
+
             OnAppearingImplementationAsync();
 
             base.OnAppearing();
@@ -35,23 +36,6 @@ namespace XamarinForms.Core.Views
             OnDisappearingImplementationAsync();
 
             base.OnDisappearing();
-        }
-
-        #endregion
-
-        #region Constrcutor
-
-        protected TabbedPageBase()
-        {
-            switch (Device.RuntimePlatform)
-            {
-                case Device.Android:
-                    BackgroundColor = Color.White;
-                    break;
-                case Device.iOS:
-                    NavigationPage.SetBackButtonTitle(this, "");
-                    break;
-            }
         }
 
         #endregion

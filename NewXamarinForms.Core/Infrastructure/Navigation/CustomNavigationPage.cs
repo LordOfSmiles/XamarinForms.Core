@@ -1,8 +1,6 @@
-﻿
-using Xamarin.Forms;
-using Xamarin.Core;
+﻿using Xamarin.Forms;
 
-namespace XamarinForms.Core.Infrastructure.Navigation
+namespace NewXamarinForms.Core.Infrastructure.Navigation
 {
     public class CustomNavigationPage : NavigationPage
     {

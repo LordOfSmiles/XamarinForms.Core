@@ -8,8 +8,8 @@
     <ProjectGuid>{C2E838E9-B8D8-4106-880C-EA74C0F6F2A6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XamarinForms.Data</RootNamespace>
-    <AssemblyName>XamarinForms.Data</AssemblyName>
+    <RootNamespace>Xamarin.Data</RootNamespace>
+    <AssemblyName>Xamarin.Data</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile44</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>

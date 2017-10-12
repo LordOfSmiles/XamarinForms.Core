@@ -64,56 +64,19 @@
     <Compile Include="Converters\BytesToImageSourceConverter.cs" />
     <Compile Include="Converters\StringCaseConverter.cs" />
     <Compile Include="Converters\ToVisibilityConverter.cs" />
-    <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ContentViewExtensions.cs" />
     <Compile Include="Helpers\ImageCache.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\InputTransparentHelper.cs" />
-    <Compile Include="Helpers\TextPluralHelper.cs" />
-    <Compile Include="Infrastructure\FileSystem\Enums\ExistenceCheckResult.cs" />
-    <Compile Include="Extensions\FileExtensions.cs" />
-    <Compile Include="Infrastructure\FileSystem\IFile.cs" />
-    <Compile Include="Infrastructure\FileSystem\IFileSystem.cs" />
-    <Compile Include="Infrastructure\FileSystem\IFolder.cs" />
-    <Compile Include="Infrastructure\FileSystem\NameCollisionOption.cs" />
-    <Compile Include="Infrastructure\FunqContainer\Container.cs" />
-    <Compile Include="Infrastructure\FunqContainer\FastContainer.cs" />
-    <Compile Include="Infrastructure\FunqContainer\Interfaces\IFluentInterface.cs" />
-    <Compile Include="Infrastructure\FunqContainer\Interfaces\IFunqlet.cs" />
-    <Compile Include="Infrastructure\FunqContainer\Interfaces\IInitializable.cs" />
-    <Compile Include="Infrastructure\FunqContainer\Interfaces\IOwned.cs" />
-    <Compile Include="Infrastructure\FunqContainer\Interfaces\IRegistration.cs" />
-    <Compile Include="Infrastructure\FunqContainer\Interfaces\IReused.cs" />
-    <Compile Include="Infrastructure\FunqContainer\Interfaces\IReusedOwned.cs" />
-    <Compile Include="Infrastructure\FunqContainer\Owner.cs" />
-    <Compile Include="Infrastructure\FunqContainer\ResolutionException.cs" />
-    <Compile Include="Infrastructure\FunqContainer\ReuseScope.cs" />
-    <Compile Include="Infrastructure\FunqContainer\ServiceEntry.cs" />
-    <Compile Include="Infrastructure\FunqContainer\ServiceKey.cs" />
-    <Compile Include="Infrastructure\IIAPService.cs" />
-    <Compile Include="Infrastructure\IMemoryService.cs" />
     <Compile Include="Infrastructure\Navigation\CustomNavigationPage.cs" />
     <Compile Include="Infrastructure\Navigation\NavigationState.cs" />
-    <Compile Include="Infrastructure\NotifyTaskCompletion.cs" />
-    <Compile Include="Interfaces\IAdvInterstitial.cs" />
-    <Compile Include="Interfaces\IFileUtility.cs" />
-    <Compile Include="Interfaces\IPageBase.cs" />
-    <Compile Include="Models\ISelectable.cs" />
-    <Compile Include="Models\NotifyObject.cs" />
-    <Compile Include="Models\PreserveAttribute.cs" />
-    <Compile Include="Models\SmartObservableCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MessagingService\IMessagingService.cs" />
     <Compile Include="Services\MessagingService\MessagingService.cs" />
     <Compile Include="Services\MessagingService\MessagingServiceAlert.cs" />
     <Compile Include="Services\MessagingService\MessagingServiceChoice.cs" />
     <Compile Include="Services\MessagingService\MessagingServiceQuestion.cs" />
-    <Compile Include="Services\StateService.cs" />
-    <Compile Include="ViewModels\ErrorValidation\PropertyValidation.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\CustomizableContentPage.cs" />
-    <Compile Include="Views\MasterDetailPageBase.cs" />
-    <Compile Include="Views\TabbedPageBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\ItemsControl.xaml">
@@ -134,7 +97,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Infrastructure\Android\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -149,6 +112,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Xamarin.Core\Xamarin.Core.csproj">
+      <Project>{a6a25504-4d3d-400f-8888-961004481de8}</Project>
+      <Name>Xamarin.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.4.0.282\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.4.0.282\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />

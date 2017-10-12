@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
+using NewXamarinForms.Core.Infrastructure.Navigation;
 using Xamarin.Forms;
-using XamarinForms.Core.Infrastructure.Navigation;
 
-namespace XamarinForms.Core.Views
+namespace NewXamarinForms.Core.Views
 {
     public abstract class TabbedPageBase : TabbedPage
     {

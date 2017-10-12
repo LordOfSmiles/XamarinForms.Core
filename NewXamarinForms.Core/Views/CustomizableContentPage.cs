@@ -1,8 +1,6 @@
-﻿using System.Threading.Tasks;
-using Xamarin.Forms;
-using XamarinForms.Core.Infrastructure.Navigation;
+﻿using Xamarin.Forms;
 
-namespace XamarinForms.Core.Views
+namespace NewXamarinForms.Core.Views
 {
     public abstract class CustomizableContentPage : ContentPage
     {

@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
+using Xamarin.Core.Models;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Controls
+namespace NewXamarinForms.Core.Controls
 {
-    public partial class ItemsControl
+    public class ItemsControl : StackLayout
     {
         #region Fields
 
@@ -20,8 +22,6 @@ namespace XamarinForms.Core.Controls
 
         public ItemsControl()
         {
-            InitializeComponent();
-
             Spacing = 0;
 
             _selectedCommand = new Command<object>(item => SelectedItem = item);
@@ -241,4 +241,3 @@ namespace XamarinForms.Core.Controls
 
     }
 }
-
