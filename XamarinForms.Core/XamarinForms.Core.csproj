@@ -61,42 +61,18 @@
     <Compile Include="Converters\BytesToImageSourceConverter.cs" />
     <Compile Include="Converters\StringCaseConverter.cs" />
     <Compile Include="Converters\ToVisibilityConverter.cs" />
-    <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ContentViewExtensions.cs" />
     <Compile Include="Helpers\ImageCache.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\InputTransparentHelper.cs" />
-    <Compile Include="Helpers\TextPluralHelper.cs" />
-    <Compile Include="Infrastructure\Container\Container.cs" />
-    <Compile Include="Infrastructure\Container\FastContainer.cs" />
-    <Compile Include="Infrastructure\Container\Interfaces\IFluentInterface.cs" />
-    <Compile Include="Infrastructure\Container\Interfaces\IFunqlet.cs" />
-    <Compile Include="Infrastructure\Container\Interfaces\IInitializable.cs" />
-    <Compile Include="Infrastructure\Container\Interfaces\IOwned.cs" />
-    <Compile Include="Infrastructure\Container\Interfaces\IRegistration.cs" />
-    <Compile Include="Infrastructure\Container\Interfaces\IReused.cs" />
-    <Compile Include="Infrastructure\Container\Interfaces\IReusedOwned.cs" />
-    <Compile Include="Infrastructure\Container\Owner.cs" />
-    <Compile Include="Infrastructure\Container\ResolutionException.cs" />
-    <Compile Include="Infrastructure\Container\ReuseScope.cs" />
-    <Compile Include="Infrastructure\Container\ServiceEntry.cs" />
-    <Compile Include="Infrastructure\Container\ServiceKey.cs" />
-    <Compile Include="Infrastructure\Interfaces\IAdvInterstitial.cs" />
     <Compile Include="Infrastructure\Navigation\CustomNavigationPage.cs" />
     <Compile Include="Infrastructure\Navigation\NavigationState.cs" />
-    <Compile Include="Infrastructure\NotifyTaskCompletion.cs" />
-    <Compile Include="Models\ISelectable.cs" />
-    <Compile Include="Models\NotifyObject.cs" />
-    <Compile Include="Models\SmartObservableCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MessagingService\IMessagingService.cs" />
     <Compile Include="Services\MessagingService\MessagingService.cs" />
     <Compile Include="Services\MessagingService\MessagingServiceAlert.cs" />
     <Compile Include="Services\MessagingService\MessagingServiceChoice.cs" />
     <Compile Include="Services\MessagingService\MessagingServiceQuestion.cs" />
-    <Compile Include="Services\StateService.cs" />
-    <Compile Include="ViewModels\ErrorValidation\PropertyValidation.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\CustomizableContentPage.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,7 +89,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Xamarin.Core\Xamarin.Core.csproj">
+      <Project>{453e027c-dbb7-462b-b3bc-9513e0e154d9}</Project>
+      <Name>Xamarin.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Forms.2.4.0.282\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Core.dll</HintPath>
