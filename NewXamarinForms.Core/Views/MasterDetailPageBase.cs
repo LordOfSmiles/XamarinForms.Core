@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using NewXamarinForms.Core.Infrastructure.Navigation;
+using Xamarin.Core.ViewModels;
 using Xamarin.Forms;
 
 namespace NewXamarinForms.Core.Views

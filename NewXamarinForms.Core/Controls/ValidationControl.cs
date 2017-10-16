@@ -17,6 +17,10 @@ namespace NewXamarinForms.Core.Controls
 
             _cnvSuccess = new ContentControl();
             _cnvFail = new ContentControl();
+            grd.Children.Add(_cnvSuccess);
+            grd.Children.Add(_cnvFail);
+
+            Content = grd;
         }
 
         #region Bindable Properties
