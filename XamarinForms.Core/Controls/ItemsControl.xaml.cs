@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
+using Xamarin.Core.Models;
 using Xamarin.Forms;
-using XamarinForms.Core.Models;
 
 namespace XamarinForms.Core.Controls
 {
