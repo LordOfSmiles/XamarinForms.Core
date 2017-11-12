@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace XamarinForms.Data.DAL
+namespace Xamarin.Data.DAL
 {
     public interface ISqlite
     {

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using SQLite;
 
-namespace XamarinForms.Data.DAL
+namespace Xamarin.Data.DAL
 {
     public abstract class BaseRepository
     {
