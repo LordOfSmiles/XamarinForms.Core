@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Core", "Xamarin.Cor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{7D7C40B0-60BD-460C-9E88-9D74BA82F18B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinForms.Core.Droid", "XamarinForms.Core.Droid\XamarinForms.Core.Droid.csproj", "{A073AD50-443D-4528-9353-277BE02CA5F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinForms.Core.Droid", "Platforms\XamarinForms.Core.Droid\XamarinForms.Core.Droid.csproj", "{A073AD50-443D-4528-9353-277BE02CA5F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
