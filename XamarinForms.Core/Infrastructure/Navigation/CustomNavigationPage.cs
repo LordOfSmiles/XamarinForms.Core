@@ -5,6 +5,11 @@ namespace XamarinForms.Core.Infrastructure.Navigation
 {
     public class CustomNavigationPage : NavigationPage
     {
+        public void ChangeAppBarColor(Color backgroundColor)
+        {
+            BarBackgroundColor = backgroundColor;
+        }
+
         #region Fields
 
         private Page _lastPage;
