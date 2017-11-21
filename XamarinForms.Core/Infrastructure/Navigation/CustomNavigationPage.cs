@@ -10,6 +10,11 @@ namespace XamarinForms.Core.Infrastructure.Navigation
             BarBackgroundColor = backgroundColor;
         }
 
+        public void ChangeAppBarTextColor(Color textColor)
+        {
+            BarTextColor = textColor;
+        }
+
         #region Fields
 
         private Page _lastPage;
