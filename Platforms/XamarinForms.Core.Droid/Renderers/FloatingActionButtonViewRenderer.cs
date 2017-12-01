@@ -1,19 +1,23 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
+using Android.Content;
 using Android.Content.Res;
+using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XamarinForms.Core.Controls;
+using XamarinForms.Core.Droid.Helpers;
 using XamarinForms.Core.Droid.Renderers;
 using FAB = Android.Support.Design.Widget.FloatingActionButton;
 
 [assembly: ExportRenderer(typeof(FloatingActionButtonView), typeof(FloatingActionButtonRenderer))]
 namespace XamarinForms.Core.Droid.Renderers
 {
-    public class FloatingActionButtonRenderer : Xamarin.Forms.Platform.Android.AppCompat.ViewRenderer<FloatingActionButtonView, FAB>
+    public sealed class FloatingActionButtonRenderer : ViewRenderer<FloatingActionButtonView, FAB>
     {
         #region Fields
 
@@ -21,18 +25,25 @@ namespace XamarinForms.Core.Droid.Renderers
 
         #endregion
 
+        #region Constructor
+
+        public FloatingActionButtonRenderer(Context context)
+            : base(context)
+        {
+        }
+
+        #endregion
 
         protected override void OnElementChanged(ElementChangedEventArgs<FloatingActionButtonView> e)
         {
-
             base.OnElementChanged(e);
 
             if (Control == null)
             {
                 _fab = new FAB(Context);
-
                 _fab.SetBackgroundColor(Element.ColorNormal.ToAndroid());
                 _fab.RippleColor = Element.ColorRipple.ToAndroid();
+
                 SetNativeControl(_fab);
             }
 
@@ -46,12 +57,12 @@ namespace XamarinForms.Core.Droid.Renderers
             if (e.NewElement != null)
             {
                 _fab.Click += Fab_Click;
+
+                UpdateImage();
             }
 
             // set the icon
-
-            //var elementImage = Element.ImageName;
-
+            //var elementImage = Element.Icon;
             //var imageFile = elementImage?.File;
 
 
@@ -65,53 +76,48 @@ namespace XamarinForms.Core.Droid.Renderers
             //}
         }
 
-        //protected override void OnLayout(bool changed, int l, int t, int r, int b)
-        //{
-
-        //    base.OnLayout(changed, l, t, r, b);
-
-        //    Control.BringToFront();
-        //}
-
-
-
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (Element == null)
+                return;
 
             if (e.PropertyName == nameof(Element.ColorNormal))
             {
                 _fab.SetBackgroundColor(Element.ColorNormal.ToAndroid());
             }
-
-            if (e.PropertyName == nameof(Element.ImageName))
+            else if (e.PropertyName == nameof(Element.ColorRipple))
             {
-
-                //var elementImage = Element.Image;
-
-                //var imageFile = elementImage?.File;
-
-
-
-                //if (imageFile != null)
-
-                //{
-
-                //    fab.SetImageDrawable(Context.Resources.GetDrawable(imageFile));
-
-                //}
+                _fab.RippleColor = Element.ColorRipple.ToAndroid();
+            }
+            else if (e.PropertyName == nameof(Element.Icon))
+            {
+                UpdateImage();
             }
 
             base.OnElementPropertyChanged(sender, e);
         }
 
-
+        #region Handlers
 
         private void Fab_Click(object sender, EventArgs e)
         {
-
-            // proxy the click to the element
-            //((IButtonController)Element).SendClicked();
+            Element?.Command?.Execute(null);
         }
 
+        #endregion
+
+        #region Private Methods
+
+        private async Task UpdateImage()
+        {
+            if (Element.Icon == null)
+                return;
+
+            var bitmap = await ImageSourceHelper.GetBitmapAsync(Element.Icon);
+
+            _fab.SetImageBitmap(bitmap);
+        }
+
+        #endregion
     }
 }

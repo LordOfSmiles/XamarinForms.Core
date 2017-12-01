@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace XamarinForms.Core.Controls
@@ -7,11 +8,23 @@ namespace XamarinForms.Core.Controls
     {
         #region Bindable Proeprties
 
-        #region ImageName
+        #region Command
 
-        public static readonly BindableProperty ImageNameProperty = BindableProperty.Create("ImageName", typeof(string), typeof(FloatingActionButtonView), string.Empty);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(FloatingActionButtonView));
 
-        public string ImageName
+        public ICommand Command
+        {
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
+        }
+
+        #endregion
+
+        #region Icon
+
+        public static readonly BindableProperty ImageNameProperty = BindableProperty.Create(nameof(Icon), typeof(ImageSource), typeof(FloatingActionButtonView));
+
+        public ImageSource Icon
         {
             get => (string)GetValue(ImageNameProperty);
             set => SetValue(ImageNameProperty, value);
