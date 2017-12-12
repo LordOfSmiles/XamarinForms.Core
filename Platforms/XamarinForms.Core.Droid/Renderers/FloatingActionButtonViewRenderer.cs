@@ -34,7 +34,7 @@ namespace XamarinForms.Core.Droid.Renderers
 
         #endregion
 
-        protected override void OnElementChanged(ElementChangedEventArgs<FloatingActionButtonView> e)
+        protected override async void OnElementChanged(ElementChangedEventArgs<FloatingActionButtonView> e)
         {
             base.OnElementChanged(e);
 
@@ -58,7 +58,7 @@ namespace XamarinForms.Core.Droid.Renderers
             {
                 _fab.Click += Fab_Click;
 
-                UpdateImage();
+                await UpdateImage();
             }
 
             // set the icon
@@ -114,8 +114,8 @@ namespace XamarinForms.Core.Droid.Renderers
                 return;
 
             var bitmap = await ImageSourceHelper.GetBitmapAsync(Element.Icon);
-
-            _fab.SetImageBitmap(bitmap);
+            if (bitmap != null)
+                _fab.SetImageBitmap(bitmap);
         }
 
         #endregion
