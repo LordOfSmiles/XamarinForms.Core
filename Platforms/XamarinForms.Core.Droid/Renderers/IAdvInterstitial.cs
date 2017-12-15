@@ -1,5 +1,4 @@
 ﻿using System;
-using Xamarin.Core.Infrastructure.Interfaces;
 using Xamarin.Forms;
 using XamarinForms.Core.Droid.Renderers;
 

@@ -9,9 +9,9 @@ using Android.Views;
 using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using XamarinForms.Core.Controls;
 using XamarinForms.Core.Droid.Helpers;
 using XamarinForms.Core.Droid.Renderers;
+using XamarinForms.Core.Standard.Controls;
 using FAB = Android.Support.Design.Widget.FloatingActionButton;
 
 [assembly: ExportRenderer(typeof(FloatingActionButtonView), typeof(FloatingActionButtonRenderer))]

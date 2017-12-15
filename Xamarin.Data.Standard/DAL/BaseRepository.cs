@@ -45,23 +45,27 @@ namespace Xamarin.Data.Standard.DAL
         {
             await CreateDbAsync(db).ConfigureAwait(false);
 
-            if (CurrentDbVersion > 1)
+            if (CurrentDbVersion > 0)
             {
                 var dbVersion = await GetDbVersionAsync(db).ConfigureAwait(false);
 
                 if (dbVersion != CurrentDbVersion)
                 {
                     await MigrateTablesAsync(db, dbVersion).ConfigureAwait(false);
+
+                    await SetDbVersionAsync(db, CurrentDbVersion).ConfigureAwait(false);
                 }
             }
         }
-
 
         private async Task CreateDbAsync(SQLiteAsyncConnection db)
         {
             await CreateTablesAsync(db).ConfigureAwait(false);
 
-            await SetDbVersionAsync(db, CurrentDbVersion).ConfigureAwait(false);
+            var dbVersion = await GetDbVersionAsync(db).ConfigureAwait(false);
+
+            if (dbVersion == 0)
+                await SetDbVersionAsync(db, dbVersion).ConfigureAwait(false);
         }
 
         protected static Task SetDbVersionAsync(SQLiteAsyncConnection db, int version)

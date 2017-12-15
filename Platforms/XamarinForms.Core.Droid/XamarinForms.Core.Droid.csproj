@@ -134,16 +134,11 @@
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xamarin.Core\Xamarin.Core.csproj">
-      <Project>{453e027c-dbb7-462b-b3bc-9513e0e154d9}</Project>
-      <Name>Xamarin.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\XamarinForms.Core\XamarinForms.Core.csproj">
-      <Project>{98320b56-2d35-4406-88f0-2b6a2c9a5f13}</Project>
-      <Name>XamarinForms.Core</Name>
+    <ProjectReference Include="..\..\XamarinForms.Core.Standard\XamarinForms.Core.Standard.csproj">
+      <Project>{8192930e-e5da-45dc-82d6-d80304c29cad}</Project>
+      <Name>XamarinForms.Core.Standard</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

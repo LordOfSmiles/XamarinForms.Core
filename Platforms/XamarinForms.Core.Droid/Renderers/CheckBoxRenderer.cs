@@ -4,8 +4,8 @@ using Android.Content.Res;
 using Android.Graphics;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using XamarinForms.Core.Controls;
 using XamarinForms.Core.Droid.Renderers;
+using XamarinForms.Core.Standard.Controls;
 
 [assembly: ExportRenderer(typeof(CheckBox), typeof(CheckBoxRenderer))]
 namespace XamarinForms.Core.Droid.Renderers
