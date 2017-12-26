@@ -5,12 +5,10 @@ using CoreGraphics;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using EntryRenderer = XamarinForms.Core.iOS.Renderers.EntryRenderer;
 
-[assembly: ExportRenderer(typeof(Entry), typeof(EntryRenderer))]
 namespace XamarinForms.Core.iOS.Renderers
 {
-    public sealed class EntryRenderer : Xamarin.Forms.Platform.iOS.EntryRenderer
+    public sealed class FloatingEntryRenderer : EntryRenderer
     {
         private IElementController ElementController => Element;
 
