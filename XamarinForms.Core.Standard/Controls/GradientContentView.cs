@@ -51,7 +51,7 @@ namespace XamarinForms.Core.Standard.Controls
             get => (GradientOrientation)GetValue(OrientationProperty);
             set => SetValue(OrientationProperty, value);
         }
-
+       
         public static readonly BindableProperty OrientationProperty =BindableProperty.Create(nameof(Orientation),typeof(GradientOrientation),typeof(GradientContentView),GradientOrientation.Vertical);
 
         #endregion
