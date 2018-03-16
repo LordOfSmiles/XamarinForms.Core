@@ -107,6 +107,7 @@ namespace XamarinForms.Core.iOS.Renderers
                     Label.SelectedLineColor = Color.White.ToUIColor();
                 }
             }
+
             Label.LineHeight = 0.8f;
             Label.SelectedLineHeight = 0.8f;
         }

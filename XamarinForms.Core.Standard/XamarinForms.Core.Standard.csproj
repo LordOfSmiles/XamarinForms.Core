@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\TextPluralHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Controls\ItemsControl.xaml.cs">
       <DependentUpon>ItemsControl.xaml</DependentUpon>
     </Compile>

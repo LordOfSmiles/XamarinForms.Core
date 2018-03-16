@@ -53,16 +53,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Effects\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\FloatingEntryRenderer.cs" />
     <Compile Include="Renderers\LabeledTextField.cs" />
     <Compile Include="Renderers\CustomTabbedPageRenderer.cs" />
+    <Compile Include="Effects\PickerWithoutBorderEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\XamarinForms.Core.Standard\XamarinForms.Core.Standard.csproj">
-      <Project>{8192930E-E5DA-45DC-82D6-D80304C29CAD}</Project>
+      <Project>{77CDE848-376C-4035-B639-EDC286199934}</Project>
       <Name>XamarinForms.Core.Standard</Name>
     </ProjectReference>
   </ItemGroup>

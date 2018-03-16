@@ -242,3 +242,13 @@ ModelManifest.xml
 .fake/
 
 \.mfractor/\.xamarinforms\.core\.db
+
+Platforms/XamarinForms\.Core\.Droid/\.DS_Store
+
+Platforms/XamarinForms\.Core\.iOS/\.DS_Store
+
+Xamarin\.Core\.Standard/\.DS_Store
+
+Xamarin\.Data\.Standard/\.DS_Store
+
+XamarinForms\.Core\.Standard/\.DS_Store
