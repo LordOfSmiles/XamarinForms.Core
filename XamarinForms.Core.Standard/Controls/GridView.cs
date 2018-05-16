@@ -5,23 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace XamarinForms.Core.Standard.Controls
 {
-    public class GridView : Grid
+    public sealed class GridView : Grid
     {
-        public GridView()
-        {
-            RowSpacing = 2;
-            ColumnSpacing = 2;
-
-            for (var i = 0; i < MaxColumns; i++)
-            {
-                ColumnDefinitions.Add(new ColumnDefinition());
-            }
-        }
-
-
         #region Bindable Properties
 
         #region ItemsSource Property
@@ -34,13 +23,13 @@ namespace XamarinForms.Core.Standard.Controls
             set => SetValue(ItemsSourceProperty, value);
         }
 
-        private static async void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var ctrl = bindable as GridView;
             if (ctrl == null)
                 return;
 
-            await ctrl.BuildTilesAsync();
+            ctrl.BuildTilesAsync();
         }
 
         #endregion
@@ -76,16 +65,21 @@ namespace XamarinForms.Core.Standard.Controls
 
         #endregion
 
+        public GridViewOrientation Orientation { get; set; }
+
+        public GridViewSpacing ColumnMeasurment { get; set; }
+        public GridViewSpacing RowMeasurement { get; set; }
+
+        public int MaxColumnsOrRows { get; set; } = 2;
+
+        public double TileHeight { get; set; } = 100;
+        public double TileWidth { get; set; } = 200;
+
         public DataTemplate ItemTemplate { get; set; }
-
-        public int MaxColumns { get; set; } = 2;
-
-        public float TileHeight { get; set; } = 100;
-
 
         #region Prviate Methods
 
-        private async Task BuildTilesAsync()
+        private void BuildTilesAsync()
         {
             if (Children.Any())
             {
@@ -97,65 +91,126 @@ namespace XamarinForms.Core.Standard.Controls
             }
 
             // Wipe out the previous row definitions if they're there.
+            if (ColumnDefinitions.Any())
+                ColumnDefinitions.Clear();
             if (RowDefinitions.Any())
                 RowDefinitions.Clear();
 
             if (ItemsSource == null)
                 return;
 
-            var numberOfRows = Math.Ceiling(ItemsSource.Count / (double)MaxColumns);
+            var lastColumn = -1;
+            var lastRow = -1;
 
-            for (var i = 0; i < numberOfRows; i++)
+            GridLength columnWidth;
+            if (ColumnMeasurment == GridViewSpacing.Absolute)
             {
-                RowDefinitions.Add(new RowDefinition { Height = TileHeight });
+                columnWidth = new GridLength(TileWidth, GridUnitType.Absolute);
+            }
+            else
+            {
+                columnWidth = GridLength.Star;
             }
 
-            var tempItems = new List<View>();
-
+            GridLength rowHeight;
+            if (RowMeasurement == GridViewSpacing.Absolute)
+            {
+                rowHeight = new GridLength(TileHeight, GridUnitType.Absolute);
+            }
+            else
+            {
+                rowHeight = GridLength.Star;
+            }
 
             for (var i = 0; i < ItemsSource.Count; i++)
             {
-                var index = i;
-                var column = i % MaxColumns;
-                var row = (int)Math.Floor(i / (double)MaxColumns);
+                int column = 0;
+                int row = 0;
 
-                var tile = await BuildTileAsync(ItemsSource[index]);
-                tempItems.Add(tile);
+                switch (Orientation)
+                {
+                    case GridViewOrientation.Horizontal:
+                        column = i % MaxColumnsOrRows;
+                        row = (int)Math.Floor(i / (double)MaxColumnsOrRows);
 
-                Children.Add(tile, column, row);
+                        if (lastColumn < column && column < MaxColumnsOrRows)
+                        {
+                            ColumnDefinitions.Add(new ColumnDefinition() { Width = columnWidth });
+                            lastColumn = column;
+                        }
+
+                        if (lastRow < row)
+                        {
+                            RowDefinitions.Add(new RowDefinition() { Height = rowHeight });
+                            lastRow = row;
+                        }
+
+                        break;
+                    case GridViewOrientation.Vertical:
+                        row = i % MaxColumnsOrRows;
+                        column = (int)Math.Floor(i / (double)MaxColumnsOrRows);
+
+                        if (lastColumn < column)
+                        {
+                            ColumnDefinitions.Add(new ColumnDefinition() { Width = columnWidth });
+                            lastColumn = column;
+                        }
+
+                        if (lastRow < row && row < MaxColumnsOrRows)
+                        {
+                            RowDefinitions.Add(new RowDefinition() { Height = rowHeight });
+                            lastRow = row;
+                        }
+
+                        break;
+                }
+
+                var tile = BuildTileAsync(ItemsSource[i]);
+
+                SetRow(tile, row);
+                SetColumn(tile, column);
+                Children.Add(tile);
             }
-
-            //for (var i = 0; i < ItemsSource.Count; i++)
-            //{
-            //    var column = i % MaxColumns;
-            //    var row = (int)Math.Floor(i / (double)MaxColumns);
-
-            //    Children.Add(tempItems[i], column, row);
-            //}
         }
 
-        private Task<View> BuildTileAsync(object bindingContext)
+        private View BuildTileAsync(object bindingContext)
         {
-            return Task.Run(() =>
+            //return Task.Run(() =>
+            //{
+            var buildTile = ItemTemplate.CreateContent() as View;
+            if (buildTile != null)
             {
-                var buildTile = ItemTemplate.CreateContent() as View;
-                if (buildTile != null)
+                buildTile.BindingContext = bindingContext;
+
+                if (Command != null)
                 {
-                    buildTile.BindingContext = bindingContext;
-
-                    if (Command != null)
+                    var tapGestureRecognizer = new TapGestureRecognizer
                     {
-                        var tapGestureRecognizer = new TapGestureRecognizer
-                        {
-                            Command = Command,
-                            CommandParameter = bindingContext
-                        };
+                        Command = Command,
+                        CommandParameter = bindingContext
+                    };
 
-                        buildTile.GestureRecognizers.Add(tapGestureRecognizer);
-                    }
+                    buildTile.GestureRecognizers.Add(tapGestureRecognizer);
                 }
-                return buildTile;
-            });
+            }
+            return buildTile;
+            // });
+        }
+
+        #endregion
+
+        #region Classes
+
+        public enum GridViewOrientation
+        {
+            Vertical,
+            Horizontal
+        }
+
+        public enum GridViewSpacing
+        {
+            Absolute,
+            Star
         }
 
         #endregion

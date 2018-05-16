@@ -41,7 +41,7 @@ namespace XamarinForms.Core.Standard.Services.MessagingService
         /// Unsubscribe the specified message.
         /// </summary>
         /// <param name="message">Message.</param>
-        void Unsubscribe (string message);
+        void Unsubscribe(string message);
 
         /// <summary>
         /// Unsubscribe the specified message and args.
@@ -49,7 +49,7 @@ namespace XamarinForms.Core.Standard.Services.MessagingService
         /// <param name="message">Message.</param>
         /// <param name="args">Arguments.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
-        void Unsubscribe<TArgs> (string message);
+        void Unsubscribe<TArgs>(string message);
     }
 }
 

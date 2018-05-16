@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Controls
 {
-    public partial class ItemsControl
+    public sealed class ItemsControl : StackLayout
     {
         #region Fields
 
@@ -21,8 +21,6 @@ namespace XamarinForms.Core.Standard.Controls
 
         public ItemsControl()
         {
-            InitializeComponent();
-
             Spacing = 0;
 
             _selectedCommand = new Command<object>(item => SelectedItem = item);
@@ -32,7 +30,7 @@ namespace XamarinForms.Core.Standard.Controls
 
         #region ItemsSource 
 
-        public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create("ItemsSource", typeof(IList), typeof(ItemsControl), propertyChanged: ItemsSourceChanged);
+        public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(IList), typeof(ItemsControl), propertyChanged: ItemsSourceChanged);
 
         public IList ItemsSource
         {
@@ -163,7 +161,18 @@ namespace XamarinForms.Core.Standard.Controls
 
         private View GetItemView(object item)
         {
-            var content = ItemTemplate.CreateContent();
+            DataTemplate template;
+            if (ItemTemplate is DataTemplateSelector)
+            {
+                var selector = (DataTemplateSelector)ItemTemplate;
+                template = selector.SelectTemplate(item, this);
+            }
+            else
+            {
+                template = ItemTemplate;
+            }
+
+            var content = template.CreateContent();
             var view = content as View;
 
             if (view != null)
@@ -239,7 +248,6 @@ namespace XamarinForms.Core.Standard.Controls
         }
 
         #endregion
-
     }
 }
 

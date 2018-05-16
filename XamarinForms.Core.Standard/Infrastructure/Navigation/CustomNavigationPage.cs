@@ -1,5 +1,8 @@
-﻿using Xamarin.Core.Standard.ViewModels;
+﻿using System.Collections.Generic;
+using Xamarin.Core.Standard.ViewModels;
 using Xamarin.Forms;
+using System.Linq;
+using System;
 
 namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 {
@@ -17,7 +20,9 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
         #region Fields
 
-        private Page _lastPage;
+        private readonly Stack<Page> _pages = new Stack<Page>();
+
+        private DateTime _lastPop;
 
         #endregion
 
@@ -34,7 +39,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 Application.Current.ModalPopped += CurrentOnModalPopped;
             }
 
-            _lastPage = root;
+            _pages.Push(root);
 
             if (root != null)
             {
@@ -47,51 +52,70 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
         private void OnPushed(object sender, NavigationEventArgs e)
         {
-            if (_lastPage != null)
+            if (_pages.Any())
             {
-                var vm = _lastPage.BindingContext as ViewModelBase;
+                var vm = _pages.Peek().BindingContext as ViewModelBase;
                 vm?.OnDisappearing();
             }
 
             if (e.Page != null)
             {
                 var vm = e.Page.BindingContext as ViewModelBase;
-                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Page.GetType()));
+                if (vm != null)
+                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Page.GetType()));
 
-                _lastPage = e.Page;
+                _pages.Push(e.Page);
             }
         }
 
         private void OnPopped(object sender, NavigationEventArgs e)
         {
-            if (e.Page != null)
+            //костыль. Popped срабатывает 2 раза на версии 2.5.1. Проверить на других версиях
+            if ((DateTime.Now - _lastPop).TotalSeconds <= 1)
+                return;
+
+            _lastPop = DateTime.Now;
+
+            if (_pages.Count > 1)
             {
-                var vm = e.Page.BindingContext as ViewModelBase;
+                var vm = _pages.Pop().BindingContext as ViewModelBase;
                 if (vm != null)
                 {
                     vm.OnDisappearing();
                     vm.OnPopped();
                 }
-
-                _lastPage = e.Page;
             }
+
+            if (_pages.Any())
+            {
+                var page = _pages.Peek();
+                var vm = page.BindingContext as ViewModelBase;
+                if (vm != null)
+                {
+                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(page.GetType()));
+                }
+            }
+
+
         }
 
         private void OnPoppedToRoot(object sender, NavigationEventArgs e)
         {
-            if (_lastPage != null)
+            if (_pages.Count > 1)
             {
-                var vm = _lastPage.BindingContext as ViewModelBase;
-                vm?.OnDisappearing();
-                vm?.OnPopped();
+                while (_pages.Count != 1)
+                {
+                    var vm = _pages.Pop().BindingContext as ViewModelBase;
+                    vm?.OnDisappearing();
+                    vm?.OnPopped();
+                }
             }
 
             if (e.Page != null)
             {
                 var vm = e.Page.BindingContext as ViewModelBase;
-                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Page.GetType()));
-
-                _lastPage = e.Page;
+                if (vm != null)
+                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Page.GetType()));
             }
         }
 
@@ -110,7 +134,8 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
             if (e.Modal != null)
             {
                 var vm = e.Modal.BindingContext as ViewModelBase;
-                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Modal.GetType()));
+                if (vm != null)
+                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Modal.GetType()));
             }
         }
 

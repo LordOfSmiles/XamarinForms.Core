@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Controls
 {
-    public class TextInputControl : ContentView
+    public class ControlContainer : ContentView
     {
-        public TextInputControl()
+        public ControlContainer()
         {
 
         }

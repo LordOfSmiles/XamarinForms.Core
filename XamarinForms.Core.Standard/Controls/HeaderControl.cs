@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Xamarin.Forms;
+using System.Reflection;
 
 namespace XamarinForms.Core.Standard.Controls
 {
@@ -9,6 +10,10 @@ namespace XamarinForms.Core.Standard.Controls
         #region Fields
 
         private Label _lblHeader;
+        private View _viewRoot;
+
+        private BoxView _bxTopBorder;
+        private BoxView _bxBottomBorder;
 
         #endregion
 
@@ -43,7 +48,90 @@ namespace XamarinForms.Core.Standard.Controls
             if (ctrl == null)
                 return;
 
-            ctrl._lblHeader.Text = newValue?.ToString().ToUpper() ?? "";
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
+                    ctrl._lblHeader.Text = newValue?.ToString() ?? "";
+                    break;
+                case Device.iOS:
+                    ctrl._lblHeader.Text = newValue?.ToString().ToUpper() ?? "";
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region HeaderPadding
+
+        public static readonly BindableProperty HeaderPaddingProperty = BindableProperty.Create(nameof(HeaderPadding), typeof(Thickness), typeof(HeaderControl), new Thickness(0), propertyChanged: OnHeaderPaddingChanged);
+
+        public Thickness HeaderPadding
+        {
+            get => (Thickness)GetValue(HeaderPaddingProperty);
+            set => SetValue(HeaderPaddingProperty, value);
+        }
+
+        private static void OnHeaderPaddingChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = bindable as HeaderControl;
+            if (ctrl == null)
+                return;
+            if (ctrl._viewRoot is ContentView)
+                ((ContentView)ctrl._viewRoot).Padding = (Thickness)newValue;
+        }
+
+        #endregion
+
+        #region IsTopBorderVisible
+
+        public static readonly BindableProperty IsTopBorderVisibleProperty = BindableProperty.Create(nameof(IsTopBorderVisible), typeof(bool), typeof(HeaderControl), true, propertyChanged: OnIsTopBorderVisibleChanged);
+
+        public bool IsTopBorderVisible
+        {
+            get
+            {
+                return (bool)GetValue(IsTopBorderVisibleProperty);
+            }
+            set => SetValue(IsTopBorderVisibleProperty, value);
+        }
+
+        private static void OnIsTopBorderVisibleChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = bindable as HeaderControl;
+            if (ctrl == null)
+                return;
+
+            if (ctrl._bxTopBorder == null)
+                return;
+
+            ctrl._bxTopBorder.IsVisible = (bool)newValue;
+        }
+
+        #endregion
+
+        #region IsBottomBorderVisible
+
+        public static readonly BindableProperty IsBottomBorderVisibleProperty = BindableProperty.Create(nameof(IsBottomBorderVisible), typeof(bool), typeof(HeaderControl), true, propertyChanged: OnIsBottomBorderVisibleChanged);
+
+        public bool IsBottomBorderVisible
+        {
+            get
+            {
+                return (bool)GetValue(IsBottomBorderVisibleProperty);
+            }
+            set => SetValue(IsBottomBorderVisibleProperty, value);
+        }
+
+        private static void OnIsBottomBorderVisibleChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = bindable as HeaderControl;
+            if (ctrl == null)
+                return;
+
+            if (ctrl._bxBottomBorder == null)
+                return;
+
+            ctrl._bxBottomBorder.IsVisible = (bool)newValue;
         }
 
         #endregion
@@ -54,26 +142,70 @@ namespace XamarinForms.Core.Standard.Controls
 
         private View GetAndroidControl()
         {
-            return new ContentView();
+            var stack = new StackLayout() { Spacing = 0 };
+
+            _bxTopBorder = new BoxView()
+            {
+                HeightRequest = 1,
+                Color = Color.Black
+            };
+            stack.Children.Add(_bxTopBorder);
+
+            var cnv = new ContentView();
+            _lblHeader = new Label()
+            {
+                VerticalOptions = LayoutOptions.Center,
+                FontSize = 14,
+                FontAttributes = FontAttributes.Bold
+            };
+            cnv.Content = _lblHeader;
+            stack.Children.Add(cnv);
+
+            _bxBottomBorder = new BoxView()
+            {
+                HeightRequest = 1,
+                Color = Color.FromRgb(244, 244, 244)
+            };
+            stack.Children.Add(_bxBottomBorder);
+
+            _viewRoot = cnv;
+            return stack;
         }
 
         private View GetIosControl()
         {
-            var grd = new ContentView()
+            var stack = new StackLayout() { Spacing = 0 };
+
+            _bxTopBorder = new BoxView()
             {
-                BackgroundColor = Color.FromRgb(240, 239, 244)
+                HeightRequest = 1,
+                Color = Color.FromRgb(215, 215, 215)
+            };
+            stack.Children.Add(_bxTopBorder);
+
+            var cnv = new ContentView()
+            {
+                BackgroundColor = Color.FromRgb(238, 238, 238)
             };
 
             _lblHeader = new Label()
             {
                 VerticalOptions = LayoutOptions.Center,
-                FontSize = 12,
-                TextColor = Color.FromRgb(110, 110, 110),
-                Margin = new Thickness(16, 8, 4, 8)
+                FontSize = 13,
+                TextColor = Color.FromRgb(110, 110, 110)
             };
-            grd.Content = _lblHeader;
+            cnv.Content = _lblHeader;
+            stack.Children.Add(cnv);
 
-            return grd;
+            _bxBottomBorder = new BoxView()
+            {
+                HeightRequest = 1,
+                Color = Color.FromRgb(215, 215, 215)
+            };
+            stack.Children.Add(_bxBottomBorder);
+
+            _viewRoot = cnv;
+            return stack;
         }
 
         #endregion

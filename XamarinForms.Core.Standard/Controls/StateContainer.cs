@@ -89,7 +89,8 @@ namespace XamarinForms.Core.Standard.Controls
                     stateCondition.Content.IsVisible = false;
                 }
 
-                var state = Conditions.Where(x => x.State != null && x.Content != null).FirstOrDefault(stateCondition => string.Compare(stateCondition.State.ToString(), newState, StringComparison.OrdinalIgnoreCase) == 0);
+                var state = Conditions.Where(x => x.State != null && x.Content != null)
+                                      .FirstOrDefault(stateCondition => string.Compare(stateCondition.State.ToString(), newState, StringComparison.OrdinalIgnoreCase) == 0);
                 if (state != null)
                 {
                     state.Content.IsVisible = true;
