@@ -2,7 +2,7 @@
 
 namespace Xamarin.Core.Standard.ViewModels.ErrorValidation
 {
-    public class PropertyValidation
+    public sealed class PropertyValidation
     {
         #region Fields
 

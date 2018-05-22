@@ -30,6 +30,7 @@ namespace XamarinForms.Core.iOS.Renderers
                     Element.StartColor.ToCGColor(),
                     Element.EndColor.ToCGColor()
                 };
+
                 var layer = Layer.Sublayers?.LastOrDefault();
                 if (layer == null)
                     Layer.AddSublayer(gradient);

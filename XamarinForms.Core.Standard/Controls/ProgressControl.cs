@@ -5,30 +5,30 @@ namespace XamarinForms.Core.Standard.Controls
 {
     public sealed class ProgressControl : Grid
     {
-		#region Fields
+        #region Fields
 
-		private readonly BoxView _bxLeft;
-		private readonly BoxView _bxRight;
+        private readonly BoxView _bxLeft;
+        private readonly BoxView _bxRight;
 
-		#endregion
+        #endregion
 
-		public ProgressControl()
+        public ProgressControl()
         {
-			ColumnSpacing = 0;
-			ColumnDefinitions.Add(new ColumnDefinition());
+            ColumnSpacing = 0;
             ColumnDefinitions.Add(new ColumnDefinition());
-            
+            ColumnDefinitions.Add(new ColumnDefinition());
+
             {
-				_bxLeft = new BoxView();
-				Children.Add(_bxLeft);
+                _bxLeft = new BoxView();
+                Children.Add(_bxLeft);
             }
-            
-             {
+
+            {
                 _bxRight = new BoxView();
-				SetColumn(_bxRight, 1);
+                SetColumn(_bxRight, 1);
                 Children.Add(_bxRight);
             }
-        
+
             SizeChanged += CtrlRootOnSizeChanged;
         }
 
@@ -36,7 +36,7 @@ namespace XamarinForms.Core.Standard.Controls
 
         #region Percentvalue
 
-        public static readonly BindableProperty PercentValueProperty = BindableProperty.Create("PercentValue", typeof(double), typeof(ProgressControl), 0.0, propertyChanged: OnPercentValueChanged);
+        public static readonly BindableProperty PercentValueProperty = BindableProperty.Create(nameof(PercentValue), typeof(double), typeof(ProgressControl), 0.0, propertyChanged: OnPercentValueChanged);
 
         public double PercentValue
         {
@@ -57,9 +57,9 @@ namespace XamarinForms.Core.Standard.Controls
 
         #region Left Color
 
-        public static readonly BindableProperty LeftColorProperty = BindableProperty.Create("LeftColor", typeof(Color), typeof(ProgressControl), Color.Red, propertyChanged:OnLeftColorChanged);
+        public static readonly BindableProperty LeftColorProperty = BindableProperty.Create(nameof(LeftColor), typeof(Color), typeof(ProgressControl), Color.Red, propertyChanged: OnLeftColorChanged);
 
-		public Color LeftColor
+        public Color LeftColor
         {
             get => (Color)GetValue(LeftColorProperty);
             set => SetValue(LeftColorProperty, value);
@@ -67,33 +67,33 @@ namespace XamarinForms.Core.Standard.Controls
 
         private static void OnLeftColorChanged(BindableObject bindable, object oldValue, object newValue)
         {
-			var ctrl = bindable as ProgressControl;
-			if (ctrl == null)
-				return;
+            var ctrl = bindable as ProgressControl;
+            if (ctrl == null)
+                return;
 
-			ctrl._bxLeft.Color = (Color)newValue;
+            ctrl._bxLeft.Color = (Color)newValue;
         }
 
         #endregion
 
         #region Right Color
 
-        public static readonly BindableProperty RightColorProperty = BindableProperty.Create("RightColor", typeof(Color), typeof(ProgressControl), Color.White, propertyChanged:OnRightColorChanged);
+        public static readonly BindableProperty RightColorProperty = BindableProperty.Create(nameof(RightColor), typeof(Color), typeof(ProgressControl), Color.White, propertyChanged: OnRightColorChanged);
 
-		public Color RightColor
+        public Color RightColor
         {
             get => (Color)GetValue(RightColorProperty);
             set => SetValue(RightColorProperty, value);
         }
 
-		private static void OnRightColorChanged(BindableObject bindable, object oldValue, object newValue)
-		{
-			var ctrl = bindable as ProgressControl;
-			if (ctrl == null)
-				return;
+        private static void OnRightColorChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = bindable as ProgressControl;
+            if (ctrl == null)
+                return;
 
-			ctrl._bxRight.Color = (Color)newValue;
-		}
+            ctrl._bxRight.Color = (Color)newValue;
+        }
 
 
         #endregion
@@ -137,8 +137,6 @@ namespace XamarinForms.Core.Standard.Controls
         }
 
         #endregion
-
-     
     }
 }
 

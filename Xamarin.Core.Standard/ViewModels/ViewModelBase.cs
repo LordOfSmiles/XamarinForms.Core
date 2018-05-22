@@ -46,36 +46,6 @@ namespace Xamarin.Core.Standard.ViewModels
 
         #endregion
 
-        #region Presentation Properties
-
-        public bool ShowLoadingAnimation
-        {
-            get => _showLoadingAnimation;
-            private set
-            {
-                _showLoadingAnimation = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _showLoadingAnimation;
-
-        #endregion
-
-        #region Protected Methods
-
-        protected void ShowAnimation()
-        {
-            ShowLoadingAnimation = true;
-        }
-
-        protected void HideAnimation()
-        {
-            ShowLoadingAnimation = false;
-        }
-
-        #endregion
-
         #region INotifyDataErrorInfo implementation
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged = (s, e) => { };

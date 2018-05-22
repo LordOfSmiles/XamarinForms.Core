@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.446417" />
+    <PackageReference Include="Xamarin.Forms" Version="3.0.0.482510" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +21,7 @@
   <ItemGroup>
     <Compile Remove="Helpers\TextPluralHelper.cs" />
     <Compile Remove="Controls\NewGridView.cs" />
+    <Compile Remove="Controls\ShapeView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Controls\ValidationControl.xaml.cs">

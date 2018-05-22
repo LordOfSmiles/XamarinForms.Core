@@ -165,7 +165,7 @@ namespace XamarinForms.Core.Standard.Controls
                         break;
                 }
 
-                var tile = BuildTileAsync(ItemsSource[i]);
+                var tile = BuildTile(ItemsSource[i]);
 
                 SetRow(tile, row);
                 SetColumn(tile, column);
@@ -173,10 +173,8 @@ namespace XamarinForms.Core.Standard.Controls
             }
         }
 
-        private View BuildTileAsync(object bindingContext)
+        private View BuildTile(object bindingContext)
         {
-            //return Task.Run(() =>
-            //{
             var buildTile = ItemTemplate.CreateContent() as View;
             if (buildTile != null)
             {
@@ -194,7 +192,6 @@ namespace XamarinForms.Core.Standard.Controls
                 }
             }
             return buildTile;
-            // });
         }
 
         #endregion
@@ -214,24 +211,6 @@ namespace XamarinForms.Core.Standard.Controls
         }
 
         #endregion
-    }
-
-
-    public class FastGrid : Grid
-    {
-        protected override bool ShouldInvalidateOnChildAdded(View child)
-        {
-            return false;
-        }
-
-        protected override bool ShouldInvalidateOnChildRemoved(View child)
-        {
-            return false;
-        }
-
-        protected override void OnChildMeasureInvalidated()
-        {
-        }
     }
 }
 

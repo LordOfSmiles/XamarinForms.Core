@@ -155,16 +155,15 @@ namespace XamarinForms.Core.Standard.Controls
             foreach (var item in ItemsSource)
                 Children.Add(GetItemView(item));
 
-
             SelectedItem = ItemsSource.OfType<object>().FirstOrDefault();
         }
 
         private View GetItemView(object item)
         {
             DataTemplate template;
-            if (ItemTemplate is DataTemplateSelector)
+
+            if (ItemTemplate is DataTemplateSelector selector)
             {
-                var selector = (DataTemplateSelector)ItemTemplate;
                 template = selector.SelectTemplate(item, this);
             }
             else
