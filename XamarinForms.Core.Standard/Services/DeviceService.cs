@@ -5,6 +5,11 @@ namespace XamarinForms.Core.Standard.Services
 {
     public static class DeviceService
     {
+        //public static T OnPlatformAndIdiom()
+        //{
+
+        //}
+
         public static T OnPlatform<T>(T iOs, T android, T uwp)
         {
             T result;

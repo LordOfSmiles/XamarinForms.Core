@@ -252,3 +252,7 @@ Xamarin\.Core\.Standard/\.DS_Store
 Xamarin\.Data\.Standard/\.DS_Store
 
 XamarinForms\.Core\.Standard/\.DS_Store
+
+\.mfractor/
+
+\.DS_Store

@@ -16,13 +16,12 @@ using Java.Lang;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XamarinForms.Core.Droid.Helpers;
-using EntryRenderer = XamarinForms.Core.Droid.Renderers.EntryRenderer;
+using EntryRenderer = XamarinForms.Core.Droid.Renderers.MaterialEntryRenderer;
 using LinearLayout = Android.Widget.LinearLayout;
 
-[assembly: ExportRenderer(typeof(Entry), typeof(EntryRenderer))]
 namespace XamarinForms.Core.Droid.Renderers
 {
-    public sealed class EntryRenderer : Xamarin.Forms.Platform.Android.AppCompat.ViewRenderer<Entry, TextInputLayout>, ITextWatcher, TextView.IOnEditorActionListener
+    public sealed class MaterialEntryRenderer : Xamarin.Forms.Platform.Android.AppCompat.ViewRenderer<Entry, TextInputLayout>, ITextWatcher, TextView.IOnEditorActionListener
     {
         #region Overrides
 
@@ -124,7 +123,7 @@ namespace XamarinForms.Core.Droid.Renderers
 
         #region Constructor
 
-        public EntryRenderer(Context context)
+        public MaterialEntryRenderer(Context context)
             : base(context)
         {
             AutoPackage = false;

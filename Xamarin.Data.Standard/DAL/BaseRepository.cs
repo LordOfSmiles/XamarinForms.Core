@@ -27,7 +27,7 @@ namespace Xamarin.Data.Standard.DAL
 
         protected abstract int CurrentDbVersion { get; }
 
-        private static bool IsInit { get; set; }
+        private bool IsInit { get; set; }
 
         #endregion
 

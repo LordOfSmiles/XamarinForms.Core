@@ -117,7 +117,7 @@ namespace XamarinForms.Core.Standard.Controls
 
             double filledValue;
 
-            if (PercentValue < 0)
+            if (PercentValue <= 0)
             {
                 filledValue = 0.0;
             }

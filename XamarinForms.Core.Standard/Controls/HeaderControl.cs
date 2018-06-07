@@ -2,6 +2,7 @@
 
 using Xamarin.Forms;
 using System.Reflection;
+using XamarinForms.Core.Standard.Services;
 
 namespace XamarinForms.Core.Standard.Controls
 {
@@ -57,6 +58,48 @@ namespace XamarinForms.Core.Standard.Controls
                     ctrl._lblHeader.Text = newValue?.ToString().ToUpper() ?? "";
                     break;
             }
+        }
+
+        #endregion
+
+        #region TextColor
+
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(HeaderControl), Color.Default, propertyChanged: OnTextColorChanged);
+
+        public Color TextColor
+        {
+            get => (Color)GetValue(TextColorProperty);
+            set => SetValue(TextColorProperty, value);
+        }
+
+        private static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = bindable as HeaderControl;
+            if (ctrl == null)
+                return;
+
+            ctrl._lblHeader.TextColor = (Color)newValue;
+        }
+
+        #endregion
+
+        #region FontSize
+
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(HeaderControl), DeviceService.OnPlatform(13.0, 14.0), propertyChanged: OnFontSizeChanged);
+
+        public double FontSize
+        {
+            get => (double)GetValue(FontSizeProperty);
+            set => SetValue(FontSizeProperty, value);
+        }
+
+        private static void OnFontSizeChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = bindable as HeaderControl;
+            if (ctrl == null)
+                return;
+
+            ctrl._lblHeader.FontSize = (double)newValue;
         }
 
         #endregion
@@ -142,34 +185,17 @@ namespace XamarinForms.Core.Standard.Controls
 
         private View GetAndroidControl()
         {
-            var stack = new StackLayout() { Spacing = 0 };
-
-            _bxTopBorder = new BoxView()
-            {
-                HeightRequest = 1,
-                Color = Color.Black
-            };
-            stack.Children.Add(_bxTopBorder);
-
             var cnv = new ContentView();
             _lblHeader = new Label()
             {
                 VerticalOptions = LayoutOptions.Center,
-                FontSize = 14,
-                FontAttributes = FontAttributes.Bold
+                FontSize = 18,
+                //FontAttributes = FontAttributes.Bold
             };
             cnv.Content = _lblHeader;
-            stack.Children.Add(cnv);
-
-            _bxBottomBorder = new BoxView()
-            {
-                HeightRequest = 1,
-                Color = Color.FromRgb(244, 244, 244)
-            };
-            stack.Children.Add(_bxBottomBorder);
 
             _viewRoot = cnv;
-            return stack;
+            return cnv;
         }
 
         private View GetIosControl()
