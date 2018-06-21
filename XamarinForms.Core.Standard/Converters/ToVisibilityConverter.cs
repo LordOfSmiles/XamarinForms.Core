@@ -46,5 +46,12 @@ namespace XamarinForms.Core.Standard.Converters
         {
             throw new NotImplementedException();
         }
+
+        public static ToVisibilityConverter Current { get; private set; }
+
+        public ToVisibilityConverter()
+        {
+            Current = this;
+        }
     }
 }

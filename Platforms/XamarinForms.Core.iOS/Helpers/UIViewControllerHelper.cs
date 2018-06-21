@@ -9,27 +9,37 @@ namespace XamarinForms.Core.iOS.Helpers
         {
             UIViewController result = null;
 
-            var rootController = UIApplication.SharedApplication?.KeyWindow?.RootViewController;
-            if (rootController != null)
+            //var rootController = UIApplication.SharedApplication?.KeyWindow?.RootViewController;
+            //if (rootController != null)
+            //{
+            //    if (rootController.PresentedViewController != null)
+            //    {
+            //        if (rootController.PresentedViewController is UINavigationController)
+            //        {
+            //            result = ((UINavigationController)rootController.PresentedViewController).VisibleViewController;
+            //        }
+            //        else if (rootController.PresentedViewController is UITabBarController)
+            //        {
+            //            result = ((UITabBarController)rootController.PresentedViewController).SelectedViewController;
+            //        }
+            //        else
+            //        {
+            //            result = rootController.PresentedViewController;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        result = rootController;
+            //    }
+            //}
+
+            var windows = UIApplication.SharedApplication.Windows;
+            foreach (var window in windows)
             {
-                if (rootController.PresentedViewController != null)
+                if (window.RootViewController != null)
                 {
-                    if (rootController.PresentedViewController is UINavigationController)
-                    {
-                        result = ((UINavigationController)rootController.PresentedViewController).VisibleViewController;
-                    }
-                    else if (rootController.PresentedViewController is UITabBarController)
-                    {
-                        result = ((UITabBarController)rootController.PresentedViewController).SelectedViewController;
-                    }
-                    else
-                    {
-                        result = rootController.PresentedViewController;
-                    }
-                }
-                else
-                {
-                    result = rootController;
+                    result = window.RootViewController;
+                    break;
                 }
             }
 

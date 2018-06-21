@@ -17,7 +17,7 @@ namespace XamarinForms.Core.Droid.Helpers
 {
     public static class ImageSourceHelper
     {
-        public static async Task<Bitmap> GetBitmapAsync(ImageSource imageSource)
+        public static async Task<Bitmap> GetBitmapAsync(ImageSource imageSource, Context context)
         {
             Bitmap result = null;
 
@@ -25,11 +25,13 @@ namespace XamarinForms.Core.Droid.Helpers
 
             if (imageSource is FileImageSource)
             {
-                handler = new FileImageSourceHandler();
+                if (((FileImageSource)imageSource).File != null)
+                    handler = new FileImageSourceHandler();
             }
             else if (imageSource is UriImageSource)
             {
-                handler = new ImageLoaderSourceHandler();
+                if (((UriImageSource)imageSource).Uri != null)
+                    handler = new ImageLoaderSourceHandler();
             }
             else if (imageSource is StreamImageSource)
             {
@@ -38,7 +40,7 @@ namespace XamarinForms.Core.Droid.Helpers
 
             if (handler != null)
             {
-                result = await handler.LoadImageAsync(imageSource, null).ConfigureAwait(false);
+                result = await handler.LoadImageAsync(imageSource, context);
             }
 
             return result;

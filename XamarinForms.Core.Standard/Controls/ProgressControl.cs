@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Controls
 {
-    public sealed class ProgressControl : Grid
+    public class ProgressControl : Grid
     {
         #region Fields
 

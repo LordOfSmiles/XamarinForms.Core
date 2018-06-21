@@ -189,8 +189,8 @@ namespace XamarinForms.Core.Standard.Controls
             _lblHeader = new Label()
             {
                 VerticalOptions = LayoutOptions.Center,
-                FontSize = 18,
-                //FontAttributes = FontAttributes.Bold
+                FontSize = 14,
+                FontAttributes = FontAttributes.Bold
             };
             cnv.Content = _lblHeader;
 

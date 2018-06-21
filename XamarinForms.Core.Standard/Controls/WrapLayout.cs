@@ -5,149 +5,149 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Controls
 {
-    public class WrapLayout : Layout<View>
-    {
-        #region Overrides
+    //public class WrapLayout : Layout<View>
+    //{
+    //    #region Overrides
 
-        protected override void OnChildMeasureInvalidated()
-        {
-            _layoutCache.Clear();
+    //    protected override void OnChildMeasureInvalidated()
+    //    {
+    //        _layoutCache.Clear();
 
-            base.OnChildMeasureInvalidated();
-        }
+    //        base.OnChildMeasureInvalidated();
+    //    }
 
-        protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
-        {
-            double lastX;
-            double lastY;
+    //    protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
+    //    {
+    //        double lastX;
+    //        double lastY;
 
-            var layout = NaiveLayout(widthConstraint, heightConstraint, out lastX, out lastY);
+    //        var layout = NaiveLayout(widthConstraint, heightConstraint, out lastX, out lastY);
 
-            return new SizeRequest(new Size(lastX, lastY));
-        }
+    //        return new SizeRequest(new Size(lastX, lastY));
+    //    }
 
-        protected override void LayoutChildren(double x, double y, double width, double height)
-        {
-            double lastX, lastY;
+    //    protected override void LayoutChildren(double x, double y, double width, double height)
+    //    {
+    //        double lastX, lastY;
 
-            var layout = NaiveLayout(width, height, out lastX, out lastY);
+    //        var layout = NaiveLayout(width, height, out lastX, out lastY);
 
-            foreach (var t in layout)
-            {
-                var offset = (int)((width - t.Last().Item2.Right) / 2);
+    //        foreach (var t in layout)
+    //        {
+    //            var offset = (int)((width - t.Last().Item2.Right) / 2);
 
-                foreach (var dingus in t)
-                {
-                    var location = new Rectangle(dingus.Item2.X + x + offset, dingus.Item2.Y + y, dingus.Item2.Width, dingus.Item2.Height);
+    //            foreach (var dingus in t)
+    //            {
+    //                var location = new Rectangle(dingus.Item2.X + x + offset, dingus.Item2.Y + y, dingus.Item2.Width, dingus.Item2.Height);
 
-                    LayoutChildIntoBoundingRegion(dingus.Item1, location);
-                }
-            }
-        }
+    //                LayoutChildIntoBoundingRegion(dingus.Item1, location);
+    //            }
+    //        }
+    //    }
 
-        #endregion
+    //    #endregion
 
-        #region Fields
+    //    #region Fields
 
-        readonly Dictionary<View, SizeRequest> _layoutCache = new Dictionary<View, SizeRequest>();
+    //    readonly Dictionary<View, SizeRequest> _layoutCache = new Dictionary<View, SizeRequest>();
 
-        #endregion
+    //    #endregion
 
-        #region Concstructor
+    //    #region Concstructor
 
-        public WrapLayout()
-        {
-            //VerticalOptions = HorizontalOptions = LayoutOptions.FillAndExpand;
-        }
+    //    public WrapLayout()
+    //    {
+    //        //VerticalOptions = HorizontalOptions = LayoutOptions.FillAndExpand;
+    //    }
 
-        #endregion
+    //    #endregion
 
-        #region Bindable Properties
+    //    #region Bindable Properties
 
-        #region Spacing
+    //    #region Spacing
 
-        public static readonly BindableProperty SpacingProperty = BindableProperty.Create(nameof(Spacing), typeof(double), typeof(WrapLayout), 5.0, propertyChanged: OnSpacingChanged);
+    //    public static readonly BindableProperty SpacingProperty = BindableProperty.Create(nameof(Spacing), typeof(double), typeof(WrapLayout), 5.0, propertyChanged: OnSpacingChanged);
 
-        public double Spacing
-        {
-            get => (double)GetValue(SpacingProperty);
-            set => SetValue(SpacingProperty, value);
-        }
+    //    public double Spacing
+    //    {
+    //        get => (double)GetValue(SpacingProperty);
+    //        set => SetValue(SpacingProperty, value);
+    //    }
 
-        private static void OnSpacingChanged(BindableObject bo, object oldValue, object newValue)
-        {
-            var ctrl = bo as WrapLayout;
-            if (ctrl == null)
-                return;
+    //    private static void OnSpacingChanged(BindableObject bo, object oldValue, object newValue)
+    //    {
+    //        var ctrl = bo as WrapLayout;
+    //        if (ctrl == null)
+    //            return;
 
-            ctrl._layoutCache.Clear();
-        }
+    //        ctrl._layoutCache.Clear();
+    //    }
 
-        #endregion
+    //    #endregion
 
-        #endregion
+    //    #endregion
 
-        #region Private Methods
+    //    #region Private Methods
 
-        private IEnumerable<List<Tuple<View, Rectangle>>> NaiveLayout(double width, double height, out double lastX, out double lastY)
-        {
-            double startX = 0;
-            double startY = 0;
-            var right = width;
-            double nextY = 0;
+    //    private IEnumerable<List<Tuple<View, Rectangle>>> NaiveLayout(double width, double height, out double lastX, out double lastY)
+    //    {
+    //        double startX = 0;
+    //        double startY = 0;
+    //        var right = width;
+    //        double nextY = 0;
 
-            lastX = 0;
-            lastY = 0;
+    //        lastX = 0;
+    //        lastY = 0;
 
-            var result = new List<List<Tuple<View, Rectangle>>>();
+    //        var result = new List<List<Tuple<View, Rectangle>>>();
 
-            var currentList = new List<Tuple<View, Rectangle>>();
+    //        var currentList = new List<Tuple<View, Rectangle>>();
 
-            foreach (var child in Children)
-            {
-                SizeRequest sizeRequest;
+    //        foreach (var child in Children)
+    //        {
+    //            SizeRequest sizeRequest;
 
-                if (!_layoutCache.TryGetValue(child, out sizeRequest))
-                {
-                    _layoutCache[child] = sizeRequest = child.Measure(double.PositiveInfinity, double.PositiveInfinity);
-                }
+    //            if (!_layoutCache.TryGetValue(child, out sizeRequest))
+    //            {
+    //                _layoutCache[child] = sizeRequest = child.Measure(double.PositiveInfinity, double.PositiveInfinity);
+    //            }
 
-                var paddedWidth = sizeRequest.Request.Width + Spacing;
-                var paddedHeight = sizeRequest.Request.Height + Spacing;
+    //            var paddedWidth = sizeRequest.Request.Width + Spacing;
+    //            var paddedHeight = sizeRequest.Request.Height + Spacing;
 
-                if (startX + paddedWidth > right)
-                {
-                    startX = 0;
-                    startY += nextY;
+    //            if (startX + paddedWidth > right)
+    //            {
+    //                startX = 0;
+    //                startY += nextY;
 
-                    if (currentList.Count > 0)
-                    {
+    //                if (currentList.Count > 0)
+    //                {
 
-                        result.Add(currentList);
+    //                    result.Add(currentList);
 
-                        currentList = new List<Tuple<View, Rectangle>>();
+    //                    currentList = new List<Tuple<View, Rectangle>>();
 
-                    }
-                }
+    //                }
+    //            }
 
-                currentList.Add(new Tuple<View, Rectangle>(child, new Rectangle(startX, startY, sizeRequest.Request.Width, sizeRequest.Request.Height)));
+    //            currentList.Add(new Tuple<View, Rectangle>(child, new Rectangle(startX, startY, sizeRequest.Request.Width, sizeRequest.Request.Height)));
 
-                lastX = Math.Max(lastX, startX + paddedWidth);
-                lastY = Math.Max(lastY, startY + paddedHeight);
+    //            lastX = Math.Max(lastX, startX + paddedWidth);
+    //            lastY = Math.Max(lastY, startY + paddedHeight);
 
-                nextY = Math.Max(nextY, paddedHeight);
+    //            nextY = Math.Max(nextY, paddedHeight);
 
-                startX += paddedWidth;
-            }
+    //            startX += paddedWidth;
+    //        }
 
-            result.Add(currentList);
+    //        result.Add(currentList);
 
-            return result;
-        }
+    //        return result;
+    //    }
 
 
-        #endregion
-    }
+    //    #endregion
+    //}
 
     //public class WrapLayoutOld : Layout<View>
 
