@@ -14,17 +14,17 @@ namespace XamarinForms.Core.Standard.Converters
 
             if (value != null)
             {
-                if (value is bool)
+                switch (value)
                 {
-                    isVisible = (bool)value;
-                }
-                else if (value is string)
-                {
-                    isVisible = !string.IsNullOrEmpty(value.ToString());
-                }
-                else if (value is IEnumerable<object>)
-                {
-                    isVisible = ((IEnumerable<object>)value).Any();
+                        case bool b:
+                            isVisible = b;
+                            break;
+                        case string s:
+                            isVisible = !string.IsNullOrEmpty(s);
+                            break;
+                        case IEnumerable<object> enumerable:
+                            isVisible = enumerable.Any();
+                            break;
                 }
             }
             else

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xamarin.Forms;
-
-namespace XamarinForms.Core.Standard.Controls
+﻿namespace XamarinForms.Core.Standard.Controls
 {
     //public class WrapLayout : Layout<View>
     //{

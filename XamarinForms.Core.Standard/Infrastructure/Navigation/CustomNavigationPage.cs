@@ -6,7 +6,7 @@ using System;
 
 namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 {
-    public class CustomNavigationPage : NavigationPage
+    public abstract class CustomNavigationPage : NavigationPage
     {
         public void ChangeAppBarColor(Color backgroundColor)
         {
@@ -26,7 +26,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
         #endregion
 
-        public CustomNavigationPage(Page root)
+        protected CustomNavigationPage(Page root)
             : base(root)
         {
             Pushed += OnPushed;
@@ -46,6 +46,21 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 var vm = root.BindingContext as ViewModelBase;
                 vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(root.GetType()));
             }
+        }
+
+        ~CustomNavigationPage()
+        {
+            Pushed -= OnPushed;
+            Popped -= OnPopped;
+            PoppedToRoot -= OnPoppedToRoot;
+
+            if (Application.Current != null)
+            {
+                Application.Current.ModalPushed -= CurrentOnModalPushed;
+                Application.Current.ModalPopped -= CurrentOnModalPopped;
+            }
+
+            _pages.Clear();
         }
 
         #region Handlers
@@ -76,11 +91,14 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
             _lastPop = DateTime.Now;
 
+            var needRefreshParent = false;
+
             if (_pages.Count > 1)
             {
                 var vm = _pages.Pop().BindingContext as ViewModelBase;
                 if (vm != null)
                 {
+                    needRefreshParent = vm.NeedRefreshParentData;
                     vm.OnDisappearing();
                     vm.OnPopped();
                 }
@@ -92,11 +110,15 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 var vm = page.BindingContext as ViewModelBase;
                 if (vm != null)
                 {
-                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(page.GetType()));
+                    var parameters = NavigationState.GetParametersByPageType(page.GetType());
+                    if (needRefreshParent)
+                    {
+                        parameters.Add(ViewModelBase.NeedRefreshDataKey, "");
+                    }
+
+                    vm.OnAppearingAsync(parameters);
                 }
             }
-
-
         }
 
         private void OnPoppedToRoot(object sender, NavigationEventArgs e)
@@ -119,16 +141,6 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
             }
         }
 
-        private void CurrentOnModalPopped(object sender, ModalPoppedEventArgs e)
-        {
-            if (e.Modal != null)
-            {
-                var vm = e.Modal.BindingContext as ViewModelBase;
-                vm?.OnDisappearing();
-                vm?.OnPopped();
-            }
-        }
-
         private void CurrentOnModalPushed(object sender, ModalPushedEventArgs e)
         {
             if (e.Modal != null)
@@ -136,6 +148,56 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 var vm = e.Modal.BindingContext as ViewModelBase;
                 if (vm != null)
                     vm.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Modal.GetType()));
+            }
+
+            if (_pages.Any())
+            {
+                var page = _pages.Peek();
+                var vm = page.BindingContext as ViewModelBase;
+                if (vm != null)
+                    vm.OnDisappearing();
+            }
+        }
+
+        private void CurrentOnModalPopped(object sender, ModalPoppedEventArgs e)
+        {
+            var needRefreshParent = false;
+
+            if (e.Modal != null)
+            {
+                var vm = e.Modal.BindingContext as ViewModelBase;
+                if (vm != null)
+                {
+                    needRefreshParent = vm.NeedRefreshParentData;
+                    vm.OnDisappearing();
+                    vm.OnPopped();
+                }
+            }
+
+            if (_pages.Any())
+            {
+                var page = _pages.Peek();
+
+                var parameters = NavigationState.GetParametersByPageType(page.GetType());
+                if (needRefreshParent)
+                {
+                    parameters.Add(ViewModelBase.NeedRefreshDataKey, "");
+                }
+
+                ViewModelBase vm = null;
+
+                switch (page)
+                {
+                    case TabbedPage tabbedPage:
+                        vm = tabbedPage.CurrentPage?.BindingContext as ViewModelBase;
+                        break;
+                    case Page p:
+                        vm = page.BindingContext as ViewModelBase;
+                        break;
+                }
+
+                if (vm != null)
+                    vm.OnAppearingAsync(parameters);
             }
         }
 

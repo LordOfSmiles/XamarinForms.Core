@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Behaviors
 {
-    public sealed class ListViewSelectedItemBehavior : Behavior<ListView>
+    public sealed class ListViewSelectedItemBehavior : BehaviorBase<ListView>
     {
         #region Command
 
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create("Command", typeof(ICommand), typeof(ListViewSelectedItemBehavior), null);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(ListViewSelectedItemBehavior), null);
 
         public ICommand Command
         {
@@ -22,8 +20,7 @@ namespace XamarinForms.Core.Standard.Behaviors
 
         #region Converter
 
-        public static readonly BindableProperty InputConverterProperty = BindableProperty.Create("Converter", typeof(IValueConverter), typeof(ListViewSelectedItemBehavior), null);
-
+        public static readonly BindableProperty InputConverterProperty = BindableProperty.Create(nameof(Converter), typeof(IValueConverter), typeof(ListViewSelectedItemBehavior), null);
 
         public IValueConverter Converter
         {
@@ -33,27 +30,18 @@ namespace XamarinForms.Core.Standard.Behaviors
 
         #endregion
 
-        public ListView AssociatedObject { get; private set; }
-
         protected override void OnAttachedTo(ListView bindable)
         {
             base.OnAttachedTo(bindable);
-            AssociatedObject = bindable;
-            bindable.BindingContextChanged += OnBindingContextChanged;
+
             bindable.ItemSelected += OnListViewItemSelected;
         }
 
         protected override void OnDetachingFrom(ListView bindable)
         {
             base.OnDetachingFrom(bindable);
-            bindable.BindingContextChanged -= OnBindingContextChanged;
-            bindable.ItemSelected -= OnListViewItemSelected;
-            AssociatedObject = null;
-        }
 
-        void OnBindingContextChanged(object sender, EventArgs e)
-        {
-            OnBindingContextChanged();
+            bindable.ItemSelected -= OnListViewItemSelected;
         }
 
         private void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -81,12 +69,6 @@ namespace XamarinForms.Core.Standard.Behaviors
             var lst = sender as ListView;
             if (lst != null)
                 lst.SelectedItem = null;
-        }
-
-        protected override void OnBindingContextChanged()
-        {
-            base.OnBindingContextChanged();
-            BindingContext = AssociatedObject.BindingContext;
         }
     }
 }

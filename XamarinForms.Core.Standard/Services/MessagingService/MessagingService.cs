@@ -3,83 +3,33 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Services.MessagingService
 {
-    /// <summary>
-    /// Messaging service implementation
-    /// </summary>
-    public class MessagingService : IMessagingService
+    public sealed class MessagingService : IMessagingService
     {
-        /// <summary>
-        /// Init this instance.
-        /// </summary>
-        public static void Init()
-        {
-            var time = DateTime.UtcNow;
-        }
+        #region IMessagingService
+        
+        public void Subscribe(string message, Action<IMessagingService> callback) => MessagingCenter.Subscribe<MessagingService>(this, message, callback);
+        public void Subscribe(string message, Action callback) => MessagingCenter.Subscribe<MessagingService>(this, message, (service) => callback.Invoke());
 
-        /// <summary>
-        /// Subscribe the specified message and callback.
-        /// </summary>
-        /// <param name="message">Message.</param>
-        /// <param name="callback">Callback.</param>
-        public void Subscribe(string message, Action<IMessagingService> callback) =>
-            MessagingCenter.Subscribe<MessagingService>(this, message, callback);
+        public void Subscribe<T>(string message, Action<IMessagingService, T> callback) =>MessagingCenter.Subscribe<MessagingService, T>(this, message, callback);
+        public void Subscribe<T>(string message, Action<T> callback) =>MessagingCenter.Subscribe<MessagingService, T>(this, message,(service, parameter) => callback.Invoke(parameter));
 
+        public void SendMessage(string message) => MessagingCenter.Send(this, message);
+        public void SendMessage<T>(string message, T args) =>MessagingCenter.Send(this, message, args);
 
-        /// <summary>
-        /// Subscribe the specified message and callback.
-        /// </summary>
-        /// <param name="message">Message.</param>
-        /// <param name="callback">Callback.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public void Subscribe<TArgs>(string message, Action<IMessagingService, TArgs> callback) =>
-            MessagingCenter.Subscribe<MessagingService, TArgs>(this, message, callback);
+        public void Unsubscribe(string message) => MessagingCenter.Unsubscribe<MessagingService>(this, message);
+        public void Unsubscribe<T>(string message) =>MessagingCenter.Unsubscribe<MessagingService, T>(this, message);
 
+        #endregion
+        
+        #region Singleton
 
-        /// <summary>
-        /// Sends the message.
-        /// </summary>
-        /// <param name="message">Message.</param>
-        public void SendMessage(string message) =>
-            MessagingCenter.Send<MessagingService>(this, message);
-
-
-        /// <summary>
-        /// Sends the message.
-        /// </summary>
-        /// <param name="message">Message.</param>
-        /// <param name="args">Arguments.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public void SendMessage<TArgs>(string message, TArgs args) =>
-        MessagingCenter.Send<MessagingService, TArgs>(this, message, args);
-
-
-        /// <summary>
-        /// Unsubscribe the specified message.
-        /// </summary>
-        /// <param name="message">Message.</param>
-        public void Unsubscribe (string message) =>
-            MessagingCenter.Unsubscribe<MessagingService>(this, message);
-
-
-        /// <summary>
-        /// Unsubscribe the specified message and args.
-        /// </summary>
-        /// <param name="message">Message.</param>
-        /// <param name="args">Arguments.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public void Unsubscribe<TArgs> (string message) =>
-            MessagingCenter.Unsubscribe<MessagingService, TArgs>(this, message);
-
-
-        static MessagingService instance = null;
-
-        /// <summary>
-        /// Gets the instance of the Messaging Service
-        /// </summary>
-        public static MessagingService Current => (instance ?? (instance = new MessagingService()));
-
+        
+        public static MessagingService Current => _instance ?? (_instance = new MessagingService());
+        private static MessagingService _instance = null;
+        
+        #endregion
     }
 
-   
+
 }
 

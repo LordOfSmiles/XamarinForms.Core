@@ -13,8 +13,6 @@ namespace XamarinForms.Core.Standard.Controls
     {
         #region Fields
 
-        private readonly ICommand _selectedCommand;
-
         private readonly Dictionary<object, View> _viewCache = new Dictionary<object, View>();
 
         #endregion
@@ -22,8 +20,6 @@ namespace XamarinForms.Core.Standard.Controls
         public ItemsControl()
         {
             Spacing = 0;
-
-            _selectedCommand = new Command<object>(item => SelectedItem = item);
         }
 
         #region Bindable Properties
@@ -69,7 +65,7 @@ namespace XamarinForms.Core.Standard.Controls
 
         #region SelectedItem
 
-        public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create("SelectedItem", typeof(object), typeof(ItemsControl), null, BindingMode.TwoWay, propertyChanged: OnSelectedItemChanged);
+        public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(ItemsControl), null, BindingMode.TwoWay, propertyChanged: OnSelectedItemChanged);
 
         public object SelectedItem
         {
@@ -178,15 +174,36 @@ namespace XamarinForms.Core.Standard.Controls
             {
                 view.BindingContext = item;
 
-                view.GestureRecognizers.Add(new TapGestureRecognizer
-                {
-                    Command = _selectedCommand,
-                    CommandParameter = item
-                });
+                var gesture = new TapGestureRecognizer();
+                gesture.Tapped += Gesture_Tapped;
+                view.GestureRecognizers.Add(gesture);
             }
 
             return view;
         }
+
+        private void Gesture_Tapped(object sender, EventArgs e)
+        {
+            var view = sender as View;
+            if (view == null)
+                return;
+
+            var selectable = view.BindingContext as ISelectable;
+            if (selectable == null)
+                return;
+
+            selectable.IsSelected = !selectable.IsSelected;
+
+            if (selectable.IsSelected)
+            {
+                SelectedItem = selectable;
+            }
+            else
+            {
+                SelectedItem = null;
+            }
+        }
+
 
         #endregion
 

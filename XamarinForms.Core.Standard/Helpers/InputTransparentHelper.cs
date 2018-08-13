@@ -11,23 +11,18 @@ namespace XamarinForms.Core.Standard.Helpers
 
             rootControl.InputTransparent = true;
 
-            var itemsControl = rootControl as Layout<View>;
-            if (itemsControl != null)
+            switch (rootControl)
             {
-                foreach (var child in itemsControl.Children)
-                {
-                    SetAllChildrenInputTransparent(child);
-                }
+                    case Layout<View> layout:
+                        foreach (var child in layout.Children)
+                        {
+                            SetAllChildrenInputTransparent(child);
+                        }
+                        break;
+                    case ContentView contentView:
+                        SetAllChildrenInputTransparent(contentView.Content);
+                        break;
             }
-            else
-            {
-                var contentView = rootControl as ContentView;
-                if (contentView != null)
-                {
-					SetAllChildrenInputTransparent(contentView.Content);
-                }
-            }
-
         }
     }
 }

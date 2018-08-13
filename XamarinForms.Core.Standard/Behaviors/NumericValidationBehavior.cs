@@ -1,21 +1,22 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Behaviors
 {
-    public class NumericValidationBehavior : Behavior<Entry>
+    public sealed class NumericValidationBehavior : BehaviorBase<Entry>
     {
-        protected override void OnAttachedTo(Entry entry)
+        protected override void OnAttachedTo(Entry bindable)
         {
-            entry.TextChanged += OnEntryTextChanged;
-            base.OnAttachedTo(entry);
+            base.OnAttachedTo(bindable);
+
+            bindable.TextChanged += OnEntryTextChanged;
         }
 
-        protected override void OnDetachingFrom(Entry entry)
+        protected override void OnDetachingFrom(Entry bindable)
         {
-            entry.TextChanged -= OnEntryTextChanged;
-            base.OnDetachingFrom(entry);
+            base.OnDetachingFrom(bindable);
+
+            bindable.TextChanged -= OnEntryTextChanged;
         }
 
         private static void OnEntryTextChanged(object sender, TextChangedEventArgs args)
@@ -26,7 +27,7 @@ namespace XamarinForms.Core.Standard.Behaviors
 
             if (!string.IsNullOrWhiteSpace(args.NewTextValue))
             {
-                bool isValid = args.NewTextValue.ToCharArray().All(char.IsDigit);
+                var isValid = args.NewTextValue.ToCharArray().All(char.IsDigit);
 
                 entry.Text = isValid
                     ? args.NewTextValue

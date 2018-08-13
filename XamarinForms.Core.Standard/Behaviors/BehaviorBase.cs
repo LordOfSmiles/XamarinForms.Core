@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Behaviors
 {
-    public class BehaviorBase<T> : Behavior<T> where T : BindableObject
+    public abstract class BehaviorBase<T> : Behavior<T> where T : BindableObject
     {
         public T AssociatedObject { get; private set; }
 
@@ -41,6 +39,5 @@ namespace XamarinForms.Core.Standard.Behaviors
 
             BindingContext = AssociatedObject.BindingContext;
         }
-
     }
 }

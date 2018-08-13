@@ -33,64 +33,102 @@ namespace Xamarin.Data.Standard.DAL
 
         #region Virtual and abstract Methods
 
-        protected abstract Task CreateTablesAsync(SQLiteAsyncConnection db);
+        protected abstract void CreateTables(SQLiteConnection db);
 
-        protected abstract Task MigrateTablesAsync(SQLiteAsyncConnection db, int dbVersion);
+        protected abstract void MigrateTables(SQLiteConnection db, int dbVersion);
 
         #endregion
 
         #region Private Methdos
 
-        private async Task InitRepositoryAsync(SQLiteAsyncConnection db)
+        private void InitRepository(SQLiteConnection db)
         {
-            await CreateDbAsync(db).ConfigureAwait(false);
+            CreateDb(db);
 
             if (CurrentDbVersion > 0)
             {
-                var dbVersion = await GetDbVersionAsync(db).ConfigureAwait(false);
+                var dbVersion = GetDbVersion(db);
 
                 if (dbVersion != CurrentDbVersion)
                 {
-                    await MigrateTablesAsync(db, dbVersion).ConfigureAwait(false);
+                    MigrateTables(db, dbVersion);
 
-                    await SetDbVersionAsync(db, CurrentDbVersion).ConfigureAwait(false);
+                    SetDbVersion(db, CurrentDbVersion);
                 }
             }
         }
 
-        private async Task CreateDbAsync(SQLiteAsyncConnection db)
-        {
-            await CreateTablesAsync(db).ConfigureAwait(false);
+        //private async Task InitRepositoryAsync(SQLiteAsyncConnection db)
+        //{
+        //    await CreateDbAsync(db).ConfigureAwait(false);
 
-            var dbVersion = await GetDbVersionAsync(db).ConfigureAwait(false);
+        //    if (CurrentDbVersion > 0)
+        //    {
+        //        var dbVersion = await GetDbVersionAsync(db).ConfigureAwait(false);
+
+        //        if (dbVersion != CurrentDbVersion)
+        //        {
+        //            await MigrateTablesAsync(db, dbVersion).ConfigureAwait(false);
+
+        //            await SetDbVersionAsync(db, CurrentDbVersion).ConfigureAwait(false);
+        //        }
+        //    }
+        //}
+
+        //private async Task CreateDbAsync(SQLiteAsyncConnection db)
+        //{
+        //    await CreateTablesAsync(db).ConfigureAwait(false);
+
+        //    var dbVersion = await GetDbVersionAsync(db).ConfigureAwait(false);
+
+        //    if (dbVersion == 0)
+        //        await SetDbVersionAsync(db, dbVersion).ConfigureAwait(false);
+        //}
+
+        private void CreateDb(SQLiteConnection db)
+        {
+            CreateTables(db);
+
+            var dbVersion = GetDbVersion(db);
 
             if (dbVersion == 0)
-                await SetDbVersionAsync(db, dbVersion).ConfigureAwait(false);
+                SetDbVersion(db, dbVersion);
         }
 
-        protected static Task SetDbVersionAsync(SQLiteAsyncConnection db, int version)
+        protected static void SetDbVersion(SQLiteConnection db, int version)
         {
-            return db.ExecuteAsync($"PRAGMA user_version={version.ToString(CultureInfo.InvariantCulture)}");
+            db.Execute($"PRAGMA user_version={version.ToString(CultureInfo.InvariantCulture)}");
         }
 
-        protected static async Task<int> GetDbVersionAfterUpdateAsync(SQLiteAsyncConnection db, int version)
+        //protected static Task SetDbVersionAsync(SQLiteAsyncConnection db, int version)
+        //{
+        //    return db.ExecuteAsync($"PRAGMA user_version={version.ToString(CultureInfo.InvariantCulture)}");
+        //}
+
+        protected static int GetDbVersionAfterUpdate(SQLiteConnection db, int version)
         {
-            await SetDbVersionAsync(db, version).ConfigureAwait(false);
-            return await GetDbVersionAsync(db).ConfigureAwait(false);
+            SetDbVersion(db, version);
+            return GetDbVersion(db);
         }
 
-        private static Task<int> GetDbVersionAsync(SQLiteAsyncConnection db)
+        //protected static async Task<int> GetDbVersionAfterUpdateAsync(SQLiteAsyncConnection db, int version)
+        //{
+        //    await SetDbVersionAsync(db, version).ConfigureAwait(false);
+        //    return await GetDbVersionAsync(db).ConfigureAwait(false);
+        //}
+
+        private static int GetDbVersion(SQLiteConnection db)
         {
-            return db.ExecuteScalarAsync<int>("PRAGMA user_version");
+            return db.ExecuteScalar<int>("PRAGMA user_version");
         }
 
-        protected async Task<SQLiteAsyncConnection> GetConnectionAsync()
+        protected SQLiteConnection GetConnection()
         {
-            var db = _sqLite.GetAsyncConnection();
+            var db = _sqLite.GetConnection();
 
             if (!IsInit)
             {
-                await InitRepositoryAsync(db).ConfigureAwait(false);
+                InitRepository(db);
                 IsInit = true;
             }
 

@@ -1,7 +1,4 @@
-﻿using System;
-
-using Xamarin.Forms;
-using System.Reflection;
+﻿using Xamarin.Forms;
 using XamarinForms.Core.Standard.Services;
 
 namespace XamarinForms.Core.Standard.Controls
