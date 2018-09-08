@@ -15,18 +15,18 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
 
         public void OwnedBy(Owner owner)
         {
-            this.Owner = owner;
+            Owner = owner;
         }
 
         public IOwned ReusedWithin(ReuseScope scope)
         {
-            this.Reuse = scope;
+            Reuse = scope;
             return this;
         }
 
         Type IFluentInterface.GetType()
         {
-            return this.GetType();
+            return GetType();
         }
     }
 
@@ -38,33 +38,33 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
 
         public ServiceEntry(TFunc factory)
         {
-            this.Factory = factory;
+            Factory = factory;
         }
 
         internal void InitializeInstance(TService instance)
         {
-            if (this.Reuse != ReuseScope.None)
-                this.Instance = instance;
-            if (this.Owner == Owner.Container && (object)instance is IDisposable)
-                this.Container.TrackDisposable(instance);
-            if (this.Initializer == null)
+            if (Reuse != ReuseScope.None)
+                Instance = instance;
+            if (Owner == Owner.Container && (object)instance is IDisposable)
+                Container.TrackDisposable(instance);
+            if (Initializer == null)
                 return;
-            this.Initializer(this.Container, instance);
+            Initializer(Container, instance);
         }
 
         public IReusedOwned InitializedBy(Action<Container, TService> initializer)
         {
-            this.Initializer = initializer;
+            Initializer = initializer;
             return this;
         }
 
         public ServiceEntry<TService, TFunc> CloneFor(Container newContainer)
         {
-            ServiceEntry<TService, TFunc> serviceEntry = new ServiceEntry<TService, TFunc>(this.Factory);
-            serviceEntry.Owner = this.Owner;
-            serviceEntry.Reuse = this.Reuse;
+            ServiceEntry<TService, TFunc> serviceEntry = new ServiceEntry<TService, TFunc>(Factory);
+            serviceEntry.Owner = Owner;
+            serviceEntry.Reuse = Reuse;
             serviceEntry.Container = newContainer;
-            serviceEntry.Initializer = this.Initializer;
+            serviceEntry.Initializer = Initializer;
             return serviceEntry;
         }
     }

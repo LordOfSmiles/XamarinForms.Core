@@ -24,5 +24,8 @@ namespace XamarinForms.Core.Standard.Converters
         {
             throw new NotImplementedException();
         }
+
+        public static BytesToImageSourceConverter Current => _current ?? (_current = new BytesToImageSourceConverter());
+        private static BytesToImageSourceConverter _current;
     }
 }

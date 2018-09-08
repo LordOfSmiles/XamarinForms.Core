@@ -7,10 +7,16 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
 {
     public sealed class Container : IDisposable
     {
+        #region Fields
+
         private readonly Dictionary<ServiceKey, ServiceEntry> _services = new Dictionary<ServiceKey, ServiceEntry>();
         private readonly Stack<WeakReference> _disposables = new Stack<WeakReference>();
         private readonly Stack<Container> _childContainers = new Stack<Container>();
         private Container _parent;
+
+        #endregion
+
+        #region Constrcutor
 
         public Container()
         {
@@ -27,36 +33,31 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
             services[index] = serviceEntry2;
         }
 
+        #endregion
+
+        #region Properties
+
         public Owner DefaultOwner { get; set; }
 
         public ReuseScope DefaultReuse { get; set; }
 
         public Container CreateChildContainer()
         {
-            var container = new Container()
+            var container = new Container
             {
                 _parent = this
             };
             _childContainers.Push(container);
             return container;
         }
+        
+        #endregion
 
-        public void Dispose()
-        {
-            while (_disposables.Count > 0)
-            {
-                var weakReference = _disposables.Pop();
-                var target = (IDisposable)weakReference.Target;
-                if (weakReference.IsAlive)
-                    target.Dispose();
-            }
-            while (_childContainers.Count > 0)
-                _childContainers.Pop().Dispose();
-        }
+
 
         public IRegistration<TService> Register<TService>(Func<Container, TService> factory)
         {
-            return Register<TService>(null, factory);
+            return Register(null, factory);
         }
 
         public IRegistration<TService> Register<TService>(string name, Func<Container, TService> factory)
@@ -71,12 +72,12 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
 
         public IRegistration<TService> Register<TService, TArg>(Func<Container, TArg, TService> factory)
         {
-            return Register<TService, TArg>(null, factory);
+            return Register(null, factory);
         }
 
         public void Register<TService>(TService instance)
         {
-            Register<TService>(null, instance);
+            Register(null, instance);
         }
 
         public void Register<TService>(string name, TService instance)
@@ -399,7 +400,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2>(Func<Container, T1, T2, TService> factory)
         {
-            return Register<TService, T1, T2>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -411,7 +412,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3>(Func<Container, T1, T2, T3, TService> factory)
         {
-            return Register<TService, T1, T2, T3>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -423,7 +424,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3, T4>(Func<Container, T1, T2, T3, T4, TService> factory)
         {
-            return Register<TService, T1, T2, T3, T4>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -435,7 +436,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3, T4, T5>(Func<Container, T1, T2, T3, T4, T5, TService> factory)
         {
-            return Register<TService, T1, T2, T3, T4, T5>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -447,7 +448,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3, T4, T5, T6>(Func<Container, T1, T2, T3, T4, T5, T6, TService> factory)
         {
-            return Register<TService, T1, T2, T3, T4, T5, T6>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -459,7 +460,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3, T4, T5, T6, T7>(Func<Container, T1, T2, T3, T4, T5, T6, T7, TService> factory)
         {
-            return Register<TService, T1, T2, T3, T4, T5, T6, T7>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -471,7 +472,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3, T4, T5, T6, T7, T8>(Func<Container, T1, T2, T3, T4, T5, T6, T7, T8, TService> factory)
         {
-            return Register<TService, T1, T2, T3, T4, T5, T6, T7, T8>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -483,7 +484,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9>(Func<Container, T1, T2, T3, T4, T5, T6, T7, T8, T9, TService> factory)
         {
-            return Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -495,7 +496,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Func<Container, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TService> factory)
         {
-            return Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -507,7 +508,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Func<Container, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TService> factory)
         {
-            return Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -519,7 +520,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Func<Container, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TService> factory)
         {
-            return Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -531,7 +532,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Func<Container, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TService> factory)
         {
-            return Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -543,7 +544,7 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         [DebuggerStepThrough]
         public IRegistration<TService> Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Func<Container, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TService> factory)
         {
-            return Register<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(null, factory);
+            return Register(null, factory);
         }
 
         [DebuggerStepThrough]
@@ -707,6 +708,8 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         {
             return ResolveImpl<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(name, true, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
         }
+
+        #region Private Methods
 
         private TService ResolveImpl<TService, T1, T2>(string name, bool throwIfMissing, T1 arg1, T2 arg2)
         {
@@ -904,6 +907,8 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
             return instance;
         }
 
+        #endregion
+
         [DebuggerStepThrough]
         public TService TryResolve<TService, T1, T2>(T1 arg1, T2 arg2)
         {
@@ -1059,5 +1064,23 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
         {
             return ResolveImpl<TService, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(name, false, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
         }
+
+        #region IDisposible
+
+        public void Dispose()
+        {
+            while (_disposables.Count > 0)
+            {
+                var weakReference = _disposables.Pop();
+                var target = (IDisposable)weakReference.Target;
+                if (weakReference.IsAlive)
+                    target.Dispose();
+            }
+
+            while (_childContainers.Count > 0)
+                _childContainers.Pop().Dispose();
+        }
+
+        #endregion
     }
 }

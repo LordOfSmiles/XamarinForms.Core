@@ -8,12 +8,12 @@ namespace Xamarin.Core.Standard.Infrastructure.Container
     public class ResolutionException : Exception
     {
         public ResolutionException(Type missingServiceType)
-            : base(string.Format(CultureInfo.CurrentCulture, "Missing type", (object)missingServiceType.FullName))
+            : base(string.Format(CultureInfo.CurrentCulture, "Missing type", missingServiceType.FullName))
         {
         }
 
         public ResolutionException(Type missingServiceType, string missingServiceName)
-            : base(string.Format(CultureInfo.CurrentCulture, "Missing named type", (object)missingServiceType.FullName, (object)missingServiceName))
+            : base(string.Format(CultureInfo.CurrentCulture, "Missing named type", missingServiceType.FullName, missingServiceName))
         {
         }
 

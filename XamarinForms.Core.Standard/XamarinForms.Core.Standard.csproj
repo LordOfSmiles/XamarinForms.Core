@@ -8,9 +8,6 @@
     <None Remove="Controls\ValidationControl.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Xamarin.Core.Standard\Xamarin.Core.Standard.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -23,9 +20,14 @@
   <ItemGroup>
     <Folder Include="Infrastructure\Interfaces\" />
     <Folder Include="Infrastructure\Localization\" />
+    <Folder Include="Controls\Cells\">
+    </Folder>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Controls\ItemsControl.xaml" />
     <EmbeddedResource Remove="Controls\ProgressControl.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
   </ItemGroup>
 </Project>

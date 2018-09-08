@@ -55,9 +55,7 @@ namespace Xamarin.Core.Standard.ViewModels
 
         #region Properties
 
-        public bool NeedRefreshParentData { get; set; }
-
-        protected bool NeedWatchPropertyChanged { get; set; } = true;
+        private bool NeedWatchPropertyChanged { get; set; } = true;
 
         #endregion
 
@@ -70,8 +68,6 @@ namespace Xamarin.Core.Standard.ViewModels
         }
 
         #endregion
-
-
     }
 }
 

@@ -139,8 +139,12 @@
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Xamarin.Core.Standard\Xamarin.Core.Standard.csproj">
+      <Project>{56D9A776-743D-4195-AD58-BEFAA564C480}</Project>
+      <Name>Xamarin.Core.Standard</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\XamarinForms.Core.Standard\XamarinForms.Core.Standard.csproj">
-      <Project>{8192930E-E5DA-45DC-82D6-D80304C29CAD}</Project>
+      <Project>{E3B33932-2BFB-4E26-B987-06139C731BA3}</Project>
       <Name>XamarinForms.Core.Standard</Name>
     </ProjectReference>
   </ItemGroup>

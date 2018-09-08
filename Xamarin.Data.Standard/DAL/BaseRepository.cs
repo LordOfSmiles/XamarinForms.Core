@@ -58,33 +58,6 @@ namespace Xamarin.Data.Standard.DAL
             }
         }
 
-        //private async Task InitRepositoryAsync(SQLiteAsyncConnection db)
-        //{
-        //    await CreateDbAsync(db).ConfigureAwait(false);
-
-        //    if (CurrentDbVersion > 0)
-        //    {
-        //        var dbVersion = await GetDbVersionAsync(db).ConfigureAwait(false);
-
-        //        if (dbVersion != CurrentDbVersion)
-        //        {
-        //            await MigrateTablesAsync(db, dbVersion).ConfigureAwait(false);
-
-        //            await SetDbVersionAsync(db, CurrentDbVersion).ConfigureAwait(false);
-        //        }
-        //    }
-        //}
-
-        //private async Task CreateDbAsync(SQLiteAsyncConnection db)
-        //{
-        //    await CreateTablesAsync(db).ConfigureAwait(false);
-
-        //    var dbVersion = await GetDbVersionAsync(db).ConfigureAwait(false);
-
-        //    if (dbVersion == 0)
-        //        await SetDbVersionAsync(db, dbVersion).ConfigureAwait(false);
-        //}
-
         private void CreateDb(SQLiteConnection db)
         {
             CreateTables(db);
@@ -100,22 +73,11 @@ namespace Xamarin.Data.Standard.DAL
             db.Execute($"PRAGMA user_version={version.ToString(CultureInfo.InvariantCulture)}");
         }
 
-        //protected static Task SetDbVersionAsync(SQLiteAsyncConnection db, int version)
-        //{
-        //    return db.ExecuteAsync($"PRAGMA user_version={version.ToString(CultureInfo.InvariantCulture)}");
-        //}
-
         protected static int GetDbVersionAfterUpdate(SQLiteConnection db, int version)
         {
             SetDbVersion(db, version);
             return GetDbVersion(db);
         }
-
-        //protected static async Task<int> GetDbVersionAfterUpdateAsync(SQLiteAsyncConnection db, int version)
-        //{
-        //    await SetDbVersionAsync(db, version).ConfigureAwait(false);
-        //    return await GetDbVersionAsync(db).ConfigureAwait(false);
-        //}
 
         private static int GetDbVersion(SQLiteConnection db)
         {

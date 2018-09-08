@@ -229,7 +229,7 @@ namespace Dmb.iOS.Renderers
         /// <summary>
         /// Initializes this instance.
         /// </summary>
-        void Initialize()
+        private void Initialize()
         {
             AdjustEdgeInsets();
             ApplyStyle();
@@ -240,7 +240,7 @@ namespace Dmb.iOS.Renderers
         /// <summary>
         /// Adjusts the edge insets.
         /// </summary>
-        void AdjustEdgeInsets()
+        private void AdjustEdgeInsets()
         {
             const float Inset = 8f;
 
@@ -252,7 +252,7 @@ namespace Dmb.iOS.Renderers
         /// <summary>
         /// Applies the style.
         /// </summary>
-        void ApplyStyle()
+        private void ApplyStyle()
         {
             SetImage(UIImage.FromBundle("Images/checked_checkbox.png"), UIControlState.Selected);
             SetImage(UIImage.FromBundle("Images/unchecked_checkbox.png"), UIControlState.Normal);

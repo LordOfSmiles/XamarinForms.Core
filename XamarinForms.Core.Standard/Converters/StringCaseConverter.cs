@@ -22,5 +22,8 @@ namespace XamarinForms.Core.Standard.Converters
         {
             throw new NotImplementedException();
         }
+
+        public static StringCaseConverter Current => _current ?? (_current = new StringCaseConverter());
+        private static StringCaseConverter _current;
     }
 }

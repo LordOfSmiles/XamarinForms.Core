@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Xamarin.Core.Standard.Models
 {
-    public class NotifyObject : INotifyPropertyChanged
+    public abstract class NotifyObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

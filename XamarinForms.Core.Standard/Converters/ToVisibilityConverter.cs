@@ -16,15 +16,18 @@ namespace XamarinForms.Core.Standard.Converters
             {
                 switch (value)
                 {
-                        case bool b:
-                            isVisible = b;
-                            break;
-                        case string s:
-                            isVisible = !string.IsNullOrEmpty(s);
-                            break;
-                        case IEnumerable<object> enumerable:
-                            isVisible = enumerable.Any();
-                            break;
+                    case int i:
+                        isVisible = i > 0;
+                        break;
+                    case bool b:
+                        isVisible = b;
+                        break;
+                    case string s:
+                        isVisible = !string.IsNullOrEmpty(s);
+                        break;
+                    case IEnumerable<object> enumerable:
+                        isVisible = enumerable.Any();
+                        break;
                 }
             }
             else
@@ -47,11 +50,7 @@ namespace XamarinForms.Core.Standard.Converters
             throw new NotImplementedException();
         }
 
-        public static ToVisibilityConverter Current { get; private set; }
-
-        public ToVisibilityConverter()
-        {
-            Current = this;
-        }
+        public static ToVisibilityConverter Current => _current ?? (_current = new ToVisibilityConverter());
+        private static ToVisibilityConverter _current;
     }
 }

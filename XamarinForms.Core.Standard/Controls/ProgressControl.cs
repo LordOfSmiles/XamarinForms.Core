@@ -32,6 +32,11 @@ namespace XamarinForms.Core.Standard.Controls
             SizeChanged += CtrlRootOnSizeChanged;
         }
 
+        ~ProgressControl()
+        {
+            SizeChanged -= CtrlRootOnSizeChanged;
+        }
+
         #region Bindable Properties
 
         #region Percentvalue

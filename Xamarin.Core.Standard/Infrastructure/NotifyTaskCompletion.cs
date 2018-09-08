@@ -72,11 +72,9 @@ namespace Xamarin.Core.Standard.Infrastructure
 
         public AggregateException Exception => Task.Exception;
 
-        public Exception InnerException => (Exception == null) ?
-            null : Exception.InnerException;
+        public Exception InnerException => Exception?.InnerException;
 
-        public string ErrorMessage => (InnerException == null) ?
-            null : InnerException.Message;
+        public string ErrorMessage => InnerException?.Message;
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
