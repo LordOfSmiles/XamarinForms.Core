@@ -1,9 +1,7 @@
-﻿using Xamarin.Core.Standard.ViewModels;
+﻿using System.ComponentModel;
+using Xamarin.Core.Standard.ViewModels;
 using Xamarin.Forms;
 using XamarinForms.Core.Standard.Infrastructure.Navigation;
-using System.Runtime.InteropServices;
-using System.Collections.Generic;
-using System;
 
 namespace XamarinForms.Core.Standard.Views
 {
@@ -37,18 +35,14 @@ namespace XamarinForms.Core.Standard.Views
 
         #region Handlers
 
-        private void Page_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Page_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(SelectedItem) || e.PropertyName == nameof(CurrentPage))
             {
-                var page = CurrentPage as Page;
-                if (page != null)
+                var vm = CurrentPage?.BindingContext as ViewModelBase;
+                if (vm != null)
                 {
-                    var vm = page.BindingContext as ViewModelBase;
-                    if (vm != null)
-                    {
-                        vm.OnAppearingAsync(NavigationState.GetParametersByPageType(page.GetType()));
-                    }
+                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(CurrentPage.GetType()));
                 }
             }
         }

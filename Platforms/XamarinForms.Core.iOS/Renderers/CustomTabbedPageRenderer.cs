@@ -17,7 +17,6 @@ namespace XamarinForms.Core.iOS.Renderers
             if (e.OldElement != null || Element == null)
                 return;
 
-
             var page = Element as CustomTabbedPage;
             if (page == null)
                 return;

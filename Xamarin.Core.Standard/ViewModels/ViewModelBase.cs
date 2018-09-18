@@ -55,7 +55,7 @@ namespace Xamarin.Core.Standard.ViewModels
 
         #region Properties
 
-        private bool NeedWatchPropertyChanged { get; set; } = true;
+        protected bool NeedWatchPropertyChanged { get; set; } = true;
 
         #endregion
 

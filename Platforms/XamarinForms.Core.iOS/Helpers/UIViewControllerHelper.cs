@@ -5,34 +5,10 @@ namespace XamarinForms.Core.iOS.Helpers
 {
     public static class UIViewControllerHelper
     {
-        public static UIViewController GetVisibleViewController()
+        public static UIViewController GetRootViewController()
         {
             UIViewController result = null;
-
-            //var rootController = UIApplication.SharedApplication?.KeyWindow?.RootViewController;
-            //if (rootController != null)
-            //{
-            //    if (rootController.PresentedViewController != null)
-            //    {
-            //        if (rootController.PresentedViewController is UINavigationController)
-            //        {
-            //            result = ((UINavigationController)rootController.PresentedViewController).VisibleViewController;
-            //        }
-            //        else if (rootController.PresentedViewController is UITabBarController)
-            //        {
-            //            result = ((UITabBarController)rootController.PresentedViewController).SelectedViewController;
-            //        }
-            //        else
-            //        {
-            //            result = rootController.PresentedViewController;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        result = rootController;
-            //    }
-            //}
-
+            
             var windows = UIApplication.SharedApplication.Windows;
             foreach (var window in windows)
             {
@@ -44,6 +20,26 @@ namespace XamarinForms.Core.iOS.Helpers
             }
 
             return result;
+        }
+        
+        public static UIViewController GetVisibleViewController(UIViewController controller=null)
+        {
+            controller = controller ?? UIApplication.SharedApplication.KeyWindow.RootViewController;
+
+            if (controller.PresentedViewController == null)
+                return controller;
+
+            if (controller.PresentedViewController is UINavigationController)
+            {
+                return ((UINavigationController)controller.PresentedViewController).VisibleViewController;
+            }
+
+            if (controller.PresentedViewController is UITabBarController)
+            {
+                return ((UITabBarController)controller.PresentedViewController).SelectedViewController;
+            }
+
+            return GetVisibleViewController(controller.PresentedViewController);
         }
     }
 }

@@ -54,9 +54,9 @@ namespace Xamarin.Core.Standard.Extensions
             return arr.OfType<T>().ForEach<T>(act);
         }
 
-        public static IEnumerable<RT> ForEach<T, RT>(this IEnumerable<T> array, Func<T, RT> func)
+        public static IEnumerable<TResult> ForEach<T, TResult>(this IEnumerable<T> array, Func<T, TResult> func)
         {
-            var list = new List<RT>();
+            var list = new List<TResult>();
 
             foreach (var i in array)
             {
