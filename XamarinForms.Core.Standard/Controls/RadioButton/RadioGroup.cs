@@ -6,13 +6,11 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Controls.RadioButton
 {
-    public class BindableRadioGroup : StackLayout
+    public sealed class RadioGroup : StackLayout
     {
-
-
-        public BindableRadioGroup()
+        public RadioGroup()
         {
-            Items = new ObservableCollection<CustomRadioButton>();
+            Items = new ObservableCollection<RadioButtonView>();
             Orientation = GroupOrientation;
         }
 
@@ -20,7 +18,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
         #region Orienatation
 
-        public static readonly BindableProperty GroupOrientationProperty = BindableProperty.Create("GroupOrientation", typeof(StackOrientation), typeof(BindableRadioGroup), StackOrientation.Horizontal, propertyChanged: OnGroupOrientationChanged);
+        public static readonly BindableProperty GroupOrientationProperty = BindableProperty.Create(nameof(GroupOrientation), typeof(StackOrientation), typeof(RadioGroup), StackOrientation.Horizontal, propertyChanged: OnGroupOrientationChanged);
 
         public StackOrientation GroupOrientation
         {
@@ -30,7 +28,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
         private static void OnGroupOrientationChanged(BindableObject bo, object oldValue, object newValue)
         {
-            var ctrl = bo as BindableRadioGroup;
+            var ctrl = bo as RadioGroup;
             if (ctrl == null)
                 return;
 
@@ -41,8 +39,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
         #region ItemsSource
 
-        public static BindableProperty ItemsSourceProperty =
-            BindableProperty.Create("ItemsSource", typeof(IList), typeof(BindableRadioGroup), default(IList), propertyChanged: OnItemsSourceChanged);
+        public static BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(IList), typeof(RadioGroup), default(IList), propertyChanged: OnItemsSourceChanged);
 
         public IList ItemsSource
         {
@@ -52,13 +49,13 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
         private static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var ctrl = bindable as BindableRadioGroup;
+            var ctrl = bindable as RadioGroup;
             if (ctrl == null)
                 return;
 
             foreach (var item in ctrl.Items)
             {
-                item.CheckedChanged -= ctrl.OnCheckedChanged;
+                    item.CheckedChanged -= ctrl.OnCheckedChanged;
             }
 
             ctrl.Children.Clear();
@@ -67,7 +64,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
             foreach (var item in ctrl.ItemsSource)
             {
-                var button = new CustomRadioButton
+                var button = new RadioButtonView
                 {
                     Text = item.ToString(),
                     Id = radIndex++,
@@ -84,7 +81,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
             if (ctrl.Children.Any())
             {
-                ctrl.Children.OfType<CustomRadioButton>().First().Checked = true;
+                ctrl.Children.OfType<RadioButtonView>().First().Checked = true;
             }
         }
 
@@ -93,7 +90,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
         #region SelectedIndex
 
         public static BindableProperty SelectedIndexProperty =
-            BindableProperty.Create("SelectedIndex", typeof(int), typeof(BindableRadioGroup), default(int), BindingMode.TwoWay, propertyChanged: OnSelectedIndexChanged);
+            BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(RadioGroup), default(int), BindingMode.TwoWay, propertyChanged: OnSelectedIndexChanged);
 
         public int SelectedIndex
         {
@@ -103,7 +100,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
         private static void OnSelectedIndexChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
-            var ctrl = bindable as BindableRadioGroup;
+            var ctrl = bindable as RadioGroup;
             if (ctrl == null)
                 return;
 
@@ -122,7 +119,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
         #region TextColor
 
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create("TextColor", typeof(Color), typeof(BindableRadioGroup), Color.Black);
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(RadioGroup), Color.Black);
 
         public Color TextColor
         {
@@ -135,7 +132,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
         #region FontSize
 
         public static readonly BindableProperty FontSizeProperty =
-            BindableProperty.Create("FontSize", typeof(double), typeof(BindableRadioGroup), -1.0);
+            BindableProperty.Create(nameof(FontSize), typeof(double), typeof(RadioGroup), -1.0);
 
         public double FontSize
         {
@@ -149,7 +146,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
         #region FontName
 
         public static readonly BindableProperty FontNameProperty =
-            BindableProperty.Create("FontName", typeof(string), typeof(BindableRadioGroup), string.Empty);
+            BindableProperty.Create("FontName", typeof(string), typeof(RadioGroup), string.Empty);
 
 
         public string FontName
@@ -162,12 +159,11 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
         #endregion
 
-        public ObservableCollection<CustomRadioButton> Items;
+        public ObservableCollection<RadioButtonView> Items;
 
         #region Events
 
         public event EventHandler<int> CheckedChanged;
-
 
         #endregion
 
@@ -180,8 +176,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
                 return;
             }
 
-
-            var selectedItem = sender as CustomRadioButton;
+            var selectedItem = sender as RadioButtonView;
 
             if (selectedItem == null)
             {

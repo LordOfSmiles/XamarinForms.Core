@@ -56,7 +56,7 @@ namespace XamarinForms.Core.Droid.Renderers
         /// Element Changed
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnElementChanged(ElementChangedEventArgs<FloatingActionButtonView> e)
+        protected override async void OnElementChanged(ElementChangedEventArgs<FloatingActionButtonView> e)
         {
             base.OnElementChanged(e);
 
@@ -78,7 +78,7 @@ namespace XamarinForms.Core.Droid.Renderers
                 Element.Hide = Hide;
 
                 SetFabSize(Element.Size);
-                SetFabImage(Element.Icon);
+               await SetFabImage(Element.Icon);
 
                 var frame = new FrameLayout(Context);
                 frame.RemoveAllViews();

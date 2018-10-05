@@ -9,12 +9,6 @@ namespace XamarinForms.Core.Standard.Views
     {
         protected CustomTabbedPage()
         {
-            PropertyChanged += Page_PropertyChanged;
-        }
-
-        ~CustomTabbedPage()
-        {
-            PropertyChanged -= Page_PropertyChanged;
         }
 
         #region Bindable Properties
@@ -33,11 +27,9 @@ namespace XamarinForms.Core.Standard.Views
 
         #endregion
 
-        #region Handlers
-
-        private void Page_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected override void OnPropertyChanged(string propertyName = null)
         {
-            if (e.PropertyName == nameof(SelectedItem) || e.PropertyName == nameof(CurrentPage))
+            if (propertyName == nameof(SelectedItem) || propertyName == nameof(CurrentPage))
             {
                 var vm = CurrentPage?.BindingContext as ViewModelBase;
                 if (vm != null)
@@ -45,8 +37,8 @@ namespace XamarinForms.Core.Standard.Views
                     vm.OnAppearingAsync(NavigationState.GetParametersByPageType(CurrentPage.GetType()));
                 }
             }
-        }
 
-        #endregion
+            base.OnPropertyChanged(propertyName);
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using Android.Content;
 using Android.Content.Res;
 using Android.Graphics;
 using Xamarin.Forms;
@@ -14,6 +15,12 @@ namespace XamarinForms.Core.Droid.Renderers
     {
         private ColorStateList _defaultTextColor;
 
+        public CheckBoxRenderer(Context context)
+            : base(context)
+        {
+            
+        }
+        
         /// <summary> 
         /// Called when [element changed]. 
         /// </summary> 

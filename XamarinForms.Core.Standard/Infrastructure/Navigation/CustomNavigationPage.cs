@@ -60,7 +60,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 Application.Current.ModalPopped -= CurrentOnModalPopped;
             }
 
-            _pages.Clear();
+            _pages?.Clear();
         }
 
         #region Handlers
@@ -93,12 +93,15 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
             if (_pages.Count > 1)
             {
-                var vm = _pages.Pop().BindingContext as ViewModelBase;
+                var page = _pages.Pop();
+                var vm = page.BindingContext as ViewModelBase;
                 if (vm != null)
                 {
                     vm.OnDisappearing();
                     vm.OnPopped();
                 }
+
+                page.BindingContext = null;
             }
 
             if (_pages.Any())
@@ -118,9 +121,15 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
             {
                 while (_pages.Count != 1)
                 {
-                    var vm = _pages.Pop().BindingContext as ViewModelBase;
-                    vm?.OnDisappearing();
-                    vm?.OnPopped();
+                    var page = _pages.Pop();
+                    var vm = page.BindingContext as ViewModelBase;
+                    if (vm != null)
+                    {
+                        vm.OnDisappearing();
+                        vm.OnPopped();
+                    }
+
+                    page.BindingContext = null;
                 }
             }
 
@@ -160,6 +169,8 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                     vm.OnDisappearing();
                     vm.OnPopped();
                 }
+
+                e.Modal.BindingContext = null;
             }
 
             if (_pages.Any())
@@ -177,7 +188,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                         break;
                     case Page p:
                         vm = page.BindingContext as ViewModelBase;
-                        pageType = pageType.GetType();
+                        pageType = page.GetType();
                         break;
                 }
 

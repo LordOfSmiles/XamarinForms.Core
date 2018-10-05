@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Xamarin.Core.Standard.Models
@@ -10,6 +11,15 @@ namespace Xamarin.Core.Standard.Models
         protected void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected void SetProperty<T>(ref T oldValue, T newValue, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(oldValue, newValue)) 
+                return;
+            
+            oldValue = newValue;
+            OnPropertyChanged(propertyName);
         }
     }
 }

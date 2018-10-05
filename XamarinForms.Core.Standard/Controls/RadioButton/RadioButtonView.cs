@@ -3,31 +3,23 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Controls.RadioButton
 {
-    public class CustomRadioButton : View
+    public sealed class RadioButtonView : View
     {
         #region Bindable Properties
 
         #region Checked
 
-        public static readonly BindableProperty CheckedProperty = BindableProperty.Create("Checked", typeof(bool), typeof(CustomRadioButton), false);
+        public static readonly BindableProperty CheckedProperty = BindableProperty.Create(nameof(Checked), typeof(bool), typeof(RadioButtonView), false);
 
         public bool Checked
         {
             get => (bool)GetValue(CheckedProperty);
-
-
             set
             {
                 SetValue(CheckedProperty, value);
 
-
                 var eventHandler = CheckedChanged;
-
-
-                if (eventHandler != null)
-                {
-                    eventHandler.Invoke(this, value);
-                }
+                eventHandler?.Invoke(this, value);
             }
         }
 
@@ -35,7 +27,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
         #region Text
 
-        public static readonly BindableProperty TextProperty = BindableProperty.Create("Text", typeof(string), typeof(CustomRadioButton), string.Empty);
+        public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(RadioButtonView), string.Empty);
 
         public string Text
         {
@@ -47,7 +39,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
         #region TextColor
 
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create("TextColor", typeof(Color), typeof(CustomRadioButton), Color.Default);
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(RadioButtonView), Color.Default);
 
         public Color TextColor
         {
@@ -59,7 +51,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
         #region FontSize
 
-        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("FontSize", typeof(double), typeof(CustomRadioButton), -1.0);
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(RadioButtonView), -1.0);
 
         public double FontSize
         {
@@ -71,8 +63,7 @@ namespace XamarinForms.Core.Standard.Controls.RadioButton
 
         #region FontName
 
-        public static readonly BindableProperty FontNameProperty =
-            BindableProperty.Create("FontName", typeof(string), typeof(CustomRadioButton), string.Empty);
+        public static readonly BindableProperty FontNameProperty = BindableProperty.Create("FontName", typeof(string), typeof(RadioButtonView), string.Empty);
 
         public string FontName
         {

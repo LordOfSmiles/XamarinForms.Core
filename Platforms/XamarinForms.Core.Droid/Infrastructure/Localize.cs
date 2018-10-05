@@ -9,7 +9,7 @@ using XamarinForms.Core.Standard.Infrastructure.Localization;
 [assembly: Dependency(typeof(Localize))]
 namespace XamarinForms.Core.Droid.Infrastructure
 {
-    public class Localize : ILocalize
+    public sealed class Localize : ILocalize
     {
         public void SetLocale(CultureInfo ci)
         {
@@ -23,29 +23,31 @@ namespace XamarinForms.Core.Droid.Infrastructure
             var androidLocale = Java.Util.Locale.Default;
             netLanguage = AndroidToDotnetLanguage(androidLocale.ToString().Replace("_", "-"));
             // this gets called a lot - try/catch can be expensive so consider caching or something
-            System.Globalization.CultureInfo ci = null;
+            CultureInfo ci = null;
             try
             {
-                ci = new System.Globalization.CultureInfo(netLanguage);
+                ci = new CultureInfo(netLanguage);
             }
-            catch (CultureNotFoundException e1)
+            catch (CultureNotFoundException)
             {
                 // iOS locale not valid .NET culture (eg. "en-ES" : English in Spain)
                 // fallback to first characters, in this case "en"
                 try
                 {
                     var fallback = ToDotnetFallbackLanguage(new PlatformCulture(netLanguage));
-                    ci = new System.Globalization.CultureInfo(fallback);
+                    ci = new CultureInfo(fallback);
                 }
-                catch (CultureNotFoundException e2)
+                catch (CultureNotFoundException)
                 {
                     // iOS language not valid .NET culture, falling back to English
-                    ci = new System.Globalization.CultureInfo("en");
+                    ci = new CultureInfo("en");
                 }
             }
+            
             return ci;
         }
-        string AndroidToDotnetLanguage(string androidLanguage)
+
+        private static string AndroidToDotnetLanguage(string androidLanguage)
         {
             var netLanguage = androidLanguage;
             //certain languages need to be converted to CultureInfo equivalent
@@ -68,7 +70,7 @@ namespace XamarinForms.Core.Droid.Infrastructure
             return netLanguage;
         }
 
-        string ToDotnetFallbackLanguage(PlatformCulture platCulture)
+        private static string ToDotnetFallbackLanguage(PlatformCulture platCulture)
         {
             var netLanguage = platCulture.LanguageCode; // use the first part of the identifier (two chars, usually);
             switch (platCulture.LanguageCode)
