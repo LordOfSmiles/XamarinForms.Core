@@ -116,8 +116,10 @@ namespace XamarinForms.Core.Standard.Controls
             var ctrl = bindable as HeaderControl;
             if (ctrl == null)
                 return;
-            if (ctrl._viewRoot is ContentView)
-                ((ContentView)ctrl._viewRoot).Padding = (Thickness)newValue;
+
+            var contentView = ctrl._viewRoot as ContentView;
+            if (contentView != null)
+                contentView.Padding = (Thickness) newValue;
         }
 
         #endregion
@@ -128,10 +130,7 @@ namespace XamarinForms.Core.Standard.Controls
 
         public bool IsTopBorderVisible
         {
-            get
-            {
-                return (bool)GetValue(IsTopBorderVisibleProperty);
-            }
+            get => (bool)GetValue(IsTopBorderVisibleProperty);
             set => SetValue(IsTopBorderVisibleProperty, value);
         }
 
@@ -155,10 +154,7 @@ namespace XamarinForms.Core.Standard.Controls
 
         public bool IsBottomBorderVisible
         {
-            get
-            {
-                return (bool)GetValue(IsBottomBorderVisibleProperty);
-            }
+            get => (bool)GetValue(IsBottomBorderVisibleProperty);
             set => SetValue(IsBottomBorderVisibleProperty, value);
         }
 
@@ -182,17 +178,15 @@ namespace XamarinForms.Core.Standard.Controls
 
         private View GetAndroidControl()
         {
-            var cnv = new ContentView();
             _lblHeader = new Label()
             {
                 VerticalOptions = LayoutOptions.Center,
                 FontSize = 14,
                 FontAttributes = FontAttributes.Bold
             };
-            cnv.Content = _lblHeader;
 
-            _viewRoot = cnv;
-            return cnv;
+            _viewRoot = this;
+            return _lblHeader;
         }
 
         private View GetIosControl()

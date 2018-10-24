@@ -8,7 +8,7 @@ namespace XamarinForms.Core.Standard.Helpers
 	{
 		private static readonly Dictionary<string, ImageSource> Cache = new Dictionary<string, ImageSource>();
 
-		public static ImageSource GetImageFromFileName(String filename)
+		public static ImageSource GetImageFromFileName(string filename)
 		{
 			ImageSource retVal = null;
 			var hit = Cache.TryGetValue(filename, out retVal);
@@ -20,10 +20,9 @@ namespace XamarinForms.Core.Standard.Helpers
 			}
 
 			return retVal;
-
 		}
 
-		public static ImageSource GetImageFromResource(String filename)
+		public static ImageSource GetImageFromResource(string filename)
 		{
 			ImageSource retVal = null;
 			var hit = Cache.TryGetValue(filename, out retVal);
@@ -35,10 +34,7 @@ namespace XamarinForms.Core.Standard.Helpers
 			}
 
 			return retVal;
-
 		}
-
-
 	}
 }
 

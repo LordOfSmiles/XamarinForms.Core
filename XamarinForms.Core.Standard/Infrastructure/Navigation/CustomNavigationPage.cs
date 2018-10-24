@@ -26,9 +26,12 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
         #endregion
 
-        protected CustomNavigationPage(Page root)
+        protected CustomNavigationPage(Page root, bool isModal = false)
             : base(root)
         {
+            if (isModal)
+                return;
+
             Pushed += OnPushed;
             Popped += OnPopped;
             PoppedToRoot += OnPoppedToRoot;
@@ -145,9 +148,20 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
         {
             if (e.Modal != null)
             {
-                var vm = e.Modal.BindingContext as ViewModelBase;
+                Page modalPage = null;
+
+                if (e.Modal is NavigationPage navPage)
+                {
+                    modalPage = navPage.CurrentPage;
+                }
+                else
+                {
+                    modalPage = e.Modal;
+                }
+                
+                var vm = modalPage.BindingContext as ViewModelBase;
                 if (vm != null)
-                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Modal.GetType()));
+                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(modalPage.GetType()));
             }
 
             if (_pages.Any())
@@ -163,7 +177,18 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
         {
             if (e.Modal != null)
             {
-                var vm = e.Modal.BindingContext as ViewModelBase;
+                Page modalPage = null;
+
+                if (e.Modal is NavigationPage navPage)
+                {
+                    modalPage = navPage.CurrentPage;
+                }
+                else
+                {
+                    modalPage = e.Modal;
+                }
+                
+                var vm = modalPage.BindingContext as ViewModelBase;
                 if (vm != null)
                 {
                     vm.OnDisappearing();
@@ -192,7 +217,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                         break;
                 }
 
-                if (vm != null && pageType != null)
+                if (vm != null)
                     vm.OnAppearingAsync(NavigationState.GetParametersByPageType(pageType));
             }
         }

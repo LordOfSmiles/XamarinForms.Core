@@ -9,7 +9,10 @@ namespace XamarinForms.Core.Standard.Views
     {
         protected CustomTabbedPage()
         {
+            Current = this;
         }
+        
+        public static TabbedPage Current { get; private set; }
 
         #region Bindable Properties
 
