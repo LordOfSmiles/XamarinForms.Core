@@ -61,12 +61,15 @@
     <Folder Include="Infrastructure\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Connectivity\ConnectivityImplementation.cs" />
+    <Compile Include="Infrastructure\Connectivity\Reachability.cs" />
     <Compile Include="Infrastructure\DeviceInfo.cs" />
     <Compile Include="Infrastructure\InAppBilling\InAppBillingImplementation.cs" />
     <Compile Include="Infrastructure\InAppBilling\PaymentObserver.cs" />
     <Compile Include="Infrastructure\InAppBilling\ProductRequestDelegate.cs" />
     <Compile Include="Infrastructure\InAppBilling\SkProductExtension.cs" />
     <Compile Include="Infrastructure\InAppBilling\SkTransactionExtensions.cs" />
+    <Compile Include="Infrastructure\Settings\SettingsImplementation.cs" />
     <Compile Include="Infrastructure\ToastService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\LabeledTextField.cs" />
