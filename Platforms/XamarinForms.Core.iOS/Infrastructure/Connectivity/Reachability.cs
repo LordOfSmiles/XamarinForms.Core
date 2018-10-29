@@ -74,9 +74,9 @@ namespace XamarinForms.Core.iOS.Infrastructure.Connectivity
                 Debug.WriteLine(host + ":" + port + " is not valid");
                 return false;
             }
+            
             using (var r = new NetworkReachability(host))
             {
-
                 NetworkReachabilityFlags flags;
 
                 if (r.TryGetFlags(out flags))
@@ -118,7 +118,7 @@ namespace XamarinForms.Core.iOS.Infrastructure.Connectivity
         /// </summary>
         public static event EventHandler ReachabilityChanged;
 
-        static async void OnChange(NetworkReachabilityFlags flags)
+        private static async void OnChange(NetworkReachabilityFlags flags)
         {
             await Task.Delay(100);
             ReachabilityChanged?.Invoke(null, EventArgs.Empty);
@@ -160,26 +160,24 @@ namespace XamarinForms.Core.iOS.Infrastructure.Connectivity
                 return false;
             return IsReachableWithoutRequiringConnection(flags);
         }*/
+        private static NetworkReachability _defaultRouteReachability;
 
-
-
-        static NetworkReachability defaultRouteReachability;
-        static bool IsNetworkAvailable(out NetworkReachabilityFlags flags)
+        private static bool IsNetworkAvailable(out NetworkReachabilityFlags flags)
         {
 
-            if (defaultRouteReachability == null)
+            if (_defaultRouteReachability == null)
             {
                 var ip = new IPAddress(0);
-                defaultRouteReachability = new NetworkReachability(ip);
-                defaultRouteReachability.SetNotification(OnChange);
-                defaultRouteReachability.Schedule(CFRunLoop.Main, CFRunLoop.ModeDefault);
+                _defaultRouteReachability = new NetworkReachability(ip);
+                _defaultRouteReachability.SetNotification(OnChange);
+                _defaultRouteReachability.Schedule(CFRunLoop.Main, CFRunLoop.ModeDefault);
             }
-            if (!defaultRouteReachability.TryGetFlags(out flags))
+            if (!_defaultRouteReachability.TryGetFlags(out flags))
                 return false;
             return IsReachableWithoutRequiringConnection(flags);
         }
 
-        static NetworkReachability remoteHostReachability;
+        private static NetworkReachability _remoteHostReachability;
         /// <summary>
         /// Checks the remote host status
         /// </summary>
@@ -189,19 +187,19 @@ namespace XamarinForms.Core.iOS.Infrastructure.Connectivity
             NetworkReachabilityFlags flags;
             bool reachable;
 
-            if (remoteHostReachability == null)
+            if (_remoteHostReachability == null)
             {
-                remoteHostReachability = new NetworkReachability(HostName);
+                _remoteHostReachability = new NetworkReachability(HostName);
 
                 // Need to probe before we queue, or we wont get any meaningful values
                 // this only happens when you create NetworkReachability from a hostname
-                reachable = remoteHostReachability.TryGetFlags(out flags);
+                reachable = _remoteHostReachability.TryGetFlags(out flags);
 
-                remoteHostReachability.SetNotification(OnChange);
-                remoteHostReachability.Schedule(CFRunLoop.Main, CFRunLoop.ModeDefault);
+                _remoteHostReachability.SetNotification(OnChange);
+                _remoteHostReachability.Schedule(CFRunLoop.Main, CFRunLoop.ModeDefault);
             }
             else
-                reachable = remoteHostReachability.TryGetFlags(out flags);
+                reachable = _remoteHostReachability.TryGetFlags(out flags);
 
             if (!reachable)
                 return NetworkStatus.NotReachable;
@@ -261,10 +259,10 @@ namespace XamarinForms.Core.iOS.Infrastructure.Connectivity
         /// <returns></returns>
         public static NetworkStatus InternetConnectionStatus()
         {
-            NetworkStatus status = NetworkStatus.NotReachable;
+            var status = NetworkStatus.NotReachable;
 
             NetworkReachabilityFlags flags;
-            bool defaultNetworkAvailable = IsNetworkAvailable(out flags);
+            var defaultNetworkAvailable = IsNetworkAvailable(out flags);
 
 #if __IOS__
 			// If it's a WWAN connection..
@@ -296,16 +294,16 @@ namespace XamarinForms.Core.iOS.Infrastructure.Connectivity
         /// </summary>
         public static void Dispose()
         {
-            if (remoteHostReachability != null)
+            if (_remoteHostReachability != null)
             {
-                remoteHostReachability.Dispose();
-                remoteHostReachability = null;
+                _remoteHostReachability.Dispose();
+                _remoteHostReachability = null;
             }
 
-            if (defaultRouteReachability != null)
+            if (_defaultRouteReachability != null)
             {
-                defaultRouteReachability.Dispose();
-                defaultRouteReachability = null;
+                _defaultRouteReachability.Dispose();
+                _defaultRouteReachability = null;
             }
         }
 

@@ -8,7 +8,7 @@ namespace XamarinForms.Core.iOS.Helpers
         public static UIViewController GetRootViewController()
         {
             UIViewController result = null;
-            
+
             var windows = UIApplication.SharedApplication.Windows;
             foreach (var window in windows)
             {
@@ -21,8 +21,8 @@ namespace XamarinForms.Core.iOS.Helpers
 
             return result;
         }
-        
-        public static UIViewController GetVisibleViewController(UIViewController controller=null)
+
+        public static UIViewController GetVisibleViewController(UIViewController controller = null)
         {
             controller = controller ?? UIApplication.SharedApplication.KeyWindow.RootViewController;
 

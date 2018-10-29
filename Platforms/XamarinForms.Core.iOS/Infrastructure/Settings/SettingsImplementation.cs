@@ -9,16 +9,14 @@ namespace XamarinForms.Core.iOS.Infrastructure.Settings
 {
     public class SettingsImplementation : ISettings
     {
+        #region Fields
+        
         private readonly object _locker = new object();
 
-        /// <summary>
-        /// Gets the current value or the default that you specify.
-        /// </summary>
-        /// <typeparam name="T">Vaue of t (bool, int, float, long, string)</typeparam>
-        /// <param name="key">Key for settings</param>
-        /// <param name="defaultValue">default value if not set</param>
-        /// <param name="fileName">Name of file for settings to be stored and retrieved </param>
-        /// <returns>Value or default</returns>
+        #endregion
+        
+        #region Private Methods
+        
         private T GetValueOrDefaultInternal<T>(string key, T defaultValue = default(T), string fileName = null)
         {
             lock (_locker)
@@ -33,6 +31,7 @@ namespace XamarinForms.Core.iOS.Infrastructure.Settings
                 {
                     typeOf = Nullable.GetUnderlyingType(typeOf);
                 }
+                
                 object value = null;
                 var typeCode = Type.GetTypeCode(typeOf);
                 switch (typeCode)
@@ -107,7 +106,10 @@ namespace XamarinForms.Core.iOS.Infrastructure.Settings
                 }
 
 
-                return null != value ? (T)value : defaultValue;
+                return null != value
+                    ? (T) value
+                    : defaultValue;
+
             }
         }
 
@@ -193,6 +195,10 @@ namespace XamarinForms.Core.iOS.Infrastructure.Settings
 
             return true;
         }
+        
+        #endregion
+        
+        #region ISettings
 
         /// <summary>
         /// Removes a desired key from the settings
@@ -257,6 +263,7 @@ namespace XamarinForms.Core.iOS.Infrastructure.Settings
             lock (_locker)
             {
                 var defaults = GetUserDefaults(fileName);
+                
                 try
                 {
                     var setting = defaults[key];
@@ -271,10 +278,9 @@ namespace XamarinForms.Core.iOS.Infrastructure.Settings
             }
         }
 
-        private NSUserDefaults GetUserDefaults(string fileName = null) =>
-            string.IsNullOrWhiteSpace(fileName) ?
-            NSUserDefaults.StandardUserDefaults :
-            new NSUserDefaults(fileName, NSUserDefaultsType.SuiteName);
+        private NSUserDefaults GetUserDefaults(string fileName = null) => string.IsNullOrWhiteSpace(fileName)
+            ? NSUserDefaults.StandardUserDefaults
+            : new NSUserDefaults(fileName, NSUserDefaultsType.SuiteName);
 
 
 
@@ -468,6 +474,8 @@ namespace XamarinForms.Core.iOS.Infrastructure.Settings
                 return false;
             }
         }
+        
+        #endregion
 
     }
 }
