@@ -23,6 +23,14 @@ namespace Xamarin.Core.Standard.Services
             return result;
         }
 
+        public static void RemoveKey(string key)
+        {
+            if (AppService.ContainsKey(key))
+            {
+                AppService.Remove(key);
+            }
+        }
+
         public static bool ContainsKey(string name)
         {
             return AppService.ContainsKey(name);

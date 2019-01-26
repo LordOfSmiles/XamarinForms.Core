@@ -44,7 +44,7 @@ namespace XamarinForms.Core.Standard.Controls
 						}
 						else
 						{
-							var maxPriority = items.Max(x => x.Priority);
+							int maxPriority = items.Max(x => x.Priority);
 							if (ctrl.Priority >= maxPriority)
 							{
 								items.Add(ctrl);

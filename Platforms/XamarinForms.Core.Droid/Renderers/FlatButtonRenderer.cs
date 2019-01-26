@@ -8,7 +8,7 @@ using Xamarin.Forms.Platform.Android;
 using XamarinForms.Core.Droid.Renderers;
 using XamarinForms.Core.Standard.Controls;
 
-[assembly: ExportRenderer(typeof(FlatButton), typeof(FlatButtonRenderer))]
+[assembly: ExportRenderer(typeof(AndroidFlatButton), typeof(FlatButtonRenderer))]
 
 namespace XamarinForms.Core.Droid.Renderers
 {

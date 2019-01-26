@@ -1,17 +1,15 @@
+
 using System;
 using Android.App;
 using Android.Content.PM;
-using Android.Content.Res;
 using Android.OS;
-using Android.Provider;
 using Android.Runtime;
 using Java.Interop;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Platform.Android;
+using XamarinForms.Core.Droid.Infrastructure.DeviceInfo;
 using XamarinForms.Core.Standard.Infrastructure.Interfaces;
 
 [assembly:Xamarin.Forms.Dependency(typeof(DeviceInfo))] 
-namespace XamarinForms.Core.Droid.Infrastructure
+namespace XamarinForms.Core.Droid.Infrastructure.DeviceInfo
 {
     public class DeviceInfo
     {
@@ -21,7 +19,7 @@ namespace XamarinForms.Core.Droid.Infrastructure
 		{
 			get
 			{
-				var name = Settings.System.GetString(Application.Context.ContentResolver, "device_name");
+				var name = Android.Provider.Settings.System.GetString(Application.Context.ContentResolver, "device_name");
 				
 				if (string.IsNullOrWhiteSpace(name))
 					name = Model;
@@ -43,9 +41,8 @@ namespace XamarinForms.Core.Droid.Infrastructure
                 {
                     try
                     {
-//                        var context = CrossCurrentActivity.Current.Activity ?? Android.App.Application.Context; 
 	                    var context =Application.Context;
-                        _id = Settings.Secure.GetString(context.ContentResolver, Settings.Secure.AndroidId);
+                        _id = Android.Provider.Settings.Secure.GetString(context.ContentResolver, Android.Provider.Settings.Secure.AndroidId);
                     }
                     catch(Exception ex)
                     {

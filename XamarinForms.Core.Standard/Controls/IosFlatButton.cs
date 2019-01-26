@@ -9,9 +9,10 @@ namespace XamarinForms.Core.Standard.Controls
     {
         #region Fields
 
-        private readonly View _viewContent;
-        private readonly Label _lbl;
-        private readonly Image _img;
+        private View _viewContent;
+        private Label _lbl;
+        private Image _img;
+        private Image _imgArrow;
 
         #endregion
 
@@ -36,8 +37,9 @@ namespace XamarinForms.Core.Standard.Controls
                     Padding = new Thickness(8, 6, 8, 6),
                     ColumnSpacing = 0
                 };
-                stkContent.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+                stkContent.ColumnDefinitions.Add(new ColumnDefinition() {Width = GridLength.Auto});
                 stkContent.ColumnDefinitions.Add(new ColumnDefinition());
+                stkContent.ColumnDefinitions.Add(new ColumnDefinition() {Width = GridLength.Auto});
 
                 _img = new Image()
                 {
@@ -59,9 +61,21 @@ namespace XamarinForms.Core.Standard.Controls
                 };
                 Grid.SetColumn(_lbl, 1);
                 stkContent.Children.Add(_lbl);
-                _viewContent = stkContent;
-
+               
+                
+                _imgArrow=new Image()
+                {
+                    HeightRequest = 20,
+                    WidthRequest = 20,
+                    VerticalOptions = LayoutOptions.Center,
+                    Margin = new Thickness(8,0,8,0),
+                    IsVisible = false
+                };
+                Grid.SetColumn(_imgArrow, 2);
+                stkContent.Children.Add(_imgArrow);
+                
                 Children.Add(stkContent);
+                _viewContent = stkContent;
             }
 
 
@@ -79,9 +93,8 @@ namespace XamarinForms.Core.Standard.Controls
                 gesture.Tapped += GestureOnTapped;
                 GestureRecognizers.Add(gesture);
             }
+           
         }
-
-
 
         #region Bindable Properties
 
@@ -158,6 +171,39 @@ namespace XamarinForms.Core.Standard.Controls
             }
         }
 
+        #endregion
+        
+        #region BackImage
+        
+        public static readonly BindableProperty BackImageProperty = BindableProperty.Create(nameof(BackImage), typeof(ImageSource), typeof(IosFlatButton), null, propertyChanged: OnBackImageChanged);
+
+        public ImageSource BackImage
+        {
+            get => (ImageSource)GetValue(BackImageProperty);
+            set => SetValue(BackImageProperty, value);
+        }
+
+        private static void OnBackImageChanged(BindableObject bindable, object oldvalue, object newvalue)
+        {
+            var ctrl = bindable as IosFlatButton;
+            if (ctrl == null)
+                return;
+
+            var image = newvalue as ImageSource;
+            if (image != null)
+            {
+                ctrl._imgArrow.Source = image;
+                ctrl._imgArrow.IsVisible = true;
+                ctrl._lbl.HorizontalOptions = LayoutOptions.Start;
+            }
+            else
+            {
+                ctrl._imgArrow.Source = null;
+                ctrl._imgArrow.IsVisible = false;
+                ctrl._lbl.HorizontalOptions = LayoutOptions.FillAndExpand;
+            }
+        }
+        
         #endregion
 
         #region Command

@@ -98,11 +98,15 @@ namespace XamarinForms.Core.iOS.Renderers
                     Element.RaiseSelectionChanged();
                     break;
                 case "TintColor":
-                    _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
+                    _nativeControl.TintColor = Element.IsEnabled 
+                        ? Element.TintColor.ToUIColor() 
+                        : Element.DisabledColor.ToUIColor();
                     break;
                 case "IsEnabled":
                     _nativeControl.Enabled = Element.IsEnabled;
-                    _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
+                    _nativeControl.TintColor = Element.IsEnabled 
+                        ? Element.TintColor.ToUIColor() 
+                        : Element.DisabledColor.ToUIColor();
                     break;
                 case "SelectedTextColor":
                     SetSelectedTextColor();
@@ -136,12 +140,5 @@ namespace XamarinForms.Core.iOS.Renderers
 
             base.Dispose(disposing);
         }
-
-        public static void Initialize()
-        {
-
-        }
     }
-
-
 }
