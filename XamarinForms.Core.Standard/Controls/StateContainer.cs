@@ -18,6 +18,12 @@ namespace XamarinForms.Core.Standard.Controls
                 Conditions.CollectionChanged += ConditionsOnCollectionChanged;
         }
 
+        ~StateContainer()
+        {
+            if (Conditions != null)
+                Conditions.CollectionChanged -= ConditionsOnCollectionChanged;
+        }
+
         private void ConditionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
             if (Conditions != null)
@@ -71,11 +77,6 @@ namespace XamarinForms.Core.Standard.Controls
         #endregion
 
         #endregion
-
-        public static void Init()
-        {
-            //for linker
-        }
 
         #region Private Methods
 

@@ -3,31 +3,31 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Controls
 {
-    public sealed class FlatButton:ContentView
+    public sealed class FlatButton : ContentView
     {
         #region Fields
 
         private readonly IosFlatButton _btnIos;
         private readonly AndroidFlatButton _btnDroid;
-        
+
         #endregion
-        
+
         public FlatButton()
         {
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
-                    _btnIos=new IosFlatButton();
+                    _btnIos = new IosFlatButton();
                     Content = _btnIos;
                     break;
                 case Device.Android:
-                    _btnDroid=new AndroidFlatButton();
+                    _btnDroid = new AndroidFlatButton();
                     Content = _btnDroid;
                     break;
             }
         }
-        
-        
+
+
         #region Bindable Properties
 
         #region Text
@@ -76,7 +76,15 @@ namespace XamarinForms.Core.Standard.Controls
             if (ctrl == null)
                 return;
 
-            ctrl._btnIos.TextColor = (Color)newvalue;
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    ctrl._btnIos.TextColor = (Color)newvalue;
+                    break;
+                case Device.Android:
+                    ctrl._btnDroid.TextColor = (Color)newvalue;
+                    break;
+            }
         }
 
         #endregion
@@ -97,13 +105,14 @@ namespace XamarinForms.Core.Standard.Controls
             if (ctrl == null)
                 return;
 
-            ctrl._btnIos.Image=newvalue as ImageSource;
+            if (Device.RuntimePlatform == Device.iOS)
+                ctrl._btnIos.Image = newvalue as ImageSource;
         }
 
         #endregion
-        
+
         #region BackImage
-        
+
         public static readonly BindableProperty BackImageProperty = BindableProperty.Create(nameof(BackImage), typeof(ImageSource), typeof(FlatButton), null, propertyChanged: OnBackImageChanged);
 
         public ImageSource BackImage
@@ -118,14 +127,15 @@ namespace XamarinForms.Core.Standard.Controls
             if (ctrl == null)
                 return;
 
-            ctrl._btnIos.BackImage=newvalue as ImageSource;
+            if (Device.RuntimePlatform == Device.iOS)
+                ctrl._btnIos.BackImage = newvalue as ImageSource;
         }
-        
+
         #endregion
 
         #region Command
 
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(FlatButton), propertyChanged:OnCommandChanged);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(FlatButton), propertyChanged: OnCommandChanged);
 
         public ICommand Command
         {
@@ -155,7 +165,7 @@ namespace XamarinForms.Core.Standard.Controls
 
         #region CommandParameter
 
-        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(FlatButton),propertyChanged:OnCommandParameterChanged);
+        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(FlatButton), propertyChanged: OnCommandParameterChanged);
 
         public object CommandParameter
         {
@@ -168,7 +178,7 @@ namespace XamarinForms.Core.Standard.Controls
             var ctrl = bindable as FlatButton;
             if (ctrl == null)
                 return;
-            
+
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:

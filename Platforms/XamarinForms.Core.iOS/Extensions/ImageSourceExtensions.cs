@@ -14,13 +14,13 @@ namespace XamarinForms.Core.iOS.Extensions
 
 			switch (source)
 			{
-				case UriImageSource uriImageSource:
+				case UriImageSource _:
 					returnValue = new ImageLoaderSourceHandler();
 					break;
-				case FileImageSource fileImageSource:
+				case FileImageSource _:
 					returnValue = new FileImageSourceHandler();
 					break;
-				case StreamImageSource streamImageSource:
+				case StreamImageSource _:
 					returnValue = new StreamImagesourceHandler();
 					break;
 			}
@@ -38,9 +38,10 @@ namespace XamarinForms.Core.iOS.Extensions
 			{
 				if (image != null)
 				{
-					UIGraphics.BeginImageContext(image.Size);
+					UIGraphics.BeginImageContextWithOptions(image.Size, false, UIScreen.MainScreen.Scale);
 					image.Draw(new CGRect(0, 0, image.Size.Width, image.Size.Height));
 					result = UIGraphics.GetImageFromCurrentImageContext();
+					UIGraphics.EndImageContext();
 				}
 			}
 

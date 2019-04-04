@@ -33,16 +33,6 @@ namespace XamarinForms.Core.Standard.Extensions
 
         private static Action<double> AnimateColorCallback(View view, Color startColor, Color toColor)
         {
-            Func<double, Color> computeColor = progress =>
-            {
-                var r = startColor.R + (toColor.R - startColor.R) * progress;
-                var g = startColor.G + (toColor.G - startColor.G) * progress;
-                var b = startColor.B + (toColor.B - startColor.B) * progress;
-                var a = startColor.A + (toColor.A - startColor.A) * progress;
-
-                return Color.FromRgba(r, g, b, a);
-            };
-
             var weakView = new WeakReference<View>(view);
 
             View frameRef;
@@ -51,11 +41,18 @@ namespace XamarinForms.Core.Standard.Extensions
                 throw new ArgumentException("Can't target View");
             }
 
-            Action<double> setColor = f =>
-            {
-                frameRef.BackgroundColor = computeColor(f);
-            };
+            Action<double> setColor = f => { frameRef.BackgroundColor = ComputeColor(startColor, toColor, f); };
             return setColor;
+        }
+
+        private static Color ComputeColor(Color startColor, Color endColor, double progress)
+        {
+            var r = startColor.R + (endColor.R - startColor.R) * progress;
+            var g = startColor.G + (endColor.G - startColor.G) * progress;
+            var b = startColor.B + (endColor.B - startColor.B) * progress;
+            var a = startColor.A + (endColor.A - startColor.A) * progress;
+
+            return Color.FromRgba(r, g, b, a);
         }
     }
 }

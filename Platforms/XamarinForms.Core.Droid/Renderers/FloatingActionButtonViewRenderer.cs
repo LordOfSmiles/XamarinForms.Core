@@ -78,7 +78,7 @@ namespace XamarinForms.Core.Droid.Renderers
                 Element.Hide = Hide;
 
                 SetFabSize(Element.Size);
-               await SetFabImage(Element.Icon);
+               await SetFabImage(Element.ImageName);
 
                 var frame = new FrameLayout(Context);
                 frame.RemoveAllViews();
@@ -138,7 +138,7 @@ namespace XamarinForms.Core.Droid.Renderers
             //}
             else if (e.PropertyName == FloatingActionButtonView.ImageNameProperty.PropertyName)
             {
-                await SetFabImage(Element.Icon);
+                await SetFabImage(Element.ImageName);
             }
             else if (e.PropertyName == FloatingActionButtonView.SizeProperty.PropertyName)
             {

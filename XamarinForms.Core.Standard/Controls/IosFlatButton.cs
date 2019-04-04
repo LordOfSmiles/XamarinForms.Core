@@ -9,10 +9,10 @@ namespace XamarinForms.Core.Standard.Controls
     {
         #region Fields
 
-        private View _viewContent;
-        private Label _lbl;
-        private Image _img;
-        private Image _imgArrow;
+        private readonly View _viewContent;
+        private readonly Label _lbl;
+        private readonly Image _img;
+        private readonly Image _imgArrow;
 
         #endregion
 
@@ -20,21 +20,12 @@ namespace XamarinForms.Core.Standard.Controls
         {
             Spacing = 0;
             BackgroundColor = Color.Transparent;
-
-            {
-                var bxTop = new BoxView()
-                {
-                    HeightRequest = 1,
-                    Color = Color.FromHex("#D7D7D7")
-                };
-                Children.Add(bxTop);
-            }
-
+            
             {
                 var stkContent = new Grid()
                 {
                     BackgroundColor = Color.White,
-                    Padding = new Thickness(8, 6, 8, 6),
+                    Padding = new Thickness(8),
                     ColumnSpacing = 0
                 };
                 stkContent.ColumnDefinitions.Add(new ColumnDefinition() {Width = GridLength.Auto});
@@ -65,8 +56,8 @@ namespace XamarinForms.Core.Standard.Controls
                 
                 _imgArrow=new Image()
                 {
-                    HeightRequest = 20,
-                    WidthRequest = 20,
+                    HeightRequest = 18,
+                    WidthRequest = 18,
                     VerticalOptions = LayoutOptions.Center,
                     Margin = new Thickness(8,0,8,0),
                     IsVisible = false
@@ -77,16 +68,7 @@ namespace XamarinForms.Core.Standard.Controls
                 Children.Add(stkContent);
                 _viewContent = stkContent;
             }
-
-
-            {
-                var bxBottom = new BoxView()
-                {
-                    HeightRequest = 1,
-                    Color = Color.FromHex("#D7D7D7")
-                };
-                Children.Add(bxBottom);
-            }
+            
 
             {
                 var gesture = new TapGestureRecognizer();

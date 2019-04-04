@@ -22,9 +22,9 @@ namespace XamarinForms.Core.Standard.Controls
 
         #region Icon
 
-        public static readonly BindableProperty ImageNameProperty = BindableProperty.Create(nameof(Icon), typeof(ImageSource), typeof(FloatingActionButtonView), null);
+        public static readonly BindableProperty ImageNameProperty = BindableProperty.Create(nameof(ImageName), typeof(ImageSource), typeof(FloatingActionButtonView));
 
-        public ImageSource Icon
+        public ImageSource ImageName
         {
             get => (ImageSource)GetValue(ImageNameProperty);
             set => SetValue(ImageNameProperty, value);
