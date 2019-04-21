@@ -8,8 +8,6 @@ using Xamarin.Forms.Platform.Android;
 using XamarinForms.Core.Droid.Renderers;
 using XamarinForms.Core.Standard.Controls;
 
-[assembly: ExportRenderer(typeof(AndroidFlatButton), typeof(FlatButtonRenderer))]
-
 namespace XamarinForms.Core.Droid.Renderers
 {
     public sealed class FlatButtonRenderer : ButtonRenderer

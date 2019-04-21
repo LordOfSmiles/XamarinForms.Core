@@ -10,9 +10,6 @@ namespace XamarinForms.Core.Standard.Controls
         private Label _lblHeader;
         private View _viewRoot;
 
-        private BoxView _bxTopBorder;
-        private BoxView _bxBottomBorder;
-
         #endregion
 
         public HeaderControl()
@@ -124,54 +121,6 @@ namespace XamarinForms.Core.Standard.Controls
 
         #endregion
 
-        #region IsTopBorderVisible
-
-        public static readonly BindableProperty IsTopBorderVisibleProperty = BindableProperty.Create(nameof(IsTopBorderVisible), typeof(bool), typeof(HeaderControl), true, propertyChanged: OnIsTopBorderVisibleChanged);
-
-        public bool IsTopBorderVisible
-        {
-            get => (bool)GetValue(IsTopBorderVisibleProperty);
-            set => SetValue(IsTopBorderVisibleProperty, value);
-        }
-
-        private static void OnIsTopBorderVisibleChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var ctrl = bindable as HeaderControl;
-            if (ctrl == null)
-                return;
-
-            if (ctrl._bxTopBorder == null)
-                return;
-
-            ctrl._bxTopBorder.IsVisible = (bool)newValue;
-        }
-
-        #endregion
-
-        #region IsBottomBorderVisible
-
-        public static readonly BindableProperty IsBottomBorderVisibleProperty = BindableProperty.Create(nameof(IsBottomBorderVisible), typeof(bool), typeof(HeaderControl), true, propertyChanged: OnIsBottomBorderVisibleChanged);
-
-        public bool IsBottomBorderVisible
-        {
-            get => (bool)GetValue(IsBottomBorderVisibleProperty);
-            set => SetValue(IsBottomBorderVisibleProperty, value);
-        }
-
-        private static void OnIsBottomBorderVisibleChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var ctrl = bindable as HeaderControl;
-            if (ctrl == null)
-                return;
-
-            if (ctrl._bxBottomBorder == null)
-                return;
-
-            ctrl._bxBottomBorder.IsVisible = (bool)newValue;
-        }
-
-        #endregion
-
         #endregion
 
         #region Private Methods
@@ -182,7 +131,8 @@ namespace XamarinForms.Core.Standard.Controls
             {
                 VerticalOptions = LayoutOptions.Center,
                 FontSize = 14,
-                FontAttributes = FontAttributes.Bold
+                FontAttributes = FontAttributes.Bold,
+                TextColor = Color.Accent
             };
 
             _viewRoot = this;
@@ -191,15 +141,6 @@ namespace XamarinForms.Core.Standard.Controls
 
         private View GetIosControl()
         {
-            var stack = new StackLayout() { Spacing = 0 };
-
-            _bxTopBorder = new BoxView()
-            {
-                HeightRequest = 1,
-                Color = Color.FromRgb(215, 215, 215)
-            };
-            stack.Children.Add(_bxTopBorder);
-
             var cnv = new ContentView()
             {
                 BackgroundColor = Color.FromRgb(238, 238, 238)
@@ -212,17 +153,10 @@ namespace XamarinForms.Core.Standard.Controls
                 TextColor = Color.FromRgb(110, 110, 110)
             };
             cnv.Content = _lblHeader;
-            stack.Children.Add(cnv);
 
-            _bxBottomBorder = new BoxView()
-            {
-                HeightRequest = 1,
-                Color = Color.FromRgb(215, 215, 215)
-            };
-            stack.Children.Add(_bxBottomBorder);
 
             _viewRoot = cnv;
-            return stack;
+            return cnv;
         }
 
         #endregion

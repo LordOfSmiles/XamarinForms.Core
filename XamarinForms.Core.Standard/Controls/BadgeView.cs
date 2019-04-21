@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinForms.Core.Standard.Services;
 
 namespace XamarinForms.Core.Standard.Controls
 {
@@ -32,7 +33,7 @@ namespace XamarinForms.Core.Standard.Controls
             _lbl = new Label()
             {
                 Margin = new Thickness(4, 0),
-                FontSize = 15,
+                FontSize = DeviceService.OnPlatform(15, 14),
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 LineBreakMode = LineBreakMode.NoWrap,

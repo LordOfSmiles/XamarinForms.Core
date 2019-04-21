@@ -22,8 +22,6 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
         private readonly Stack<Page> _pages = new Stack<Page>();
 
-        private DateTime _lastPop;
-
         #endregion
 
         protected CustomNavigationPage(Page root, bool isModal = false)
@@ -88,12 +86,6 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
         private void OnPopped(object sender, NavigationEventArgs e)
         {
-            //костыль. Popped срабатывает 2 раза на версии 2.5.1. Проверить на других версиях
-            if ((DateTime.Now - _lastPop).TotalSeconds <= 1)
-                return;
-
-            _lastPop = DateTime.Now;
-
             if (_pages.Count > 1)
             {
                 var page = _pages.Pop();
@@ -110,11 +102,24 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
             if (_pages.Any())
             {
                 var page = _pages.Peek();
-                var vm = page.BindingContext as ViewModelBase;
-                if (vm != null)
+
+                ViewModelBase vm = null;
+                Type pageType = null;
+
+                switch (page)
                 {
-                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(page.GetType()));
+                    case TabbedPage tabbedPage:
+                        vm = tabbedPage.CurrentPage?.BindingContext as ViewModelBase;
+                        pageType = tabbedPage.CurrentPage?.GetType();
+                        break;
+                    case Page p:
+                        vm = page.BindingContext as ViewModelBase;
+                        pageType = page.GetType();
+                        break;
                 }
+
+                if (vm != null)
+                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(pageType));
             }
         }
 
@@ -158,7 +163,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 {
                     modalPage = e.Modal;
                 }
-                
+
                 var vm = modalPage.BindingContext as ViewModelBase;
                 if (vm != null)
                     vm.OnAppearingAsync(NavigationState.GetParametersByPageType(modalPage.GetType()));
@@ -187,7 +192,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 {
                     modalPage = e.Modal;
                 }
-                
+
                 var vm = modalPage.BindingContext as ViewModelBase;
                 if (vm != null)
                 {
