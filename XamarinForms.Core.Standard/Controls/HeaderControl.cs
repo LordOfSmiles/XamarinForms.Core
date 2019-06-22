@@ -7,22 +7,24 @@ namespace XamarinForms.Core.Standard.Controls
     {
         #region Fields
 
-        private Label _lblHeader;
-        private View _viewRoot;
+        private readonly Label _lblHeader;
 
         #endregion
 
         public HeaderControl()
         {
-            switch (Device.RuntimePlatform)
+            BackgroundColor = DeviceService.OnPlatform(Color.FromRgb(238, 238, 238), Color.Transparent);
+            Padding = DeviceService.OnPlatform(new Thickness(16, 6, 8, 6), new Thickness(16, 8, 8, 8));
+
+            _lblHeader = new Label()
             {
-                case Device.iOS:
-                    Content = GetIosControl();
-                    break;
-                case Device.Android:
-                    Content = GetAndroidControl();
-                    break;
-            }
+                VerticalOptions = LayoutOptions.Center,
+                FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label)),
+                FontAttributes = DeviceService.OnPlatform(FontAttributes.None, FontAttributes.Bold),
+                TextColor = DeviceService.OnPlatform(Color.FromRgb(110, 110, 110), Color.Accent)
+            };
+
+            Content = _lblHeader;
         }
 
         #region Bindable proeprties
@@ -100,7 +102,11 @@ namespace XamarinForms.Core.Standard.Controls
 
         #region HeaderPadding
 
-        public static readonly BindableProperty HeaderPaddingProperty = BindableProperty.Create(nameof(HeaderPadding), typeof(Thickness), typeof(HeaderControl), new Thickness(0), propertyChanged: OnHeaderPaddingChanged);
+        public static readonly BindableProperty HeaderPaddingProperty = BindableProperty.Create(nameof(HeaderPadding), 
+            typeof(Thickness), 
+            typeof(HeaderControl),
+            DeviceService.OnPlatform(new Thickness(16,6,8,6),new Thickness(16,8,8,8)), 
+            propertyChanged: OnHeaderPaddingChanged);
 
         public Thickness HeaderPadding
         {
@@ -114,50 +120,11 @@ namespace XamarinForms.Core.Standard.Controls
             if (ctrl == null)
                 return;
 
-            var contentView = ctrl._viewRoot as ContentView;
-            if (contentView != null)
-                contentView.Padding = (Thickness) newValue;
+
+            ctrl.Padding = (Thickness) newValue;
         }
 
         #endregion
-
-        #endregion
-
-        #region Private Methods
-
-        private View GetAndroidControl()
-        {
-            _lblHeader = new Label()
-            {
-                VerticalOptions = LayoutOptions.Center,
-                FontSize = 14,
-                FontAttributes = FontAttributes.Bold,
-                TextColor = Color.Accent
-            };
-
-            _viewRoot = this;
-            return _lblHeader;
-        }
-
-        private View GetIosControl()
-        {
-            var cnv = new ContentView()
-            {
-                BackgroundColor = Color.FromRgb(238, 238, 238)
-            };
-
-            _lblHeader = new Label()
-            {
-                VerticalOptions = LayoutOptions.Center,
-                FontSize = 13,
-                TextColor = Color.FromRgb(110, 110, 110)
-            };
-            cnv.Content = _lblHeader;
-
-
-            _viewRoot = cnv;
-            return cnv;
-        }
 
         #endregion
     }

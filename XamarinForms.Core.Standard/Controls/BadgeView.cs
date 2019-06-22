@@ -5,7 +5,8 @@ using XamarinForms.Core.Standard.Services;
 
 namespace XamarinForms.Core.Standard.Controls
 {
-    public sealed class BadgeView:ContentView
+    //Todo упростить вложенность
+    public sealed class BadgeView:Grid
     {
         #region Fields
 
@@ -16,11 +17,8 @@ namespace XamarinForms.Core.Standard.Controls
 
         public BadgeView()
         {
-            var grd = new Grid()
-            {
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center
-            };
+            VerticalOptions = LayoutOptions.Center;
+            HorizontalOptions = LayoutOptions.Center;
 
             _badge = new BoxView()
             {
@@ -28,21 +26,19 @@ namespace XamarinForms.Core.Standard.Controls
                 HeightRequest = 22,
                 MinimumWidthRequest = 22,
             };
-            grd.Children.Add(_badge);
+            Children.Add(_badge);
 
             _lbl = new Label()
             {
                 Margin = new Thickness(4, 0),
-                FontSize = DeviceService.OnPlatform(15, 14),
+                FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label)),
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 LineBreakMode = LineBreakMode.NoWrap,
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center
             };
-            grd.Children.Add(_lbl);
-
-            Content = grd;
+            Children.Add(_lbl);
         }
 
         #region Bindable Properties

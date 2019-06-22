@@ -18,9 +18,14 @@ namespace Xamarin.Core.Standard.Helpers
                 : date2;
         }
 
-        public static bool IsPeriodsIntersected(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
+        public static bool IsDateIntersected(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
         {
             return start2 <= end1 && start1 <= end2;
+        }
+
+        public static bool IsDateIntersected(DateTime start, DateTime end, DateTime date)
+        {
+            return start <= date && date <= end;
         }
     }
 }

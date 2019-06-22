@@ -1,23 +1,27 @@
-﻿using System;
+using System;
 using System.Globalization;
 using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Converters
 {
-    public sealed class StringCaseConverter : IValueConverter
+    public sealed class StringToSizeConverter:IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var result = value?.ToString() ?? string.Empty;
-
-            var stringParameter = parameter?.ToString() ?? string.Empty;
-            if (stringParameter.Contains("l"))
+            if(double.TryParse(value.ToString(), out var result))
             {
-                result = result.ToLower();
+     
             }
             else
             {
-                result = result.ToUpper();
+                if (Enum.TryParse(value.ToString(), true, out NamedSize namedSize))
+                {
+                    result = Device.GetNamedSize(namedSize, typeof(Label));
+                }
+                else
+                {
+                    result = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+                }
             }
 
             return result;
@@ -27,8 +31,5 @@ namespace XamarinForms.Core.Standard.Converters
         {
             throw new NotImplementedException();
         }
-
-        public static StringCaseConverter Current => _current ?? (_current = new StringCaseConverter());
-        private static StringCaseConverter _current;
     }
 }

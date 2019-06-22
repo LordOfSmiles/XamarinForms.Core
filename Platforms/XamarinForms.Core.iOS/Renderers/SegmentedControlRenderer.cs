@@ -17,7 +17,7 @@ namespace XamarinForms.Core.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            if (Control == null)
+            if (Control == null && Element!=null)
             {
                 _nativeControl = new UISegmentedControl();
 
