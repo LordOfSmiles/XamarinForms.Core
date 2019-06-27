@@ -5,14 +5,13 @@ using XamarinForms.Core.Standard.Services;
 
 namespace XamarinForms.Core.Standard.Controls
 {
-    //Todo упростить вложенность
-    public sealed class BadgeView:Grid
+    public sealed class BadgeView : Grid
     {
         #region Fields
 
         private readonly BoxView _badge;
         private readonly Label _lbl;
-        
+
         #endregion
 
         public BadgeView()
@@ -42,7 +41,7 @@ namespace XamarinForms.Core.Standard.Controls
         }
 
         #region Bindable Properties
-        
+
         #region BadgeColor
 
         public static readonly BindableProperty BadgeColorProperty = BindableProperty.Create(nameof(BadgeColor), typeof(Color), typeof(BadgeView), Color.Transparent, propertyChanged: OnBadgeColorChanged);
@@ -61,7 +60,7 @@ namespace XamarinForms.Core.Standard.Controls
 
             ctrl._badge.Color = (Color) newValue;
         }
-        
+
 
         #endregion
 
@@ -92,7 +91,7 @@ namespace XamarinForms.Core.Standard.Controls
         }
 
         #endregion
-        
+
         #region TextColor
 
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BadgeView), Color.Default, propertyChanged: OnTextColorChanged);

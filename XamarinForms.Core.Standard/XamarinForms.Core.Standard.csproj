@@ -29,6 +29,6 @@
     <EmbeddedResource Remove="Controls\ProgressControl.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.0.0.497661" />
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.540366" />
   </ItemGroup>
 </Project>

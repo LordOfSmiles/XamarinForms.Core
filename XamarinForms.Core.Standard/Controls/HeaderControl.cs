@@ -79,26 +79,26 @@ namespace XamarinForms.Core.Standard.Controls
 
         #endregion
 
-        #region FontSize
-
-        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(HeaderControl), DeviceService.OnPlatform(13.0, 14.0), propertyChanged: OnFontSizeChanged);
-
-        public double FontSize
-        {
-            get => (double)GetValue(FontSizeProperty);
-            set => SetValue(FontSizeProperty, value);
-        }
-
-        private static void OnFontSizeChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var ctrl = bindable as HeaderControl;
-            if (ctrl == null)
-                return;
-
-            ctrl._lblHeader.FontSize = (double)newValue;
-        }
-
-        #endregion
+//        #region FontSize
+//
+//        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(HeaderControl), DeviceService.OnPlatform(13.0, 14.0), propertyChanged: OnFontSizeChanged);
+//
+//        public double FontSize
+//        {
+//            get => (double)GetValue(FontSizeProperty);
+//            set => SetValue(FontSizeProperty, value);
+//        }
+//
+//        private static void OnFontSizeChanged(BindableObject bindable, object oldValue, object newValue)
+//        {
+//            var ctrl = bindable as HeaderControl;
+//            if (ctrl == null)
+//                return;
+//
+//            ctrl._lblHeader.FontSize = (double)newValue;
+//        }
+//
+//        #endregion
 
         #region HeaderPadding
 
