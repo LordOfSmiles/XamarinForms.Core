@@ -40,7 +40,7 @@ namespace XamarinForms.Core.Standard.Controls
                     TextColor = Color.Black,
                     FontSize = DeviceService.OnPlatform(16, 15),
                     VerticalOptions = LayoutOptions.Center,
-                    HorizontalOptions = LayoutOptions.FillAndExpand
+                    HorizontalOptions = LayoutOptions.CenterAndExpand
                 };
                 Children.Add(_lbl);
 
@@ -134,11 +134,13 @@ namespace XamarinForms.Core.Standard.Controls
             {
                 ctrl._img.Source = image;
                 ctrl._img.IsVisible = true;
+                ctrl._lbl.HorizontalOptions=LayoutOptions.FillAndExpand;
             }
             else
             {
                 ctrl._img.Source = null;
                 ctrl._img.IsVisible = false;
+                ctrl._lbl.HorizontalOptions=LayoutOptions.CenterAndExpand;
             }
         }
 
