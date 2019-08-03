@@ -38,7 +38,6 @@ namespace XamarinForms.Core.Standard.Controls
                 _lbl = new Label()
                 {
                     TextColor = Color.Black,
-                    FontSize = DeviceService.OnPlatform(16, 15),
                     VerticalOptions = LayoutOptions.Center,
                     HorizontalOptions = LayoutOptions.CenterAndExpand
                 };
@@ -111,6 +110,32 @@ namespace XamarinForms.Core.Standard.Controls
             ctrl._lbl.TextColor = (Color)newvalue;
         }
 
+        #endregion
+        
+        #region FontAttributes
+
+        public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes),
+            typeof(FontAttributes),
+            typeof(IosFlatButton),
+            FontAttributes.None,
+            propertyChanged: OnFontAttributesChanged);
+        
+        public FontAttributes FontAttributes
+        {
+            get => (FontAttributes) GetValue(FontAttributesProperty);
+            set => SetValue(FontAttributesProperty, value);
+        }
+        
+        private static void OnFontAttributesChanged(BindableObject bindable, object oldvalue, object newvalue)
+        {
+            var ctrl = bindable as IosFlatButton;
+            if (ctrl == null)
+                return;
+
+            ctrl._lbl.FontAttributes = (Xamarin.Forms.FontAttributes) newvalue;
+        }
+
+        
         #endregion
 
         #region Image
@@ -210,9 +235,12 @@ namespace XamarinForms.Core.Standard.Controls
 
         private async void GestureOnTapped(object sender, EventArgs e)
         {
-            await _viewContent.ColorTo(Color.FromHex("#D7D7D7"), 100);
+            var startColor = BackgroundColor;
+            var endColor = startColor.MultiplyAlpha(0.7);
+            
+            await _viewContent.ColorTo(endColor, 100);
             Command?.Execute(CommandParameter);
-            await _viewContent.ColorTo(Color.White, 100);
+            await _viewContent.ColorTo(startColor, 100);
         }
 
         #endregion
