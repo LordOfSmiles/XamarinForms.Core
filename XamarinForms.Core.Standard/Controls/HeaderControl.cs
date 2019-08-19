@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using XamarinForms.Core.Standard.Helpers;
 using XamarinForms.Core.Standard.Services;
 
 namespace XamarinForms.Core.Standard.Controls
@@ -19,7 +20,7 @@ namespace XamarinForms.Core.Standard.Controls
             _lblHeader = new Label()
             {
                 VerticalOptions = LayoutOptions.Center,
-                FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label)),
+                FontSize = FontHelper.LabelSmall,
                 FontAttributes = DeviceService.OnPlatform(FontAttributes.None, FontAttributes.Bold),
                 TextColor = DeviceService.OnPlatform(Color.FromRgb(110, 110, 110), Color.Accent)
             };

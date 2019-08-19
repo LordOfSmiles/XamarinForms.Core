@@ -239,11 +239,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Core.Standard\Xamarin.Core.Standard.csproj">
-      <Project>{D853CC94-5D84-42E3-A432-54AEAA9E15EC}</Project>
+      <Project>{088F94E7-C77B-4BF3-8363-09DD1A1A66AF}</Project>
       <Name>Xamarin.Core.Standard</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\XamarinForms.Core.Standard\XamarinForms.Core.Standard.csproj">
-      <Project>{77CDE848-376C-4035-B639-EDC286199934}</Project>
+      <Project>{865EFBC0-A774-4461-B498-FA59B02B4A12}</Project>
       <Name>XamarinForms.Core.Standard</Name>
     </ProjectReference>
   </ItemGroup>
