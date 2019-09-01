@@ -21,7 +21,7 @@ namespace XamarinForms.Core.Standard.Controls
         {
             Padding = DeviceService.OnPlatform(new Thickness(16, 8, 8, 8), new Thickness(16, 12, 8, 12));
             Orientation = StackOrientation.Horizontal;
-            Spacing = 8;
+            Spacing = 16;
             BackgroundColor = Color.Transparent;
 
             {
@@ -30,7 +30,6 @@ namespace XamarinForms.Core.Standard.Controls
                     HeightRequest = DeviceService.OnPlatform(25, 24),
                     WidthRequest = DeviceService.OnPlatform(25, 24),
                     VerticalOptions = LayoutOptions.Center,
-                    Margin = new Thickness(0, 0, 8, 0),
                     IsVisible = false
                 };
                 Children.Add(_img);
