@@ -131,7 +131,7 @@ namespace XamarinForms.Core.Standard.Controls
             if (ctrl == null)
                 return;
 
-            ctrl._lbl.FontAttributes = (Xamarin.Forms.FontAttributes) newvalue;
+            ctrl._lbl.FontAttributes = (FontAttributes) newvalue;
         }
 
         
