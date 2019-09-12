@@ -9,7 +9,7 @@ using Xamarin.Core.Standard.ViewModels.ErrorValidation;
 
 namespace Xamarin.Core.Standard.ViewModels
 {
-    public abstract class ViewModelBase : NotifyObject
+    public abstract class ViewModelBase : NotifyObject, IDisposable
     {
         public const string NeedRefreshDataKey = "NeedRefreshData";
 
@@ -46,11 +46,6 @@ namespace Xamarin.Core.Standard.ViewModels
             PropertyChanged += ViewModelBase_PropertyChanged;
         }
 
-        ~ViewModelBase()
-        {
-            PropertyChanged -= ViewModelBase_PropertyChanged;
-        }
-
         #endregion
 
         #region Properties
@@ -68,6 +63,20 @@ namespace Xamarin.Core.Standard.ViewModels
         }
 
         #endregion
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                PropertyChanged -= ViewModelBase_PropertyChanged;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }
 

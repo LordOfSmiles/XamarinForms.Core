@@ -49,20 +49,20 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
             }
         }
 
-        ~CustomNavigationPage()
-        {
-            Pushed -= OnPushed;
-            Popped -= OnPopped;
-            PoppedToRoot -= OnPoppedToRoot;
-
-            if (Application.Current != null)
-            {
-                Application.Current.ModalPushed -= CurrentOnModalPushed;
-                Application.Current.ModalPopped -= CurrentOnModalPopped;
-            }
-
-            _pages?.Clear();
-        }
+//        ~CustomNavigationPage()
+//        {
+//            Pushed -= OnPushed;
+//            Popped -= OnPopped;
+//            PoppedToRoot -= OnPoppedToRoot;
+//
+//            if (Application.Current != null)
+//            {
+//                Application.Current.ModalPushed -= CurrentOnModalPushed;
+//                Application.Current.ModalPopped -= CurrentOnModalPopped;
+//            }
+//
+//            _pages?.Clear();
+//        }
 
         #region Handlers
 
@@ -94,6 +94,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 {
                     vm.OnDisappearing();
                     vm.OnPopped();
+                    vm.Dispose();
                 }
 
                 page.BindingContext = null;
@@ -135,6 +136,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                     {
                         vm.OnDisappearing();
                         vm.OnPopped();
+                        vm.Dispose();
                     }
 
                     page.BindingContext = null;
@@ -198,6 +200,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 {
                     vm.OnDisappearing();
                     vm.OnPopped();
+                    vm.Dispose();
                 }
 
                 e.Modal.BindingContext = null;
