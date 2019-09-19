@@ -49,21 +49,6 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
             }
         }
 
-//        ~CustomNavigationPage()
-//        {
-//            Pushed -= OnPushed;
-//            Popped -= OnPopped;
-//            PoppedToRoot -= OnPoppedToRoot;
-//
-//            if (Application.Current != null)
-//            {
-//                Application.Current.ModalPushed -= CurrentOnModalPushed;
-//                Application.Current.ModalPopped -= CurrentOnModalPopped;
-//            }
-//
-//            _pages?.Clear();
-//        }
-
         #region Handlers
 
         private void OnPushed(object sender, NavigationEventArgs e)
