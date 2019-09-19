@@ -6,11 +6,10 @@ using XamarinForms.Core.Standard.Services;
 
 namespace XamarinForms.Core.Standard.Controls
 {
-    public sealed class IosFlatButton : StackLayout
+    public sealed class IosFlatButton : Grid
     {
         #region Fields
-
-        private readonly View _viewContent;
+        
         private readonly Label _lbl;
         private readonly Image _img;
         private readonly Image _imgArrow;
@@ -19,52 +18,56 @@ namespace XamarinForms.Core.Standard.Controls
 
         public IosFlatButton()
         {
-            Padding = DeviceService.OnPlatform(new Thickness(16, 8, 8, 8), new Thickness(16, 12, 8, 12));
-            Orientation = StackOrientation.Horizontal;
-            Spacing = 16;
-            BackgroundColor = Color.Transparent;
+            ColumnDefinitions.Add(new ColumnDefinition() {Width = GridLength.Auto});
+            ColumnDefinitions.Add(new ColumnDefinition());
 
+            Padding = DeviceService.OnPlatform(new Thickness(0, 8, 0, 8), new Thickness(0, 12, 0, 12));
+            ColumnSpacing = 0;
+            BackgroundColor = Color.White;
+
+            _img = new Image()
             {
-                _img = new Image()
+                HeightRequest = DeviceService.OnPlatform(25, 24),
+                WidthRequest = DeviceService.OnPlatform(25, 24),
+                VerticalOptions = LayoutOptions.Center,
+                IsVisible = false,
+                Margin = new Thickness(16, 0)
+            };
+            SetColumn(_img, 0);
+            Children.Add(_img);
+
+            _lbl = new Label()
+            {
+                TextColor = Color.Black,
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center
+            };
+            SetColumn(_lbl, 1);
+            Children.Add(_lbl);
+            
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                ColumnDefinitions.Add(new ColumnDefinition()
                 {
-                    HeightRequest = DeviceService.OnPlatform(25, 24),
-                    WidthRequest = DeviceService.OnPlatform(25, 24),
+                    Width = 18
+                });
+                _imgArrow = new Image()
+                {
+                    HeightRequest = 18,
+                    WidthRequest = 18,
                     VerticalOptions = LayoutOptions.Center,
-                    IsVisible = false
+                    IsVisible = false,
+                    Margin = new Thickness(0, 0, 8, 0)
                 };
-                Children.Add(_img);
-
-                _lbl = new Label()
-                {
-                    TextColor = Color.Black,
-                    VerticalOptions = LayoutOptions.Center,
-                    HorizontalOptions = LayoutOptions.CenterAndExpand
-                };
-                Children.Add(_lbl);
-
-
-                if (Device.RuntimePlatform == Device.iOS)
-                {
-                    _imgArrow = new Image()
-                    {
-                        HeightRequest = 18,
-                        WidthRequest = 18,
-                        VerticalOptions = LayoutOptions.Center,
-                        IsVisible = false
-                    };
-                    Children.Add(_imgArrow);
-                }
-
-                _viewContent = this;
+                SetColumn(_imgArrow, 2);
+                Children.Add(_imgArrow);
             }
-
-
+            
             {
                 var gesture = new TapGestureRecognizer();
                 gesture.Tapped += GestureOnTapped;
                 GestureRecognizers.Add(gesture);
             }
-
         }
 
         #region Bindable Properties
@@ -158,13 +161,13 @@ namespace XamarinForms.Core.Standard.Controls
             {
                 ctrl._img.Source = image;
                 ctrl._img.IsVisible = true;
-                ctrl._lbl.HorizontalOptions=LayoutOptions.FillAndExpand;
+                ctrl._lbl.HorizontalTextAlignment = TextAlignment.Start;
             }
             else
             {
                 ctrl._img.Source = null;
                 ctrl._img.IsVisible = false;
-                ctrl._lbl.HorizontalOptions=LayoutOptions.CenterAndExpand;
+                ctrl._lbl.HorizontalTextAlignment = TextAlignment.Center;
             }
         }
 
@@ -192,11 +195,13 @@ namespace XamarinForms.Core.Standard.Controls
             var image = newvalue as ImageSource;
             if (image != null)
             {
+                ctrl.ColumnDefinitions[2].Width = 18;
                 ctrl._imgArrow.Source = image;
                 ctrl._imgArrow.IsVisible = true;
             }
             else
             {
+                ctrl.ColumnDefinitions[2].Width = 0;
                 ctrl._imgArrow.Source = null;
                 ctrl._imgArrow.IsVisible = false;
             }
@@ -237,9 +242,9 @@ namespace XamarinForms.Core.Standard.Controls
             var startColor = BackgroundColor;
             var endColor = startColor.MultiplyAlpha(0.7);
             
-            await _viewContent.ColorTo(endColor, 100);
+            await this.ColorTo(endColor, 100);
             Command?.Execute(CommandParameter);
-            await _viewContent.ColorTo(startColor, 100);
+            await this.ColorTo(startColor, 100);
         }
 
         #endregion
