@@ -1,32 +1,36 @@
+using System;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XamarinForms.Core.Standard.Extensions;
+using XamarinForms.Core.Standard.Services;
 
 namespace XamarinForms.Core.Standard.Controls
 {
     public sealed class FlatButton : ContentView
     {
         #region Fields
-
-        private readonly IosFlatButton _btnIos;
-        private readonly AndroidFlatButton _btnDroid;
+        
+        private readonly Label _lbl;
 
         #endregion
 
         public FlatButton()
         {
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    _btnIos = new IosFlatButton();
-                    Content = _btnIos;
-                    break;
-                case Device.Android:
-                    _btnDroid = new AndroidFlatButton();
-                    Content = _btnDroid;
-                    break;
-            }
-        }
+            Padding = DeviceService.OnPlatform(new Thickness(8), new Thickness(8, 12));
+            BackgroundColor = Color.White;
 
+            _lbl = new Label()
+            {
+                TextColor = Color.Black,
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center
+            };
+            Content = _lbl;
+
+            var gesture = new TapGestureRecognizer();
+            gesture.Tapped += GestureOnTapped;
+            GestureRecognizers.Add(gesture);
+        }
 
         #region Bindable Properties
 
@@ -46,16 +50,7 @@ namespace XamarinForms.Core.Standard.Controls
             if (ctrl == null)
                 return;
 
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    ctrl._btnIos.Text = newvalue?.ToString() ?? string.Empty;
-                    break;
-                case Device.Android:
-                    ctrl._btnDroid.Text = newvalue?.ToString() ?? string.Empty;
-                    break;
-            }
-
+            ctrl._lbl.Text = newvalue?.ToString() ?? string.Empty;
         }
 
         #endregion
@@ -76,66 +71,40 @@ namespace XamarinForms.Core.Standard.Controls
             if (ctrl == null)
                 return;
 
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    ctrl._btnIos.TextColor = (Color)newvalue;
-                    break;
-                case Device.Android:
-                    ctrl._btnDroid.TextColor = (Color)newvalue;
-                    break;
-            }
+            ctrl._lbl.TextColor = (Color)newvalue;
         }
 
         #endregion
+        
+        #region FontAttributes
 
-        #region Image
-
-        public static readonly BindableProperty ImageProperty = BindableProperty.Create(nameof(Image), typeof(ImageSource), typeof(FlatButton), null, propertyChanged: OnImageChanged);
-
-        public ImageSource Image
+        public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes),
+            typeof(FontAttributes),
+            typeof(FlatButton),
+            FontAttributes.None,
+            propertyChanged: OnFontAttributesChanged);
+        
+        public FontAttributes FontAttributes
         {
-            get => (ImageSource)GetValue(ImageProperty);
-            set => SetValue(ImageProperty, value);
+            get => (FontAttributes) GetValue(FontAttributesProperty);
+            set => SetValue(FontAttributesProperty, value);
         }
-
-        private static void OnImageChanged(BindableObject bindable, object oldvalue, object newvalue)
+        
+        private static void OnFontAttributesChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
             var ctrl = bindable as FlatButton;
             if (ctrl == null)
                 return;
 
-            if (Device.RuntimePlatform == Device.iOS)
-                ctrl._btnIos.Image = newvalue as ImageSource;
+            ctrl._lbl.FontAttributes = (FontAttributes) newvalue;
         }
 
-        #endregion
-
-        #region BackImage
-
-        public static readonly BindableProperty BackImageProperty = BindableProperty.Create(nameof(BackImage), typeof(ImageSource), typeof(FlatButton), null, propertyChanged: OnBackImageChanged);
-
-        public ImageSource BackImage
-        {
-            get => (ImageSource)GetValue(BackImageProperty);
-            set => SetValue(BackImageProperty, value);
-        }
-
-        private static void OnBackImageChanged(BindableObject bindable, object oldvalue, object newvalue)
-        {
-            var ctrl = bindable as FlatButton;
-            if (ctrl == null)
-                return;
-
-            if (Device.RuntimePlatform == Device.iOS)
-                ctrl._btnIos.BackImage = newvalue as ImageSource;
-        }
-
+        
         #endregion
 
         #region Command
 
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(FlatButton), propertyChanged: OnCommandChanged);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(FlatButton));
 
         public ICommand Command
         {
@@ -143,29 +112,11 @@ namespace XamarinForms.Core.Standard.Controls
             set => SetValue(CommandProperty, value);
         }
 
-        private static void OnCommandChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var ctrl = bindable as FlatButton;
-            if (ctrl == null)
-                return;
-
-
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    ctrl._btnIos.Command = newValue as ICommand;
-                    break;
-                case Device.Android:
-                    ctrl._btnDroid.Command = newValue as ICommand;
-                    break;
-            }
-        }
-
         #endregion
 
         #region CommandParameter
 
-        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(FlatButton), propertyChanged: OnCommandParameterChanged);
+        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(FlatButton));
 
         public object CommandParameter
         {
@@ -173,24 +124,21 @@ namespace XamarinForms.Core.Standard.Controls
             set => SetValue(CommandParameterProperty, value);
         }
 
-        private static void OnCommandParameterChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var ctrl = bindable as FlatButton;
-            if (ctrl == null)
-                return;
-
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    ctrl._btnIos.CommandParameter = newValue;
-                    break;
-                case Device.Android:
-                    ctrl._btnDroid.CommandParameter = newValue;
-                    break;
-            }
-        }
+        #endregion
 
         #endregion
+
+        #region Handlers
+
+        private async void GestureOnTapped(object sender, EventArgs e)
+        {
+            var startColor = BackgroundColor;
+            var endColor = startColor.MultiplyAlpha(0.7);
+            
+            await this.ColorTo(endColor, 100);
+            Command?.Execute(CommandParameter);
+            await this.ColorTo(startColor, 100);
+        }
 
         #endregion
     }
