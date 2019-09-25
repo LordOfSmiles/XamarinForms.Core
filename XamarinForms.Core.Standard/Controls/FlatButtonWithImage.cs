@@ -22,7 +22,7 @@ namespace XamarinForms.Core.Standard.Controls
             ColumnDefinitions.Add(new ColumnDefinition());
 
             Padding = DeviceService.OnPlatform(new Thickness(16, 8, 8, 8), new Thickness(16, 12, 8, 12));
-            ColumnSpacing = 16;
+            ColumnSpacing = DeviceService.OnPlatform(16, 32);
             BackgroundColor = Color.White;
 
             _img = new Image()
@@ -230,12 +230,19 @@ namespace XamarinForms.Core.Standard.Controls
 
         private async void GestureOnTapped(object sender, EventArgs e)
         {
-            var startColor = BackgroundColor;
-            var endColor = startColor.MultiplyAlpha(0.7);
-            
-            await this.ColorTo(endColor, 100);
-            Command?.Execute(CommandParameter);
-            await this.ColorTo(startColor, 100);
+            if (BackgroundColor.Equals(Color.Transparent) || BackgroundColor.IsDefault)
+            {
+                Command?.Execute(CommandParameter);
+            }
+            else
+            {
+                var startColor = BackgroundColor;
+                var endColor = startColor.MultiplyAlpha(0.7);
+
+                await this.ColorTo(endColor, 100);
+                Command?.Execute(CommandParameter);
+                await this.ColorTo(startColor, 100);
+            }
         }
 
         #endregion

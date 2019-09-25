@@ -39,6 +39,12 @@ namespace Xamarin.Core.Standard.ViewModels
 
         #endregion
 
+#region Fields
+
+protected bool IsNavigationInProgress = false;
+
+#endregion
+
         #region Constructor
 
         protected ViewModelBase()
