@@ -6,7 +6,7 @@ using System;
 
 namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 {
-    public abstract class CustomNavigationPage : NavigationPage
+    public abstract class CustomNavigationPage : NavigationPage, IDisposable
     {
         public void ChangeAppBarColor(Color backgroundColor)
         {
@@ -78,7 +78,6 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 if (vm != null)
                 {
                     vm.OnDisappearing();
-                    vm.OnPopped();
                     vm.Dispose();
                 }
 
@@ -120,7 +119,6 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                     if (vm != null)
                     {
                         vm.OnDisappearing();
-                        vm.OnPopped();
                         vm.Dispose();
                     }
 
@@ -184,7 +182,6 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 if (vm != null)
                 {
                     vm.OnDisappearing();
-                    vm.OnPopped();
                     vm.Dispose();
                 }
 
@@ -216,5 +213,28 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
         }
 
         #endregion
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Pushed -= OnPushed;
+                Popped -= OnPopped;
+                PoppedToRoot -= OnPoppedToRoot;
+
+                if (Application.Current != null)
+                {
+                    Application.Current.ModalPushed -= CurrentOnModalPushed;
+                    Application.Current.ModalPopped -= CurrentOnModalPopped;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            
+            GC.SuppressFinalize(this);
+        }
     }
 }

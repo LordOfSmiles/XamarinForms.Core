@@ -27,11 +27,6 @@ namespace Xamarin.Core.Standard.ViewModels
             NeedWatchPropertyChanged = false;
         }
 
-        public virtual void OnPopped()
-        {
-            NeedWatchPropertyChanged = false;
-        }
-
         protected virtual void OnElementPropertyChanged(string propertyName)
         {
 
