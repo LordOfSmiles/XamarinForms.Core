@@ -2,16 +2,16 @@ using System;
 
 namespace Xamarin.Data.Standard.Models
 {
-    public class DataResult
+    public class DbResult
     {
-        public DataResultEnum Type { get; set; } = DataResultEnum.Success;
+        public DataResultEnum Status { get; set; } = DataResultEnum.Success;
         
-        public bool IsSuccess => Type == DataResultEnum.Success;
+        public bool IsSuccess => Status == DataResultEnum.Success;
         
         public Exception Error { get; set; }
     }
     
-    public sealed class DataResult<T>:DataResult
+    public sealed class DbResult<T>:DbResult
     {
         public T Result { get; set; } = default(T);
     }

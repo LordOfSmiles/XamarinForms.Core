@@ -23,10 +23,9 @@ namespace XamarinForms.Core.Standard.Controls
             if (Conditions != null)
             {
                 Children.Clear();
-                foreach (var stateCondition in Conditions)
+                foreach (var stateCondition in Conditions.Where(x => x.Content != null))
                 {
-                    if (stateCondition.Content != null)
-                        stateCondition.Content.IsVisible = false;
+                    stateCondition.Content.IsVisible = false;
 
                     Children.Add(stateCondition.Content);
                 }
