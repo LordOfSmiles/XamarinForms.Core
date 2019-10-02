@@ -13,23 +13,7 @@ namespace XamarinForms.Core.Standard.Views
         }
         
         public static TabbedPage Current { get; private set; }
-
-        #region Bindable Properties
-
-        #region TintColor
-
-        public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(CustomTabbedPage), Color.Default);
-
-        public Color TintColor
-        {
-            get => (Color)GetValue(TintColorProperty);
-            set => SetValue(TintColorProperty, value);
-        }
-
-        #endregion
-
-        #endregion
-
+        
         protected override void OnPropertyChanged(string propertyName = null)
         {
             if (propertyName == nameof(SelectedItem) || propertyName == nameof(CurrentPage))
