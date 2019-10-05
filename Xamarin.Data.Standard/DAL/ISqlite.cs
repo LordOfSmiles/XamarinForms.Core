@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using System;
+using SQLite;
 
 namespace Xamarin.Data.Standard.DAL
 {
@@ -7,5 +8,9 @@ namespace Xamarin.Data.Standard.DAL
         SQLiteConnection GetConnection();
 
         bool IsFileExist();
+
+        void OnDataChanged();
+
+        event EventHandler DataChanged;
     }
 }
