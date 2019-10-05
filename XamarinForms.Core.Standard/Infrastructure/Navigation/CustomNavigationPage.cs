@@ -6,7 +6,7 @@ using System;
 
 namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 {
-    public abstract class CustomNavigationPage : NavigationPage, IDisposable
+    public class CustomNavigationPage : NavigationPage, IDisposable
     {
         public void ChangeAppBarColor(Color backgroundColor)
         {
@@ -24,7 +24,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
         #endregion
 
-        protected CustomNavigationPage(Page root, bool isModal = false)
+        public CustomNavigationPage(Page root, bool isModal = false)
             : base(root)
         {
             if (isModal)
