@@ -14,13 +14,13 @@ namespace Xamarin.Data.Standard.DAL
 
         #region Dependencies
 
-        protected readonly ISqlite SqLite;
+        private readonly ISqlite _sqLite;
 
         #endregion
 
         protected BaseRepository(ISqlite sqlite)
         {
-            SqLite = sqlite;
+            _sqLite = sqlite;
         }
 
         #region Properties
@@ -86,7 +86,7 @@ namespace Xamarin.Data.Standard.DAL
 
         protected SQLiteConnection GetConnection()
         {
-            var db = SqLite.GetConnection();
+            var db = _sqLite.GetConnection();
 
             if (!IsInit)
             {
@@ -95,6 +95,11 @@ namespace Xamarin.Data.Standard.DAL
             }
 
             return db;
+        }
+
+        protected void OnDataChanged()
+        {
+            _sqLite.OnDataChanged();
         }
 
         #endregion
