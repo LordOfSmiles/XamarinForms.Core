@@ -222,6 +222,7 @@
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\VersionHelper.cs" />
     <Compile Include="Infrastructure\DeviceInfo\DeviceInfo.cs" />
+    <Compile Include="Infrastructure\DeviceThemeService.cs" />
     <Compile Include="Infrastructure\StoreReview\StoreReviewImplementation.cs" />
     <Compile Include="Infrastructure\ToastService.cs" />
     <Compile Include="Renderers\MaterialEntryRenderer.cs" />

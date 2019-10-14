@@ -14,7 +14,7 @@ namespace XamarinForms.Core.Standard.Controls
 
         public HeaderControl()
         {
-            BackgroundColor = DeviceService.OnPlatform(Color.FromRgb(238, 238, 238), Color.Transparent);
+            //BackgroundColor = DeviceService.OnPlatform(Color.FromRgb(238, 238, 238), Color.Transparent);
             Padding = DeviceService.OnPlatform(new Thickness(16, 6, 8, 6), new Thickness(16, 8, 8, 8));
 
             _lblHeader = new Label()
@@ -22,7 +22,7 @@ namespace XamarinForms.Core.Standard.Controls
                 VerticalOptions = LayoutOptions.Center,
                 FontSize = FontHelper.LabelSmall,
                 FontAttributes = DeviceService.OnPlatform(FontAttributes.None, FontAttributes.Bold),
-                TextColor = DeviceService.OnPlatform(Color.FromRgb(110, 110, 110), Color.Accent)
+                //TextColor = DeviceService.OnPlatform(Color.FromRgb(110, 110, 110), Color.Accent)
             };
 
             Content = _lblHeader;
@@ -73,6 +73,9 @@ namespace XamarinForms.Core.Standard.Controls
         {
             var ctrl = bindable as HeaderControl;
             if (ctrl == null)
+                return;
+
+            if (ctrl._lblHeader == null)
                 return;
 
             ctrl._lblHeader.TextColor = (Color)newValue;
