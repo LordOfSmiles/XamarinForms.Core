@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:XamarinForms.Core.Standard.Converters;assembly=XamarinForms.Core.Standard"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             x:Class="XamarinForms.Core.Standard.Controls.CrossNavigationBar"
+             Orientation="Horizontal"
+             x:Name="This">
+    <StackLayout.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <!--On iOS, ContentPage start below status bar-->
+            <On Platform="iOS" Value="0,20,0,0"/>
+        </OnPlatform>
+    </StackLayout.Padding>
+    <StackLayout.HeightRequest>
+        <OnPlatform x:TypeArguments="system:Double">
+            <On Platform="Android" Value="56"></On>
+        </OnPlatform>
+    </StackLayout.HeightRequest>
+
+    <!--Need to Explicitly set StackLayout.Children because we overide ContentProperty --> 
+    <StackLayout.Children>
+        <!-- <Button  -->
+        <!--     Text="&#xf060;"  -->
+        <!--     Command="{Binding ExitCommand, Source={x:Reference This}}"> -->
+        <!--     <Button.Triggers> -->
+        <!--         <DataTrigger  -->
+        <!--             TargetType="Button" -->
+        <!--             Binding="{Binding ExitIconAsCross, Source={x:Reference This}}"  -->
+        <!--             Value="True"> -->
+        <!--             <Setter Property="Text" Value="&#xf00d;"/> -->
+        <!--         </DataTrigger> -->
+        <!--     </Button.Triggers> -->
+        <!-- </Button> -->
+        
+        <Image
+            HeightRequest="24"
+            WidthRequest="24"
+            VerticalOptions="Center"
+            Margin="16,0,0,0"
+            Source="{Binding Path=ExitIcon, Source={x:Reference This}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Path=ExitCommand, Source={x:Reference This}}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        
+        <Label 
+            Text="{Binding Title, Source={x:Reference This}}"
+            TextColor="White"
+            VerticalOptions="Center" 
+            Margin="26,0,0,0"
+            HorizontalOptions="FillAndExpand">
+            <Label.FontSize>
+                <OnPlatform x:TypeArguments="system:Double">
+                    <On Platform="Android" Value="20"/>
+                </OnPlatform>
+            </Label.FontSize>
+            <Label.HorizontalTextAlignment>
+                <OnPlatform x:TypeArguments="TextAlignment">
+                    <On Platform="Android" Value="Start"/>
+                    <On Platform="iOS" Value="Center"/>
+                </OnPlatform>
+            </Label.HorizontalTextAlignment>
+        </Label>
+        
+        <Frame 
+            BackgroundColor="Transparent" 
+            HeightRequest="30"
+            VerticalOptions="Center"
+            Content="{Binding Content, Source={x:Reference This}}" 
+            IsVisible="False">
+            <Frame.Triggers>
+                <DataTrigger
+                    TargetType="Frame" 
+                    Binding="{Binding Content, Source={x:Reference This}, Converter={x:Static converters:ToVisibilityConverter.Current}}"
+                    Value="True">
+                    <Setter Property="IsVisible" Value="True"/>
+                </DataTrigger>
+            </Frame.Triggers>
+        </Frame>
+    </StackLayout.Children>
+</StackLayout>
