@@ -7,39 +7,37 @@
              x:Class="XamarinForms.Core.Standard.Controls.CrossNavigationBar"
              Orientation="Horizontal"
              x:Name="This">
-    <StackLayout.Padding>
-        <OnPlatform x:TypeArguments="Thickness">
-            <!--On iOS, ContentPage start below status bar-->
-            <On Platform="iOS" Value="0,20,0,0"/>
-        </OnPlatform>
-    </StackLayout.Padding>
+    <!-- <StackLayout.Padding> -->
+    <!--     <OnPlatform x:TypeArguments="Thickness"> -->
+    <!--         ~1~On iOS, ContentPage start below status bar@1@ -->
+    <!--         <On Platform="iOS" Value="0,20,0,0"/> -->
+    <!--     </OnPlatform> -->
+    <!-- </StackLayout.Padding> -->
     <StackLayout.HeightRequest>
         <OnPlatform x:TypeArguments="system:Double">
-            <On Platform="Android" Value="56"></On>
+            <On Platform="iOS" Value="44"/>
+            <On Platform="Android" Value="56"/>
         </OnPlatform>
     </StackLayout.HeightRequest>
 
     <!--Need to Explicitly set StackLayout.Children because we overide ContentProperty --> 
     <StackLayout.Children>
-        <!-- <Button  -->
-        <!--     Text="&#xf060;"  -->
-        <!--     Command="{Binding ExitCommand, Source={x:Reference This}}"> -->
-        <!--     <Button.Triggers> -->
-        <!--         <DataTrigger  -->
-        <!--             TargetType="Button" -->
-        <!--             Binding="{Binding ExitIconAsCross, Source={x:Reference This}}"  -->
-        <!--             Value="True"> -->
-        <!--             <Setter Property="Text" Value="&#xf00d;"/> -->
-        <!--         </DataTrigger> -->
-        <!--     </Button.Triggers> -->
-        <!-- </Button> -->
+        <Button
+            Text="{Binding Source={x:Reference This}, Path=ExitText}"
+            TextColor="White"
+            FontSize="16"
+            Margin="16,0,0,0"
+            VerticalOptions="Center"
+            IsVisible="{Binding Path=ExitText, Source={x:Reference This}, Converter={x:Static converters:ToVisibilityConverter.Current}}"
+            Command="{Binding ExitCommand, Source={x:Reference This}}"/>
         
         <Image
             HeightRequest="24"
             WidthRequest="24"
             VerticalOptions="Center"
             Margin="16,0,0,0"
-            Source="{Binding Path=ExitIcon, Source={x:Reference This}}">
+            Source="{Binding Path=ExitIcon, Source={x:Reference This}}"
+            IsVisible="{Binding Path=ExitText, Source={x:Reference This}, Converter={x:Static converters:ToVisibilityConverter.Current}, ConverterParameter='i'}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding Path=ExitCommand, Source={x:Reference This}}"/>
             </Image.GestureRecognizers>

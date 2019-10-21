@@ -29,8 +29,7 @@ namespace XamarinForms.Core.Standard.Controls
             {
                 HeightRequest = DeviceService.OnPlatform(25, 24),
                 WidthRequest = DeviceService.OnPlatform(25, 24),
-                VerticalOptions = LayoutOptions.Center,
-                IsVisible = false
+                VerticalOptions = LayoutOptions.Center
             };
             SetColumn(_img, 0);
             Children.Add(_img);
@@ -158,7 +157,6 @@ namespace XamarinForms.Core.Standard.Controls
             if (image != null)
             {
                 ctrl._img.Source = image;
-                ctrl._img.IsVisible = true;
             }
         }
 

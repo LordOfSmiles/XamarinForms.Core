@@ -51,6 +51,21 @@ namespace XamarinForms.Core.Standard.Controls
         
         #endregion
         
+        #region ExitText
+
+        public static readonly BindableProperty ExitTextProperty = BindableProperty.Create(nameof(ExitText),
+            typeof(string),
+            typeof(CrossNavigationBar),
+            null);
+
+        public string ExitText
+        {
+            get => (string) GetValue(ExitTextProperty);
+            set => SetValue(ExitTextProperty, value);
+        }
+        
+        #endregion
+        
         #region ExitIcon
 
         public static readonly BindableProperty ExitIconProperty = BindableProperty.Create(nameof(ExitIcon),
