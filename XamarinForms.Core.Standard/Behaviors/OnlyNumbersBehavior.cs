@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Behaviors
 {
-    public sealed class NumericValidationBehavior : BehaviorBase<Entry>
+    public sealed class OnlyNumbersBehavior : BehaviorBase<Entry>
     {
         protected override void OnAttachedTo(Entry bindable)
         {
@@ -25,6 +25,8 @@ namespace XamarinForms.Core.Standard.Behaviors
             if (entry == null)
                 return;
 
+            entry.TextChanged -= OnEntryTextChanged;
+
             if (!string.IsNullOrWhiteSpace(args.NewTextValue))
             {
                 var isValid = args.NewTextValue.ToCharArray().All(char.IsDigit);
@@ -33,6 +35,8 @@ namespace XamarinForms.Core.Standard.Behaviors
                     ? args.NewTextValue
                     : args.NewTextValue.Remove(args.NewTextValue.Length - 1);
             }
+            
+            entry.TextChanged += OnEntryTextChanged;
         }
     }
 }
