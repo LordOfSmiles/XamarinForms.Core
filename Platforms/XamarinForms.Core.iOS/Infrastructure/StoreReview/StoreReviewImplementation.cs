@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Foundation;
 using StoreKit;
 using UIKit;
-using Xamarin.Core.Standard.Infrastructure.StoreReview;
+using Xamarin.Core.Infrastructure.StoreReview;
 using XamarinForms.Core.iOS.Infrastructure.StoreReview;
 
 [assembly:Xamarin.Forms.Dependency(typeof(StoreReviewImplementation))] 

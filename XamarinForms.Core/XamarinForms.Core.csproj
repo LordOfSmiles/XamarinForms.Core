@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>XamarinForms.Core</AssemblyName>
+    <RootNamespace>XamarinForms.Core</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Controls\ItemsControl.xaml" />
+    <None Remove="Controls\ProgressControl.xaml" />
+    <None Remove="Controls\ValidationControl.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Helpers\TextPluralHelper.cs" />
+    <Compile Remove="Controls\NewGridView.cs" />
+    <Compile Remove="Controls\ShapeView.cs" />
+    <Compile Remove="Controls\ContentControl.cs" />
+    <Compile Remove="Controls\ControlContainer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\Interfaces\" />
+    <Folder Include="Infrastructure\Localization\" />
+    <Folder Include="Controls\Cells\">
+    </Folder>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Controls\ItemsControl.xaml" />
+    <EmbeddedResource Remove="Controls\ProgressControl.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.3.0.908675" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Xamarin.Core\Xamarin.Core.csproj" />
+  </ItemGroup>
+</Project>

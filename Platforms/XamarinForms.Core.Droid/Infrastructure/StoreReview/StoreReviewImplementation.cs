@@ -2,7 +2,7 @@ using System;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Xamarin.Core.Standard.Infrastructure.StoreReview;
+using Xamarin.Core.Infrastructure.StoreReview;
 using XamarinForms.Core.Droid.Infrastructure.StoreReview;
 
 [assembly:Xamarin.Forms.Dependency(typeof(StoreReviewImplementation))] 

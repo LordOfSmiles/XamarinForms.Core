@@ -9,11 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinForms.Core.Droid", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinForms.Core.iOS", "Platforms\XamarinForms.Core.iOS\XamarinForms.Core.iOS.csproj", "{4A7CAE81-13D0-4D3A-A42C-83CA54F1E214}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Core.Standard", "Xamarin.Core.Standard\Xamarin.Core.Standard.csproj", "{4A3F0AA4-8BC9-47DC-8B66-9876C0834509}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Core", "Xamarin.Core\Xamarin.Core.csproj", "{4A3F0AA4-8BC9-47DC-8B66-9876C0834509}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Data.Standard", "Xamarin.Data.Standard\Xamarin.Data.Standard.csproj", "{2E2CDD91-B931-468D-BD9D-8F0E00C96890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Data", "Xamarin.Data\Xamarin.Data.csproj", "{2E2CDD91-B931-468D-BD9D-8F0E00C96890}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamarinForms.Core.Standard", "XamarinForms.Core.Standard\XamarinForms.Core.Standard.csproj", "{8192930E-E5DA-45DC-82D6-D80304C29CAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamarinForms.Core", "XamarinForms.Core\XamarinForms.Core.csproj", "{8192930E-E5DA-45DC-82D6-D80304C29CAD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinForms.Core.UWP", "Platforms\XamarinForms.Core.UWP\XamarinForms.Core.UWP.csproj", "{DF5ABDAA-8F38-4371-B8A9-7C72591D5571}"
 EndProject

@@ -1,6 +1,6 @@
 using System;
 using UIKit;
-using Xamarin.Core.Standard.Infrastructure.Interfaces;
+using Xamarin.Core.Infrastructure.Interfaces;
 using Xamarin.Forms;
 using XamarinForms.Core.iOS.Helpers;
 using XamarinForms.Core.iOS.Infrastructure;

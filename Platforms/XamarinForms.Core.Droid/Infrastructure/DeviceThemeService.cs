@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Android.Content;
 using Android.Content.Res;
-using Xamarin.Core.Standard.Infrastructure.Interfaces;
+using Xamarin.Core.Infrastructure.Interfaces;
 using XamarinForms.Core.Droid.Helpers;
 
 namespace XamarinForms.Core.Droid.Infrastructure
