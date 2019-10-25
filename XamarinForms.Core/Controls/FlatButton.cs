@@ -23,7 +23,9 @@ namespace XamarinForms.Core.Standard.Controls
             {
                 TextColor = Color.Black,
                 VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Center
+                HorizontalTextAlignment = TextAlignment.Center,
+                FontAttributes = FontAttributes.Bold,
+                LineBreakMode = LineBreakMode.NoWrap
             };
             Content = _lbl;
 
