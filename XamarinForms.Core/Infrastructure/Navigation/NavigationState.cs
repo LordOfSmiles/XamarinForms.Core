@@ -5,6 +5,11 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 {
     public static class NavigationState
     {
+        public static void AddNavigationParameterByPageType(Type pageType, string key)
+        {
+            AddNavigationParameterByPageType(pageType, key, true);
+        }
+    
         public static void AddNavigationParameterByPageType(Type pageType, string key, object value)
         {
             if (!NavigationParameters.ContainsKey(pageType))

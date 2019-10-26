@@ -61,11 +61,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
     <Folder Include="Effects\" />
     <Folder Include="Extensions\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Images\" />
     <Folder Include="Infrastructure\" />
   </ItemGroup>
   <ItemGroup>
@@ -90,12 +88,6 @@
     <Compile Include="Renderers\PageWithLeftToolbarButtonsRenderer.cs" />
     <Compile Include="Renderers\SegmentedControlRenderer.cs" />
     <Compile Include="Renderers\ViewCellWithoutHighlightingRenderer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Images\checked_checkbox.png" />
-    <BundleResource Include="Images\checked_checkbox%402x.png" />
-    <BundleResource Include="Images\unchecked_checkbox.png" />
-    <BundleResource Include="Images\unchecked_checkbox%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Core\Xamarin.Core.csproj">

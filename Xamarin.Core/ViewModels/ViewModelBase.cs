@@ -14,14 +14,12 @@ namespace Xamarin.Core.ViewModels
 
         public virtual Task OnAppearingAsync(IDictionary<string, object> navigationParameters)
         {
-            NeedWatchPropertyChanged = true;
-
             return Task.FromResult<object>(null);
         }
 
         public virtual void OnDisappearing()
         {
-            NeedWatchPropertyChanged = false;
+
         }
 
         protected virtual void OnElementPropertyChanged(string propertyName)
@@ -29,26 +27,32 @@ namespace Xamarin.Core.ViewModels
 
         }
 
+        protected void AddRemovePropertyChangedHandler(bool needEnable)
+        {
+            if (needEnable)
+            {
+                PropertyChanged += ViewModelBase_PropertyChanged;
+            }
+            else
+            {
+                PropertyChanged -= ViewModelBase_PropertyChanged;
+            }
+        }
+
         #endregion
 
-#region Fields
+        #region Fields
 
-protected bool IsNavigationInProgress = false;
+        protected bool IsNavigationInProgress = false;
 
-#endregion
+        #endregion
 
         #region Constructor
 
         protected ViewModelBase()
         {
-            PropertyChanged += ViewModelBase_PropertyChanged;
+
         }
-
-        #endregion
-
-        #region Properties
-
-        protected bool NeedWatchPropertyChanged { get; set; } = true;
 
         #endregion
 
@@ -56,8 +60,7 @@ protected bool IsNavigationInProgress = false;
 
         private void ViewModelBase_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (NeedWatchPropertyChanged)
-                OnElementPropertyChanged(e.PropertyName);
+            OnElementPropertyChanged(e.PropertyName);
         }
 
         #endregion
@@ -66,7 +69,7 @@ protected bool IsNavigationInProgress = false;
         {
             if (disposing)
             {
-                PropertyChanged -= ViewModelBase_PropertyChanged;
+                AddRemovePropertyChangedHandler(false);
             }
         }
 

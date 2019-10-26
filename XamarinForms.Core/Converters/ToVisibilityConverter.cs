@@ -40,7 +40,9 @@ namespace XamarinForms.Core.Standard.Converters
                 : string.Empty;
 
             if (stringParameter.Contains("i"))
+            {
                 isVisible = !isVisible;
+            }
 
             return isVisible;
         }
