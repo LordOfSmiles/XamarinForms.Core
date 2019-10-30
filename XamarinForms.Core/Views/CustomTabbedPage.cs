@@ -7,13 +7,6 @@ namespace XamarinForms.Core.Standard.Views
 {
     public abstract class CustomTabbedPage : TabbedPage
     {
-        protected CustomTabbedPage()
-        {
-            Current = this;
-        }
-        
-        public static TabbedPage Current { get; private set; }
-        
         protected override void OnPropertyChanged(string propertyName = null)
         {
             if (propertyName == nameof(SelectedItem) || propertyName == nameof(CurrentPage))
