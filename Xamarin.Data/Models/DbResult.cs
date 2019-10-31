@@ -1,6 +1,6 @@
 using System;
 
-namespace Xamarin.Data.Standard.Models
+namespace Xamarin.Data.Models
 {
     public class DbResult
     {
