@@ -20,7 +20,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
         #region Fields
 
-        private readonly Stack<Page> _pages = new Stack<Page>();
+        //private readonly Stack<Page> _pages = new Stack<Page>();
 
         #endregion
 
@@ -40,7 +40,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 Application.Current.ModalPopped += CurrentOnModalPopped;
             }
 
-            _pages.Push(root);
+            //_pages.Push(root);
 
             if (root != null)
             {
@@ -53,68 +53,78 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
         private void OnPushed(object sender, NavigationEventArgs e)
         {
-            if (_pages.Any())
+            if (Navigation.NavigationStack.Any())
             {
-                var vm = _pages.Peek().BindingContext as ViewModelBase;
+                var prevPageIndex = Navigation.NavigationStack.Count - 1;
+                if (prevPageIndex < 0)
+                    prevPageIndex = 0;
+                
+                var prevPage = Navigation.NavigationStack.ElementAtOrDefault(prevPageIndex);
+                var vm = prevPage?.BindingContext as ViewModelBase;
                 vm?.OnDisappearing();
             }
 
             if (e.Page != null)
             {
                 var vm = e.Page.BindingContext as ViewModelBase;
-                if (vm != null)
-                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Page.GetType()));
-
-                _pages.Push(e.Page);
+                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Page.GetType()));
             }
         }
 
         private void OnPopped(object sender, NavigationEventArgs e)
         {
-            if (_pages.Count > 1)
+            var poppedPage = e.Page;
+            ViewModelBase poppedPageVm = null;
+            switch (poppedPage)
             {
-                var page = _pages.Pop();
-                var vm = page.BindingContext as ViewModelBase;
-                if (vm != null)
-                {
-                    vm.OnDisappearing();
-                    vm.Dispose();
-                }
+                case TabbedPage tabbedPage:
 
-                page.BindingContext = null;
+                    break;
+                case Page p:
+                    poppedPageVm = p.BindingContext as ViewModelBase;
+                    break;
             }
 
-            if (_pages.Any())
+            if (poppedPageVm != null)
             {
-                var page = _pages.Peek();
+                poppedPageVm.OnDisappearing();
+                poppedPageVm.Dispose();
+            }
 
+            if (poppedPage != null)
+                poppedPage.BindingContext = null;
+            
+            
+            if (Navigation.NavigationStack.Any())
+            {
+                var pageToBack = Navigation.NavigationStack.Last();
+                
                 ViewModelBase vm = null;
                 Type pageType = null;
 
-                switch (page)
+                switch (pageToBack)
                 {
                     case TabbedPage tabbedPage:
                         vm = tabbedPage.CurrentPage?.BindingContext as ViewModelBase;
                         pageType = tabbedPage.CurrentPage?.GetType();
                         break;
                     case Page p:
-                        vm = page.BindingContext as ViewModelBase;
-                        pageType = page.GetType();
+                        vm = p.BindingContext as ViewModelBase;
+                        pageType = p.GetType();
                         break;
                 }
 
-                if (vm != null)
-                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(pageType));
+                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(pageType));
             }
         }
-
+        
         private void OnPoppedToRoot(object sender, NavigationEventArgs e)
         {
-            if (_pages.Count > 1)
+            if (Navigation.NavigationStack.Count > 1)
             {
-                while (_pages.Count != 1)
+                for (int i = Navigation.NavigationStack.Count-1; i >=0; i--)
                 {
-                    var page = _pages.Pop();
+                    var page = Navigation.NavigationStack[i];
                     var vm = page.BindingContext as ViewModelBase;
                     if (vm != null)
                     {
@@ -124,13 +134,25 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
                     page.BindingContext = null;
                 }
+                
+//                while (_pages.Count != 1)
+//                {
+//                    var page = _pages.Pop();
+//                    var vm = page.BindingContext as ViewModelBase;
+//                    if (vm != null)
+//                    {
+//                        vm.OnDisappearing();
+//                        vm.Dispose();
+//                    }
+//
+//                    page.BindingContext = null;
+//                }
             }
 
             if (e.Page != null)
             {
                 var vm = e.Page.BindingContext as ViewModelBase;
-                if (vm != null)
-                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Page.GetType()));
+                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Page.GetType()));
             }
         }
 
@@ -154,9 +176,9 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                     vm.OnAppearingAsync(NavigationState.GetParametersByPageType(modalPage.GetType()));
             }
 
-            if (_pages.Any())
+            if (Navigation.NavigationStack.Any())
             {
-                var page = _pages.Peek();
+                var page = Navigation.NavigationStack.Last();
                 var vm = page.BindingContext as ViewModelBase;
                 if (vm != null)
                     vm.OnDisappearing();
@@ -188,9 +210,9 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 e.Modal.BindingContext = null;
             }
 
-            if (_pages.Any())
+            if (Navigation.NavigationStack.Any())
             {
-                var page = _pages.Peek();
+                var page = Navigation.NavigationStack.Last();
 
                 ViewModelBase vm = null;
                 Type pageType = null;
@@ -207,8 +229,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                         break;
                 }
 
-                if (vm != null)
-                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(pageType));
+                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(pageType));
             }
         }
 
@@ -216,6 +237,28 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
         protected virtual void Dispose(bool disposing)
         {
+            if (Navigation?.NavigationStack != null)
+            {
+                foreach (var page in Navigation.NavigationStack)
+                {
+                    switch (page)
+                    {
+                        case TabbedPage tabbedPage:
+                            foreach (var tabbedPageChild in tabbedPage.Children)
+                            {
+                                ClearBindingContext(tabbedPageChild);
+                            }
+                            var tabbedVm = tabbedPage.BindingContext as ViewModelBase;
+                            tabbedVm?.OnDisappearing();
+                            tabbedPage.BindingContext = null;
+                            break;
+                        case Page p:
+                            ClearBindingContext(p);
+                            break;
+                    }
+                }
+            }
+
             if (disposing)
             {
                 Pushed -= OnPushed;
@@ -236,5 +279,20 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
             
             GC.SuppressFinalize(this);
         }
+        
+        #region Private Methods
+
+        private static void ClearBindingContext(Page page)
+        {
+            var vm = page.BindingContext as ViewModelBase;
+            if (vm != null)
+            {
+                vm.OnDisappearing();
+                vm.Dispose();
+            }
+            page.BindingContext = null;
+        }
+        
+        #endregion
     }
 }
