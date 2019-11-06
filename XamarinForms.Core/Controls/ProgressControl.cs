@@ -113,7 +113,7 @@ namespace XamarinForms.Core.Standard.Controls
 
         private void FillGridColumn()
         {
-            var actualWidth = this.Width;
+            var actualWidth = Width;
 
             double filledValue;
 
@@ -133,7 +133,10 @@ namespace XamarinForms.Core.Standard.Controls
             if (filledValue < 0)
                 filledValue = 0;
 
-            this.ColumnDefinitions[0].Width = new GridLength(filledValue, GridUnitType.Absolute);
+            if (filledValue > 1)
+                filledValue = 1;
+
+            ColumnDefinitions[0].Width = new GridLength(filledValue, GridUnitType.Absolute);
         }
 
         #endregion

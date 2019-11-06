@@ -8,6 +8,18 @@ namespace XamarinForms.Core.Standard.Controls
 {
     public sealed class BadgeView : Grid
     {
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            if (!height.Equals(-1) && !width.Equals(-1))
+            {
+                _badge.HeightRequest = height;
+                _badge.MinimumWidthRequest = width;
+                _badge.CornerRadius = height / 2;
+            }
+            
+            base.OnSizeAllocated(width, height);
+        }
+
         #region Fields
 
         private readonly BoxView _badge;
@@ -20,12 +32,7 @@ namespace XamarinForms.Core.Standard.Controls
             VerticalOptions = LayoutOptions.Center;
             HorizontalOptions = LayoutOptions.Center;
 
-            _badge = new BoxView()
-            {
-                CornerRadius = 11,
-                HeightRequest = 22,
-                MinimumWidthRequest = 22,
-            };
+            _badge = new BoxView();
             Children.Add(_badge);
 
             _lbl = new Label()
