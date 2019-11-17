@@ -3,6 +3,11 @@ using Xamarin.Forms;
 using System.Linq;
 using System;
 using Xamarin.Core.ViewModels;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using Application = Xamarin.Forms.Application;
+using NavigationPage = Xamarin.Forms.NavigationPage;
+using Page = Xamarin.Forms.Page;
 
 namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 {
@@ -28,7 +33,9 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
             : base(root)
         {
             if (isModal)
+            {
                 return;
+            }
 
             Pushed += OnPushed;
             Popped += OnPopped;
