@@ -37,7 +37,7 @@ namespace XamarinForms.Core.Standard.Controls
 
             _lbl = new Label()
             {
-                Margin = new Thickness(4, 0),
+                Margin = new Thickness(5, 0),
                 FontSize = FontHelper.LabelSmall,
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
