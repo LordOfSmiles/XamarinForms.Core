@@ -40,12 +40,8 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 Application.Current.ModalPushed += CurrentOnModalPushed;
                 Application.Current.ModalPopped += CurrentOnModalPopped;
             }
-            
-            if (root != null)
-            {
-                var vm = root.BindingContext as ViewModelBase;
-                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(root.GetType()));
-            }
+
+            AppearViewModel(root);
         }
 
         #region Handlers
@@ -121,7 +117,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
         {
             if (Navigation.NavigationStack.Count > 1)
             {
-                for (int i = Navigation.NavigationStack.Count-1; i >=0; i--)
+                for (var i = Navigation.NavigationStack.Count-1; i >=0; i--)
                 {
                     var page = Navigation.NavigationStack[i];
                     var vm = page.BindingContext as ViewModelBase;
@@ -221,6 +217,34 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
         #endregion
         
         #region Private Methods
+
+        private static void AppearViewModel(Page page)
+        {
+            if (page == null)
+                return;
+
+            if (page is NavigationPage navPage)
+            {
+                AppearViewModel(navPage.CurrentPage);
+            }
+            else if (page is MasterDetailPage masterDetailPage)
+            {
+                AppearViewModel(masterDetailPage.Detail);
+                AppearViewModel(masterDetailPage.Master);
+            }
+            else if (page is TabbedPage tabbedPage)
+            {
+                if (tabbedPage.Children.Any())
+                {
+                    AppearViewModel(tabbedPage.Children.First());
+                }
+            }
+            else
+            {
+                var viewModel = page.BindingContext as ViewModelBase;
+                viewModel?.OnAppearingAsync(NavigationState.GetParametersByPageType(page.GetType()));
+            }
+        }
 
         private static void DisappearViewModel(Page page)
         {

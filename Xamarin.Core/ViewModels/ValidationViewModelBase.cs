@@ -23,8 +23,6 @@ namespace Xamarin.Core.ViewModels
 
         #region INotifyDataErrorInfo implementation
 
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged = (s, e) => { };
-
         public IEnumerable<string> GetErrors(string propertyName)
         {
             if (_errorMessages.ContainsKey(propertyName))
@@ -40,16 +38,14 @@ namespace Xamarin.Core.ViewModels
 
             return string.Empty;
         }
-
-
-
+        
         public bool HasErrors => _errorMessages.Any();
 
         public Dictionary<string, List<string>> ErrorMessages => _errorMessages;
 
         private void OnErrorsChanged(string propertyName)
         {
-            ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));
+            
         }
 
         protected PropertyValidation AddValidationFor(string propertyName)
