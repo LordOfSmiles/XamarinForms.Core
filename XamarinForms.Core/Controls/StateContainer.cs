@@ -7,30 +7,30 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Controls
 {
-    //[ContentProperty("Conditions")]
-    public sealed class StateContainer : Grid
+    [ContentProperty("Conditions")]
+    public sealed class StateContainer : ContentView
     {
         #region Constrcutor
 
         public StateContainer()
         {
-            if (Conditions != null)
-                Conditions.CollectionChanged += ConditionsOnCollectionChanged;
+//            if (Conditions != null)
+//                Conditions.CollectionChanged += ConditionsOnCollectionChanged;
         }
 
-        private void ConditionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
-        {
-            if (Conditions != null)
-            {
-                Children.Clear();
-                foreach (var stateCondition in Conditions.Where(x => x.Content != null))
-                {
-                    stateCondition.Content.IsVisible = false;
-
-                    Children.Add(stateCondition.Content);
-                }
-            }
-        }
+//        private void ConditionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+//        {
+//            if (Conditions != null)
+//            {
+//                Children.Clear();
+//                foreach (var stateCondition in Conditions.Where(x => x.Content != null))
+//                {
+//                    stateCondition.Content.IsVisible = false;
+//
+//                    Children.Add(stateCondition.Content);
+//                }
+//            }
+//        }
 
         #endregion
 
@@ -80,21 +80,18 @@ namespace XamarinForms.Core.Standard.Controls
 
             try
             {
-                foreach (var stateCondition in Conditions.Where(x => x.Content != null))
-                {
-                    stateCondition.Content.IsVisible = false;
-                }
-
-                var state = Conditions.Where(x => x.State != null && x.Content != null)
-                                      .FirstOrDefault(stateCondition => string.Compare(stateCondition.State.ToString(), newState, StringComparison.OrdinalIgnoreCase) == 0);
+                var state = Conditions
+                    .Where(x => x.State != null && x.Content != null)
+                    .FirstOrDefault(stateCondition => string.Compare(stateCondition.State.ToString(), newState, StringComparison.OrdinalIgnoreCase) == 0);
+                
                 if (state != null)
                 {
-                    state.Content.IsVisible = true;
+                    Content = state.Content;
                 }
             }
-            catch (Exception e)
+            catch
             {
-                Debug.WriteLine($"StateContainer ChooseStateProperty {newState} error: {e}");
+                //
             }
         }
 

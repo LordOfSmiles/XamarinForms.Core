@@ -14,15 +14,15 @@ namespace XamarinForms.Core.Standard.Controls
 
         public HeaderControl()
         {
-            BackgroundColor = DeviceService.OnPlatform(Color.FromRgb(238, 238, 238), Color.Transparent);
-            Padding = DeviceService.OnPlatform(new Thickness(16, 6, 8, 6), new Thickness(16, 8, 8, 8));
+            BackgroundColor = DeviceHelper.OnPlatform(Color.FromRgb(238, 238, 238), Color.Transparent);
+            Padding = DeviceHelper.OnPlatform(new Thickness(16, 6, 8, 6), new Thickness(16, 8, 8, 8));
 
             _lblHeader = new Label()
             {
                 VerticalOptions = LayoutOptions.Center,
                 FontSize = FontHelper.LabelSmall,
-                FontAttributes = DeviceService.OnPlatform(FontAttributes.None, FontAttributes.Bold),
-                TextColor = DeviceService.OnPlatform(Color.FromRgb(110, 110, 110), Color.Accent)
+                FontAttributes = DeviceHelper.OnPlatform(FontAttributes.None, FontAttributes.Bold),
+                TextColor = DeviceHelper.OnPlatform(Color.FromRgb(110, 110, 110), Color.Accent)
             };
 
             Content = _lblHeader;
@@ -109,7 +109,7 @@ namespace XamarinForms.Core.Standard.Controls
         public static readonly BindableProperty HeaderPaddingProperty = BindableProperty.Create(nameof(HeaderPadding), 
             typeof(Thickness), 
             typeof(HeaderControl),
-            DeviceService.OnPlatform(new Thickness(16,6,8,6),new Thickness(16,8,8,8)), 
+            DeviceHelper.OnPlatform(new Thickness(16,6,8,6),new Thickness(16,8,8,8)), 
             propertyChanged: OnHeaderPaddingChanged);
 
         public Thickness HeaderPadding

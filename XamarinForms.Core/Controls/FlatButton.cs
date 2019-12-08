@@ -16,7 +16,7 @@ namespace XamarinForms.Core.Standard.Controls
 
         public FlatButton()
         {
-            Padding = DeviceService.OnPlatform(new Thickness(8), new Thickness(8, 12));
+            Padding = DeviceHelper.OnPlatform(new Thickness(8), new Thickness(8, 12));
             BackgroundColor = Color.White;
 
             _lbl = new Label()

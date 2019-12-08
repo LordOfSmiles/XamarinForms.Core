@@ -18,17 +18,17 @@ namespace XamarinForms.Core.Standard.Controls
 
         public FlatButtonWithImage()
         {
-            ColumnDefinitions.Add(new ColumnDefinition() {Width = DeviceService.OnPlatform(25, 24)});
+            ColumnDefinitions.Add(new ColumnDefinition() {Width = DeviceHelper.OnPlatform(25, 24)});
             ColumnDefinitions.Add(new ColumnDefinition());
 
-            Padding = DeviceService.OnPlatform(new Thickness(16, 8, 8, 8), new Thickness(16, 12, 8, 12));
-            ColumnSpacing = DeviceService.OnPlatform(16, 32);
+            Padding = DeviceHelper.OnPlatform(new Thickness(16, 8, 8, 8), new Thickness(16, 12, 8, 12));
+            ColumnSpacing = DeviceHelper.OnPlatform(16, 32);
             BackgroundColor = Color.White;
 
             _img = new Image()
             {
-                HeightRequest = DeviceService.OnPlatform(25, 24),
-                WidthRequest = DeviceService.OnPlatform(25, 24),
+                HeightRequest = DeviceHelper.OnPlatform(25, 24),
+                WidthRequest = DeviceHelper.OnPlatform(25, 24),
                 VerticalOptions = LayoutOptions.Center
             };
             SetColumn(_img, 0);

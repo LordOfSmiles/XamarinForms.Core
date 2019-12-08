@@ -2,7 +2,7 @@
 
 namespace XamarinForms.Core.Standard.Services
 {
-    public static class DeviceService
+    public static class DeviceHelper
     {
         //public static T OnPlatformAndIdiom()
         //{

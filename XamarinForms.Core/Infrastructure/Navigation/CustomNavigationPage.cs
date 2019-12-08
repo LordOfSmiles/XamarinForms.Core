@@ -50,7 +50,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
         {
             if (Navigation.NavigationStack.Any())
             {
-                var prevPageIndex = Navigation.NavigationStack.Count - 1;
+                var prevPageIndex = Navigation.NavigationStack.Count - 2;
                 if (prevPageIndex < 0)
                     prevPageIndex = 0;
                 

@@ -21,8 +21,8 @@ namespace XamarinForms.Core.Standard.Controls
             ColumnDefinitions.Add(new ColumnDefinition() {Width = GridLength.Auto});
             ColumnDefinitions.Add(new ColumnDefinition());
 
-            Padding = DeviceService.OnPlatform(new Thickness(16, 8, 8, 8), new Thickness(16, 12, 8, 12));
-            ColumnSpacing = DeviceService.OnPlatform(16, 32);
+            Padding = DeviceHelper.OnPlatform(new Thickness(16, 8, 8, 8), new Thickness(16, 12, 8, 12));
+            ColumnSpacing = DeviceHelper.OnPlatform(16, 32);
             BackgroundColor = Color.White;
 
             _lblGlyph = new Label()
