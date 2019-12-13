@@ -49,7 +49,6 @@ namespace XamarinForms.Core.Standard.Views
             var vm = page.BindingContext as ViewModelBase;
             if (vm != null)
             {
-                vm.OnDisappearing();
                 vm.Dispose();
             }
             

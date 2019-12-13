@@ -7,33 +7,8 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Controls
 {
-    [ContentProperty("Conditions")]
-    public sealed class StateContainer : ContentView
+    public sealed class StateContainer : Grid
     {
-        #region Constrcutor
-
-        public StateContainer()
-        {
-//            if (Conditions != null)
-//                Conditions.CollectionChanged += ConditionsOnCollectionChanged;
-        }
-
-//        private void ConditionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
-//        {
-//            if (Conditions != null)
-//            {
-//                Children.Clear();
-//                foreach (var stateCondition in Conditions.Where(x => x.Content != null))
-//                {
-//                    stateCondition.Content.IsVisible = false;
-//
-//                    Children.Add(stateCondition.Content);
-//                }
-//            }
-//        }
-
-        #endregion
-
         #region Propreties
 
         public ObservableCollection<StateCondition> Conditions => _conditions ?? (_conditions = new ObservableCollection<StateCondition>());
@@ -83,10 +58,21 @@ namespace XamarinForms.Core.Standard.Controls
                 var state = Conditions
                     .Where(x => x.State != null && x.Content != null)
                     .FirstOrDefault(stateCondition => string.Compare(stateCondition.State.ToString(), newState, StringComparison.OrdinalIgnoreCase) == 0);
-                
+
                 if (state != null)
                 {
-                    Content = state.Content;
+                    var existState = Children.FirstOrDefault(x => x == state.Content);
+                    if (existState == null)
+                    {
+                        Children.Add(state.Content);
+                    }
+
+                    foreach (var view in Children.Where(x=>x!=state.Content))
+                    {
+                        view.IsVisible = false;
+                    }
+
+                    state.Content.IsVisible = true;
                 }
             }
             catch

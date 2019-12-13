@@ -16,12 +16,7 @@ namespace Xamarin.Core.ViewModels
         {
             return Task.FromResult<object>(null);
         }
-
-        public virtual void OnDisappearing()
-        {
-
-        }
-
+        
         protected virtual void OnElementPropertyChanged(string propertyName)
         {
 

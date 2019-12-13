@@ -11,7 +11,7 @@ using Page = Xamarin.Forms.Page;
 
 namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 {
-    public class CustomNavigationPage : NavigationPage, IDisposable
+    public sealed class CustomNavigationPage : NavigationPage, IDisposable
     {
         public void ChangeAppBarColor(Color backgroundColor)
         {
@@ -33,7 +33,6 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
             Pushed += OnPushed;
             Popped += OnPopped;
-            PoppedToRoot += OnPoppedToRoot;
 
             if (Application.Current != null)
             {
@@ -48,17 +47,6 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 
         private void OnPushed(object sender, NavigationEventArgs e)
         {
-            if (Navigation.NavigationStack.Any())
-            {
-                var prevPageIndex = Navigation.NavigationStack.Count - 2;
-                if (prevPageIndex < 0)
-                    prevPageIndex = 0;
-                
-                var prevPage = Navigation.NavigationStack.ElementAtOrDefault(prevPageIndex);
-                if (prevPage != null)
-                    DisappearViewModel(prevPage);
-            }
-
             if (e.Page != null)
             {
                 var vm = e.Page.BindingContext as ViewModelBase;
@@ -80,11 +68,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                     break;
             }
 
-            if (poppedPageVm != null)
-            {
-                poppedPageVm.OnDisappearing();
-                poppedPageVm.Dispose();
-            }
+            poppedPageVm?.Dispose();
 
             if (poppedPage != null)
                 poppedPage.BindingContext = null;
@@ -123,7 +107,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                     var vm = page.BindingContext as ViewModelBase;
                     if (vm != null)
                     {
-                        vm.OnDisappearing();
+                       // vm.OnDisappearing();
                         vm.Dispose();
                     }
 
@@ -156,27 +140,13 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                 var vm = modalPage.BindingContext as ViewModelBase;
                 vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(modalPage.GetType()));
             }
-
-            if (Navigation.NavigationStack.Any())
-            {
-                var lastPageOnScreen = Navigation.NavigationStack.Last();
-                if (lastPageOnScreen is TabbedPage tabbedPage)
-                {
-                    foreach (var tabbedPageChild in tabbedPage.Children)
-                    {
-                        DisappearViewModel(tabbedPageChild);
-                    }
-                }
-               
-                DisappearViewModel(lastPageOnScreen);
-            }
         }
 
         private void CurrentOnModalPopped(object sender, ModalPoppedEventArgs e)
         {
             if (e.Modal != null)
             {
-                Page modalPage = null;
+                Page modalPage;
 
                 if (e.Modal is NavigationPage navPage)
                 {
@@ -187,7 +157,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                     modalPage = e.Modal;
                 }
 
-                ClearBindingContext(modalPage);
+                DisposeViewModel(modalPage);
                 e.Modal.BindingContext = null;
             }
 
@@ -218,56 +188,40 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
         
         #region Private Methods
 
-        private static void AppearViewModel(Page page)
+        private static void DisposeViewModel(Page page)
         {
-            if (page == null)
-                return;
-
-            if (page is NavigationPage navPage)
+            if (page is TabbedPage tabbedPage)
             {
-                AppearViewModel(navPage.CurrentPage);
-            }
-            else if (page is MasterDetailPage masterDetailPage)
-            {
-                AppearViewModel(masterDetailPage.Detail);
-                AppearViewModel(masterDetailPage.Master);
-            }
-            else if (page is TabbedPage tabbedPage)
-            {
-                if (tabbedPage.Children.Any())
+                foreach (var child in tabbedPage.Children)
                 {
-                    AppearViewModel(tabbedPage.Children.First());
+                    DisposeViewModel(child);
                 }
+
+                var vm = tabbedPage.BindingContext as ViewModelBase;
+                if (vm != null)
+                {
+                    vm.Dispose();
+                }
+
+                tabbedPage.BindingContext = null;
             }
             else
             {
-                var viewModel = page.BindingContext as ViewModelBase;
-                viewModel?.OnAppearingAsync(NavigationState.GetParametersByPageType(page.GetType()));
+                var vm = page.BindingContext as ViewModelBase;
+                if (vm != null)
+                {
+                    vm.Dispose();
+                }
+
+                page.BindingContext = null;
             }
         }
 
-        private static void DisappearViewModel(Page page)
-        {
-            var vm = page.BindingContext as ViewModelBase;
-            vm?.OnDisappearing();
-        }
-
-        private static void ClearBindingContext(Page page)
-        {
-            var vm = page.BindingContext as ViewModelBase;
-            if (vm != null)
-            {
-                vm.OnDisappearing();
-                vm.Dispose();
-            }
-            page.BindingContext = null;
-        }
-        
         #endregion
 
         #region IDisposable
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (Navigation?.NavigationStack != null)
             {
@@ -278,18 +232,17 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
                         case TabbedPage tabbedPage:
                             foreach (var tabbedPageChild in tabbedPage.Children)
                             {
-                                ClearBindingContext(tabbedPageChild);
+                                DisposeViewModel(tabbedPageChild);
                             }
                             var tabbedVm = tabbedPage.BindingContext as ViewModelBase;
                             if (tabbedVm != null)
                             {
-                                tabbedVm.OnDisappearing();
                                 tabbedVm.Dispose();
                             }
                             tabbedPage.BindingContext = null;
                             break;
                         case Page p:
-                            ClearBindingContext(p);
+                            DisposeViewModel(p);
                             break;
                     }
                 }
@@ -299,7 +252,6 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
             {
                 Pushed -= OnPushed;
                 Popped -= OnPopped;
-                PoppedToRoot -= OnPoppedToRoot;
 
                 if (Application.Current != null)
                 {

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:XamarinForms.Core.Standard.Converters;assembly=XamarinForms.Core"
+    x:Class="XamarinForms.Core.Controls.MaterialEntry"
+    x:Name="parent">
+    
+        <Frame HasShadow="False"
+               Padding="0"
+               CornerRadius="4"
+               BackgroundColor="#10000000">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="1" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <Grid Padding="0,5">
+                    <ContentView Padding="16,0">
+                        <Label x:Name="hiddenLabel"
+                               FontSize="10"
+                               IsVisible="False"
+                               VerticalOptions="Start" HorizontalOptions="Start"
+                               />
+                    </ContentView>
+
+                    <ContentView Padding="16">
+                        <Label x:Name="entryFieldPlaceholder"
+                               Text="{Binding Source={x:Reference entryField}, Path=Placeholder}"
+                               TextColor="{Binding Source={x:Reference entryField}, Path=PlaceholderColor}"
+                               IsVisible="{Binding Source={x:Reference entryField}, Path=IsVisible, Converter={x:Static converters:ToVisibilityConverter.Current}, ConverterParameter='i'}"
+                               FontSize="{Binding Source={x:Reference entryField}, Path=FontSize}"
+                               HorizontalTextAlignment="{Binding Source={x:Reference entryField}, Path=HorizontalTextAlignment}"
+                               LineBreakMode="TailTruncation"
+                               />
+                    </ContentView>
+
+                    <ContentView Padding="16,0,16,5">
+                        <Entry x:Name="entryField"
+                                                                  Text="{Binding Text, Mode=TwoWay}"
+                                                                  FontSize="{Binding EntryFontSize}"
+                                                                  VerticalOptions="EndAndExpand"
+                                                                  HorizontalTextAlignment="{Binding EntryTextAlignment}"
+                                                                  MaxLength="{Binding EntryMaxLength}"
+                                                                  IsVisible="False"
+                                                                  IsEnabled="{Binding Source={x:Reference parent}, Path=IsEnabled}"
+                                                                  TextColor="Black"
+                                                                  IsSpellCheckEnabled="False"
+                                                                  />
+                    </ContentView>
+
+                </Grid>
+
+                <BoxView x:Name="bottomBorder"
+                         Grid.Row="1"
+                         Color="#1000000"
+                         HeightRequest="1"
+                         />
+
+                <BoxView x:Name="hiddenBottomBorder"
+                         Color="Gray"
+                         Grid.Row="1"
+                         HeightRequest="1"
+                         WidthRequest="0"
+                         HorizontalOptions="Start"
+                         />
+
+                <ContentView x:Name="assistiveTextBlock"
+                             Grid.Row="2"
+                             BackgroundColor="Transparent"
+                             Padding="16,0">
+                    <Label x:Name="assistiveText"
+                           VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"
+                           TextColor="#60000000"
+                           FontSize="12"
+                           IsVisible="{Binding AssistiveTextIsVisible}"
+                           />
+                </ContentView>
+
+            </Grid>
+        </Frame>
+</ContentView>
