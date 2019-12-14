@@ -187,6 +187,34 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
         #endregion
         
         #region Private Methods
+        
+        private static void AppearViewModel(Page page)
+        {
+            if (page == null)
+                return;
+
+            if (page is NavigationPage navPage)
+            {
+                AppearViewModel(navPage.CurrentPage);
+            }
+            else if (page is MasterDetailPage masterDetailPage)
+            {
+                AppearViewModel(masterDetailPage.Detail);
+                AppearViewModel(masterDetailPage.Master);
+            }
+            else if (page is TabbedPage tabbedPage)
+            {
+                if (tabbedPage.Children.Any())
+                {
+                    AppearViewModel(tabbedPage.Children.First());
+                }
+            }
+            else
+            {
+                var viewModel = page.BindingContext as ViewModelBase;
+                viewModel?.OnAppearingAsync(NavigationState.GetParametersByPageType(page.GetType()));
+            }
+        }
 
         private static void DisposeViewModel(Page page)
         {
