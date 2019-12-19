@@ -11,7 +11,7 @@ namespace XamarinForms.Core.Standard.Controls
     {
         #region Propreties
 
-        public ObservableCollection<StateCondition> Conditions => _conditions ?? (_conditions = new ObservableCollection<StateCondition>());
+        public ObservableCollection<StateCondition> Conditions => _conditions ??= new ObservableCollection<StateCondition>();
         private ObservableCollection<StateCondition> _conditions;
 
         #endregion
