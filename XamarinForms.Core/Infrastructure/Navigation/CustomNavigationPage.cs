@@ -11,7 +11,7 @@ using Page = Xamarin.Forms.Page;
 
 namespace XamarinForms.Core.Standard.Infrastructure.Navigation
 {
-    public sealed class CustomNavigationPage : NavigationPage, IDisposable
+    public class CustomNavigationPage : NavigationPage, IDisposable
     {
         public void ChangeAppBarColor(Color backgroundColor)
         {
