@@ -16,29 +16,6 @@ namespace Xamarin.Core.ViewModels
         {
             return Task.FromResult<object>(null);
         }
-        
-        protected virtual void OnElementPropertyChanged(string propertyName)
-        {
-
-        }
-
-        protected void AddRemovePropertyChangedHandler(bool needEnable)
-        {
-            if (needEnable)
-            {
-                PropertyChanged += ViewModelBase_PropertyChanged;
-            }
-            else
-            {
-                PropertyChanged -= ViewModelBase_PropertyChanged;
-            }
-        }
-
-        #endregion
-
-        #region Fields
-
-        protected bool IsNavigationInProgress = false;
 
         #endregion
 
@@ -50,21 +27,25 @@ namespace Xamarin.Core.ViewModels
         }
 
         #endregion
+        
+        #region Properties
 
-        #region Handlers
-
-        private void ViewModelBase_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public bool IsAsyncOperationInProgress
         {
-            OnElementPropertyChanged(e.PropertyName);
+            get => _isAsyncOperationInProgress;
+            protected set => SetProperty(ref _isAsyncOperationInProgress, value);
         }
-
+        private bool _isAsyncOperationInProgress;
+        
         #endregion
+
+        #region IDisposable
 
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
-                AddRemovePropertyChangedHandler(false);
+               
             }
         }
 
@@ -73,6 +54,8 @@ namespace Xamarin.Core.ViewModels
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        #endregion
     }
 }
 

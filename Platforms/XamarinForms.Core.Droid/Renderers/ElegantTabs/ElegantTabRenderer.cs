@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Resources;
 using Android.Content;
 using Android.Support.Design.BottomNavigation;
 using Android.Support.Design.Internal;
@@ -12,6 +13,7 @@ using Xamarin.Forms.Platform.Android.AppCompat;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using XamarinForms.Core.Controls.ElegantTabs;
 using XamarinForms.Core.Droid.Extensions;
+using ResourceManager = Xamarin.Forms.Platform.Android.ResourceManager;
 using TabbedPage = Xamarin.Forms.TabbedPage;
 using View = Android.Views.View;
 
