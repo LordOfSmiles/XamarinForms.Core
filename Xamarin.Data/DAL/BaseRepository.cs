@@ -5,29 +5,6 @@ namespace Xamarin.Data.DAL
 {
     public abstract class BaseRepository
     {
-        #region Protected And Public Methods
-
-        protected void InitRepository()
-        {
-            var db = _sqLite.GetConnection();
-            
-            CreateDb(db);
-
-            if (CurrentDbVersion > 0)
-            {
-                var dbVersion = GetDbVersion(db);
-
-                if (dbVersion != CurrentDbVersion)
-                {
-                    MigrateTables(db, dbVersion);
-
-                    SetDbVersion(db, CurrentDbVersion);
-                }
-            }
-        }
-
-        #endregion
-
         #region Fields
 
         protected readonly object LockObject = new object();
@@ -90,7 +67,29 @@ namespace Xamarin.Data.DAL
             return db.ExecuteScalar<int>("PRAGMA user_version");
         }
 
-        protected SQLiteConnection GetConnection() => _sqLite.GetConnection();
+        protected SQLiteConnection GetConnection()
+        {
+            var db = _sqLite.GetConnection();
+            
+            var dbVersion = GetDbVersion(db);
+
+            var needCreateTable = dbVersion == 0 || dbVersion < CurrentDbVersion;
+            var needMigrateTable = dbVersion < CurrentDbVersion;
+
+            if (needCreateTable)
+            {
+                CreateDb(db);
+                
+                if (needMigrateTable)
+                {
+                    MigrateTables(db, dbVersion);
+                }
+                
+                SetDbVersion(db, CurrentDbVersion);
+            }
+
+            return db;
+        }
 
         protected void OnDataChanged() => _sqLite.OnDataChanged();
 
