@@ -5,7 +5,7 @@ namespace Xamarin.Data.DAL
 {
     public abstract class BaseRepository
     {
-        protected SQLiteConnection Connection => _parent.Db;
+        protected SQLiteConnection Connection => _container.Connection;
         
         #region Fields
 
@@ -15,18 +15,18 @@ namespace Xamarin.Data.DAL
 
         #region Dependencies
 
-        private readonly BaseRepositoryContainer _parent;
+        private readonly BaseRepositoryContainer _container;
 
         #endregion
 
-        protected BaseRepository(BaseRepositoryContainer parent)
+        protected BaseRepository(BaseRepositoryContainer container)
         {
-            _parent = parent;
-
-            parent.AddRepository(this);
+            _container = container;
         }
 
         #region Virtual and abstract Methods
+        
+        public abstract int CurrentVersion { get; }
 
         public abstract void CreateTables(SQLiteConnection db);
 
@@ -36,7 +36,7 @@ namespace Xamarin.Data.DAL
 
         protected void OnDataChanged()
         {
-            _parent.OnDataChanged();
+            _container.OnDataChanged();
         }
     }
 }

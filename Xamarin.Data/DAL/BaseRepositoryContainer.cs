@@ -1,19 +1,29 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using SQLite;
 
 namespace Xamarin.Data.DAL
 {
     public abstract class BaseRepositoryContainer
     {
-        public void AddRepository(BaseRepository repository)
+        public T GetRepository<T>()
+            where T : BaseRepository
         {
-            _repositories.Add(repository);
+            if (Repositories.ContainsKey(typeof(T)))
+            {
+                return Repositories[typeof(T)] as T;
+            }
+            else
+            {
+                return default(T);
+            }
         }
-        
+
         #region Fields
 
-        private readonly List<BaseRepository> _repositories = new List<BaseRepository>();
+        protected readonly Dictionary<Type, BaseRepository> Repositories = new Dictionary<Type, BaseRepository>();
         
         #endregion
         
@@ -33,7 +43,7 @@ namespace Xamarin.Data.DAL
 
         #endregion
 
-        public SQLiteConnection Db
+        public SQLiteConnection Connection
         {
             get
             {
@@ -42,22 +52,26 @@ namespace Xamarin.Data.DAL
                     _db = _sqLite.GetConnection();
                     var dbVersion = GetDbVersion(_db);
 
-                    var needCreateTable = dbVersion == 0 || dbVersion < CurrentDbVersion;
-                    var needMigrateTable = dbVersion < CurrentDbVersion;
+                    var currentVersion = 0;
+                    if (Repositories.Any())
+                        currentVersion = Repositories.Sum(x => x.Value.CurrentVersion);
+
+                    var needCreateTable = dbVersion == 0 || dbVersion < currentVersion;
+                    var needMigrateTable = dbVersion < currentVersion;
 
                     if (needCreateTable)
                     {
-                        foreach (var repository in _repositories)
+                        foreach (var repository in Repositories)
                         {
-                            repository.CreateTables(_db);
+                            repository.Value.CreateTables(_db);
 
                             if (needMigrateTable)
                             {
-                                repository.MigrateTables(_db, CurrentDbVersion);
+                                repository.Value.MigrateTables(_db, repository.Value.CurrentVersion);
                             }
                         }
 
-                        SetDbVersion(_db, CurrentDbVersion);
+                        SetDbVersion(_db, currentVersion);
                     }
                 }
 
@@ -82,8 +96,6 @@ namespace Xamarin.Data.DAL
         {
             return db.ExecuteScalar<int>("PRAGMA user_version");
         }
-        
-        protected abstract int CurrentDbVersion { get;}
 
         public void OnDataChanged() => _sqLite.OnDataChanged();
     }
