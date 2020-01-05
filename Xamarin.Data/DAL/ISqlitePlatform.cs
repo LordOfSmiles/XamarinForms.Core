@@ -3,7 +3,7 @@ using SQLite;
 
 namespace Xamarin.Data.DAL
 {
-    public interface ISqlite
+    public interface ISqlitePlatform
     {
         SQLiteConnection GetConnection();
 
