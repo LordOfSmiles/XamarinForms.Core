@@ -22,9 +22,9 @@ namespace XamarinForms.Core.Standard.Controls
 
         #region Icon
 
-        public static readonly BindableProperty ImageNameProperty = BindableProperty.Create(nameof(ImageName), typeof(ImageSource), typeof(FloatingActionButtonView));
+        public static readonly BindableProperty ImageNameProperty = BindableProperty.Create(nameof(Image), typeof(ImageSource), typeof(FloatingActionButtonView));
 
-        public ImageSource ImageName
+        public ImageSource Image
         {
             get => (ImageSource)GetValue(ImageNameProperty);
             set => SetValue(ImageNameProperty, value);
@@ -70,7 +70,7 @@ namespace XamarinForms.Core.Standard.Controls
 
         #region Size
 
-        public static readonly BindableProperty SizeProperty = BindableProperty.Create("Size", typeof(FloatingActionButtonSize), typeof(FloatingActionButtonView), FloatingActionButtonSize.Normal);
+        public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(FloatingActionButtonSize), typeof(FloatingActionButtonView), FloatingActionButtonSize.Normal);
 
         public FloatingActionButtonSize Size
         {

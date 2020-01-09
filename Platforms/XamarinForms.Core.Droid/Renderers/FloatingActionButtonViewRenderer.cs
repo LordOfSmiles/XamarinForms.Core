@@ -12,11 +12,10 @@ using Android.Support.Design.Widget;
 using XamarinForms.Core.Droid.Helpers;
 using System.Threading.Tasks;
 
-[assembly: ExportRenderer(typeof(FloatingActionButtonView), typeof(FloatingActionButtonViewRenderer))]
 
 namespace XamarinForms.Core.Droid.Renderers
 {
-    public sealed class FloatingActionButtonViewRenderer : ViewRenderer<FloatingActionButtonView, FrameLayout>
+    public sealed class FloatingActionButtonViewRenderer : ViewRenderer<FloatingActionButtonView, FloatingActionButton>
     {
         #region fields
 
@@ -24,10 +23,14 @@ namespace XamarinForms.Core.Droid.Renderers
         private const int FAB_HEIGHT_NORMAL = 56;
         private const int FAB_HEIGHT_MINI = 40;
 
-        private const int FAB_FRAME_HEIGHT_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_NORMAL;
-        private const int FAB_FRAME_WIDTH_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_NORMAL;
-        private const int FAB_MINI_FRAME_HEIGHT_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_MINI;
-        private const int FAB_MINI_FRAME_WIDTH_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_MINI;
+        // private const int FAB_FRAME_HEIGHT_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_NORMAL;
+        // private const int FAB_FRAME_WIDTH_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_NORMAL;
+        // private const int FAB_MINI_FRAME_HEIGHT_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_MINI;
+        // private const int FAB_MINI_FRAME_WIDTH_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_MINI;
+        private const int FAB_FRAME_HEIGHT_WITH_PADDING = FAB_HEIGHT_NORMAL;
+        private const int FAB_FRAME_WIDTH_WITH_PADDING =  FAB_HEIGHT_NORMAL;
+        private const int FAB_MINI_FRAME_HEIGHT_WITH_PADDING =  FAB_HEIGHT_MINI;
+        private const int FAB_MINI_FRAME_WIDTH_WITH_PADDING = FAB_HEIGHT_MINI;
         private FloatingActionButton _fab;
 
         #endregion
@@ -62,29 +65,22 @@ namespace XamarinForms.Core.Droid.Renderers
 
             if (Control == null)
             {
-                float d = Context.Resources.DisplayMetrics.Density;
-                var margin = (int)(MARGIN_DIPS * d); // margin in pixels
+                //float d = Context.Resources.DisplayMetrics.Density;
+                //var margin = (int) (MARGIN_DIPS * d); // margin in pixels
 
                 _fab = new FloatingActionButton(Context);
-                var lp = new FrameLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
-                lp.Gravity = GravityFlags.CenterVertical | GravityFlags.CenterHorizontal;
-                lp.LeftMargin = margin;
-                lp.TopMargin = margin;
-                lp.BottomMargin = margin;
-                lp.RightMargin = margin;
-                _fab.LayoutParameters = lp;
+                //var lp = new FrameLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
+                //lp.Gravity = GravityFlags.CenterVertical | GravityFlags.CenterHorizontal;
+                //_fab.LayoutParameters = lp;
+                _fab.SetBackgroundColor(Element.ColorNormal.ToAndroid());
 
                 Element.Show = Show;
                 Element.Hide = Hide;
 
                 SetFabSize(Element.Size);
-               await SetFabImage(Element.ImageName);
+                await SetFabImage(Element.Image);
 
-                var frame = new FrameLayout(Context);
-                frame.RemoveAllViews();
-                frame.AddView(_fab);
-
-                SetNativeControl(frame);
+                SetNativeControl(_fab);
             }
 
             if (e.OldElement != null)
@@ -124,10 +120,10 @@ namespace XamarinForms.Core.Droid.Renderers
             {
                 Tracker.UpdateLayout();
             }
-            //else if (e.PropertyName == FloatingActionButtonView.ColorNormalProperty.PropertyName)
-            //{
-            //    fab.ColorNormal = Element.ColorNormal.ToAndroid();
-            //}
+            else if (e.PropertyName == FloatingActionButtonView.ColorNormalProperty.PropertyName)
+            {
+                _fab.SetBackgroundColor(Element.ColorNormal.ToAndroid());
+            }
             //else if (e.PropertyName == FloatingActionButtonView.ColorPressedProperty.PropertyName)
             //{
             //    fab.ColorPressed = Element.ColorPressed.ToAndroid();
@@ -138,7 +134,7 @@ namespace XamarinForms.Core.Droid.Renderers
             //}
             else if (e.PropertyName == FloatingActionButtonView.ImageNameProperty.PropertyName)
             {
-                await SetFabImage(Element.ImageName);
+                await SetFabImage(Element.Image);
             }
             else if (e.PropertyName == FloatingActionButtonView.SizeProperty.PropertyName)
             {
@@ -166,15 +162,15 @@ namespace XamarinForms.Core.Droid.Renderers
         {
             if (size == FloatingActionButtonSize.Mini)
             {
-                _fab.Size = (int)(40 * Context.Resources.DisplayMetrics.Density);
-                Element.WidthRequest = FAB_MINI_FRAME_WIDTH_WITH_PADDING;
-                Element.HeightRequest = FAB_MINI_FRAME_HEIGHT_WITH_PADDING;
+                _fab.Size = (int)(FAB_HEIGHT_MINI * Context.Resources.DisplayMetrics.Density);
+                Element.WidthRequest = FAB_HEIGHT_MINI;
+                Element.HeightRequest = FAB_HEIGHT_MINI;
             }
             else
             {
-                _fab.Size = (int)(56 * Context.Resources.DisplayMetrics.Density);
-                Element.WidthRequest = FAB_FRAME_WIDTH_WITH_PADDING;
-                Element.HeightRequest = FAB_FRAME_HEIGHT_WITH_PADDING;
+                _fab.Size = (int) (FAB_HEIGHT_NORMAL * Context.Resources.DisplayMetrics.Density);
+                Element.WidthRequest = FAB_HEIGHT_NORMAL;
+                Element.HeightRequest =FAB_HEIGHT_NORMAL;
             }
         }
 

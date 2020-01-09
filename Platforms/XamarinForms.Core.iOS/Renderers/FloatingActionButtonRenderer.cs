@@ -124,7 +124,7 @@ namespace XamarinForms.Core.iOS.Renderers
 
         private void SetImage()
         {
-            SetImageAsync(Element.ImageName, Control);
+            SetImageAsync(Element.Image, Control);
         }
 
         private void UpdateEnabled()

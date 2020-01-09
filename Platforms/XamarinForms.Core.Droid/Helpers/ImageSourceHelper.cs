@@ -23,14 +23,14 @@ namespace XamarinForms.Core.Droid.Helpers
 
             IImageSourceHandler handler = null;
 
-            if (imageSource is FileImageSource)
+            if (imageSource is FileImageSource fileImageSource)
             {
-                if (((FileImageSource)imageSource).File != null)
+                if (fileImageSource.File != null)
                     handler = new FileImageSourceHandler();
             }
-            else if (imageSource is UriImageSource)
+            else if (imageSource is UriImageSource uriImageSource)
             {
-                if (((UriImageSource)imageSource).Uri != null)
+                if (uriImageSource.Uri != null)
                     handler = new ImageLoaderSourceHandler();
             }
             else if (imageSource is StreamImageSource)
