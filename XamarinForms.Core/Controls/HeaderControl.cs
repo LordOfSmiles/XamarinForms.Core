@@ -8,7 +8,7 @@ namespace XamarinForms.Core.Standard.Controls
     {
         public HeaderControl()
         {
-            BackgroundColor = DeviceHelper.OnPlatform(Color.FromRgb(238, 238, 238), Color.Transparent);
+            BackgroundColor = DeviceHelper.OnPlatform(Color.FromHex("#EEEEEE"), Color.FromHex("#EDEDED"));
             Padding = DeviceHelper.OnPlatform(new Thickness(16, 6, 8, 6), new Thickness(16, 8, 8, 8));
             VerticalOptions = LayoutOptions.Center;
             FontSize = FontHelper.LabelSmall;
