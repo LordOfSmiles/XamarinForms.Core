@@ -17,7 +17,7 @@ namespace XamarinForms.Core.Standard.Controls
             HorizontalTextAlignment = TextAlignment.Center;
             FontAttributes = FontAttributes.Bold;
             LineBreakMode = LineBreakMode.NoWrap;
-            
+
             var gesture = new TapGestureRecognizer();
             gesture.Tapped += GestureOnTapped;
             GestureRecognizers.Add(gesture);
@@ -31,7 +31,7 @@ namespace XamarinForms.Core.Standard.Controls
 
         public ICommand Command
         {
-            get => (ICommand)GetValue(CommandProperty);
+            get => (ICommand) GetValue(CommandProperty);
             set => SetValue(CommandProperty, value);
         }
 
@@ -55,17 +55,21 @@ namespace XamarinForms.Core.Standard.Controls
 
         private async void GestureOnTapped(object sender, EventArgs e)
         {
-            if (Command != null && Command.CanExecute(CommandParameter))
+            if (BackgroundColor.Equals(Color.Transparent) || BackgroundColor.IsDefault)
+            {
+                Command?.Execute(CommandParameter);
+            }
+            else
             {
                 var startColor = BackgroundColor;
                 var endColor = startColor.MultiplyAlpha(0.7);
-            
+
                 await this.ColorTo(endColor, 100);
-                Command.Execute(CommandParameter);
+                Command?.Execute(CommandParameter);
                 await this.ColorTo(startColor, 100);
             }
-        }
 
-        #endregion
+            #endregion
+        }
     }
 }

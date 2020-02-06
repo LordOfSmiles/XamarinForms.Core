@@ -73,7 +73,6 @@
     <Compile Include="Infrastructure\StoreReview\StoreReviewImplementation.cs" />
     <Compile Include="Infrastructure\ToastService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderers\ElegantTabs\ElegantTabsRenderer.cs" />
     <Compile Include="Renderers\FloatingActionButtonRenderer.cs" />
     <Compile Include="Renderers\LabeledTextField.cs" />
     <Compile Include="Effects\PickerWithoutBorderEffect.cs" />

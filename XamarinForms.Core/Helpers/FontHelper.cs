@@ -6,6 +6,6 @@ namespace XamarinForms.Core.Standard.Helpers
 {
     public static class FontHelper
     {
-        public static double LabelSmall => DeviceHelper.OnPlatform(14, Device.GetNamedSize(NamedSize.Small, typeof(Label)));
+        public static double  LabelSmall => DeviceHelper.OnPlatform(14, Device.GetNamedSize(NamedSize.Small, typeof(Label)));
     }
 }
