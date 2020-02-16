@@ -1,290 +1,353 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace XamarinForms.Core.Controls
 {
     public partial class MaterialEntry
-	{
+    {
+        #region Public Methods
+
+        public void SetFocus()
+        {
+            txt?.Focus();
+        }
+        
+        #endregion
+
         public MaterialEntry()
-		{
+        {
             InitializeComponent();
 
-            entryField.BindingContext = this;
-            assistiveText.BindingContext = this;
+            //Todo убрать
+            txt.BindingContext = this;
 
-            if (string.IsNullOrEmpty(Text))
-            {
-                hiddenLabel.TranslationY = 10;
-            }
-            
-            entryField.Focused += async (s, a) =>
-            {
-                hiddenBottomBorder.Color = AccentColor;
-                hiddenLabel.TextColor = Color.Gray;
-                hiddenLabel.IsVisible = true;
-
-                if (string.IsNullOrEmpty(entryField.Text))
-                {
-                    entryField.Placeholder = null;
-                    entryField.IsVisible = true;
-
-                    // animate both at the same time
-                    await Task.WhenAll(
-                        hiddenBottomBorder.LayoutTo(new Rectangle(bottomBorder.X, bottomBorder.Y, bottomBorder.Width, bottomBorder.Height), 200),
-                        hiddenLabel.FadeTo(1, 60),
-                        hiddenLabel.TranslateTo(hiddenLabel.TranslationX, entryField.Y - entryField.Height + 4, 200, Easing.CubicInOut)
-                     );
-                }
-                else
-                {
-                    await hiddenBottomBorder.LayoutTo(new Rectangle(bottomBorder.X, bottomBorder.Y, bottomBorder.Width, bottomBorder.Height), 200);
-                }
-            };
-
-            entryField.Unfocused += async (s, a) =>
-            {
-                hiddenLabel.TextColor = Color.Gray;
-
-                if (string.IsNullOrEmpty(entryField.Text))
-                {
-                    entryField.Placeholder = Placeholder;
-                    entryField.IsVisible = false;
-
-                    // animate both at the same time
-                    await Task.WhenAll(
-                        hiddenBottomBorder.LayoutTo(new Rectangle(bottomBorder.X, bottomBorder.Y, 0, bottomBorder.Height), 200),
-                        hiddenLabel.FadeTo(0, 180),
-                        hiddenLabel.TranslateTo(hiddenLabel.TranslationX, entryField.Y, 200, Easing.CubicInOut)
-                     );
-                }
-                else
-                {
-                    await hiddenBottomBorder.LayoutTo(new Rectangle(bottomBorder.X, bottomBorder.Y, 0, bottomBorder.Height), 200);
-                }
-            };
+            txt.Focused += OnTxtFocused;
+            txt.Unfocused += OnTxtUnfocused;
 
             GestureRecognizers.Add(new TapGestureRecognizer
             {
-                Command = new Command(() =>
-                {
-                    entryField.Focus();
-                })
+                Command = new Command(() => txt.Focus())
             });
-
-           
         }
-        
-        public static BindableProperty TextProperty = BindableProperty.Create(
+
+        public event EventHandler<TappedEventArgs> TrailingIconTapped;
+
+        #region Bindable Properties
+
+        #region Text
+
+        public static readonly BindableProperty TextProperty = BindableProperty.Create(
             nameof(Text),
             typeof(string),
             typeof(MaterialEntry),
             defaultBindingMode: BindingMode.TwoWay,
-            propertyChanged: (bindable, oldVal, newVal)=>
+            propertyChanged: OnTextChanged);
+
+        public string Text
+        {
+            get => (string) GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
+        }
+
+        private static void OnTextChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = bindable as MaterialEntry;
+            if (ctrl == null)
+                return;
+
+            if (newValue != null)
             {
-                if (!(bindable is MaterialEntry view))
+                var input = newValue.ToString();
+                if (!string.IsNullOrEmpty(input))
                 {
-                    return;
+                    ctrl.txt.IsVisible = true;
+                    ctrl.lblSmallPlaceholder.IsVisible = true;
+                    ctrl.lblBigPlaceholder.IsVisible = false;
                 }
+                else
+                {
+                    ctrl.txt.IsVisible = false;
+                    ctrl.lblSmallPlaceholder.IsVisible = false;
+                    ctrl.lblBigPlaceholder.IsVisible = true;
+                }
+            }
+            else
+            {
+                ctrl.txt.IsVisible = false;
+                ctrl.lblSmallPlaceholder.IsVisible = false;
+                ctrl.lblBigPlaceholder.IsVisible = true;
+            }
+        }
 
-                string newValue = (string)newVal;
-                
-                view.entryField.IsVisible = true;
-                view.hiddenLabel.IsVisible = true;
-            });
+        #endregion
 
-        public static BindableProperty PlaceholderProperty = BindableProperty.Create(
+        #region Placeholder
+
+        public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(
             nameof(Placeholder),
             typeof(string),
             typeof(MaterialEntry),
-            defaultBindingMode: BindingMode.TwoWay,
-            propertyChanged: (bindable, oldVal, newVal) =>
-            {
-                if (!(bindable is MaterialEntry view))
-                {
-                    return;
-                }
-
-                view.entryField.Placeholder = (string)newVal;
-                view.hiddenLabel.Text = (string)newVal;
-            });
-
-      
-
-        public static BindableProperty KeyboardProperty = BindableProperty.Create(
-            nameof(Keyboard),
-            typeof(Keyboard),
-            typeof(MaterialEntry),
-            defaultValue: Keyboard.Default,
-            propertyChanged: (bindable, oldVal, newVal) =>
-            {
-                if (!(bindable is MaterialEntry view))
-                {
-                    return;
-                }
-
-                view.entryField.Keyboard = (Keyboard)newVal;
-            });
-
-        public static BindableProperty AccentColorProperty = BindableProperty.Create(
-            nameof(AccentColor),
-            typeof(Color),
-            typeof(MaterialEntry),
-            defaultValue: Color.Accent);
-
-        public static BindableProperty AssistiveTextProperty = BindableProperty.Create(
-            nameof(AssistiveText),
-            typeof(string),
-            typeof(MaterialEntry),
-            defaultBindingMode: BindingMode.TwoWay,
-            propertyChanged: (bindable, oldVal, newVal) =>
-            {
-                if (!(bindable is MaterialEntry view))
-                {
-                    return;
-                }
-
-                view.assistiveText.Text = (string)newVal;
-            });
-
-        public static BindableProperty AssistiveTextIsVisibleProperty = BindableProperty.Create(
-            nameof(AssistiveTextIsVisible),
-            typeof(bool),
-            typeof(MaterialEntry),
-            defaultValue: false,
-            defaultBindingMode: BindingMode.TwoWay,
-            propertyChanged: (bindable, oldVal, newVal)=>
-            {
-                if (!(bindable is MaterialEntry view))
-                {
-                    return;
-                }
-
-                SetAssistiveTextBackground(view);
-            });
-
-        public static BindableProperty ParentColorProperty = BindableProperty.Create(
-            nameof(ParentColor),
-            typeof(Color),
-            typeof(MaterialEntry),
-            defaultValue: Color.Transparent,
-            propertyChanged: (bindable, oldVal, newVal) =>
-            {
-                if (!(bindable is MaterialEntry view))
-                {
-                    return;
-                }
-
-                SetAssistiveTextBackground(view);
-            });
-
-        public static BindableProperty EntryTextAlignmentProperty = BindableProperty.Create(
-            nameof(EntryTextAlignment),
-            typeof(TextAlignment),
-            typeof(MaterialEntry),
-            defaultValue: TextAlignment.Start,
-            defaultBindingMode: BindingMode.TwoWay);
-
-        public static BindableProperty EntryFontSizeProperty = BindableProperty.Create(
-            nameof(EntryFontSize),
-            typeof(double),
-            typeof(MaterialEntry),
-            defaultValue: 16d,
-            defaultBindingMode: BindingMode.TwoWay);
-
-        public static BindableProperty EntryMaxLengthProperty = BindableProperty.Create(
-            nameof(EntryMaxLength),
-            typeof(int),
-            typeof(MaterialEntry),
-            defaultValue: int.MaxValue,
-            defaultBindingMode: BindingMode.TwoWay);
-        
-
-        public static BindableProperty UnderlineColorProperty = BindableProperty.Create(
-            nameof(UnderlineColor),
-            typeof(Color),
-            typeof(MaterialEntry),
-            defaultValue: Color.DodgerBlue,
-            propertyChanged: (bindable, oldVal, newVal) =>
-            {
-                if (!(bindable is MaterialEntry view))
-                {
-                    return;
-                }
-
-                view.bottomBorder.Color = (Color)newVal;
-            });
-        
-        public string Text
-        {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
-        }
+            propertyChanged: OnPlaceholderChanged);
 
         public string Placeholder
         {
-            get { return (string)GetValue(PlaceholderProperty); }
-            set { SetValue(PlaceholderProperty, value); }
+            get => (string) GetValue(PlaceholderProperty);
+            set => SetValue(PlaceholderProperty, value);
         }
-        
-        public Keyboard Keyboard
+
+        private static void OnPlaceholderChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            get { return (Keyboard)GetValue(KeyboardProperty); }
-            set { SetValue(KeyboardProperty, value); }
+            var ctrl = bindable as MaterialEntry;
+            if (ctrl == null)
+                return;
+
+            var placeholder = newValue.ToString() ?? "";
+
+            ctrl.lblBigPlaceholder.Text = placeholder;
+            ctrl.lblSmallPlaceholder.Text = placeholder;
         }
+
+        #endregion
+
+        #region IsPassword
+
+        public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(
+            nameof(IsPassword),
+            typeof(bool),
+            typeof(MaterialEntry),
+            false,
+            propertyChanged: OnPasswordChanged);
+
+        public bool IsPassword
+        {
+            get => (bool) GetValue(IsPasswordProperty);
+            set => SetValue(IsPasswordProperty, value);
+        }
+
+        private static void OnPasswordChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = bindable as MaterialEntry;
+            if (ctrl == null)
+                return;
+
+            ctrl.txt.IsPassword = (bool) newValue;
+        }
+
+        #endregion
+
+        #region AccentColor
+
+        public static readonly BindableProperty AccentColorProperty = BindableProperty.Create(
+            nameof(AccentColor),
+            typeof(Color),
+            typeof(MaterialEntry),
+            Color.Black);
 
         public Color AccentColor
         {
-            get { return (Color)GetValue(AccentColorProperty); }
-            set { SetValue(AccentColorProperty, value); }
+            get => (Color) GetValue(AccentColorProperty);
+            set => SetValue(AccentColorProperty, value);
         }
 
-        public string AssistiveText
+        private static void OnAccentColorChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            get { return (string)GetValue(AssistiveTextProperty); }
-            set { SetValue(AssistiveTextProperty, value); }
+            var ctrl = bindable as MaterialEntry;
+            if (ctrl == null)
+                return;
+
+            ctrl.brdFocused.Color = (Color) newValue;
         }
 
-        public bool AssistiveTextIsVisible
-        {
-            get { return (bool)GetValue(AssistiveTextIsVisibleProperty); }
-            set { SetValue(AssistiveTextIsVisibleProperty, value); }
-        }
+        #endregion
 
-        public Color ParentColor
-        {
-            get { return (Color)GetValue(ParentColorProperty); }
-            set { SetValue(ParentColorProperty, value); }
-        }
+        #region EntryFontSize
 
-        public TextAlignment EntryTextAlignment
-        {
-            get { return (TextAlignment)GetValue(EntryTextAlignmentProperty); }
-            set { SetValue(EntryTextAlignmentProperty, value); }
-        }
+        public static readonly BindableProperty EntryFontSizeProperty = BindableProperty.Create(
+            nameof(EntryFontSize),
+            typeof(double),
+            typeof(MaterialEntry),
+            16d,
+            propertyChanged: OnEntryFontSizeChanged);
 
         public double EntryFontSize
         {
-            get { return (double)GetValue(EntryFontSizeProperty); }
-            set { SetValue(EntryFontSizeProperty, value); }
+            get => (double) GetValue(EntryFontSizeProperty);
+            set => SetValue(EntryFontSizeProperty, value);
         }
+
+        private static void OnEntryFontSizeChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = bindable as MaterialEntry;
+            if (ctrl == null)
+                return;
+
+            var fontSize = (double) newValue;
+
+            ctrl.lblBigPlaceholder.FontSize = fontSize;
+            ctrl.txt.FontSize = fontSize;
+        }
+
+        #endregion
+
+        #region EntryMaxLength
+
+        public static readonly BindableProperty EntryMaxLengthProperty = BindableProperty.Create(
+            nameof(EntryMaxLength),
+            typeof(int),
+            typeof(MaterialEntry),
+            int.MaxValue,
+            propertyChanged: OnEntryMaxLengthChanged);
 
         public int EntryMaxLength
         {
-            get { return (int)GetValue(EntryMaxLengthProperty); }
-            set { SetValue(EntryMaxLengthProperty, value); }
-        }
-        
-        public Color UnderlineColor
-        {
-            get { return (Color)GetValue(UnderlineColorProperty); }
-            set { SetValue(UnderlineColorProperty, value); }
+            get => (int) GetValue(EntryMaxLengthProperty);
+            set => SetValue(EntryMaxLengthProperty, value);
         }
 
-        private static void SetAssistiveTextBackground(MaterialEntry view)
+        private static void OnEntryMaxLengthChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            view.assistiveTextBlock.BackgroundColor = /*view.AssistiveTextIsVisible ? Color.White : */view.ParentColor;
+            var ctrl = bindable as MaterialEntry;
+            if (ctrl == null)
+                return;
+
+            ctrl.txt.MaxLength = (int) newValue;
         }
+
+        #endregion
+
+        #region HasValidationErrors
+
+        public static readonly BindableProperty HasValidationErrorsProperty = BindableProperty.Create(
+            nameof(HasValidationErrors),
+            typeof(bool),
+            typeof(MaterialEntry),
+            false,
+            propertyChanged: OnHasValidationErrorsChanged);
+
+        public bool HasValidationErrors
+        {
+            get => (bool) GetValue(HasValidationErrorsProperty);
+            set => SetValue(HasValidationErrorsProperty, value);
+        }
+
+        private static void OnHasValidationErrorsChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = bindable as MaterialEntry;
+            if (ctrl == null)
+                return;
+
+            var hasErrors = (bool) newValue;
+            if (!hasErrors)
+            {
+                ctrl.brdFocused.Color = ctrl.AccentColor;
+            }
+            else
+            {
+                ctrl.brdFocused.Color = Color.Red;
+            }
+        }
+
+        #endregion
+        
+        #region ReturnKeyCommand
+
+        public static readonly BindableProperty ReturnCommandProperty=BindableProperty.Create(
+            nameof(ReturnCommand),
+            typeof(ICommand),
+            typeof(MaterialEntry),
+            propertyChanged:OnReturnCommandChanged);
+
+        public ICommand ReturnCommand
+        {
+            get => (ICommand) GetValue(ReturnCommandProperty);
+            set => SetValue(ReturnCommandProperty, value);
+        }
+
+        private static void OnReturnCommandChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = bindable as MaterialEntry;
+            if (ctrl == null)
+                return;
+
+            ctrl.txt.ReturnCommand = newValue as ICommand;
+        }
+        
+        #endregion
+
+        #endregion
+
+        #region Properties
+        
+        public Keyboard Keyboard
+        {
+            set => txt.Keyboard = value;
+        }
+
+        public ReturnType ReturnType
+        {
+            set => txt.ReturnType = value;
+        }
+
+        #endregion
+
+        #region Handlers
+
+        private async void OnTxtFocused(object sender, FocusEventArgs e)
+        {
+            lblSmallPlaceholder.IsVisible = true;
+            lblBigPlaceholder.IsVisible = false;
+
+            if (string.IsNullOrEmpty(txt.Text))
+            {
+                txt.Placeholder = null;
+                txt.IsVisible = true;
+
+                // animate both at the same time
+                await Task.WhenAll(
+                    brdFocused.LayoutTo(new Rectangle(brdUnfocused.X, brdUnfocused.Y, brdUnfocused.Width, brdUnfocused.Height), 200),
+                    lblSmallPlaceholder.FadeTo(1, 60),
+                    lblSmallPlaceholder.TranslateTo(lblSmallPlaceholder.TranslationX, txt.Y - txt.Height + 4, 200, Easing.CubicInOut)
+                );
+            }
+            else
+            {
+                await brdFocused.LayoutTo(new Rectangle(brdUnfocused.X, brdUnfocused.Y, brdUnfocused.Width, brdUnfocused.Height), 200);
+            }
+        }
+
+        private async void OnTxtUnfocused(object sender, FocusEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txt.Text))
+            {
+                txt.Placeholder = Placeholder;
+                txt.IsVisible = false;
+                lblBigPlaceholder.IsVisible = true;
+
+                var animations = new List<Task>();
+
+                if (!HasValidationErrors)
+                {
+                    animations.Add(brdFocused.LayoutTo(new Rectangle(brdUnfocused.X, brdUnfocused.Y, 0, brdUnfocused.Height), 200));
+                }
+
+                animations.Add(lblSmallPlaceholder.FadeTo(0, 180));
+                animations.Add(lblSmallPlaceholder.TranslateTo(lblSmallPlaceholder.TranslationX, txt.Y, 200, Easing.CubicInOut));
+                
+                // animate both at the same time
+                await Task.WhenAll(animations);
+            }
+            else
+            {
+                if (!HasValidationErrors)
+                {
+                    await brdFocused.LayoutTo(new Rectangle(brdUnfocused.X, brdUnfocused.Y, 0, brdUnfocused.Height), 200);
+                }
+            }
+        }
+
+        #endregion
     }
 }

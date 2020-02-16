@@ -16,6 +16,9 @@
     <Compile Remove="Controls\ShapeView.cs" />
     <Compile Remove="Controls\ContentControl.cs" />
     <Compile Remove="Controls\ControlContainer.cs" />
+    <Compile Update="Controls\MaterialDatePicker.xaml.cs">
+      <DependentUpon>MaterialFilledDatePicker.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\Interfaces\" />

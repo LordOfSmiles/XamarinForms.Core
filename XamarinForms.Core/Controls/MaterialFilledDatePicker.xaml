@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Grid
+    x:Class="XamarinForms.Core.Controls.MaterialFilledDatePicker"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="ctrlRoot"
+    RowSpacing="0">
+    <Grid.GestureRecognizers>
+        <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"/>
+    </Grid.GestureRecognizers>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="{OnPlatform iOS=48, Android=54}" />
+        <RowDefinition Height="{OnPlatform iOS=1, Android=2}" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <BoxView
+        Grid.Row="0"
+        Grid.RowSpan="2"
+        CornerRadius="4,4,0,0"
+        Color="#14000000" />
+
+    <Grid
+        Grid.Row="0"
+        Padding="16,0,12,0"
+        ColumnSpacing="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="{OnPlatform iOS=25, Android=24}" />
+        </Grid.ColumnDefinitions>
+
+        <Label
+            x:Name="lblBigPlaceholder"
+            FontSize="16"
+            LineBreakMode="TailTruncation"
+            VerticalOptions="Center" />
+
+        <StackLayout
+            x:Name="stkContent"
+            Grid.Column="0"
+            IsVisible="false"
+            Spacing="0"
+            VerticalOptions="Center">
+
+            <Label x:Name="lblSmallPlaceholder" FontSize="10" />
+
+            <Label
+                x:Name="lblContent"
+                FontSize="16"
+                TextColor="#DE000000" />
+        </StackLayout>
+
+        <Image
+            Grid.Column="1"
+            HeightRequest="{OnPlatform iOS=25,
+                                       Android=24}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="{OnPlatform iOS=25,
+                                      Android=24}" />
+    </Grid>
+
+    <BoxView
+        x:Name="brdSeparator"
+        Grid.Row="1"
+        HeightRequest="{OnPlatform iOS=1,
+                                   Android=2}"
+        Color="#14000000" />
+</Grid>

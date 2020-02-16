@@ -225,6 +225,7 @@
     <Compile Include="Infrastructure\DeviceThemeService.cs" />
     <Compile Include="Infrastructure\StoreReview\StoreReviewImplementation.cs" />
     <Compile Include="Infrastructure\ToastService.cs" />
+    <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
     <Compile Include="Renderers\MaterialEntryRenderer.cs" />
     <Compile Include="Renderers\IAdvInterstitial.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

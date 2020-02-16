@@ -1,85 +1,74 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentView 
-    xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:XamarinForms.Core.Standard.Converters;assembly=XamarinForms.Core"
+<?xml version="1.0" encoding="UTF-8" ?>
+<Grid
     x:Class="XamarinForms.Core.Controls.MaterialEntry"
-    x:Name="parent">
-    
-        <Frame HasShadow="False"
-               Padding="0"
-               CornerRadius="4"
-               BackgroundColor="#10000000">
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
+    x:Name="ctrlRoot"
+    RowSpacing="0">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="{OnPlatform iOS=48, Android=54}" />
+        <RowDefinition Height="{OnPlatform iOS=1, Android=2}" />
+    </Grid.RowDefinitions>
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="1" />
-                    <RowDefinition Height="20" />
-                </Grid.RowDefinitions>
+    <BoxView
+        x:Name="bx"
+        Grid.Row="0"
+        Grid.RowSpan="2"
+        CornerRadius="4,4,0,0"
+        Color="#14000000" />
 
-                <Grid Padding="0,5">
-                    <ContentView Padding="16,0">
-                        <Label x:Name="hiddenLabel"
-                               FontSize="10"
-                               IsVisible="False"
-                               VerticalOptions="Start" HorizontalOptions="Start"
-                               />
-                    </ContentView>
+    <Grid
+        Grid.Row="0"
+        Padding="16,0,12,0"
+        ColumnSpacing="12">
+        
+        <Label
+            x:Name="lblSmallPlaceholder"
+            FontSize="10"
+            HorizontalOptions="Start"
+            IsVisible="False"
+            VerticalOptions="Start" />
+        
+        <Label
+            x:Name="lblBigPlaceholder"
+            FontSize="16"
+            HorizontalTextAlignment="{Binding Source={x:Reference txt}, Path=HorizontalTextAlignment}"
+            LineBreakMode="TailTruncation"
+            TextColor="{Binding Source={x:Reference txt}, Path=PlaceholderColor}"
+            VerticalOptions="Center" />
 
-                    <ContentView Padding="16">
-                        <Label x:Name="entryFieldPlaceholder"
-                               Text="{Binding Source={x:Reference entryField}, Path=Placeholder}"
-                               TextColor="{Binding Source={x:Reference entryField}, Path=PlaceholderColor}"
-                               IsVisible="{Binding Source={x:Reference entryField}, Path=IsVisible, Converter={x:Static converters:ToVisibilityConverter.Current}, ConverterParameter='i'}"
-                               FontSize="{Binding Source={x:Reference entryField}, Path=FontSize}"
-                               HorizontalTextAlignment="{Binding Source={x:Reference entryField}, Path=HorizontalTextAlignment}"
-                               LineBreakMode="TailTruncation"
-                               />
-                    </ContentView>
+        <ContentView>
+            <controls:BorderlessEntry
+                x:Name="txt"
+                FontSize="16"
+                IsEnabled="{Binding Source={x:Reference ctrlRoot}, Path=IsEnabled}"
+                IsSpellCheckEnabled="False"
+                IsVisible="False"
+                Text="{Binding Path=Text, Mode=TwoWay}"
+                TextColor="#DE000000"
+                VerticalOptions="EndAndExpand" />
+            <ContentView.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,0,0,6" />
+                    <On Platform="Android" Value="0,0,0,10" />
+                </OnPlatform>
+            </ContentView.Padding>
+        </ContentView>
+    </Grid>
 
-                    <ContentView Padding="16,0,16,5">
-                        <Entry x:Name="entryField"
-                                                                  Text="{Binding Text, Mode=TwoWay}"
-                                                                  FontSize="{Binding EntryFontSize}"
-                                                                  VerticalOptions="EndAndExpand"
-                                                                  HorizontalTextAlignment="{Binding EntryTextAlignment}"
-                                                                  MaxLength="{Binding EntryMaxLength}"
-                                                                  IsVisible="False"
-                                                                  IsEnabled="{Binding Source={x:Reference parent}, Path=IsEnabled}"
-                                                                  TextColor="Black"
-                                                                  IsSpellCheckEnabled="False"
-                                                                  />
-                    </ContentView>
+    <BoxView
+        x:Name="brdUnfocused"
+        Grid.Row="1"
+        HeightRequest="{OnPlatform iOS=1, Android=2}"
+        Color="#14000000" />
 
-                </Grid>
-
-                <BoxView x:Name="bottomBorder"
-                         Grid.Row="1"
-                         Color="#1000000"
-                         HeightRequest="1"
-                         />
-
-                <BoxView x:Name="hiddenBottomBorder"
-                         Color="Gray"
-                         Grid.Row="1"
-                         HeightRequest="1"
-                         WidthRequest="0"
-                         HorizontalOptions="Start"
-                         />
-
-                <ContentView x:Name="assistiveTextBlock"
-                             Grid.Row="2"
-                             BackgroundColor="Transparent"
-                             Padding="16,0">
-                    <Label x:Name="assistiveText"
-                           VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"
-                           TextColor="#60000000"
-                           FontSize="12"
-                           IsVisible="{Binding AssistiveTextIsVisible}"
-                           />
-                </ContentView>
-
-            </Grid>
-        </Frame>
-</ContentView>
+    <BoxView
+        x:Name="brdFocused"
+        Grid.Row="1"
+        HeightRequest="{OnPlatform iOS=1,
+                                   Android=2}"
+        HorizontalOptions="Start"
+        WidthRequest="0"
+        Color="Gray" />
+</Grid>
