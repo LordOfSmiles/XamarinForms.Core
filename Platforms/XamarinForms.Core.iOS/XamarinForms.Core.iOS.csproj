@@ -77,7 +77,6 @@
     <Compile Include="Renderers\FloatingActionButtonRenderer.cs" />
     <Compile Include="Renderers\LabeledTextField.cs" />
     <Compile Include="Effects\PickerWithoutBorderEffect.cs" />
-    <Compile Include="Renderers\GradientViewRenderer.cs" />
     <Compile Include="Renderers\BorderlessDatePickerRenderer.cs" />
     <Compile Include="Helpers\UIViewControllerHelper.cs" />
     <Compile Include="Extensions\ImageSourceExtensions.cs" />

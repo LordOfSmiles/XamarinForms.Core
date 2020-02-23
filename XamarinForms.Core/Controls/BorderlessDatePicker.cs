@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
-namespace XamarinForms.Core.Standard.Controls
+
+namespace XamarinForms.Core.Controls
 {
     public sealed class BorderlessDatePicker : DatePicker
     {

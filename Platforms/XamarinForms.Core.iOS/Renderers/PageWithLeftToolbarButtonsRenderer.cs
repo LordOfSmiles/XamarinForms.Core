@@ -44,17 +44,5 @@ namespace XamarinForms.Core.iOS.Renderers
             navigationItem.SetLeftBarButtonItems(leftNavList.ToArray(), false);
             navigationItem.SetRightBarButtonItems(rightNavList.ToArray(), false);
         }
-
-//        public override void ViewWillDisappear(bool animated)
-//        {
-//            base.ViewWillDisappear(animated);
-//            
-//            if (NavigationController?.TopViewController?.NavigationItem == null)
-//                return;
-//
-//            var navigationItem = NavigationController.TopViewController.NavigationItem;
-//            navigationItem.LeftBarButtonItems = null;
-//            navigationItem.RightBarButtonItems = null;
-//        }
     }
 }

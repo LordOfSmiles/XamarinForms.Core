@@ -20,11 +20,13 @@ namespace XamarinForms.Core.iOS.Renderers
 
 			if (Control == null)
 			{
-                var fab = new MnFloatingActionButton(false);
-				fab.Frame = new CGRect(0, 0, 24, 24);
+                var fab = new MnFloatingActionButton(false)
+                {
+                    Frame = new CGRect(0, 0, 24, 24)
+                };
 
-				SetNativeControl(fab);
-
+                SetNativeControl(fab);
+                
                 UpdateStyles();
 			}
 
@@ -46,8 +48,7 @@ namespace XamarinForms.Core.iOS.Renderers
                 SetSize();
             }
             else if (e.PropertyName == FloatingActionButtonView.ColorNormalProperty.PropertyName ||
-                     e.PropertyName == FloatingActionButtonView.ColorRippleProperty.PropertyName 
-//                     e.PropertyName == FloatingActionButtonView.DisabledColorProperty.PropertyName
+                     e.PropertyName == FloatingActionButtonView.ColorRippleProperty.PropertyName
                      )
             {
                 SetBackgroundColors();
@@ -100,6 +101,9 @@ namespace XamarinForms.Core.iOS.Renderers
 
         private void SetSize()
         {
+            if (Control == null || Element == null)
+                return;
+            
             switch (Element.Size)
             {
                 case FloatingActionButtonSize.Mini:
@@ -113,42 +117,41 @@ namespace XamarinForms.Core.iOS.Renderers
 
         private void SetBackgroundColors()
         {
+            if (Control == null || Element == null)
+                return;
+            
             Control.BackgroundColor = Element.ColorNormal.ToUIColor();
             //Control. = this.Element.Ripplecolor.ToUIColor();
         }
 
         private void SetHasShadow()
         {
+            if (Control == null || Element == null)
+                return;
+            
             Control.HasShadow = Element.HasShadow;
         }
 
         private void SetImage()
         {
+            if (Control == null || Element == null)
+                return;
+            
             SetImageAsync(Element.Image, Control);
         }
 
         private void UpdateEnabled()
         {
+            if (Control == null || Element == null)
+                return;
+            
             Control.Enabled = Element.IsEnabled;
-
-//            if (Control.Enabled == false)
-//            {
-//                Control.BackgroundColor = Element.DisabledColor.ToUIColor();
-//            }
-//            else
-//            {
-                SetBackgroundColors();
-//            }
+            SetBackgroundColors();
         }
-
-//        private void UpdateAnimateOnSelection()
-//        {
-//            Control.AnimateOnSelection = Element.AnimateOnSelection;
-//        }
-
+        
         private void Fab_TouchUpInside(object sender, EventArgs e)
         {
-            Element.Command?.Execute(null);
+            Element?.Command?.Execute(null);
         }
 
         private static async void SetImageAsync(ImageSource source, MnFloatingActionButton targetButton)

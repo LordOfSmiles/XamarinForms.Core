@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Standard.Controls
+namespace XamarinForms.Core.Controls
 {
     public class ProgressControl : Grid
     {
@@ -17,18 +17,15 @@ namespace XamarinForms.Core.Standard.Controls
             ColumnSpacing = 0;
             ColumnDefinitions.Add(new ColumnDefinition());
             ColumnDefinitions.Add(new ColumnDefinition());
+            
+            _bxLeft = new BoxView();
+            Children.Add(_bxLeft);
 
-            {
-                _bxLeft = new BoxView();
-                Children.Add(_bxLeft);
-            }
 
-            {
-                _bxRight = new BoxView();
-                SetColumn(_bxRight, 1);
-                Children.Add(_bxRight);
-            }
-
+            _bxRight = new BoxView();
+            SetColumn(_bxRight, 1);
+            Children.Add(_bxRight);
+            
             SizeChanged += CtrlRootOnSizeChanged;
         }
 
@@ -36,7 +33,11 @@ namespace XamarinForms.Core.Standard.Controls
 
         #region Percentvalue
 
-        public static readonly BindableProperty PercentValueProperty = BindableProperty.Create(nameof(PercentValue), typeof(double), typeof(ProgressControl), 0.0, propertyChanged: OnPercentValueChanged);
+        public static readonly BindableProperty PercentValueProperty = BindableProperty.Create(nameof(PercentValue),
+            typeof(double),
+            typeof(ProgressControl),
+            0.0,
+            propertyChanged: OnPercentValueChanged);
 
         public double PercentValue
         {
@@ -113,6 +114,9 @@ namespace XamarinForms.Core.Standard.Controls
 
         private void FillGridColumn()
         {
+            if (Width.Equals(-1))
+                return;
+            
             var actualWidth = Width;
 
             double filledValue;
@@ -133,8 +137,8 @@ namespace XamarinForms.Core.Standard.Controls
             if (filledValue < 0)
                 filledValue = 0;
 
-            if (filledValue > 1)
-                filledValue = 1;
+            if (filledValue > actualWidth)
+                filledValue = actualWidth;
 
             ColumnDefinitions[0].Width = new GridLength(filledValue, GridUnitType.Absolute);
         }
