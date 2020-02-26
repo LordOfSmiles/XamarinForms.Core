@@ -244,11 +244,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Core\Xamarin.Core.csproj">
-      <Project>{5EC30DF8-9C01-4547-9604-0E19445CD797}</Project>
+      <Project>{AAA01B21-B451-4654-A1BB-3A100FA352A3}</Project>
       <Name>Xamarin.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\XamarinForms.Core\XamarinForms.Core.csproj">
-      <Project>{95BA3293-A746-4F7B-BA46-C4BD88F9A3E1}</Project>
+      <Project>{4CEFA70E-1697-4A64-B0B4-9C4B75784424}</Project>
       <Name>XamarinForms.Core</Name>
     </ProjectReference>
   </ItemGroup>

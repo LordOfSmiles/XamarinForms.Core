@@ -8,8 +8,8 @@ namespace Xamarin.Core.ViewModels
 {
     public abstract class ViewModelBase : NotifyObject, IDisposable
     {
-        public const string NeedRefreshDataKey = "NeedRefreshData";
-
+        protected const string NeedRefreshDataKey = "NeedRefreshData";
+        
         #region Public Methods
 
         public virtual Task OnAppearingAsync(IDictionary<string, object> navigationParameters)
@@ -17,6 +17,12 @@ namespace Xamarin.Core.ViewModels
             return Task.FromResult<object>(null);
         }
 
+        #endregion
+        
+        #region Fields
+
+        protected bool IsFirstInitCompleted;
+        
         #endregion
 
         #region Constructor
