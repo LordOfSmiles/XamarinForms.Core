@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XamarinForms.Core.Extensions;
 using XamarinForms.Core.Standard.Extensions;
 using XamarinForms.Core.Standard.Services;
 
@@ -26,21 +27,19 @@ namespace XamarinForms.Core.Standard.Controls
             BackgroundColor = Color.White;
 
             _img = new Image()
-            {
-                HeightRequest = DeviceHelper.OnPlatform(25, 24),
-                WidthRequest = DeviceHelper.OnPlatform(25, 24),
-                VerticalOptions = LayoutOptions.Center
-            };
-            SetColumn(_img, 0);
+                .Height(DeviceHelper.OnPlatform<double>(25, 24))
+                .Width(DeviceHelper.OnPlatform<double>(25, 24))
+                .CenterV()
+                .Col(0);
             Children.Add(_img);
 
             _lbl = new Label()
-            {
-                TextColor = Color.Black,
-                VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Start
-            };
-            SetColumn(_lbl, 1);
+                {
+                    TextColor = Color.Black,
+                }
+                .TextCenterV()
+                .TextLeft()
+                .Col(1);
             Children.Add(_lbl);
             
             if (Device.RuntimePlatform == Device.iOS)
@@ -50,16 +49,14 @@ namespace XamarinForms.Core.Standard.Controls
                     Width = 18
                 });
                 _imgArrow = new Image()
-                {
-                    HeightRequest = 18,
-                    WidthRequest = 18,
-                    VerticalOptions = LayoutOptions.Center,
-                    IsVisible = false
-                };
-                SetColumn(_imgArrow, 2);
+                    .Height(18)
+                    .Width(18)
+                    .CenterV()
+                    .Hide()
+                    .Col(2);
                 Children.Add(_imgArrow);
             }
-            
+
             {
                 var gesture = new TapGestureRecognizer();
                 gesture.Tapped += GestureOnTapped;

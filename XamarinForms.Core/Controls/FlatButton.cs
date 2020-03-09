@@ -10,12 +10,10 @@ namespace XamarinForms.Core.Standard.Controls
     {
         public FlatButton()
         {
-            Padding = DeviceHelper.OnPlatform(new Thickness(8), new Thickness(8, 12));
+            Padding = DeviceHelper.OnPlatform(new Thickness(16,10,8,10), new Thickness(8, 12));
             BackgroundColor = Color.White;
             TextColor = Color.Black;
             VerticalTextAlignment = TextAlignment.Center;
-            HorizontalTextAlignment = TextAlignment.Center;
-            FontAttributes = FontAttributes.Bold;
             LineBreakMode = LineBreakMode.NoWrap;
 
             var gesture = new TapGestureRecognizer();

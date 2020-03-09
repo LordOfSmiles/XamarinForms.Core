@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Controls
 {
-	public class WrapLayout : Layout<View>
+	public sealed class WrapLayout : Layout<View>
     {
         #region Overrides
 
@@ -18,19 +18,14 @@ namespace XamarinForms.Core.Controls
 
         protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
         {
-            double lastX;
-            double lastY;
-
-            var layout = NaiveLayout(widthConstraint, heightConstraint, out lastX, out lastY);
+	        var layout = NaiveLayout(widthConstraint, heightConstraint, out var lastX, out var lastY);
 
             return new SizeRequest(new Size(lastX, lastY));
         }
 
         protected override void LayoutChildren(double x, double y, double width, double height)
         {
-            double lastX, lastY;
-
-            var layout = NaiveLayout(width, height, out lastX, out lastY);
+	        var layout = NaiveLayout(width, height, out var lastX, out var lastY);
 
             foreach (var t in layout)
             {
@@ -105,9 +100,7 @@ namespace XamarinForms.Core.Controls
 
             foreach (var child in Children)
             {
-                SizeRequest sizeRequest;
-
-                if (!_layoutCache.TryGetValue(child, out sizeRequest))
+	            if (!_layoutCache.TryGetValue(child, out var sizeRequest))
                 {
                     _layoutCache[child] = sizeRequest = child.Measure(double.PositiveInfinity, double.PositiveInfinity);
                 }

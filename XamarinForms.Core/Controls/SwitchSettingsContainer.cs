@@ -1,4 +1,6 @@
 using Xamarin.Forms;
+using XamarinForms.Core.Extensions;
+using XamarinForms.Core.Standard.Infrastructure;
 using XamarinForms.Core.Standard.Services;
 
 namespace XamarinForms.Core.Controls
@@ -23,39 +25,37 @@ namespace XamarinForms.Core.Controls
             {
                 Width = GridLength.Auto
             });
-            
-            RowDefinitions.Add(new RowDefinition(){ Height = GridLength.Auto});
-            RowDefinitions.Add(new RowDefinition(){ Height = GridLength.Auto});
+
+            RowDefinitions.Add(new RowDefinition() {Height = GridLength.Auto});
+            RowDefinitions.Add(new RowDefinition() {Height = GridLength.Auto});
 
             Padding = DeviceHelper.OnPlatform(new Thickness(16, 4), new Thickness(16, 8));
 
             _lbl = new Label()
-            {
-                LineBreakMode = LineBreakMode.TailTruncation,
-                TextColor = Color.Black,
-                VerticalTextAlignment = TextAlignment.Center
-            };
+                {
+                    LineBreakMode = LineBreakMode.TailTruncation,
+                    TextColor = Color.Black
+                }
+                .TextCenterV();
             Children.Add(_lbl);
 
             _switcher = new Switch()
-            {
-                VerticalOptions = LayoutOptions.Center
-            };
+                .CenterV()
+                .Col(1);
             _switcher.Toggled += (sender, args) => IsToggled = args.Value;
-            SetColumn(_switcher, 1);
             Children.Add(_switcher);
 
             _lblDetail = new Label()
-            {
-                FontSize = Device.GetNamedSize(NamedSize.Micro, typeof(Label)),
-                IsVisible = false,
-                TextColor = Color.FromHex("#6E6E6E"),
-                LineBreakMode = LineBreakMode.WordWrap,
-                Margin = new Thickness(0,4,0,0)
-            };
-            SetRow(_lblDetail, 1);
-            SetColumn(_lblDetail,0);
-            SetColumnSpan(_lblDetail,2);
+                {
+                    TextColor = Color.FromHex("#6E6E6E"),
+                    LineBreakMode = LineBreakMode.WordWrap
+                }
+                .FontSize(Device.GetNamedSize(NamedSize.Micro, typeof(Label)))
+                .Margins(0, 4, 0, 0)
+                .Row(1)
+                .Col(0)
+                .ColSpan(2)
+                .Hide();
             Children.Add(_lblDetail);
         }
 

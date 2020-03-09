@@ -112,32 +112,6 @@ namespace XamarinForms.Core.Controls
 
         #endregion
 
-        #region IsPassword
-
-        public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(
-            nameof(IsPassword),
-            typeof(bool),
-            typeof(MaterialEntry),
-            false,
-            propertyChanged: OnPasswordChanged);
-
-        public bool IsPassword
-        {
-            get => (bool) GetValue(IsPasswordProperty);
-            set => SetValue(IsPasswordProperty, value);
-        }
-
-        private static void OnPasswordChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var ctrl = bindable as MaterialEntry;
-            if (ctrl == null)
-                return;
-
-            ctrl.txt.IsPassword = (bool) newValue;
-        }
-
-        #endregion
-
         #region AccentColor
 
         public static readonly BindableProperty AccentColorProperty = BindableProperty.Create(

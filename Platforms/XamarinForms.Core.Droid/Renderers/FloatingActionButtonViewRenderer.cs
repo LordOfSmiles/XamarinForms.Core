@@ -132,7 +132,7 @@ namespace XamarinForms.Core.Droid.Renderers
             //{
             //    fab.ColorRipple = Element.ColorRipple.ToAndroid();
             //}
-            else if (e.PropertyName == FloatingActionButtonView.ImageNameProperty.PropertyName)
+            else if (e.PropertyName == FloatingActionButtonView.ImageProperty.PropertyName)
             {
                 await SetFabImage(Element.Image);
             }

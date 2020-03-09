@@ -1,4 +1,6 @@
 using Xamarin.Forms;
+using XamarinForms.Core.Extensions;
+using XamarinForms.Core.Standard.Infrastructure;
 
 namespace XamarinForms.Core.Controls
 {
@@ -27,11 +29,7 @@ namespace XamarinForms.Core.Controls
             Padding = 0;
 
             _img = new Image()
-            {
-                HorizontalOptions = LayoutOptions.Fill,
-                VerticalOptions = LayoutOptions.Fill,
-                Aspect = Aspect.AspectFill
-            };
+                .Fill();
             Content = _img;
         }
         

@@ -57,7 +57,7 @@ namespace XamarinForms.Core.iOS.Renderers
             {
                 SetHasShadow();
             }
-            else if (e.PropertyName == FloatingActionButtonView.ImageNameProperty.PropertyName ||
+            else if (e.PropertyName == FloatingActionButtonView.ImageProperty.PropertyName ||
                      e.PropertyName == VisualElement.WidthProperty.PropertyName ||
                      e.PropertyName == VisualElement.HeightProperty.PropertyName)
             {

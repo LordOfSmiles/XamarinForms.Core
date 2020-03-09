@@ -17,6 +17,11 @@ namespace Xamarin.Core.ViewModels
             return Task.FromResult<object>(null);
         }
 
+        public virtual void OnDisappearing()
+        {
+            
+        }
+
         #endregion
         
         #region Fields

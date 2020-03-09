@@ -1,5 +1,7 @@
 ﻿using Xamarin.Forms;
+using XamarinForms.Core.Extensions;
 using XamarinForms.Core.Standard.Helpers;
+using XamarinForms.Core.Standard.Infrastructure;
 using XamarinForms.Core.Standard.Services;
 
 namespace XamarinForms.Core.Standard.Controls
@@ -8,10 +10,12 @@ namespace XamarinForms.Core.Standard.Controls
     {
         public HeaderControl()
         {
-            //BackgroundColor = DeviceHelper.OnPlatform(Color.FromHex("#EEEEEE"), Color.FromHex("#EDEDED"));
+
+            this
+                .CenterV()
+                .FontSize(FontHelper.LabelSmall);
+
             Padding = DeviceHelper.OnPlatform(new Thickness(16, 6, 8, 6), new Thickness(16, 8, 8, 8));
-            VerticalOptions = LayoutOptions.Center;
-            FontSize = FontHelper.LabelSmall;
             FontAttributes = DeviceHelper.OnPlatform(FontAttributes.None, FontAttributes.Bold);
             TextColor = DeviceHelper.OnPlatform(Color.FromRgb(110, 110, 110), Color.Accent);
         }

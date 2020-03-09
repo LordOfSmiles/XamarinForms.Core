@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Standard.Extensions
+namespace XamarinForms.Core.Extensions
 {
     public static class XamarinFormsMarkupExtensions
     {
@@ -37,11 +37,11 @@ namespace XamarinForms.Core.Standard.Extensions
             {"Xamarin.Forms.Slider", Slider.ValueProperty},
             {"Xamarin.Forms.Stepper", Stepper.ValueProperty},
             {"Xamarin.Forms.Switch", Switch.IsToggledProperty},
-            {"Xamarin.Forms.TableView", TableView.BindingContextProperty},
+            {"Xamarin.Forms.TableView", BindableObject.BindingContextProperty},
             {"Xamarin.Forms.TimePicker", TimePicker.TimeProperty},
             {"Xamarin.Forms.WebView", WebView.SourceProperty},
             {"Xamarin.Forms.TextCell", TextCell.TextProperty},
-            {"Xamarin.Forms.ToolbarItem", ToolbarItem.CommandProperty},
+            {"Xamarin.Forms.ToolbarItem", MenuItem.CommandProperty},
             {"Xamarin.Forms.TapGestureRecognizer", TapGestureRecognizer.CommandProperty},
             {"Xamarin.Forms.Span", Span.TextProperty}
         };
@@ -303,7 +303,7 @@ namespace XamarinForms.Core.Standard.Extensions
 
         public static TView Menu<TView>(this TView view, Menu value) where TView : View
         {
-            FlexLayout.SetMenu(view, value);
+            Element.SetMenu(view, value);
             return view;
         }
 
@@ -381,7 +381,7 @@ namespace XamarinForms.Core.Standard.Extensions
             return view;
         }
 
-        static int ToInt(this IConvertible convertible) => convertible?.ToInt32(System.Globalization.CultureInfo.InvariantCulture) ?? 0;
+        static int ToInt(this IConvertible convertible) => convertible?.ToInt32(CultureInfo.InvariantCulture) ?? 0;
 
         #endregion Use enum for Row / Col for better readability + avoid manual renumbering
 
@@ -662,6 +662,12 @@ namespace XamarinForms.Core.Standard.Extensions
             return element;
         }
 
+        public static TView Hide<TView>(this TView view) where TView : View
+        {
+            view.IsVisible = false;
+            return view;
+        }
+        
         #region Platform-specifics
 
         public static T iOSSetDefaultBackgroundColor<T>(this T cell, Color color) where T : Cell
@@ -693,7 +699,7 @@ namespace XamarinForms.Core.Standard.Extensions
                 var columnDefinitions = new ColumnDefinitionCollection();
                 for (int i = 0; i < cols.Length; i++)
                 {
-                    if (i != cols[i].name.ToInt32(System.Globalization.CultureInfo.InvariantCulture)) throw new ArgumentException($"Value of column name {cols[i].name} is not {i}. Columns must be defined with enum names whose values form the sequence 0,1,2,...");
+                    if (i != cols[i].name.ToInt32(CultureInfo.InvariantCulture)) throw new ArgumentException($"Value of column name {cols[i].name} is not {i}. Columns must be defined with enum names whose values form the sequence 0,1,2,...");
                     columnDefinitions.Add(new ColumnDefinition {Width = cols[i].width});
                 }
 
@@ -708,7 +714,7 @@ namespace XamarinForms.Core.Standard.Extensions
                 var rowDefinitions = new RowDefinitionCollection();
                 for (int i = 0; i < rows.Length; i++)
                 {
-                    if (i != rows[i].name.ToInt32(System.Globalization.CultureInfo.InvariantCulture)) throw new ArgumentException($"Value of row name {rows[i].name} is not {i}. Rows must be defined with enum names whose values form the sequence 0,1,2,...");
+                    if (i != rows[i].name.ToInt32(CultureInfo.InvariantCulture)) throw new ArgumentException($"Value of row name {rows[i].name} is not {i}. Rows must be defined with enum names whose values form the sequence 0,1,2,...");
                     rowDefinitions.Add(new RowDefinition {Height = rows[i].height});
                 }
 
@@ -744,9 +750,9 @@ namespace XamarinForms.Core.Standard.Extensions
             this.convertBack = convertBack;
         }
 
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) => convert != null ? convert.Invoke(value != null ? (TSource) value : default(TSource)) : default(TDest);
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => convert != null ? convert.Invoke(value != null ? (TSource) value : default(TSource)) : default(TDest);
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) => convertBack != null ? convertBack.Invoke(value != null ? (TDest) value : default(TDest)) : default(TSource);
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => convertBack != null ? convertBack.Invoke(value != null ? (TDest) value : default(TDest)) : default(TSource);
     }
 
     public class FuncConverter<TSource> : FuncConverter<TSource, object>
