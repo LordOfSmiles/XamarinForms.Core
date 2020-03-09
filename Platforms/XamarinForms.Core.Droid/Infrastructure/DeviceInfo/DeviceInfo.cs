@@ -11,7 +11,7 @@ using XamarinForms.Core.Standard.Infrastructure.Interfaces;
 [assembly:Xamarin.Forms.Dependency(typeof(DeviceInfo))] 
 namespace XamarinForms.Core.Droid.Infrastructure.DeviceInfo
 {
-    public class DeviceInfo
+    public sealed class DeviceInfo
     {
 		public string Manufacturer => Build.Manufacturer;
 
