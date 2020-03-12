@@ -1,6 +1,7 @@
-using Xamarin.Core.ViewModels;
+
 using Xamarin.Forms;
 using XamarinForms.Core.Standard.Infrastructure.Navigation;
+using XamarinForms.Core.ViewModels;
 
 namespace XamarinForms.Core.Views
 {

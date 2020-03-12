@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using System.Linq;
 using System;
-using Xamarin.Core.ViewModels;
+using XamarinForms.Core.ViewModels;
 using Application = Xamarin.Forms.Application;
 using NavigationPage = Xamarin.Forms.NavigationPage;
 using Page = Xamarin.Forms.Page;

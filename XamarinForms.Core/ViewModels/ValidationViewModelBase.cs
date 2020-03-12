@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Xamarin.Core.ViewModels.ErrorValidation;
+using XamarinForms.Core.ViewModels.ErrorValidation;
 
-namespace Xamarin.Core.ViewModels
+namespace XamarinForms.Core.ViewModels
 {
     public abstract class ValidationViewModelBase : ViewModelBase
     {
@@ -16,10 +14,7 @@ namespace Xamarin.Core.ViewModels
         private Dictionary<string, List<string>> _errorMessages = new Dictionary<string, List<string>>();
 
         #endregion
-
-        protected ValidationViewModelBase()
-        {
-        }
+        
 
         #region INotifyDataErrorInfo implementation
 

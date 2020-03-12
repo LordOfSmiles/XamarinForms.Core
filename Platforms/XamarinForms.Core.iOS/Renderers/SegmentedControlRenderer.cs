@@ -11,8 +11,6 @@ namespace XamarinForms.Core.iOS.Renderers
 {
     public sealed class SegmentedControlRenderer : ViewRenderer<SegmentedControlView, UISegmentedControl>
     {
-        private UISegmentedControl _nativeControl;
-
         protected override void OnElementChanged(ElementChangedEventArgs<SegmentedControlView> e)
         {
             base.OnElementChanged(e);
@@ -20,14 +18,18 @@ namespace XamarinForms.Core.iOS.Renderers
             if (Control == null && Element!=null)
             {
                 _nativeControl = new UISegmentedControl();
-
-                foreach (var child in Element.Children.Select((value, i) => new { value, i }))
+                
+                if (Element.Children != null)
                 {
-                    _nativeControl.InsertSegment(Element.Children[child.i].Text, child.i, false);
+                    SetChildren();
                 }
-
+                
                 _nativeControl.Enabled = Element.IsEnabled;
-                _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
+                
+                _nativeControl.TintColor = Element.IsEnabled 
+                    ? Element.TintColor.ToUIColor() 
+                    : Element.DisabledColor.ToUIColor();
+                
                 SetSelectedTextColor();
 
                 _nativeControl.SelectedSegment = Element.SelectedSegment;
@@ -37,48 +39,17 @@ namespace XamarinForms.Core.iOS.Renderers
 
             if (e.OldElement != null)
             {
-                if (_nativeControl != null) _nativeControl.ValueChanged -= NativeControl_SelectionChanged;
-                RemoveElementHandlers();
+                if (_nativeControl != null) 
+                    _nativeControl.ValueChanged -= NativeControl_SelectionChanged;
             }
 
             if (e.NewElement != null)
             {
-                if (_nativeControl != null) _nativeControl.ValueChanged += NativeControl_SelectionChanged;
-                CreateElementHandlers();
+                if (_nativeControl != null) 
+                    _nativeControl.ValueChanged += NativeControl_SelectionChanged;
             }
         }
-
-        private void CreateElementHandlers()
-        {
-            if (Element != null)
-            {
-                foreach (var child in Element.Children)
-                {
-                    child.PropertyChanged += SegmentPropertyChanged;
-                }
-            }
-        }
-
-        private void RemoveElementHandlers()
-        {
-            if (Element != null)
-            {
-                foreach (var child in Element.Children)
-                {
-                    child.PropertyChanged -= SegmentPropertyChanged;
-                }
-            }
-        }
-
-        private void SegmentPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (_nativeControl != null && Element != null && sender is SegmentedControlOption option && e.PropertyName == nameof(option.Text))
-            {
-                var index = Element.Children.IndexOf(option);
-                _nativeControl.SetTitle(Element.Children[index].Text, index);
-            }
-        }
-
+        
         protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
@@ -89,44 +60,76 @@ namespace XamarinForms.Core.iOS.Renderers
                 return;
             }
 
-            if (_nativeControl == null || Element == null) return;
+            if (_nativeControl == null || Element == null)
+                return;
 
-            switch (e.PropertyName)
+            if (e.PropertyName == SegmentedControlView.ChildrenProperty.PropertyName)
             {
-                case "SelectedSegment":
-                    _nativeControl.SelectedSegment = Element.SelectedSegment;
-                    Element.RaiseSelectionChanged();
-                    break;
-                case "TintColor":
-                    _nativeControl.TintColor = Element.IsEnabled 
-                        ? Element.TintColor.ToUIColor() 
-                        : Element.DisabledColor.ToUIColor();
-                    break;
-                case "IsEnabled":
-                    _nativeControl.Enabled = Element.IsEnabled;
-                    _nativeControl.TintColor = Element.IsEnabled 
-                        ? Element.TintColor.ToUIColor() 
-                        : Element.DisabledColor.ToUIColor();
-                    break;
-                case "SelectedTextColor":
-                    SetSelectedTextColor();
-                    break;
-                default:
-                    break;
+                _nativeControl.RemoveAllSegments();
+
+                if (Element.Children != null)
+                {
+                    SetChildren();
+                }
+            }
+            else if (e.PropertyName == SegmentedControlView.SelectedSegmentProperty.PropertyName)
+            {
+                _nativeControl.SelectedSegment = Element.SelectedSegment;
+                Element.RaiseSelectionChanged();
+            }
+            else if (e.PropertyName == SegmentedControlView.TintColorProperty.PropertyName)
+            {
+                _nativeControl.TintColor = Element.IsEnabled
+                    ? Element.TintColor.ToUIColor()
+                    : Element.DisabledColor.ToUIColor();
+            }
+            else if (e.PropertyName == SegmentedControlView.IsEnabledProperty.PropertyName)
+            {
+                _nativeControl.Enabled = Element.IsEnabled;
+                _nativeControl.TintColor = Element.IsEnabled
+                    ? Element.TintColor.ToUIColor()
+                    : Element.DisabledColor.ToUIColor();
+            }
+            else if (e.PropertyName == SegmentedControlView.SelectedTextColorProperty.PropertyName)
+            {
+                SetSelectedTextColor();
             }
         }
+        
+        #region Fields
 
+        private UISegmentedControl _nativeControl;
+
+        #endregion
+        
+        #region Private Methods
+        
         private void SetSelectedTextColor()
         {
-            var attr = new UITextAttributes { TextColor = Element.SelectedTextColor.ToUIColor() };
+            var attr = new UITextAttributes
+            {
+                TextColor = Element.SelectedTextColor.ToUIColor()
+            };
             _nativeControl.SetTitleTextAttributes(attr, UIControlState.Selected);
+        }
+        
+        private void SetChildren()
+        {
+            for (var i = 0; i < Element.Children.Count; i++)
+            {
+                _nativeControl.InsertSegment(Element.Children[i], i, false);
+            }
         }
 
         private void NativeControl_SelectionChanged(object sender, EventArgs e)
         {
             Element.SelectedSegment = (int)_nativeControl.SelectedSegment;
         }
+        
+        #endregion
 
+        #region IDisposable
+        
         protected override void Dispose(bool disposing)
         {
             if (_nativeControl != null)
@@ -136,9 +139,9 @@ namespace XamarinForms.Core.iOS.Renderers
                 _nativeControl = null;
             }
 
-            RemoveElementHandlers();
-
             base.Dispose(disposing);
         }
+        
+        #endregion
     }
 }

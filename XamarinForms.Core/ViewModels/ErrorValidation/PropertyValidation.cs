@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xamarin.Core.ViewModels.ErrorValidation
+namespace XamarinForms.Core.ViewModels.ErrorValidation
 {
     public sealed class PropertyValidation
     {

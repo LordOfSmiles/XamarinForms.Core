@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Core.Models;
 
-namespace Xamarin.Core.ViewModels
+namespace XamarinForms.Core.ViewModels
 {
     public abstract class ViewModelBase : NotifyObject, IDisposable
     {
@@ -67,6 +66,11 @@ namespace Xamarin.Core.ViewModels
         }
 
         #endregion
+
+        public virtual void OnClose()
+        {
+            
+        }
     }
 }
 
