@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using XamarinForms.Core.Extensions;
 
 namespace XamarinForms.Core.Controls
 {
@@ -22,8 +23,8 @@ namespace XamarinForms.Core.Controls
             Children.Add(_bxLeft);
 
 
-            _bxRight = new BoxView();
-            SetColumn(_bxRight, 1);
+            _bxRight = new BoxView()
+                .Col(1);
             Children.Add(_bxRight);
             
             SizeChanged += CtrlRootOnSizeChanged;

@@ -1,14 +1,10 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace XamarinForms.Core.Standard.Services
 {
     public static class DeviceHelper
     {
-        //public static T OnPlatformAndIdiom()
-        //{
-
-        //}
-
         public static T OnPlatform<T>(T iOs, T android, T uwp)
         {
             T result;
@@ -52,6 +48,22 @@ namespace XamarinForms.Core.Standard.Services
             return result;
         }
 
+        public static void OniOs(Action action)
+        {
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                action.Invoke();
+            }
+        }
+        
+        public static void OnAndroid(Action action)
+        {
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                action.Invoke();
+            }
+        }
+        
         public static T OnIdiom<T>(T phone, T tablet)
         {
             T result;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Core.Models;
+using Xamarin.Forms;
 
 namespace XamarinForms.Core.ViewModels
 {
@@ -19,6 +20,25 @@ namespace XamarinForms.Core.ViewModels
         public virtual void OnDisappearing()
         {
             
+        }
+
+        #endregion
+        
+        #region Protected Methods
+
+        protected Task DisplayAlert(string title, string message, string cancel)
+        {
+            return Application.Current.MainPage.DisplayAlert(title, message, cancel);
+        }
+
+        protected Task<bool> DisplayAlert(string title, string message, string accept, string cancel)
+        {
+            return Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
+        }
+
+        protected Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons)
+        {
+            return Application.Current.MainPage.DisplayActionSheet(title, cancel, destruction, buttons);
         }
 
         #endregion

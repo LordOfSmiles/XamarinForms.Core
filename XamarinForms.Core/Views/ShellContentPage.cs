@@ -1,4 +1,6 @@
 
+using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using XamarinForms.Core.Standard.Infrastructure.Navigation;
 using XamarinForms.Core.ViewModels;
@@ -10,7 +12,17 @@ namespace XamarinForms.Core.Views
         protected override void OnAppearing()
         {
             var vm = BindingContext as ViewModelBase;
-            vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(GetType()));
+            if (vm != null)
+            {
+                try
+                {
+                    Task.Run(async () => await vm.OnAppearingAsync(NavigationState.GetParametersByPageType(GetType())));
+                }
+                catch
+                {
+                    //
+                }
+            }
 
             base.OnAppearing();
         }

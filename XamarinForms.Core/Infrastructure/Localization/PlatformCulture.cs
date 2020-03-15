@@ -5,9 +5,9 @@ namespace XamarinForms.Core.Standard.Infrastructure.Localization
     {
         public PlatformCulture(string platformCultureString)
         {
-            if (String.IsNullOrEmpty(platformCultureString))
+            if (string.IsNullOrEmpty(platformCultureString))
             {
-                throw new ArgumentException("Expected culture identifier", "platformCultureString"); // in C# 6 use nameof(platformCultureString)
+                throw new ArgumentException("Expected culture identifier", nameof(platformCultureString)); 
             }
 
             PlatformString = platformCultureString.Replace("_", "-"); // .NET expects dash, not underscore
@@ -26,9 +26,9 @@ namespace XamarinForms.Core.Standard.Infrastructure.Localization
         }
 
 
-        public string PlatformString { get; private set; }
-        public string LanguageCode { get; private set; }
-        public string LocaleCode { get; private set; }
+        public string PlatformString { get; }
+        public string LanguageCode { get;  }
+        public string LocaleCode { get;}
 
         public override string ToString()
         {

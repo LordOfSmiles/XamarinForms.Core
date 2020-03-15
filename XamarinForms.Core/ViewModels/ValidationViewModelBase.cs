@@ -14,7 +14,6 @@ namespace XamarinForms.Core.ViewModels
         private Dictionary<string, List<string>> _errorMessages = new Dictionary<string, List<string>>();
 
         #endregion
-        
 
         #region INotifyDataErrorInfo implementation
 
