@@ -62,7 +62,6 @@
     <Compile Include="Extensions\ImageSourceExtensions.cs" />
     <Compile Include="Extensions\UIViewControllerExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Renderers\NullableDatePickerRenderer.cs" />
     <Compile Include="Infrastructure\Localize.cs" />
     <Compile Include="Renderers\PageWithLeftToolbarButtonsRenderer.cs" />
     <Compile Include="Renderers\SegmentedControlRenderer.cs" />
