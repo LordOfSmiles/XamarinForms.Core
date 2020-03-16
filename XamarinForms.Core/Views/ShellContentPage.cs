@@ -9,14 +9,14 @@ namespace XamarinForms.Core.Views
 {
     public abstract class ShellContentPage:ContentPage
     {
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             var vm = BindingContext as ViewModelBase;
             if (vm != null)
             {
                 try
                 {
-                    Task.Run(async () => await vm.OnAppearingAsync(NavigationState.GetParametersByPageType(GetType())));
+                    await vm.OnAppearingAsync(NavigationState.GetParametersByPageType(GetType()));
                 }
                 catch
                 {

@@ -7,7 +7,7 @@ namespace XamarinForms.Core.Standard.Infrastructure.Navigation
     {
         public static void AddNavigationParameterByPageType(Type pageType, string key)
         {
-            AddNavigationParameterByPageType(pageType, key, true);
+            AddNavigationParameterByPageType(pageType, key, string.Empty);
         }
     
         public static void AddNavigationParameterByPageType(Type pageType, string key, object value)
