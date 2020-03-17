@@ -26,19 +26,44 @@ namespace XamarinForms.Core.ViewModels
         
         #region Protected Methods
 
-        protected Task DisplayAlert(string title, string message, string cancel)
+        protected async Task DisplayAlert(string title, string message, string cancel)
         {
-            return Application.Current.MainPage.DisplayAlert(title, message, cancel);
+            if (Application.Current?.MainPage != null)
+            {
+                await Application.Current.MainPage.DisplayAlert(title, message, cancel);
+            }
         }
 
-        protected Task<bool> DisplayAlert(string title, string message, string accept, string cancel)
+        protected async Task<bool> DisplayAlert(string title, string message, string accept, string cancel)
         {
-            return Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
+            var result = false;
+
+            if (Application.Current?.MainPage != null)
+            {
+                result = await Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
+            }
+
+            return result;
         }
 
-        protected Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons)
+        protected async Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons)
         {
-            return Application.Current.MainPage.DisplayActionSheet(title, cancel, destruction, buttons);
+            var result = string.Empty;
+
+            if (Application.Current?.MainPage != null)
+            {
+                result = await Application.Current.MainPage.DisplayActionSheet(title, cancel, destruction, buttons);
+            }
+
+            return result;
+        }
+
+        protected virtual async void OnClose()
+        {
+            if (Shell.Current?.Navigation != null)
+            {
+                await Shell.Current.Navigation.PopAsync();
+            }
         }
 
         #endregion
@@ -87,10 +112,7 @@ namespace XamarinForms.Core.ViewModels
 
         #endregion
 
-        public virtual void OnClose()
-        {
-            
-        }
+       
     }
 }
 

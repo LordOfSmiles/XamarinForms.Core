@@ -16,9 +16,6 @@
     <Compile Remove="Controls\ShapeView.cs" />
     <Compile Remove="Controls\ContentControl.cs" />
     <Compile Remove="Controls\ControlContainer.cs" />
-    <Compile Update="Controls\MaterialDatePicker.xaml.cs">
-      <DependentUpon>MaterialFilledDatePicker.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\Interfaces\" />
@@ -31,7 +28,7 @@
     <EmbeddedResource Remove="Controls\ProgressControl.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.Core\Xamarin.Core.csproj" />

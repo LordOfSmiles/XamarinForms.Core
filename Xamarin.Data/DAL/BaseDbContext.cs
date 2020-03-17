@@ -36,6 +36,8 @@ namespace Xamarin.Data.DAL
                     
                     CreateTables(_connection);
 
+                    Seed(_connection, oldVersion, newVersion);
+
                     if (needMigrateTable)
                     {
                         MigrateTables(_connection, oldVersion, newVersion);
@@ -67,6 +69,8 @@ namespace Xamarin.Data.DAL
         /// <param name="newVersion"></param>
         protected abstract void MigrateTables(SQLiteConnection db, int oldVersion, int newVersion);
 
+        protected abstract void Seed(SQLiteConnection db, int oldVersion, int newVersion);
+        
         #endregion
         
         protected static void SetDbVersion(SQLiteConnection db, int version)
