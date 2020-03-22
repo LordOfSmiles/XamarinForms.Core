@@ -91,7 +91,7 @@ namespace XamarinForms.Core.ViewModels
             protected set => SetProperty(ref _isAsyncOperationInProgress, value);
         }
         private bool _isAsyncOperationInProgress;
-        
+
         #endregion
 
         #region IDisposable
