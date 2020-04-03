@@ -9,7 +9,7 @@ namespace XamarinForms.Core.ViewModels
     public abstract class ViewModelBase : NotifyObject, IDisposable
     {
         protected const string NeedRefreshDataKey = "NeedRefreshData";
-        protected const string BackNavigationKey = "BackNavigation";
+        protected const string GoBackKey = "BackNavigation";
         
         #region Public Methods
 
