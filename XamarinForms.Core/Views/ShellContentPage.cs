@@ -18,7 +18,7 @@ namespace XamarinForms.Core.Views
                 {
                     await vm.OnAppearingAsync(NavigationState.GetParametersByPageType(GetType()));
                 }
-                catch
+                catch(Exception e)
                 {
                     //
                 }
