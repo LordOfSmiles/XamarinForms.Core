@@ -14,5 +14,7 @@ namespace Xamarin.Core.Models
         public string Title { get; set; }
         public string Icon { get; set; }
         public ICommand Command { get; set; }
+
+        public bool WithSeparator { get; set; } = true;
     }
 }
