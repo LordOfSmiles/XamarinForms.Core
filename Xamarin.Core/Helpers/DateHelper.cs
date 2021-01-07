@@ -1,6 +1,6 @@
 using System;
 
-namespace Xamarin.Core.Helpers
+namespace BabyDream.Infrastructure.Helpers
 {
     public static class DateHelper
     {
@@ -26,6 +26,11 @@ namespace Xamarin.Core.Helpers
         public static bool IsDateIntersected(DateTime start, DateTime end, DateTime date)
         {
             return start <= date && date <= end;
+        }
+
+        public static DateTime RoundDate(DateTime date)
+        {
+            return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, 0);
         }
     }
 }

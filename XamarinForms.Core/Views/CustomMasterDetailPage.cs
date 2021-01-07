@@ -5,7 +5,7 @@ using XamarinForms.Core.ViewModels;
 
 namespace XamarinForms.Core.Views
 {
-    public abstract class CustomMasterDetailPage:MasterDetailPage
+    public abstract class CustomMasterDetailPage:FlyoutPage
     {
         protected bool NeedChangeDetail(Type detailType)
         {

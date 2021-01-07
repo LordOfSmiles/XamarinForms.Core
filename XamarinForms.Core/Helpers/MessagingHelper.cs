@@ -1,16 +1,13 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Services.MessagingService
+namespace BabyDream.Infrastructure.Helpers
 {
-    public sealed class MessagingService : IMessagingService
+    public sealed class MessagingService
     {
-        #region IMessagingService
+        #region Public Methods
 
-        public void Subscribe(string message, Action<IMessagingService> callback) => MessagingCenter.Subscribe<MessagingService>(this, message, callback);
         public void Subscribe(string message, Action callback) => MessagingCenter.Subscribe<MessagingService>(this, message, (service) => callback.Invoke());
-
-        public void Subscribe<T>(string message, Action<IMessagingService, T> callback) => MessagingCenter.Subscribe<MessagingService, T>(this, message, callback);
         public void Subscribe<T>(string message, Action<T> callback) => MessagingCenter.Subscribe<MessagingService, T>(this, message, (service, parameter) => callback.Invoke(parameter));
 
         public void SendMessage(string message) => MessagingCenter.Send(this, message);
@@ -22,14 +19,11 @@ namespace XamarinForms.Core.Services.MessagingService
         #endregion
 
         #region Singleton
-
-
-        public static MessagingService Current => _instance ?? (_instance = new MessagingService());
+        
+        public static MessagingService Current => _instance ??= new MessagingService();
         private static MessagingService _instance = null;
 
         #endregion
     }
-
-
 }
 

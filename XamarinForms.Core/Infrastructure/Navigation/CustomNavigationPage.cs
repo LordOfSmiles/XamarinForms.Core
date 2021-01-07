@@ -47,7 +47,7 @@ namespace XamarinForms.Core.Infrastructure.Navigation
             if (e.Page != null)
             {
                 var vm = e.Page.BindingContext as ViewModelBase;
-                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Page.GetType()));
+                vm?.OnAppearingAsync(NavigationHelper.GetParametersByPageType(e.Page.GetType()));
             }
         }
 
@@ -90,7 +90,7 @@ namespace XamarinForms.Core.Infrastructure.Navigation
                         break;
                 }
 
-                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(pageType));
+                vm?.OnAppearingAsync(NavigationHelper.GetParametersByPageType(pageType));
             }
         }
         
@@ -115,7 +115,7 @@ namespace XamarinForms.Core.Infrastructure.Navigation
             if (e.Page != null)
             {
                 var vm = e.Page.BindingContext as ViewModelBase;
-                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(e.Page.GetType()));
+                vm?.OnAppearingAsync(NavigationHelper.GetParametersByPageType(e.Page.GetType()));
             }
         }
 
@@ -135,7 +135,7 @@ namespace XamarinForms.Core.Infrastructure.Navigation
                 }
 
                 var vm = modalPage.BindingContext as ViewModelBase;
-                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(modalPage.GetType()));
+                vm?.OnAppearingAsync(NavigationHelper.GetParametersByPageType(modalPage.GetType()));
             }
         }
 
@@ -177,7 +177,7 @@ namespace XamarinForms.Core.Infrastructure.Navigation
                         break;
                 }
 
-                vm?.OnAppearingAsync(NavigationState.GetParametersByPageType(pageType));
+                vm?.OnAppearingAsync(NavigationHelper.GetParametersByPageType(pageType));
             }
         }
 
@@ -194,10 +194,10 @@ namespace XamarinForms.Core.Infrastructure.Navigation
             {
                 AppearViewModel(navPage.CurrentPage);
             }
-            else if (page is MasterDetailPage masterDetailPage)
+            else if (page is FlyoutPage masterDetailPage)
             {
                 AppearViewModel(masterDetailPage.Detail);
-                AppearViewModel(masterDetailPage.Master);
+                AppearViewModel(masterDetailPage.Flyout);
             }
             else if (page is TabbedPage tabbedPage)
             {
@@ -209,7 +209,7 @@ namespace XamarinForms.Core.Infrastructure.Navigation
             else
             {
                 var viewModel = page.BindingContext as ViewModelBase;
-                viewModel?.OnAppearingAsync(NavigationState.GetParametersByPageType(page.GetType()));
+                viewModel?.OnAppearingAsync(NavigationHelper.GetParametersByPageType(page.GetType()));
             }
         }
 

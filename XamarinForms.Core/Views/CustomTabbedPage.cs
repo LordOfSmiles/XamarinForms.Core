@@ -13,7 +13,7 @@ namespace XamarinForms.Core.Views
                 var vm = CurrentPage?.BindingContext as ViewModelBase;
                 if (vm != null)
                 {
-                    vm.OnAppearingAsync(NavigationState.GetParametersByPageType(CurrentPage.GetType()));
+                    vm.OnAppearingAsync(NavigationHelper.GetParametersByPageType(CurrentPage.GetType()));
                 }
             }
 

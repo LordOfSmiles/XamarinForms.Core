@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace XamarinForms.Core.Infrastructure.Navigation
 {
-    public static class NavigationState
+    public static class NavigationHelper
     {
         public static void AddNavigationParameterByPageType(Type pageType, string key)
         {
