@@ -7,8 +7,4 @@
     <RootNamespace>Xamarin.Core</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="4.7.1" />
-  </ItemGroup>
-
 </Project>

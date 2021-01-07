@@ -8,9 +8,9 @@ using System.IO;
 using XamarinForms.Core.Standard.Controls;
 using Android.Content;
 using XamarinForms.Core.Droid.Renderers;
-using Android.Support.Design.Widget;
 using XamarinForms.Core.Droid.Helpers;
 using System.Threading.Tasks;
+using Google.Android.Material.FloatingActionButton;
 
 
 namespace XamarinForms.Core.Droid.Renderers
