@@ -1,0 +1,76 @@
+<?xml version="1.0"
+      encoding="utf-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:effects="clr-namespace:XamarinForms.Core.Effects;assembly=XamarinForms.Core"
+      xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
+      xmlns:models="clr-namespace:XamarinForms.Core.Controls.BottomSheets.Models;assembly=XamarinForms.Core"
+      x:Class="XamarinForms.Core.Controls.BottomSheets.BottomSheetItemWithIconViewIos"
+      BackgroundColor="{AppThemeBinding Light={StaticResource ContentBackgroundColorLight}, Dark={StaticResource ContentBackgroundColorDark}}"
+      RowSpacing="0"
+      x:DataType="models:BottomSheetItemWithIcon"
+      effects:Commands.Tap="{Binding Path=Command, Mode=OneTime}"
+      effects:Commands.TapParameter="{Binding Path=CommandParameter, Mode=OneTime}"
+      effects:TouchEffect.Color="{AppThemeBinding Light={StaticResource RippleColorLight}, Dark={StaticResource RippleColorDark}}">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition Width="Auto" />
+    </Grid.ColumnDefinitions>
+
+    <Label Grid.Column="0"
+           Grid.Row="0"
+           VerticalOptions="Center"
+           Margin="16,0"
+           VerticalTextAlignment="Center"
+           LineBreakMode="TailTruncation"
+           HeightRequest="{OnPlatform iOS=40, Android=46}"
+           Text="{Binding Path=Text, Mode=OneTime}">
+        <Label.Triggers>
+            <DataTrigger TargetType="Label"
+                         Binding="{Binding Path=IsDestructive, Mode=OneTime}"
+                         Value="{StaticResource BoolTrue}">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource ErrorColorLight}, Dark={StaticResource ErrorColorDark}}" />
+            </DataTrigger>
+            <DataTrigger TargetType="Label"
+                         Binding="{Binding Path=IsDestructive, Mode=OneTime}"
+                         Value="{StaticResource BoolFalse}">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource PrimaryTextColorLight}, Dark={StaticResource PrimaryTextColorDark}}" />
+            </DataTrigger>
+        </Label.Triggers>
+    </Label>
+
+    <controls:ImageWithTint Grid.Column="1"
+                            Grid.Row="0"
+                            HeightRequest="25"
+                            WidthRequest="25"
+                            Margin="0,0,16,0"
+                            Source="{Binding Path=Icon, Mode=OneTime}">
+        <controls:ImageWithTint.Triggers>
+            <DataTrigger TargetType="controls:ImageWithTint"
+                         Binding="{Binding Path=IsDestructive, Mode=OneTime}"
+                         Value="{StaticResource BoolTrue}">
+                <Setter Property="TintColor"
+                        Value="{AppThemeBinding Light={StaticResource ErrorColorLight}, Dark={StaticResource ErrorColorDark}}" />
+            </DataTrigger>
+            <DataTrigger TargetType="controls:ImageWithTint"
+                         Binding="{Binding Path=IsDestructive, Mode=OneTime}"
+                         Value="{StaticResource BoolFalse}">
+                <Setter Property="TintColor"
+                        Value="{AppThemeBinding Light={StaticResource PrimaryTextColorLight}, Dark={StaticResource PrimaryTextColorDark}}" />
+            </DataTrigger>
+        </controls:ImageWithTint.Triggers>
+    </controls:ImageWithTint>
+
+    <BoxView Grid.Column="0"
+             Grid.ColumnSpan="2"
+             Grid.Row="1"
+             Style="{StaticResource SeparatorStyle}"
+             IsVisible="{Binding Path=IsLast, Mode=OneTime, Converter={StaticResource ToVisibilityConverter}, ConverterParameter='i'}" />
+
+</Grid>

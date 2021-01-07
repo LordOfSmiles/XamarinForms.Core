@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-namespace XamarinForms.Core.Standard.Extensions
+
+namespace XamarinForms.Core.Extensions
 {
     public static class ViewExtensions
     {

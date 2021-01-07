@@ -1,10 +1,9 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using XamarinForms.Core.Controls.Cells;
 using XamarinForms.Core.iOS.Renderers;
-using XamarinForms.Core.Standard.Controls.Cells;
 
-[assembly: ExportRenderer(typeof(ViewCellWithoutHighlighting), typeof(ViewCellWithoutHighlightingRenderer))]
+
 namespace XamarinForms.Core.iOS.Renderers
 {
     public class ViewCellWithoutHighlightingRenderer : ViewCellRenderer

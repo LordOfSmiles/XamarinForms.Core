@@ -1,10 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using UIKit;
-using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using XamarinForms.Core.iOS.Renderers;
-using XamarinForms.Core.Standard.Controls;
 
 
 namespace XamarinForms.Core.iOS.Renderers

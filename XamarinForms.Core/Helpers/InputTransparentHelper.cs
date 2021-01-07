@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace XamarinForms.Core.Standard.Helpers
+namespace XamarinForms.Core.Helpers
 {
     public sealed class InputTransparentHelper
     {

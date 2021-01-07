@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Standard.Controls
+namespace XamarinForms.Core.Controls
 {
     public sealed class StateContainer : Grid
     {

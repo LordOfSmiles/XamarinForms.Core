@@ -16,10 +16,25 @@
     <Compile Remove="Controls\ShapeView.cs" />
     <Compile Remove="Controls\ContentControl.cs" />
     <Compile Remove="Controls\ControlContainer.cs" />
+    <Compile Update="Controls\BottomSheets\BottomSheetItemViewDroid.xaml.cs">
+      <DependentUpon>BottomSheetItemViewDroid.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\BottomSheets\BottomSheetItemViewIos.xaml.cs">
+      <DependentUpon>BottomSheetItemViewIos.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\BottomSheets\BottomSheetItemWithIconViewDroid.xaml.cs">
+      <DependentUpon>BottomSheetItemWithIconViewDroid.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\BottomSheets\BottomSheetItemWithIconViewIos.xaml.cs">
+      <DependentUpon>BottomSheetItemWithIconViewIos.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\Interfaces\" />
-    <Folder Include="Infrastructure\Localization\" />
     <Folder Include="Controls\Cells\">
     </Folder>
   </ItemGroup>

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Standard.Behaviors
+namespace XamarinForms.Core.Behaviors
 {
     public sealed class ListViewSelectedItemBehavior : BehaviorBase<ListView>
     {

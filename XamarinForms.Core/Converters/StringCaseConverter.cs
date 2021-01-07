@@ -2,7 +2,7 @@
 using System.Globalization;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Standard.Converters
+namespace XamarinForms.Core.Converters
 {
     public sealed class StringCaseConverter : IValueConverter
     {

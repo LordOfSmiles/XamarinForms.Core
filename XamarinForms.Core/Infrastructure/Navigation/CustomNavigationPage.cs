@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using Xamarin.Forms;
+﻿using System;
 using System.Linq;
-using System;
+using Xamarin.Forms;
 using XamarinForms.Core.ViewModels;
 using Application = Xamarin.Forms.Application;
 using NavigationPage = Xamarin.Forms.NavigationPage;
 using Page = Xamarin.Forms.Page;
 
-namespace XamarinForms.Core.Standard.Infrastructure.Navigation
+namespace XamarinForms.Core.Infrastructure.Navigation
 {
     public class CustomNavigationPage : NavigationPage, IDisposable
     {

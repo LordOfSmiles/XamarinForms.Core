@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Standard.Converters
+namespace XamarinForms.Core.Converters
 {
     public sealed class ToVisibilityConverter : IValueConverter
     {

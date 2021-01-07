@@ -1,9 +1,8 @@
-﻿using System.ComponentModel;
-using Xamarin.Forms;
-using XamarinForms.Core.Standard.Infrastructure.Navigation;
+﻿using Xamarin.Forms;
+using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.ViewModels;
 
-namespace XamarinForms.Core.Standard.Views
+namespace XamarinForms.Core.Views
 {
     public abstract class CustomTabbedPage : TabbedPage
     {

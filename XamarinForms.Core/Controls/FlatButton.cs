@@ -1,10 +1,10 @@
 using System;
 using System.Windows.Input;
 using Xamarin.Forms;
-using XamarinForms.Core.Standard.Extensions;
-using XamarinForms.Core.Standard.Services;
+using XamarinForms.Core.Extensions;
+using XamarinForms.Core.Services;
 
-namespace XamarinForms.Core.Standard.Controls
+namespace XamarinForms.Core.Controls
 {
     public sealed class FlatButton : Label
     {

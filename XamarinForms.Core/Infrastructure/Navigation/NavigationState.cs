@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace XamarinForms.Core.Standard.Infrastructure.Navigation
+namespace XamarinForms.Core.Infrastructure.Navigation
 {
     public static class NavigationState
     {

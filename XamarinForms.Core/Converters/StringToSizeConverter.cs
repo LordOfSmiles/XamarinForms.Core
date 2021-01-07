@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Standard.Converters
+namespace XamarinForms.Core.Converters
 {
     public sealed class StringToSizeConverter:IValueConverter
     {

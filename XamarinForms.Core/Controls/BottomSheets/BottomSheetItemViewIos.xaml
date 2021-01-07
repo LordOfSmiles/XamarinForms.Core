@@ -1,0 +1,34 @@
+<?xml version="1.0"
+      encoding="utf-8"?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:effects="clr-namespace:XamarinForms.Core.Effects;assembly=XamarinForms.Core"
+             xmlns:models="clr-namespace:XamarinForms.Core.Controls.BottomSheets.Models;assembly=XamarinForms.Core"
+             x:Class="XamarinForms.Core.Controls.BottomSheets.BottomSheetItemViewIos"
+             BackgroundColor="{AppThemeBinding Light={StaticResource ContentBackgroundColorLight}, Dark={StaticResource ContentBackgroundColorDark}}"
+             Spacing="0"
+             x:DataType="models:BottomSheetItem"
+             effects:Commands.Tap="{Binding Path=Command, Mode=OneTime}"
+             effects:Commands.TapParameter="{Binding Path=CommandParameter, Mode=OneTime}"
+             effects:TouchEffect.Color="{AppThemeBinding Light={StaticResource RippleColorLight}, Dark={StaticResource RippleColorDark}}">
+    
+    <Label VerticalOptions="Center" 
+           Margin="16,0"
+           VerticalTextAlignment="Center"
+           LineBreakMode="TailTruncation"
+           HeightRequest="{OnPlatform iOS=40, Android=46}"
+           Text="{Binding Path=Text, Mode=OneTime}">
+        <Label.Triggers>
+            <DataTrigger TargetType="Label" Binding="{Binding Path=IsDestructive, Mode=OneTime}" Value="{StaticResource BoolTrue}">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ErrorColorLight}, Dark={StaticResource ErrorColorDark}}"/>
+            </DataTrigger>
+            <DataTrigger TargetType="Label" Binding="{Binding Path=IsDestructive, Mode=OneTime}" Value="{StaticResource BoolFalse}">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryTextColorLight}, Dark={StaticResource PrimaryTextColorDark}}"/>
+            </DataTrigger>
+        </Label.Triggers>
+    </Label>
+    
+    <BoxView Style="{StaticResource SeparatorStyle}"
+             IsVisible="{Binding Path=IsLast, Mode=OneTime, Converter={StaticResource ToVisibilityConverter}, ConverterParameter='i'}"/>
+    
+</StackLayout>

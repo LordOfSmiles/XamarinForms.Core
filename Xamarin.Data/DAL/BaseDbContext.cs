@@ -3,7 +3,7 @@ using SQLite;
 
 namespace Xamarin.Data.DAL
 {
-    public abstract class BaseDbContext
+   public abstract class BaseDbContext
     {
         #region Fields
 
@@ -30,20 +30,14 @@ namespace Xamarin.Data.DAL
                 {
                     _connection = _sqLite.GetConnection();
                     var oldVersion = GetDbVersion(_connection);
-
-                    var newVersion = CurrentVersion;
-                    var needMigrateTable = oldVersion < newVersion;
                     
                     CreateTables(_connection);
+                    MigrateData(_connection, oldVersion, DbVersion);
 
-                    Seed(_connection, oldVersion, newVersion);
-
-                    if (needMigrateTable)
+                    if (oldVersion != DbVersion)
                     {
-                        MigrateTables(_connection, oldVersion, newVersion);
+                        SetDbVersion(_connection, DbVersion);
                     }
-                    
-                    SetDbVersion(_connection, newVersion);
                 }
 
                 return _connection;
@@ -53,7 +47,7 @@ namespace Xamarin.Data.DAL
 
         #region Virtual and abstract Methods
 
-        protected abstract int CurrentVersion { get; }
+        protected abstract int DbVersion { get; }
 
         /// <summary>
         /// миграция "на лету". Например, изменеие схемы
@@ -67,10 +61,8 @@ namespace Xamarin.Data.DAL
         /// <param name="db"></param>
         /// <param name="oldVersion"></param>
         /// <param name="newVersion"></param>
-        protected abstract void MigrateTables(SQLiteConnection db, int oldVersion, int newVersion);
+        protected abstract void MigrateData(SQLiteConnection db, int oldVersion, int newVersion);
 
-        protected abstract void Seed(SQLiteConnection db, int oldVersion, int newVersion);
-        
         #endregion
         
         protected static void SetDbVersion(SQLiteConnection db, int version)

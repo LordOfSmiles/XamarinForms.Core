@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Core.Infrastructure.AsyncCommands;
 using Xamarin.Core.Models;
 using Xamarin.Forms;
 
@@ -59,7 +61,7 @@ namespace XamarinForms.Core.ViewModels
             return result;
         }
 
-        protected virtual async void OnClose()
+        protected virtual async Task OnClose()
         {
             if (Shell.Current?.Navigation != null)
             {
@@ -71,7 +73,7 @@ namespace XamarinForms.Core.ViewModels
         
         #region Fields
 
-        protected bool IsFirstInitCompleted;
+        protected bool IsInitCompleted;
         
         #endregion
 
@@ -84,6 +86,12 @@ namespace XamarinForms.Core.ViewModels
 
         #endregion
         
+        #region Commands
+        
+        public ICommand CloseCommand => new AsyncCommand(OnClose);
+        
+        #endregion
+        
         #region Properties
 
         public bool IsAsyncOperationInProgress
@@ -92,6 +100,13 @@ namespace XamarinForms.Core.ViewModels
             protected set => SetProperty(ref _isAsyncOperationInProgress, value);
         }
         private bool _isAsyncOperationInProgress;
+        
+        public bool IsAnimationVisible
+        {
+            get => _isAnimationVisible;
+            protected set => SetProperty(ref _isAnimationVisible, value);
+        }
+        private bool _isAnimationVisible;
 
         #endregion
 

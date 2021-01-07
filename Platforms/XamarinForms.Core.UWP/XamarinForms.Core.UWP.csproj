@@ -11,7 +11,7 @@
     <AssemblyName>XamarinForms.Core.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -124,12 +124,18 @@
     <EmbeddedResource Include="Properties\XamarinForms.Core.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.9</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms">
-      <Version>4.4.0.991537</Version>
-    </PackageReference>
+    <ProjectReference Include="..\..\Xamarin.Core\Xamarin.Core.csproj">
+      <Project>{4a3f0aa4-8bc9-47dc-8b66-9876c0834509}</Project>
+      <Name>Xamarin.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Xamarin.Data\Xamarin.Data.csproj">
+      <Project>{2e2cdd91-b931-468d-bd9d-8f0e00c96890}</Project>
+      <Name>Xamarin.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\XamarinForms.Core\XamarinForms.Core.csproj">
+      <Project>{8192930e-e5da-45dc-82d6-d80304c29cad}</Project>
+      <Name>XamarinForms.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

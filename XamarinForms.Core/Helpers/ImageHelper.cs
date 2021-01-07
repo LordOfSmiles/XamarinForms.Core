@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace XamarinForms.Core.Standard.Helpers
+namespace XamarinForms.Core.Helpers
 {
     public static class ImageHelper
     {

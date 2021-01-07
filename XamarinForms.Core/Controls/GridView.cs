@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Standard.Controls
+namespace XamarinForms.Core.Controls
 {
     public sealed class GridView : Grid
     {

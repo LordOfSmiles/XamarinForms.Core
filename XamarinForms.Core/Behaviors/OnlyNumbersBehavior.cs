@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Standard.Behaviors
+namespace XamarinForms.Core.Behaviors
 {
     public sealed class OnlyNumbersBehavior : BehaviorBase<Entry>
     {

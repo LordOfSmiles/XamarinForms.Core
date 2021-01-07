@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.Forms;
-using XamarinForms.Core.Standard.Helpers;
+using XamarinForms.Core.Helpers;
 
-namespace XamarinForms.Core.Standard.Converters
+namespace XamarinForms.Core.Converters
 {
     public sealed class BytesToImageSourceConverter : IValueConverter
     {

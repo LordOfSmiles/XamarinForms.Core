@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Standard.Behaviors
+namespace XamarinForms.Core.Behaviors
 {
     public abstract class BehaviorBase<T> : Behavior<T> where T : BindableObject
     {

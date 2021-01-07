@@ -1,5 +1,5 @@
 using Xamarin.Forms;
-using XamarinForms.Core.Standard.Services;
+using XamarinForms.Core.Services;
 
 namespace XamarinForms.Core.Controls
 {

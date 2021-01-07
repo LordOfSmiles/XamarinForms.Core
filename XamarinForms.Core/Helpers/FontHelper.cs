@@ -1,8 +1,7 @@
 using Xamarin.Forms;
-using XamarinForms.Core.Standard.Infrastructure.Interfaces;
-using XamarinForms.Core.Standard.Services;
+using XamarinForms.Core.Services;
 
-namespace XamarinForms.Core.Standard.Helpers
+namespace XamarinForms.Core.Helpers
 {
     public static class FontHelper
     {

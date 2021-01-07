@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XamarinForms.Core.Standard.Services.MessagingService
+namespace XamarinForms.Core.Services.MessagingService
 {
     public interface IMessagingService
     {
