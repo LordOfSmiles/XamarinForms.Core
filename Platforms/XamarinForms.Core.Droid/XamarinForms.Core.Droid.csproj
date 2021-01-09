@@ -132,7 +132,7 @@
     <PackageReference Include="Xamarin.AndroidX.VersionedParcelable" Version="1.1.1.6" />
     <PackageReference Include="Xamarin.AndroidX.ViewPager" Version="1.0.0.6" />
     <PackageReference Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.8" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1829-pre6" />
     <PackageReference Include="Xamarin.Google.Android.Material" Version="1.2.1.1" />
     <PackageReference Include="Xamarin.Google.Guava.ListenableFuture" Version="1.0.0.2" />
   </ItemGroup>
