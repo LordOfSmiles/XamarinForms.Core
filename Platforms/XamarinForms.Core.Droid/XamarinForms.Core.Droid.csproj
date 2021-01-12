@@ -62,6 +62,7 @@
     <Compile Include="Helpers\VersionHelper.cs" />
     <Compile Include="Helpers\WidgetHelper.cs" />
     <Compile Include="PlatformServices\LocalizePlatformService.cs" />
+    <Compile Include="PlatformServices\StoreReviewPlatformService.cs" />
     <Compile Include="PlatformServices\ToastPlatformServiceService.cs" />
     <Compile Include="Renderers\BorderlessDatePickerRenderer.cs" />
     <Compile Include="Renderers\BorderlessEditorRenderer.cs" />

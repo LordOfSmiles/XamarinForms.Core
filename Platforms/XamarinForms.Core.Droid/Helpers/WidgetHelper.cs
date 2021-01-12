@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Android.Appwidget;
 using Android.Content;
@@ -13,12 +14,14 @@ namespace XamarinForms.Core.Droid.Helpers
         {
             if (context == null)
                 return;
-            
+
             var widgetManager = AppWidgetManager.GetInstance(context);
+
             if (widgetManager != null)
             {
                 var widgetProvider = new ComponentName(context, GetWidgetClassName(widgetType));
                 var ids = widgetManager.GetAppWidgetIds(widgetProvider);
+
                 if (ids?.Any() ?? false)
                 {
                     var updateIntent = new Intent(context, widgetType);
@@ -29,31 +32,34 @@ namespace XamarinForms.Core.Droid.Helpers
             }
         }
 
-        public static void UpdateWidget(Context context, Func<Context, RemoteViews> buildRemoteViews, Type widgetType)
+        public static void UpdateWidget(Context context, Type widgetType, Func<Context, RemoteViews> buildRemoteViews)
         {
             if (context == null)
                 return;
-            
+
             var widgetManager = AppWidgetManager.GetInstance(context);
+
             if (widgetManager != null)
             {
                 var widgetProvider = new ComponentName(context, GetWidgetClassName(widgetType));
                 var ids = widgetManager.GetAppWidgetIds(widgetProvider);
+
                 if (ids?.Any() ?? false)
                     widgetManager.UpdateAppWidget(ids, buildRemoteViews(context));
             }
         }
-        
+
         public static void PinWidget(Context context, Type widgetType)
         {
             var widgetManager = AppWidgetManager.GetInstance(context);
+
             if (widgetManager != null && IsWidgetPinningSupported(context))
             {
                 var widgetProvider = new ComponentName(context, GetWidgetClassName(widgetType));
                 widgetManager.RequestPinAppWidget(widgetProvider, Bundle.Empty, null);
             }
         }
-        
+
         public static bool IsWidgetPinningSupported(Context context)
         {
             var result = false;
@@ -71,7 +77,17 @@ namespace XamarinForms.Core.Droid.Helpers
 
         public static string GetWidgetClassName(Type widgetType)
         {
-            return Java.Lang.Class.FromType(widgetType).Name;
+            if (!WidgetNames.ContainsKey(widgetType))
+            {
+                WidgetNames.Add(widgetType, Java.Lang.Class.FromType(widgetType).Name);
+            }
+            return WidgetNames[widgetType];
         }
+
+        #region Fields
+
+        private static readonly Dictionary<Type, string> WidgetNames = new Dictionary<Type, string>();
+
+        #endregion
     }
 }
