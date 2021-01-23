@@ -10,9 +10,9 @@ namespace XamarinForms.Core.ViewModels
 {
     public abstract class ViewModelBase : NotifyObject, IDisposable
     {
-        protected const string NeedRefreshDataKey = "NeedRefreshData";
+        public const string NeedRefreshDataKey = "NeedRefreshData";
         protected const string GoBackKey = "BackNavigation";
-        
+
         #region Public Methods
 
         public virtual Task OnAppearingAsync(IDictionary<string, object> navigationParameters)
@@ -22,12 +22,17 @@ namespace XamarinForms.Core.ViewModels
 
         public virtual void OnDisappearing()
         {
-            
         }
 
         #endregion
-        
+
         #region Protected Methods
+
+        protected void ShowAnimation(bool isVisible)
+        {
+            IsAnimationVisible = isVisible;
+            IsUserInputDisabled = isVisible;
+        }
 
         protected async Task DisplayAlert(string title, string message, string cancel)
         {
@@ -70,37 +75,36 @@ namespace XamarinForms.Core.ViewModels
         }
 
         #endregion
-        
+
         #region Fields
 
         protected bool IsInitCompleted;
-        
+
         #endregion
 
         #region Constructor
 
         protected ViewModelBase()
         {
-
         }
 
         #endregion
-        
+
         #region Commands
-        
+
         public ICommand CloseCommand => new AsyncCommand(OnClose);
-        
+
         #endregion
-        
+
         #region Properties
 
-        public bool IsAsyncOperationInProgress
+        public bool IsUserInputDisabled
         {
-            get => _isAsyncOperationInProgress;
-            protected set => SetProperty(ref _isAsyncOperationInProgress, value);
+            get => _isUserInputDisabled;
+            protected set => SetProperty(ref _isUserInputDisabled, value);
         }
-        private bool _isAsyncOperationInProgress;
-        
+        private bool _isUserInputDisabled;
+
         public bool IsAnimationVisible
         {
             get => _isAnimationVisible;
@@ -116,7 +120,6 @@ namespace XamarinForms.Core.ViewModels
         {
             if (disposing)
             {
-               
             }
         }
 
@@ -127,8 +130,5 @@ namespace XamarinForms.Core.ViewModels
         }
 
         #endregion
-
-       
     }
 }
-

@@ -13,13 +13,13 @@ namespace Xamarin.Data.DAL
 
         #region Dependencies
         
-        private readonly ISqlitePlatform _sqLite;
+        private readonly ISqlitePlatform _sqLitePlatform;
         
         #endregion
 
-        protected BaseDbContext(ISqlitePlatform sqLite)
+        protected BaseDbContext(ISqlitePlatform sqLitePlatform)
         {
-            _sqLite = sqLite;
+            _sqLitePlatform = sqLitePlatform;
         }
 
         public SQLiteConnection Connection
@@ -28,7 +28,7 @@ namespace Xamarin.Data.DAL
             {
                 if (_connection == null)
                 {
-                    _connection = _sqLite.GetConnection();
+                    _connection = _sqLitePlatform.GetConnection();
                     var oldVersion = GetDbVersion(_connection);
                     
                     CreateTables(_connection);
@@ -82,6 +82,6 @@ namespace Xamarin.Data.DAL
             return db.ExecuteScalar<int>("PRAGMA user_version");
         }
 
-        public void OnDataChanged() => _sqLite.OnDataChanged();
+        public void OnDataChanged() => _sqLitePlatform.OnDataChanged();
     }
 }
