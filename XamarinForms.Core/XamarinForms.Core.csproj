@@ -24,6 +24,10 @@
       <DependentUpon>TopGradientView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\FlatCheckBox.xaml.cs">
+      <DependentUpon>FlatCheckBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\Interfaces\" />

@@ -11,7 +11,7 @@ namespace XamarinForms.Core.Controls
             this.SetAppThemeColor(View.BackgroundColorProperty, colorLight, colorDark);
         }
 
-        public string AdUnitId { get; set; }
+        public string AdUnitId { get; }
     }
 }
 
