@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Core.Infrastructure.AsyncCommands;
 using Xamarin.Core.Models;
 using Xamarin.Forms;
 
@@ -66,7 +65,7 @@ namespace XamarinForms.Core.ViewModels
             return result;
         }
 
-        protected virtual async Task OnClose()
+        protected virtual async void OnClose()
         {
             if (Shell.Current?.Navigation != null)
             {
@@ -92,7 +91,7 @@ namespace XamarinForms.Core.ViewModels
 
         #region Commands
 
-        public ICommand CloseCommand => new AsyncCommand(OnClose);
+        public ICommand CloseCommand => new Command(OnClose);
 
         #endregion
 
