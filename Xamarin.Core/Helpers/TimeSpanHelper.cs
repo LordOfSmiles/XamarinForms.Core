@@ -9,6 +9,30 @@ namespace Xamarin.Core.Helpers
         {
             return start <= value && value <= end;
         }
+        
+        public static bool IsIntersectedWithoutBounds(TimeSpan start, TimeSpan end, TimeSpan value)
+        {
+            return start < value && value < end;
+        }
+        
+        public static bool IsIntersected(TimeSpan start, TimeSpan end, TimeSpan start2, TimeSpan end2)
+        {
+            if (start < start2 && start2 < end)
+            {
+                //start date of 2nd span within range of first span
+                return true;
+            }
+            else if (start < end2 && end2 < end)
+            {
+                //end date of 2nd span within range of first span
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         public static TimeSpan ParseFromString(string timeString)
         {
