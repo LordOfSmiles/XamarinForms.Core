@@ -2,38 +2,36 @@
       encoding="utf-8"?>
 <Frame xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:effects="clr-namespace:XamarinForms.Core.Effects;assembly=XamarinForms.Core"
        xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
+       xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
        x:Class="XamarinForms.Core.Controls.FlatCheckBox"
        Padding="0"
        CornerRadius="6"
        HasShadow="False"
        IsClippedToBounds="True"
        HeightRequest="36"
-       x:Name="ctrlRoot">
-    <ContentView x:Name="cnv"
-                 effects:TouchEffect.Color="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=RippleColor}">
-        <StackLayout Orientation="Horizontal"
-                     HorizontalOptions="Center"
-                     VerticalOptions="Center"
-                     Spacing="0">
-            <controls:ImageWithTint x:Name="img"
-                                     VerticalOptions="Center"
-                                     HeightRequest="{OnPlatform iOS=25, Android=24}"
-                                     WidthRequest="{OnPlatform iOS=25, Android=24}"
-                                     Margin="0,0,4,0"
-                                     InputTransparent="True" />
+       x:Name="ctrlRoot"
+       effects:TouchEffect.PressedBackgroundColor="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=RippleColor}">
+    <StackLayout Orientation="Horizontal"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"
+                 Spacing="0">
+        <Image x:Name="img"
+               VerticalOptions="Center"
+               HeightRequest="{OnPlatform iOS=25, Android=24}"
+               WidthRequest="{OnPlatform iOS=25, Android=24}"
+               Margin="0,0,4,0"
+               InputTransparent="True" />
 
-            <Label x:Name="lbl"
-                   Margin="8,0"
-                   FontAttributes="Bold"
-                   FontSize="14"
-                   LineBreakMode="TailTruncation"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"
-                   InputTransparent="True"
-                   TextTransform="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=TextTransform}"
-                   Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=Text}" />
-        </StackLayout>
-    </ContentView>
+        <Label x:Name="lbl"
+               Margin="8,0"
+               FontAttributes="Bold"
+               FontSize="14"
+               LineBreakMode="TailTruncation"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               InputTransparent="True"
+               TextTransform="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=TextTransform}"
+               Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=Text}" />
+    </StackLayout>
 </Frame>

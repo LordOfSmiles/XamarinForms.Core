@@ -68,7 +68,6 @@
     <Compile Include="Renderers\BorderlessEditorRenderer.cs" />
     <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
     <Compile Include="Renderers\IAdvInterstitial.cs" />
-    <Compile Include="Renderers\ImageWithTintRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -84,9 +83,6 @@
       <Project>{5AC9AC02-E6A2-4546-ADF3-D1C4DC1379E9}</Project>
       <Name>XamarinForms.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.AndroidX.Activity" Version="1.1.0.5" />
@@ -133,7 +129,8 @@
     <PackageReference Include="Xamarin.AndroidX.VersionedParcelable" Version="1.1.1.6" />
     <PackageReference Include="Xamarin.AndroidX.ViewPager" Version="1.0.0.6" />
     <PackageReference Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.8" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1931" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.3" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Google.Android.Material" Version="1.2.1.1" />
     <PackageReference Include="Xamarin.Google.Guava.ListenableFuture" Version="1.0.0.2" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using XamarinForms.Core.Effects;
 
@@ -11,10 +12,9 @@ namespace XamarinForms.Core.Controls
             InitializeComponent();
 
             img.IsVisible = Icon != null;
-            
-            UpdateColors();
 
-            Commands.SetTap(cnv, TapCommand);
+            UpdateColors();
+            TouchEffect.SetCommand(this, TapCommand);
         }
 
         #region Commands
@@ -107,7 +107,7 @@ namespace XamarinForms.Core.Controls
         }
 
         #endregion
-        
+
         #region RippleColor
 
         public static readonly BindableProperty RippleColorProperty = BindableProperty.Create(nameof(RippleColor),
@@ -120,7 +120,7 @@ namespace XamarinForms.Core.Controls
             get => (Color) GetValue(RippleColorProperty);
             set => SetValue(RippleColorProperty, value);
         }
-        
+
         #endregion
 
         #region SelectedColor
@@ -223,13 +223,13 @@ namespace XamarinForms.Core.Controls
             if (IsChecked)
             {
                 ctrlRoot.BackgroundColor = SelectedColor;
-                img.TintColor = SelectedTextColor;
+                IconTintColorEffect.SetTintColor(img, SelectedTextColor);
                 lbl.TextColor = SelectedTextColor;
             }
             else
             {
                 ctrlRoot.BackgroundColor = UnselectedColor;
-                img.TintColor = UnselectedTextColor;
+                IconTintColorEffect.SetTintColor(img, UnselectedTextColor);
                 lbl.TextColor = UnselectedTextColor;
             }
         }
