@@ -11,6 +11,9 @@
        IsClippedToBounds="True"
        HeightRequest="36"
        x:Name="ctrlRoot"
+       effects:TouchEffect.NativeAnimation="{OnPlatform Android=True}"
+       effects:TouchEffect.PulseCount="{OnPlatform Android=1}"
+       effects:TouchEffect.NativeAnimationColor="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=RippleColor}"
        effects:TouchEffect.PressedBackgroundColor="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=RippleColor}">
     <StackLayout Orientation="Horizontal"
                  HorizontalOptions="Center"

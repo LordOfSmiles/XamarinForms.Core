@@ -50,8 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Effects\CommandsPlatform.cs" />
-    <Compile Include="Effects\TouchEffectPlatform.cs" />
     <Compile Include="Extensions\ContextExtensions.cs" />
     <Compile Include="Extensions\ViewGroupExtensions.cs" />
     <Compile Include="Helpers\AlarmManagerHelper.cs" />
