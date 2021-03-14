@@ -45,7 +45,7 @@ namespace XamarinForms.Core.Droid.Helpers
         {
             var intent = new Intent(context, receiverType);
             intent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
-            return PendingIntent.GetBroadcast(context, 0, intent, 0);
+            return PendingIntent.GetBroadcast(context, 0, intent, PendingIntentFlags.UpdateCurrent);
         }
 
         private static PendingIntent GetCancelPendingIntent(Context context, Type receiverType)
