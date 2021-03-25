@@ -27,7 +27,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -39,7 +38,6 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidDexTool>d8</AndroidDexTool>
     <AndroidLinkTool>r8</AndroidLinkTool>
-    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Java.Interop" />
@@ -76,11 +74,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Core\Xamarin.Core.csproj">
-      <Project>{27F4A20E-E756-4027-9B47-71B42C50090D}</Project>
+      <Project>{49829FF8-535B-420C-9918-B2B539CF6032}</Project>
       <Name>Xamarin.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\XamarinForms.Core\XamarinForms.Core.csproj">
-      <Project>{D7EAF335-BF93-4134-9B07-00CA558F01CA}</Project>
+      <Project>{5AC9AC02-E6A2-4546-ADF3-D1C4DC1379E9}</Project>
       <Name>XamarinForms.Core</Name>
     </ProjectReference>
   </ItemGroup>
