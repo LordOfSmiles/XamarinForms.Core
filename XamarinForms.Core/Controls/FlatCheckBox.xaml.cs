@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
@@ -89,6 +90,8 @@ namespace XamarinForms.Core.Controls
         {
             var ctrl = (FlatCheckBox) bindable;
             ctrl.UpdateColors();
+
+            ctrl.CheckedEvent?.Invoke(ctrl, EventArgs.Empty);
         }
 
         #endregion
@@ -233,6 +236,12 @@ namespace XamarinForms.Core.Controls
                 lbl.TextColor = UnselectedTextColor;
             }
         }
+
+        #endregion
+        
+        #region Events
+
+        public event EventHandler CheckedEvent;
 
         #endregion
     }
