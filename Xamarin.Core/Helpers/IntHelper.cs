@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace BabyDream.Infrastructure.Helpers
+namespace Xamarin.Core.Helpers
 {
     public static class IntHelper
     {

@@ -7,7 +7,7 @@ namespace XamarinForms.Core.Extensions
     {
         public static Task GoBack(this Shell shell)
         {
-            return shell?.Navigation.PopAsync();
+            return shell.Navigation.PopAsync();
         }
     }
 }

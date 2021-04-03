@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using BabyDream.Infrastructure.Controls;
 using UIKit;
 using Xamarin.Forms.Platform.iOS;
+using XamarinForms.Core.Controls;
 
 namespace XamarinForms.Core.iOS.Renderers
 {

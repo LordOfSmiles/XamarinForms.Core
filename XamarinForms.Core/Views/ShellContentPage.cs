@@ -1,6 +1,3 @@
-
-using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.ViewModels;

@@ -1,6 +1,5 @@
 ﻿using System;
 using Xamarin.Forms;
-using XamarinForms.Core.Extensions;
 
 namespace XamarinForms.Core.Controls
 {

@@ -2,8 +2,8 @@
       encoding="utf-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:BabyDream.Infrastructure.Controls;assembly=XamarinForms.Core"
-             x:Class="BabyDream.Infrastructure.Controls.BottomGradientView"
+             xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
+             x:Class="XamarinForms.Core.Controls.BottomGradientView"
              HeightRequest="8">
     <ContentView.Background>
         <LinearGradientBrush StartPoint="0,0"

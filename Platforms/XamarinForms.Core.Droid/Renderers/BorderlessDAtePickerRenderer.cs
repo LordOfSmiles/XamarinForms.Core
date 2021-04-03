@@ -1,5 +1,4 @@
 using Android.Content;
-using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 
 namespace XamarinForms.Core.Droid.Renderers

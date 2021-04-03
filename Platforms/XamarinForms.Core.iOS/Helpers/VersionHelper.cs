@@ -1,5 +1,4 @@
 using UIKit;
-using Xamarin.Forms;
 
 namespace XamarinForms.Core.iOS.Helpers
 {

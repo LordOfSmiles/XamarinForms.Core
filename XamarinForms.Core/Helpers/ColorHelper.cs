@@ -1,6 +1,6 @@
 using Xamarin.Forms;
 
-namespace BabyDream.Infrastructure.Helpers
+namespace XamarinForms.Core.Helpers
 {
     public static class ColorHelper
     {

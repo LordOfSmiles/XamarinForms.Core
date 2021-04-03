@@ -34,7 +34,7 @@ namespace XamarinForms.Core.iOS.PlatformServices
                     }
                     else if (UIScreen.MainScreen.Bounds.Height == 812)
                     {
-                        //Console.WriteLine("iPhone X, XS, 11 Pro");
+                        //Console.WriteLine("iPhone X, XS, 11 Pro, 12 mini");
                         //iPhone X, XS, 11
                         result = true;
                     }

@@ -1,6 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using XamarinForms.Core.Droid.Renderers;
+﻿
 
 //[assembly: Xamarin.Forms.Dependency(typeof(AdvInterstitial))]
 //namespace XamarinForms.Core.Droid.Renderers

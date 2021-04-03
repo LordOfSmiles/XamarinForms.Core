@@ -1,4 +1,4 @@
-﻿namespace Xamarin.Core.Infrastructure.Interfaces
+﻿namespace Xamarin.Core.Interfaces
 {
     public interface IAdvInterstitial
     {

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Xamarin.Core.Infrastructure.Interfaces
+namespace Xamarin.Core.Interfaces
 {
     public interface IAdvRewarded
     {

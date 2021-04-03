@@ -6,7 +6,7 @@ using System.Linq;
 using Xamarin.Core.Models;
 using Xamarin.Forms;
 
-namespace BabyDream.Infrastructure.Controls
+namespace XamarinForms.Core.Controls.Tabs
 {
     public sealed class TabControlWithScroll : ScrollView
     {

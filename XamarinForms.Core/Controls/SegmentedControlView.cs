@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace BabyDream.Infrastructure.Controls
+namespace XamarinForms.Core.Controls
 {
     public class SegmentedControl : View, IViewContainer<SegmentedControlOption>
     {

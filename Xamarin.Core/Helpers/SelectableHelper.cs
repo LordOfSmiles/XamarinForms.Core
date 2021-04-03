@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Xamarin.Core.Infrastructure.Interfaces;
+using Xamarin.Core.Interfaces;
 
-namespace BabyDream.Infrastructure.Helpers
+namespace Xamarin.Core.Helpers
 {
     public static class SelectableHelper
     {

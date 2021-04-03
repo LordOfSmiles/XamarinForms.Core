@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace BabyDream.Infrastructure.Helpers
+namespace XamarinForms.Core.Helpers
 {
     public static class DeviceHelper
     {
@@ -18,7 +18,7 @@ namespace BabyDream.Infrastructure.Helpers
                     result = android;
                     break;
                 default:
-                    result = default(T);
+                    result = default;
                     break;
             }
 

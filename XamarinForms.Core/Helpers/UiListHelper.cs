@@ -2,16 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using XamarinForms.Core.Infrastructure.Interfaces;
 
-namespace BabyDream.Infrastructure.Helpers
+namespace XamarinForms.Core.Helpers
 {
     public static class UiListHelper
     {
         public static void SetFirstAndLast<T>(IList<T> items)
             where T : IUiListItem
         {
-            if (items == null)
-                return;
-
             for (var i = 0; i < items.Count; i++)
             {
                 var item = items[i];
@@ -23,9 +20,6 @@ namespace BabyDream.Infrastructure.Helpers
         public static void SetFirstAndLast<T>(IEnumerable<T> items)
             where T : IUiListItem
         {
-            if (items == null)
-                return;
-
             if (items.Any())
             {
                 var count = items.Count();

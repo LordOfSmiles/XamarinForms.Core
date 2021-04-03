@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace BabyDream.Infrastructure.Controls
+namespace XamarinForms.Core.Controls.Tabs
 {
     public sealed class TabControl : Grid
     {

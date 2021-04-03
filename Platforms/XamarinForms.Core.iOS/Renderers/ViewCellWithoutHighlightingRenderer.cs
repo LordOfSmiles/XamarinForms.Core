@@ -1,7 +1,5 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using XamarinForms.Core.Controls.Cells;
-using XamarinForms.Core.iOS.Renderers;
 
 
 namespace XamarinForms.Core.iOS.Renderers

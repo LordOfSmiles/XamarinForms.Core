@@ -1,6 +1,6 @@
 using System;
 
-namespace BabyDream.Infrastructure.Helpers
+namespace Xamarin.Core.Extensions
 {
     public static class CloneExtension
     {

@@ -2,7 +2,7 @@ using System;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinForms.Core.Extensions;
-using XamarinForms.Core.Services;
+using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls
 {

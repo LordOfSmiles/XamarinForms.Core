@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace BabyDream.Infrastructure.Helpers
+namespace XamarinForms.Core.Helpers
 {
     public sealed class EventAggregator
     {

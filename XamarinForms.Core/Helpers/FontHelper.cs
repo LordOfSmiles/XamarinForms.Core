@@ -1,5 +1,4 @@
 using Xamarin.Forms;
-using XamarinForms.Core.Services;
 
 namespace XamarinForms.Core.Helpers
 {
