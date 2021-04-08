@@ -1,3 +1,4 @@
+using System;
 using Xamarin.Forms;
 using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.ViewModels;
@@ -15,7 +16,7 @@ namespace XamarinForms.Core.Views
                 {
                     await vm.OnAppearingAsync(NavigationHelper.GetParametersByPageType(GetType()));
                 }
-                catch
+                catch(Exception ex)
                 {
                     //
                 }

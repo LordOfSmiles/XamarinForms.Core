@@ -5,7 +5,7 @@
     <LangVersion>default</LangVersion>
     <AssemblyName>Xamarin.Core</AssemblyName>
     <RootNamespace>Xamarin.Core</RootNamespace>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
 </Project>
