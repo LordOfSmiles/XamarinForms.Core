@@ -16,7 +16,7 @@ namespace XamarinForms.Core.Controls
         {
             Padding = new Thickness(16, 2, 8, 2);
 
-            _lblDefault = new Label()
+            _lblDefault = new Label
             {
                 TextColor = Color.Gray,
                 FontSize = DeviceHelper.OnPlatform(10, 12),
@@ -24,7 +24,7 @@ namespace XamarinForms.Core.Controls
             };
             Children.Add(_lblDefault);
 
-            _lblError = new Label()
+            _lblError = new Label
             {
                 TextColor = Color.Red,
                 FontSize = DeviceHelper.OnPlatform(10, 12),

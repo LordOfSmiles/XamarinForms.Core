@@ -53,8 +53,7 @@ namespace XamarinForms.Core.Controls.Tabs
         
         public static readonly BindableProperty ItemTemplateProperty = BindableProperty.Create(nameof(ItemTemplate),
             typeof(DataTemplate), 
-            typeof(TabControl),
-            default(DataTemplate));
+            typeof(TabControl));
 
         public DataTemplate ItemTemplate
         {

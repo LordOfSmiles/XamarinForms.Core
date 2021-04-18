@@ -8,7 +8,7 @@ namespace XamarinForms.Core.Controls
         {
             AdUnitId = adUnitId;
 
-            this.SetAppThemeColor(View.BackgroundColorProperty, colorLight, colorDark);
+            this.SetAppThemeColor(BackgroundColorProperty, colorLight, colorDark);
         }
 
         public string AdUnitId { get; }

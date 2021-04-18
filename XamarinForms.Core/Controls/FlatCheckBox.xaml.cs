@@ -2,7 +2,6 @@ using System;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
-using TouchEffect = Xamarin.CommunityToolkit.Effects.TouchEffect;
 
 namespace XamarinForms.Core.Controls
 {

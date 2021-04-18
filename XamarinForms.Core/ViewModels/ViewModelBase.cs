@@ -83,10 +83,6 @@ namespace XamarinForms.Core.ViewModels
 
         #region Constructor
 
-        protected ViewModelBase()
-        {
-        }
-
         #endregion
 
         #region Commands

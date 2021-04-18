@@ -7,7 +7,7 @@ namespace XamarinForms.Core.Helpers
     {
         #region Public Methods
 
-        public void Subscribe(string message, Action callback) => MessagingCenter.Subscribe<EventAggregator>(this, message, (service) => callback.Invoke());
+        public void Subscribe(string message, Action callback) => MessagingCenter.Subscribe<EventAggregator>(this, message, service => callback.Invoke());
         public void Subscribe<T>(string message, Action<T> callback) => MessagingCenter.Subscribe<EventAggregator, T>(this, message, (service, parameter) => callback.Invoke(parameter));
 
         public void SendMessage(string message) => MessagingCenter.Send(this, message);
@@ -21,7 +21,7 @@ namespace XamarinForms.Core.Helpers
         #region Singleton
         
         public static EventAggregator Current => _instance ??= new EventAggregator();
-        private static EventAggregator _instance = null;
+        private static EventAggregator _instance;
 
         #endregion
     }

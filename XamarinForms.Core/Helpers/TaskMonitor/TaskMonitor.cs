@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace XamarinForms.Core.Helpers.TaskMonitor
 {
-    public partial class TaskMonitor : TaskMonitorBase
+    public class TaskMonitor : TaskMonitorBase
     {
         public static readonly ITaskMonitor NotStartedTask = new NotStartedTask();
 

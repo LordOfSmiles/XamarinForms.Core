@@ -144,7 +144,7 @@ namespace XamarinForms.Core.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void RaiseSelectionChanged()
         {
-            OnSegmentSelected?.Invoke(this, new SegmentSelectEventArgs { NewValue = this.SelectedSegment });
+            OnSegmentSelected?.Invoke(this, new SegmentSelectEventArgs { NewValue = SelectedSegment });
 
             if (!(SegmentSelectedCommand is null) && SegmentSelectedCommand.CanExecute(SegmentSelectedCommandParameter))
             {

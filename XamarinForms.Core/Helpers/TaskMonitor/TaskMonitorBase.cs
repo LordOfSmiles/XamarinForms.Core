@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace XamarinForms.Core.Helpers.TaskMonitor
 {
-    public abstract partial class TaskMonitorBase : ITaskMonitor
+    public abstract class TaskMonitorBase : ITaskMonitor
     {
         /// <summary>
         /// Instance logger.

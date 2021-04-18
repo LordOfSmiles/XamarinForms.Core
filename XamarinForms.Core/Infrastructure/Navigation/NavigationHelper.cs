@@ -14,7 +14,7 @@ namespace XamarinForms.Core.Infrastructure.Navigation
         {
             if (!NavigationParameters.ContainsKey(pageType))
             {
-                NavigationParameters.Add(pageType, new Dictionary<string, object>()
+                NavigationParameters.Add(pageType, new Dictionary<string, object>
                 {
                     {key, value}
                 });

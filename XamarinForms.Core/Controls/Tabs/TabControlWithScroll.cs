@@ -21,7 +21,7 @@ namespace XamarinForms.Core.Controls.Tabs
             Orientation = ScrollOrientation.Horizontal;
             HorizontalScrollBarVisibility = ScrollBarVisibility.Never;
 
-            _stkContent = new StackLayout()
+            _stkContent = new StackLayout
             {
                 Spacing = 0,
                 Orientation = StackOrientation.Horizontal
@@ -69,8 +69,7 @@ namespace XamarinForms.Core.Controls.Tabs
         
         public static readonly BindableProperty ItemTemplateProperty = BindableProperty.Create(nameof(ItemTemplate),
             typeof(DataTemplate), 
-            typeof(TabControlWithScroll),
-            default(DataTemplate));
+            typeof(TabControlWithScroll));
 
         public DataTemplate ItemTemplate
         {

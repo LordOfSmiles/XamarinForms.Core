@@ -24,8 +24,7 @@ namespace XamarinForms.Core.Behaviors
 
         public static readonly BindableProperty MinProperty = BindableProperty.Create(nameof(Min),
             typeof(double?),
-            typeof(MinMaxEntryBehavior),
-            null);
+            typeof(MinMaxEntryBehavior));
 
         public double? Min
         {
@@ -39,8 +38,7 @@ namespace XamarinForms.Core.Behaviors
 
         public static readonly BindableProperty MaxProperty = BindableProperty.Create(nameof(Max),
             typeof(double?),
-            typeof(MinMaxEntryBehavior),
-            null);
+            typeof(MinMaxEntryBehavior));
 
         public double? Max
         {

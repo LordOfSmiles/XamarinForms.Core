@@ -23,7 +23,7 @@ namespace XamarinForms.Core.Controls
 
 
             _bxRight = new BoxView();
-            Grid.SetColumn(_bxRight, 1);
+            SetColumn(_bxRight, 1);
             Children.Add(_bxRight);
             
             SizeChanged += CtrlRootOnSizeChanged;

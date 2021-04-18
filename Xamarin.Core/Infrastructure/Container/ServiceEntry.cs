@@ -3,7 +3,7 @@ using Xamarin.Core.Infrastructure.Container.Interfaces;
 
 namespace Xamarin.Core.Infrastructure.Container
 {
-    internal class ServiceEntry : IRegistration, IReusedOwned, IReused, IOwned, IFluentInterface
+    internal class ServiceEntry : IRegistration
     {
         public Owner Owner;
         public ReuseScope Reuse;
@@ -30,7 +30,7 @@ namespace Xamarin.Core.Infrastructure.Container
         }
     }
 
-    internal sealed class ServiceEntry<TService, TFunc> : ServiceEntry, IRegistration<TService>, IRegistration, IReusedOwned, IReused, IOwned, IInitializable<TService>, IFluentInterface
+    internal sealed class ServiceEntry<TService, TFunc> : ServiceEntry, IRegistration<TService>
     {
         public TFunc Factory;
         internal TService Instance;

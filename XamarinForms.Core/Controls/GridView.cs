@@ -132,13 +132,13 @@ namespace XamarinForms.Core.Controls
 
                         if (lastColumn < column && column < MaxColumnsOrRows)
                         {
-                            ColumnDefinitions.Add(new ColumnDefinition() { Width = columnWidth });
+                            ColumnDefinitions.Add(new ColumnDefinition { Width = columnWidth });
                             lastColumn = column;
                         }
 
                         if (lastRow < row)
                         {
-                            RowDefinitions.Add(new RowDefinition() { Height = rowHeight });
+                            RowDefinitions.Add(new RowDefinition { Height = rowHeight });
                             lastRow = row;
                         }
 
@@ -149,13 +149,13 @@ namespace XamarinForms.Core.Controls
 
                         if (lastColumn < column)
                         {
-                            ColumnDefinitions.Add(new ColumnDefinition() { Width = columnWidth });
+                            ColumnDefinitions.Add(new ColumnDefinition { Width = columnWidth });
                             lastColumn = column;
                         }
 
                         if (lastRow < row && row < MaxColumnsOrRows)
                         {
-                            RowDefinitions.Add(new RowDefinition() { Height = rowHeight });
+                            RowDefinitions.Add(new RowDefinition { Height = rowHeight });
                             lastRow = row;
                         }
 

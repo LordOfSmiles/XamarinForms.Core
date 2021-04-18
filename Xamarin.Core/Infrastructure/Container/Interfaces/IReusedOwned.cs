@@ -3,7 +3,7 @@
 namespace Xamarin.Core.Infrastructure.Container.Interfaces
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public interface IReusedOwned : IReused, IOwned, IFluentInterface
+    public interface IReusedOwned : IReused, IOwned
     {
     }
 }

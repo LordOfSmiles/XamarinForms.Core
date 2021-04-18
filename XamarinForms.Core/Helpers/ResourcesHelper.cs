@@ -61,10 +61,8 @@ namespace XamarinForms.Core.Helpers
             {
                 return dark;
             }
-            else
-            {
-                return light;
-            }
+
+            return light;
         }
     }
 }
