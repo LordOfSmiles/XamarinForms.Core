@@ -1,4 +1,4 @@
-namespace XamarinForms.Core.Infrastructure.Interfaces
+namespace Xamarin.Core.Interfaces
 {
     public interface IUiListItem
     {

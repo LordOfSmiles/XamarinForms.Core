@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using XamarinForms.Core.Infrastructure.Interfaces;
+using Xamarin.Core.Interfaces;
 
-namespace XamarinForms.Core.Helpers
+namespace Xamarin.Core.Helpers
 {
     public static class UiListHelper
     {
