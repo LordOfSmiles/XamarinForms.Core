@@ -10,26 +10,35 @@ namespace XamarinForms.Core.Droid.Helpers
 {
     public static class WidgetHelper
     {
-        public static void UpdateWidget(Context context, Type widgetType)
+        public static int[] UpdateWidget(Context context, Type widgetType)
         {
-            if (context == null)
-                return;
+            var result = new int[0];
 
-            var widgetManager = AppWidgetManager.GetInstance(context);
-
-            if (widgetManager != null)
+            if (context != null)
             {
-                var widgetProvider = new ComponentName(context, GetWidgetClassName(widgetType));
-                var ids = widgetManager.GetAppWidgetIds(widgetProvider);
+                var widgetManager = AppWidgetManager.GetInstance(context);
 
-                if (ids?.Any() ?? false)
+                if (widgetManager != null)
                 {
-                    var updateIntent = new Intent(context, widgetType);
-                    updateIntent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
-                    updateIntent.PutExtra(AppWidgetManager.ExtraAppwidgetIds, ids);
-                    context.SendBroadcast(updateIntent);
+                    var widgetProvider = new ComponentName(context, GetWidgetClassName(widgetType));
+                    var ids = widgetManager.GetAppWidgetIds(widgetProvider);
+
+                    if (ids?.Any() ?? false)
+                    {
+                        result = ids;
+
+                        foreach (var id in ids)
+                        {
+                            var updateIntent = new Intent(context, widgetType);
+                            updateIntent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
+                            updateIntent.PutExtra(AppWidgetManager.ExtraAppwidgetId, id);
+                            context.SendBroadcast(updateIntent);
+                        }
+                    }
                 }
             }
+
+            return result;
         }
 
         public static void UpdateWidget(Context context, Type widgetType, Func<Context, RemoteViews> buildRemoteViews)
@@ -45,7 +54,12 @@ namespace XamarinForms.Core.Droid.Helpers
                 var ids = widgetManager.GetAppWidgetIds(widgetProvider);
 
                 if (ids?.Any() ?? false)
-                    widgetManager.UpdateAppWidget(ids, buildRemoteViews(context));
+                {
+                    foreach (var id in ids)
+                    {
+                        widgetManager.UpdateAppWidget(id, buildRemoteViews(context));
+                    }
+                }
             }
         }
 
@@ -81,12 +95,13 @@ namespace XamarinForms.Core.Droid.Helpers
             {
                 WidgetNames.Add(widgetType, Java.Lang.Class.FromType(widgetType).Name);
             }
+
             return WidgetNames[widgetType];
         }
 
         #region Fields
 
-        private static readonly Dictionary<Type, string> WidgetNames = new Dictionary<Type, string>();
+        private static readonly Dictionary<Type, string> WidgetNames = new();
 
         #endregion
     }

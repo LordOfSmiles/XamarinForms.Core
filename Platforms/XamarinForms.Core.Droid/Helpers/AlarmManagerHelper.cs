@@ -45,14 +45,14 @@ namespace XamarinForms.Core.Droid.Helpers
         {
             var intent = new Intent(context, receiverType);
             intent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
-            return PendingIntent.GetBroadcast(context, 0, intent, PendingIntentFlags.UpdateCurrent);
+            return PendingIntent.GetBroadcast(context, 0, intent, 0);
         }
 
         private static PendingIntent GetCancelPendingIntent(Context context, Type receiverType)
         {
             var intent = new Intent(context, receiverType);
             intent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
-            return PendingIntent.GetBroadcast(context, 0, intent, PendingIntentFlags.CancelCurrent);
+            return PendingIntent.GetBroadcast(context, 0, intent, 0);
         }
 
         #endregion
