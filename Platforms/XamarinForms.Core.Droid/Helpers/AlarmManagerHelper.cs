@@ -8,24 +8,24 @@ namespace XamarinForms.Core.Droid.Helpers
 {
     public static class AlarmManagerHelper
     {
-        public static void FireWidgetIntent(Context context, Type receiverType)
+        public static void FireWidgetIntent(Context context, Type receiverType, int intervalInMs)
         {
             var alarmManager = context.GetSystemService(Context.AlarmService) as AlarmManager;
 
             var intent = GetAlarmPendingIntent(context, receiverType);
-            var interval = SystemClock.ElapsedRealtime() + (60 * 1000);
+            var interval = SystemClock.ElapsedRealtime() + intervalInMs;
 
             if (VersionHelper.IsAndroid6AndHigher)
             {
-                alarmManager?.SetExactAndAllowWhileIdle(AlarmType.ElapsedRealtime, interval, intent);
+                alarmManager?.SetExactAndAllowWhileIdle(AlarmType.ElapsedRealtimeWakeup, interval, intent);
             }
             else if (VersionHelper.IsAndroid5AndHigher)
             {
-                alarmManager?.SetExact(AlarmType.ElapsedRealtime, interval, intent);
+                alarmManager?.SetExact(AlarmType.ElapsedRealtimeWakeup, interval, intent);
             }
             else
             {
-                alarmManager?.Set(AlarmType.ElapsedRealtime, interval, intent);
+                alarmManager?.Set(AlarmType.ElapsedRealtimeWakeup, interval, intent);
             }
         }
 
