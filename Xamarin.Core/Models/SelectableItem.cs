@@ -48,7 +48,7 @@ namespace Xamarin.Core.Models
             IsSelected = isSelected;
         }
 
-        public string Header { get; }
+        public string Header { get; protected set; }
        
     }
 }
