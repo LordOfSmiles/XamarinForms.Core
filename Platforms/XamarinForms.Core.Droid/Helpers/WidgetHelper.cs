@@ -10,10 +10,8 @@ namespace XamarinForms.Core.Droid.Helpers
 {
     public static class WidgetHelper
     {
-        public static int[] UpdateWidget(Context context, Type widgetType)
+        public static void UpdateWidget(Context context, Type widgetType)
         {
-            var result = new int[0];
-
             if (context != null)
             {
                 var widgetManager = AppWidgetManager.GetInstance(context);
@@ -25,8 +23,6 @@ namespace XamarinForms.Core.Droid.Helpers
 
                     if (ids?.Any() ?? false)
                     {
-                        result = ids;
-
                         foreach (var id in ids)
                         {
                             var updateIntent = new Intent(context, widgetType);
@@ -37,8 +33,6 @@ namespace XamarinForms.Core.Droid.Helpers
                     }
                 }
             }
-
-            return result;
         }
 
         public static void UpdateWidget(Context context, Type widgetType, Func<Context, RemoteViews> buildRemoteViews)
