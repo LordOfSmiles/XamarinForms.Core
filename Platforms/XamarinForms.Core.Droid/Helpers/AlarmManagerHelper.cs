@@ -14,7 +14,7 @@ namespace XamarinForms.Core.Droid.Helpers
 
             var intent = GetAlarmPendingIntent(context, receiverType);
             var interval = SystemClock.ElapsedRealtime() + intervalInMs;
-
+            
             if (VersionHelper.IsAndroid6AndHigher)
             {
                 alarmManager?.SetExactAndAllowWhileIdle(AlarmType.ElapsedRealtimeWakeup, interval, intent);
