@@ -27,10 +27,16 @@ namespace XamarinForms.Core.ViewModels
 
         #region Protected Methods
 
-        protected void ShowAnimation(bool isVisible)
+        protected void ShowAnimation(bool isVisible = true)
         {
             IsAnimationVisible = isVisible;
             IsUserInputDisabled = isVisible;
+        }
+
+        protected void HideAnimation()
+        {
+            IsAnimationVisible = false;
+            IsUserInputDisabled = false;
         }
 
         protected async Task DisplayAlert(string title, string message, string cancel)
