@@ -1,4 +1,5 @@
 using System;
+using Xamarin.Core.Interfaces;
 using Xamarin.Forms;
 using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.ViewModels;
@@ -18,7 +19,8 @@ namespace XamarinForms.Core.Views
                 }
                 catch(Exception ex)
                 {
-                    //
+                    var logger = DependencyService.Get<ICrashlyticsService>();
+                    logger?.TrackError(ex);
                 }
             }
 

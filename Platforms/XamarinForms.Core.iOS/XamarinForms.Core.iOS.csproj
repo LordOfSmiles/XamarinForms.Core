@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\MNFloatingActionButton.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Helpers\TouchGestureCollector.cs" />
     <Compile Include="Helpers\TouchGestureRecognizer.cs" />
     <Compile Include="Helpers\VersionHelper.cs" />
