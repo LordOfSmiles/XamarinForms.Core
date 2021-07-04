@@ -9,7 +9,6 @@
        CornerRadius="6"
        HasShadow="False"
        IsClippedToBounds="True"
-       HeightRequest="36"
        x:Name="ctrlRoot"
        effects:TouchEffect.NativeAnimation="{OnPlatform Android=True}"
        effects:TouchEffect.PulseCount="{OnPlatform Android=1}"

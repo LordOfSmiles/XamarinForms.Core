@@ -1,6 +1,8 @@
 using System;
 using Xamarin.Core.Interfaces;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.ViewModels;
 
@@ -17,7 +19,7 @@ namespace XamarinForms.Core.Views
                 {
                     await vm.OnAppearingAsync(NavigationHelper.GetParametersByPageType(GetType()));
                 }
-                catch(Exception ex)
+                catch
                 {
                     var logger = DependencyService.Get<ICrashlyticsService>();
                     logger?.TrackError(ex);
@@ -33,6 +35,11 @@ namespace XamarinForms.Core.Views
             vm?.OnDisappearing();
             
             base.OnDisappearing();
+        }
+
+        protected ShellContentPage()
+        {
+            On<iOS>().SetUseSafeArea(true);
         }
     }
 }
