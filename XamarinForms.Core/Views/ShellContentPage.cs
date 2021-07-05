@@ -8,7 +8,7 @@ using XamarinForms.Core.ViewModels;
 
 namespace XamarinForms.Core.Views
 {
-    public abstract class ShellContentPage:ContentPage
+    public abstract class ShellContentPage : ContentPage
     {
         protected override async void OnAppearing()
         {
@@ -19,7 +19,7 @@ namespace XamarinForms.Core.Views
                 {
                     await vm.OnAppearingAsync(NavigationHelper.GetParametersByPageType(GetType()));
                 }
-                catch
+                catch (Exception ex)
                 {
                     var logger = DependencyService.Get<ICrashlyticsService>();
                     logger?.TrackError(ex);
@@ -33,7 +33,7 @@ namespace XamarinForms.Core.Views
         {
             var vm = BindingContext as ViewModelBase;
             vm?.OnDisappearing();
-            
+
             base.OnDisappearing();
         }
 
