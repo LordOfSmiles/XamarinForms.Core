@@ -4,7 +4,7 @@ using CoreFoundation;
 using Foundation;
 using UIKit;
 
-namespace XamarinForms.Core.iOS.Helpers
+namespace XamarinForms.iOS.Helpers
 {
     public class TouchGestureRecognizer : UIGestureRecognizer
     {

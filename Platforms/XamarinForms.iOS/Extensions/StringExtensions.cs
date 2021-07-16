@@ -3,7 +3,7 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 
-namespace XamarinForms.Core.iOS.Extensions
+namespace XamarinForms.iOS.Extensions
 {
 	public static class StringExtensions
 	{

@@ -4,7 +4,7 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-namespace XamarinForms.Core.iOS.Extensions
+namespace XamarinForms.iOS.Extensions
 {
 	public static class ImageSourceExtensions
 	{

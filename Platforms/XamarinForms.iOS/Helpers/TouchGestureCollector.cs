@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UIKit;
 
-namespace XamarinForms.Core.iOS.Helpers
+namespace XamarinForms.iOS.Helpers
 {
     internal static class TouchGestureCollector
     {

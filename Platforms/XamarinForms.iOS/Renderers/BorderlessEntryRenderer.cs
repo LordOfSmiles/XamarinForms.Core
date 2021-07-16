@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-namespace XamarinForms.Core.iOS.Renderers
+namespace XamarinForms.iOS.Renderers
 {
     public sealed class BorderlessEntryRenderer : EntryRenderer
     {

@@ -4,7 +4,7 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 
-namespace XamarinForms.Core.iOS.Controls
+namespace XamarinForms.iOS.Controls
 {
     public class MnFloatingActionButton : UIControl
     {

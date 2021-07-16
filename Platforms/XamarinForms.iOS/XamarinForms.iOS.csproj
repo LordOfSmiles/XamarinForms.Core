@@ -8,9 +8,9 @@
     <ProjectGuid>{4A7CAE81-13D0-4D3A-A42C-83CA54F1E214}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>XamarinForms.Core.iOS</RootNamespace>
+    <RootNamespace>XamarinForms.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>XamarinForms.Core.iOS</AssemblyName>
+    <AssemblyName>XamarinForms.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <LangVersion>latest</LangVersion>

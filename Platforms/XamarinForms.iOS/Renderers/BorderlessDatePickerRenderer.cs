@@ -3,7 +3,7 @@ using UIKit;
 using Xamarin.Forms.Platform.iOS;
 
 
-namespace XamarinForms.Core.iOS.Renderers
+namespace XamarinForms.iOS.Renderers
 {
     public sealed class BorderlessDatePickerRenderer : DatePickerRenderer
     {

@@ -1,10 +1,10 @@
 using UIKit;
 using Xamarin.Forms;
-using XamarinForms.Core.iOS.PlatformServices;
+using XamarinForms.iOS.PlatformServices;
 using XamarinForms.Core.PlatformServices;
 
 [assembly:Dependency(typeof(ExtendedDevicePlatformService))]
-namespace XamarinForms.Core.iOS.PlatformServices
+namespace XamarinForms.iOS.PlatformServices
 {
     public sealed class ExtendedDevicePlatformService:IExtendedDevicePlatformService
     {

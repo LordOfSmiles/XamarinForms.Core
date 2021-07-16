@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UIKit;
 
-namespace XamarinForms.Core.iOS.Extensions
+namespace XamarinForms.iOS.Extensions
 {
 	public static class UIViewControllerExtensions
 	{

@@ -5,7 +5,7 @@ using UIKit;
 using Xamarin.Forms.Platform.iOS;
 using XamarinForms.Core.Controls;
 
-namespace XamarinForms.Core.iOS.Renderers
+namespace XamarinForms.iOS.Renderers
 {
     public class SegmentedControlRenderer : ViewRenderer<SegmentedControl, UISegmentedControl>
     {

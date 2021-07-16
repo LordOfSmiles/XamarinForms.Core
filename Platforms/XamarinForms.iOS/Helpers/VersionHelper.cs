@@ -1,6 +1,6 @@
 using UIKit;
 
-namespace XamarinForms.Core.iOS.Helpers
+namespace XamarinForms.iOS.Helpers
 {
     public static class VersionHelper
     {

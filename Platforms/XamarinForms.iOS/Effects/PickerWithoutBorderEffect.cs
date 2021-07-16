@@ -2,9 +2,9 @@
 using UIKit;
 using Xamarin.Forms;
 
-[assembly: ResolutionGroupName("XamarinForms.Core.iOS.Effects")]
-[assembly: ExportEffect(typeof(XamarinForms.Core.iOS.Effects.PickerWithoutBorderEffect), "PickerWithoutBorderEffect")]
-namespace XamarinForms.Core.iOS.Effects
+[assembly: ResolutionGroupName("XamarinForms.iOS.Effects")]
+[assembly: ExportEffect(typeof(XamarinForms.iOS.Effects.PickerWithoutBorderEffect), "PickerWithoutBorderEffect")]
+namespace XamarinForms.iOS.Effects
 {
     public sealed class PickerWithoutBorderEffect : PlatformEffect
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Foundation;
 
-namespace XamarinForms.Core.iOS.Extensions
+namespace XamarinForms.iOS.Extensions
 {
     public static class ExceptionExtensions
     {
