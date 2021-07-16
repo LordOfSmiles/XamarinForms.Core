@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Data", "Xamarin.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamarinForms.Core", "XamarinForms.Core\XamarinForms.Core.csproj", "{8192930E-E5DA-45DC-82D6-D80304C29CAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinForms.Droid", "Platforms\XamarinForms.Droid\XamarinForms.Droid.csproj", "{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,26 @@ Global
 		{8192930E-E5DA-45DC-82D6-D80304C29CAD}.Release|x64.Build.0 = Release|Any CPU
 		{8192930E-E5DA-45DC-82D6-D80304C29CAD}.Release|x86.ActiveCfg = Release|Any CPU
 		{8192930E-E5DA-45DC-82D6-D80304C29CAD}.Release|x86.Build.0 = Release|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Debug|ARM.Build.0 = Debug|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Debug|x64.Build.0 = Debug|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Debug|x86.Build.0 = Debug|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Release|ARM.Build.0 = Release|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Release|ARM64.Build.0 = Release|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Release|x64.ActiveCfg = Release|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Release|x64.Build.0 = Release|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Release|x86.ActiveCfg = Release|Any CPU
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,6 +158,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A073AD50-443D-4528-9353-277BE02CA5F7} = {7D7C40B0-60BD-460C-9E88-9D74BA82F18B}
 		{4A7CAE81-13D0-4D3A-A42C-83CA54F1E214} = {7D7C40B0-60BD-460C-9E88-9D74BA82F18B}
+		{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B} = {7D7C40B0-60BD-460C-9E88-9D74BA82F18B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C974E497-146A-4C23-9DB1-46EB01BF27F6}

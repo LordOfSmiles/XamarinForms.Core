@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProductVersion>8.0.30703</ProductVersion>
+        <SchemaVersion>2.0</SchemaVersion>
+        <ProjectGuid>{B5B25F70-2BDD-4C1B-BF60-CE862C985D8B}</ProjectGuid>
+        <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>XamarinForms.Droid</RootNamespace>
+        <AssemblyName>XamarinForms.Droid</AssemblyName>
+        <FileAlignment>512</FileAlignment>
+        <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+        <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+        <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+        <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+        <AndroidLinkTool>r8</AndroidLinkTool>
+        <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="Mono.Android" />
+        <Reference Include="mscorlib" />
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Xml.Linq" />
+        <Reference Include="System.Xml" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Extensions\ContextExtensions.cs" />
+        <Compile Include="Extensions\ViewGroupExtensions.cs" />
+        <Compile Include="Helpers\AlarmManagerHelper.cs" />
+        <Compile Include="Helpers\ImageSourceHelper.cs" />
+        <Compile Include="Helpers\KeyboardHelper.cs" />
+        <Compile Include="Helpers\ThemeHelper.cs" />
+        <Compile Include="Helpers\TouchCollector.cs" />
+        <Compile Include="Helpers\VersionHelper.cs" />
+        <Compile Include="Helpers\WidgetHelper.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Renderers\BorderlessDatePickerRenderer.cs" />
+        <Compile Include="Renderers\BorderlessEditorRenderer.cs" />
+        <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
+        <Compile Include="Renderers\IAdvInterstitial.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\Xamarin.Core\Xamarin.Core.csproj">
+        <Project>{4a3f0aa4-8bc9-47dc-8b66-9876c0834509}</Project>
+        <Name>Xamarin.Core</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\..\XamarinForms.Core\XamarinForms.Core.csproj">
+        <Project>{8192930e-e5da-45dc-82d6-d80304c29cad}</Project>
+        <Name>XamarinForms.Core</Name>
+      </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.0-pre1" />
+      <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+    </ItemGroup>
+    <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+</Project>
