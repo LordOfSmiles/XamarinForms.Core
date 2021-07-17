@@ -27,6 +27,7 @@
         <WarningLevel>4</WarningLevel>
         <AndroidLinkMode>None</AndroidLinkMode>
         <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+        <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugType>pdbonly</DebugType>
@@ -37,6 +38,7 @@
         <WarningLevel>4</WarningLevel>
         <AndroidLinkTool>r8</AndroidLinkTool>
         <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+        <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Mono.Android" />
