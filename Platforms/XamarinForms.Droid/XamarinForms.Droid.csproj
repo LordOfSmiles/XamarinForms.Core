@@ -25,7 +25,6 @@
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
-        <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
         <AndroidLinkMode>None</AndroidLinkMode>
         <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     </PropertyGroup>
@@ -38,7 +37,6 @@
         <WarningLevel>4</WarningLevel>
         <AndroidLinkTool>r8</AndroidLinkTool>
         <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
-        <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Mono.Android" />
