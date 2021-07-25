@@ -213,6 +213,44 @@ namespace XamarinForms.Core.Controls
 
         #endregion
 
+        #region SelectedBorderColor
+
+        public static readonly BindableProperty SelectedBorderColorProperty = BindableProperty.Create(nameof(SelectedBorderColor),
+            typeof(Color),
+            typeof(FlatCheckBox),
+            Color.Transparent,
+            propertyChanged: OnSelectedBorderColorChanged);
+
+        public Color SelectedBorderColor
+        {
+            get => (Color) GetValue(SelectedBorderColorProperty);
+            set => SetValue(SelectedBorderColorProperty, value);
+        }
+
+        private static void OnSelectedBorderColorChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var ctrl = (FlatCheckBox) bindable;
+            ctrl?.UpdateColors();
+        }
+
+        #endregion
+
+        #region UnselectedBorderColor
+
+        public static readonly BindableProperty UnselectedBorderColorProperty = BindableProperty.Create(nameof(UnselectedBorderColor),
+            typeof(Color),
+            typeof(FlatCheckBox),
+            Color.Transparent,
+            propertyChanged: OnSelectedBorderColorChanged);
+
+        public Color UnselectedBorderColor
+        {
+            get => (Color) GetValue(UnselectedBorderColorProperty);
+            set => SetValue(UnselectedBorderColorProperty, value);
+        }
+
+        #endregion
+
         #endregion
 
         #region Private Methods
@@ -225,19 +263,21 @@ namespace XamarinForms.Core.Controls
             if (IsChecked)
             {
                 ctrlRoot.BackgroundColor = SelectedColor;
+                ctrlRoot.BorderColor = SelectedBorderColor;
                 IconTintColorEffect.SetTintColor(img, SelectedTextColor);
                 lbl.TextColor = SelectedTextColor;
             }
             else
             {
                 ctrlRoot.BackgroundColor = UnselectedColor;
+                ctrlRoot.BorderColor = UnselectedBorderColor;
                 IconTintColorEffect.SetTintColor(img, UnselectedTextColor);
                 lbl.TextColor = UnselectedTextColor;
             }
         }
 
         #endregion
-        
+
         #region Events
 
         public event EventHandler CheckedEvent;
