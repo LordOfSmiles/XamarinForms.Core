@@ -5,7 +5,7 @@ namespace Xamarin.Core.Helpers
 {
     public static class SelectableHelper
     {
-        public static void SetSelection(ISelectable sender, IEnumerable<ISelectable> allItemsForSelection)
+        public static void SetSelection(ISelectable sender, IEnumerable<ISelectable> allItemsForSelection, bool withDeselection = false)
         {
             if (sender.IsSelected)
             {
@@ -13,6 +13,10 @@ namespace Xamarin.Core.Helpers
                 {
                     selectable.SetSelected(sender.Id == selectable.Id);
                 }
+            }
+            else if(withDeselection)
+            {
+                sender.SetSelected(false);
             }
             else
             {
