@@ -6,7 +6,6 @@
        xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
        x:Class="XamarinForms.Core.Controls.FlatCheckBox"
        Padding="0"
-       CornerRadius="6"
        HasShadow="False"
        IsClippedToBounds="True"
        x:Name="ctrlRoot"
