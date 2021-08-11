@@ -1,0 +1,24 @@
+<?xml version="1.0"
+      encoding="utf-8"?>
+<pickers1:PickerBase xmlns="http://xamarin.com/schemas/2014/forms"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+                     xmlns:pickers1="clr-namespace:XamarinForms.Core.Controls.Pickers;assembly=XamarinForms.Core"
+                     x:Class="XamarinForms.Core.Controls.Pickers.ContentPickerControl"
+                     x:Name="ctrlRoot"
+                     effects:TouchEffect.NormalBackgroundColor="Transparent"
+                     effects:TouchEffect.PressedBackgroundColor="{Binding Source={x:Reference ctrlRoot}, Path=PressedColor}"
+                     effects:TouchEffect.NativeAnimationColor="{Binding Source={x:Reference ctrlRoot}, Path=PressedColor}"
+                     effects:TouchEffect.NativeAnimation="{OnPlatform Android=true}"
+                     effects:TouchEffect.PulseCount="{OnPlatform Android=1}">
+    <Picker x:Name="picker"
+            IsVisible="False"
+            ItemsSource="{Binding Source={x:Reference ctrlRoot}, Path=ItemsSource}"
+            SelectedIndex="{Binding Source={x:Reference ctrlRoot}, Path=SelectedIndex, Mode=TwoWay}"
+            SelectedItem="{Binding Source={x:Reference ctrlRoot}, Path=SelectedItem, Mode=TwoWay}" />
+
+    <ContentView x:Name="cnvContent"
+                 Content="{Binding Source={x:Reference ctrlRoot}, Path=ContentView}" />
+    <ContentView x:Name="cnvPlaceholder"
+                 Content="{Binding Source={x:Reference ctrlRoot}, Path=PlaceholderView}" />
+</pickers1:PickerBase>
