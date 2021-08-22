@@ -30,13 +30,13 @@ namespace XamarinForms.Core.ViewModels
         protected void ShowAnimation(bool isVisible = true)
         {
             IsAnimationVisible = isVisible;
-            IsUserInputDisabled = isVisible;
+            InputTransparent = isVisible;
         }
 
         protected void HideAnimation()
         {
             IsAnimationVisible = false;
-            IsUserInputDisabled = false;
+            InputTransparent = false;
         }
 
         protected async Task DisplayAlert(string title, string message, string cancel)
@@ -99,12 +99,12 @@ namespace XamarinForms.Core.ViewModels
 
         #region Properties
 
-        public bool IsUserInputDisabled
+        public bool InputTransparent
         {
-            get => _isUserInputDisabled;
-            protected set => SetProperty(ref _isUserInputDisabled, value);
+            get => _inputTransparent;
+            protected set => SetProperty(ref _inputTransparent, value);
         }
-        private bool _isUserInputDisabled;
+        private bool _inputTransparent;
 
         public bool IsAnimationVisible
         {
