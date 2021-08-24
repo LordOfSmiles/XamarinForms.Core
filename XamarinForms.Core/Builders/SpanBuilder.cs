@@ -27,7 +27,7 @@ namespace XamarinForms.Core.Builders
             _span.SetAppThemeColor(Span.TextColorProperty, lightColor, darkColor);
             return this;
         }
-        
+
         #region Fields
 
         private readonly Span _span;
@@ -40,6 +40,12 @@ namespace XamarinForms.Core.Builders
             {
                 Text = text
             };
+        }
+
+        public SpanBuilder WithItalic()
+        {
+            _span.FontAttributes = FontAttributes.Italic;
+            return this;
         }
     }
 }
