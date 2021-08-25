@@ -15,6 +15,12 @@ namespace XamarinForms.Core.Builders
             _span.FontAttributes = FontAttributes.Bold;
             return this;
         }
+        
+        public SpanBuilder WithItalic()
+        {
+            _span.FontAttributes = FontAttributes.Italic;
+            return this;
+        }
 
         public SpanBuilder SetFontSize(double fontSize)
         {
@@ -42,10 +48,6 @@ namespace XamarinForms.Core.Builders
             };
         }
 
-        public SpanBuilder WithItalic()
-        {
-            _span.FontAttributes = FontAttributes.Italic;
-            return this;
-        }
+       
     }
 }
