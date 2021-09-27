@@ -11,11 +11,11 @@ namespace XamarinForms.Core.Helpers
             var currentMajor = DeviceInfo.Version.Major;
             var currentMinor = DeviceInfo.Version.Minor;
 
-            result = major > currentMajor;
+            result = currentMajor > major;
 
             if (!result)
             {
-                result = major == currentMajor && minor >= currentMinor;
+                result = currentMajor == major && currentMinor >= minor;
             }
 
             return result;
