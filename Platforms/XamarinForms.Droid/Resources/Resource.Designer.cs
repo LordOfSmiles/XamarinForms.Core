@@ -18842,6 +18842,9 @@ namespace XamarinForms.Droid
 			// aapt resource value: 0x7F100005
 			public static int standalone_badge_offset = 2131755013;
 			
+			// aapt resource value: 0x7F100006
+			public static int xamarin_essentials_fileprovider_file_paths = 2131755014;
+			
 			static Xml()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
