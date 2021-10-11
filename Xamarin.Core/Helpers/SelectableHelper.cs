@@ -11,7 +11,7 @@ namespace Xamarin.Core.Helpers
             {
                 foreach (var selectable in allItemsForSelection)
                 {
-                    selectable.SetSelected(sender.Id == selectable.Id);
+                    selectable.SetSelected(sender.Header == selectable.Header);
                 }
             }
             else if(withDeselection)

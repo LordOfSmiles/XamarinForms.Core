@@ -5,6 +5,11 @@ namespace XamarinForms.Core.Builders
 {
     public class SpanBuilder
     {
+        public static Span NewLine(double fontSize = 2.0)
+        {
+            return new SpanBuilder(Environment.NewLine).SetFontSize(fontSize).GetSpan();
+        }
+
         public Span GetSpan()
         {
             return _span;
@@ -15,7 +20,7 @@ namespace XamarinForms.Core.Builders
             _span.FontAttributes = FontAttributes.Bold;
             return this;
         }
-        
+
         public SpanBuilder WithItalic()
         {
             _span.FontAttributes = FontAttributes.Italic;
@@ -47,7 +52,5 @@ namespace XamarinForms.Core.Builders
                 Text = text
             };
         }
-
-       
     }
 }
