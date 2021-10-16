@@ -52,11 +52,5 @@ namespace XamarinForms.Core.Builders
                 Text = text
             };
         }
-
-
-        public static Span NewLine(double fontSize = 2.0) =>
-            new SpanBuilder(Environment.NewLine)
-                .SetFontSize(fontSize)
-                .GetSpan();
     }
 }
