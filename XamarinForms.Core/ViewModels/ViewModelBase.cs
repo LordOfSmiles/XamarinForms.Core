@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Core.Infrastructure.Container;
+using Xamarin.Core.Interfaces;
 using Xamarin.Core.Models;
 using Xamarin.Forms;
 
@@ -87,7 +89,20 @@ namespace XamarinForms.Core.ViewModels
 
         #endregion
 
+        #region Dependencies
+
+        protected readonly ICrashlytics Crashlytics;
+        protected readonly IAnalyticsService Analytics;
+
+        #endregion
+
         #region Constructor
+
+        protected ViewModelBase()
+        {
+            Crashlytics = FastContainer.TryResolve<ICrashlytics>();
+            Analytics = FastContainer.TryResolve<IAnalyticsService>();
+        }
 
         #endregion
 

@@ -1,4 +1,5 @@
 using System;
+using Xamarin.Core.Infrastructure.Container;
 using Xamarin.Core.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
@@ -23,7 +24,7 @@ namespace XamarinForms.Core.Views
                 }
                 catch (Exception ex)
                 {
-                    var logger = DependencyService.Get<ICrashlyticsService>();
+                    var logger = FastContainer.TryResolve<ICrashlytics>();
                     logger?.TrackError(ex);
                 }
             }
@@ -59,7 +60,7 @@ namespace XamarinForms.Core.Views
                 }
                 catch (Exception ex)
                 {
-                    var logger = DependencyService.Get<ICrashlyticsService>();
+                    var logger = FastContainer.TryResolve<ICrashlytics>();
                     logger?.TrackError(ex);
                 }
             }
