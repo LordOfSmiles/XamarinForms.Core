@@ -8,7 +8,7 @@ namespace XamarinForms.Core.Controls
         {
             #if DEBUG
 
-            adUnitId = "ca-app-pub-3940256099942544/6300978111";
+            //adUnitId = "ca-app-pub-3940256099942544/6300978111";
             
             #endif
             
