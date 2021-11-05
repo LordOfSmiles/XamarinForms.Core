@@ -14,6 +14,7 @@ namespace XamarinForms.Core.Controls.Pickers
             {
                 Command = OpenPickerCommand
             };
+
             GestureRecognizers.Add(gesture);
 
             UpdateControl();
@@ -44,9 +45,9 @@ namespace XamarinForms.Core.Controls.Pickers
             get => (Color)GetValue(PressedColorProperty);
             set => SetValue(PressedColorProperty, value);
         }
-        
+
         #endregion
-        
+
         #region SelectedIndex
 
         public static readonly BindableProperty SelectedIndexProperty = BindableProperty.Create(nameof(SelectedIndex),
@@ -57,13 +58,13 @@ namespace XamarinForms.Core.Controls.Pickers
 
         public int SelectedIndex
         {
-            get => (int) GetValue(SelectedIndexProperty);
+            get => (int)GetValue(SelectedIndexProperty);
             set => SetValue(SelectedIndexProperty, value);
         }
 
         private static void SelectedIndexChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var ctrl = (ContentPickerControl) bindable;
+            var ctrl = (ContentPickerControl)bindable;
 
             ctrl.UpdateControl();
         }
@@ -85,7 +86,7 @@ namespace XamarinForms.Core.Controls.Pickers
 
         private static void SelectedItemChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var ctrl = (ContentPickerControl) bindable;
+            var ctrl = (ContentPickerControl)bindable;
 
             ctrl.UpdateControl();
         }
@@ -101,14 +102,14 @@ namespace XamarinForms.Core.Controls.Pickers
 
         public IList ItemsSource
         {
-            get => (IList) GetValue(ItemsSourceProperty);
+            get => (IList)GetValue(ItemsSourceProperty);
             set => SetValue(ItemsSourceProperty, value);
         }
 
         private static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var ctrl = (ContentPickerControl) bindable;
-            
+            var ctrl = (ContentPickerControl)bindable;
+
             ctrl.picker.ItemDisplayBinding = null;
             ctrl.picker.ItemDisplayBinding = ctrl.ItemDisplayBinding;
         }
@@ -125,15 +126,15 @@ namespace XamarinForms.Core.Controls.Pickers
 
         public BindingBase ItemDisplayBinding
         {
-            get => (BindingBase) GetValue(ItemDisplayBindingProperty);
+            get => (BindingBase)GetValue(ItemDisplayBindingProperty);
             set => SetValue(ItemDisplayBindingProperty, value);
         }
 
         private static void OnItemDisplayBindingChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var ctrl = (ContentPickerControl) bindable;
+            var ctrl = (ContentPickerControl)bindable;
 
-            ctrl.picker.ItemDisplayBinding = (BindingBase) newValue;
+            ctrl.picker.ItemDisplayBinding = (BindingBase)newValue;
         }
 
         #endregion
@@ -145,5 +146,15 @@ namespace XamarinForms.Core.Controls.Pickers
             cnvContent.IsVisible = SelectedIndex != -1;
             cnvPlaceholder.IsVisible = SelectedIndex == -1;
         }
+
+        #region Classes
+
+        public record ContentPickerItem
+        {
+            public string Id { get; set; }
+            public string Text { get; set; }
+        }
+
+        #endregion
     }
 }
