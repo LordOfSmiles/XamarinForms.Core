@@ -64,18 +64,18 @@
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\Xamarin.Core\Xamarin.Core.csproj">
-        <Project>{49829FF8-535B-420C-9918-B2B539CF6032}</Project>
+        <Project>{4A3F0AA4-8BC9-47DC-8B66-9876C0834509}</Project>
         <Name>Xamarin.Core</Name>
       </ProjectReference>
       <ProjectReference Include="..\..\XamarinForms.Core\XamarinForms.Core.csproj">
-        <Project>{5AC9AC02-E6A2-4546-ADF3-D1C4DC1379E9}</Project>
+        <Project>{8192930E-E5DA-45DC-82D6-D80304C29CAD}</Project>
         <Name>XamarinForms.Core</Name>
       </ProjectReference>
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.0-pre2" />
+      <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.0" />
       <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
-      <PackageReference Include="Xamarin.Forms" Version="5.0.0.2125" />
+      <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
