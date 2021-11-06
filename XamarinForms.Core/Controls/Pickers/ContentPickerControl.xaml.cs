@@ -121,7 +121,7 @@ namespace XamarinForms.Core.Controls.Pickers
         public static readonly BindableProperty ItemDisplayBindingProperty = BindableProperty.Create(nameof(ItemDisplayBinding),
             typeof(BindingBase),
             typeof(ContentPickerControl),
-            new Binding("Name"),
+            new Binding("Text"),
             propertyChanged: OnItemDisplayBindingChanged);
 
         public BindingBase ItemDisplayBinding
