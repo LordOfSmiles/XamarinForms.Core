@@ -15,8 +15,6 @@ namespace XamarinForms.Core.Controls
 
         private CancellationTokenSource _cts;
 
-        private bool _isTimerEnabled;
-
         private async void OnScrolled(object sender, ScrolledEventArgs e)
         {
             _cts?.Cancel();

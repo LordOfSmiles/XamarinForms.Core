@@ -60,18 +60,21 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Core\Xamarin.Core.csproj">
-      <Project>{4a3f0aa4-8bc9-47dc-8b66-9876c0834509}</Project>
+      <Project>{49829FF8-535B-420C-9918-B2B539CF6032}</Project>
       <Name>Xamarin.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\XamarinForms.Core\XamarinForms.Core.csproj">
-      <Project>{8192930e-e5da-45dc-82d6-d80304c29cad}</Project>
+      <Project>{5AC9AC02-E6A2-4546-ADF3-D1C4DC1379E9}</Project>
       <Name>XamarinForms.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.0" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
