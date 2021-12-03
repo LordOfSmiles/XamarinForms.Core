@@ -6,32 +6,32 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Controls
 {
-    public class SegmentedControl : View, IViewContainer<SegmentedControlOption>
+    public sealed class SegmentedControl : View
     {
         public SegmentedControl()
         {
             Children = new List<SegmentedControlOption>();
         }
-
-        public event EventHandler<ElementChildrenChanging> OnElementChildrenChanging;
-
-        public event EventHandler<SegmentSelectEventArgs> OnSegmentSelected;
+        
+        public event EventHandler<int> OnSegmentSelected;
 
         #region Children
         
-        public static readonly BindableProperty ChildrenProperty = BindableProperty.Create(nameof(Children), typeof(IList<SegmentedControlOption>), typeof(SegmentedControl), default(IList<SegmentedControlOption>), propertyChanging: OnChildrenChanging);
+        public static readonly BindableProperty ChildrenProperty = BindableProperty.Create(nameof(Children), 
+            typeof(IList<SegmentedControlOption>), 
+            typeof(SegmentedControl),
+            default(IList<SegmentedControlOption>), 
+            propertyChanging: OnChildrenChanging);
         private static void OnChildrenChanging(BindableObject bindable, object oldValue, object newValue)
         {
             if (bindable is SegmentedControl segmentedControl 
                 && newValue is IList<SegmentedControlOption> newItemsList
                 && segmentedControl.Children != null)
             {
-                segmentedControl.OnElementChildrenChanging?.Invoke(segmentedControl, new ElementChildrenChanging((IList<SegmentedControlOption>)oldValue, newItemsList));
                 segmentedControl.Children.Clear();
 
                 foreach (var newSegment in newItemsList)
                 {
-                    newSegment.BindingContext = segmentedControl.BindingContext;
                     segmentedControl.Children.Add(newSegment);
                 }
             }
@@ -52,7 +52,7 @@ namespace XamarinForms.Core.Controls
                 var newChildren = new List<SegmentedControlOption>(textValues.Count);
                 foreach (var child in textValues)
                 {
-                    newChildren.Add(new SegmentedControlOption { Text = child });
+                    newChildren.Add(new SegmentedControlOption(child));
                 }
                 segmentedControl.Children = newChildren;
             }
@@ -125,7 +125,11 @@ namespace XamarinForms.Core.Controls
             set => SetValue(SegmentSelectedCommandParameterProperty, value);
         }
 
-        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(SegmentedControl), Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize),
+            typeof(double), 
+            typeof(SegmentedControl),
+            Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
+        
         [Xamarin.Forms.TypeConverter(typeof(FontSizeConverter))]
         public double FontSize
         {
@@ -133,7 +137,9 @@ namespace XamarinForms.Core.Controls
             set => SetValue(FontSizeProperty, value);
         }
 
-        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(SegmentedControl));
+        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), 
+            typeof(string),
+            typeof(SegmentedControl));
         public string FontFamily
         {
             get => (string)GetValue(FontFamilyProperty);
@@ -144,56 +150,22 @@ namespace XamarinForms.Core.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void RaiseSelectionChanged()
         {
-            OnSegmentSelected?.Invoke(this, new SegmentSelectEventArgs { NewValue = SelectedSegment });
+            OnSegmentSelected?.Invoke(this, SelectedSegment);
 
-            if (!(SegmentSelectedCommand is null) && SegmentSelectedCommand.CanExecute(SegmentSelectedCommandParameter))
+            if (SegmentSelectedCommand is not null && SegmentSelectedCommand.CanExecute(SegmentSelectedCommandParameter))
             {
                 SegmentSelectedCommand.Execute(SegmentSelectedCommandParameter);
             }
         }
-
-        protected override void OnBindingContextChanged()
-        {
-            base.OnBindingContextChanged();
-
-            if (!(Children is null))
-            {
-                foreach (var segment in Children)
-                {
-                    segment.BindingContext = BindingContext;
-                }
-            }
-        }
     }
 
-    public class SegmentedControlOption : View
+    public sealed class SegmentedControlOption
     {
-        public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text),
-            typeof(string), 
-            typeof(SegmentedControlOption), 
-            string.Empty);
-
-        public string Text
+        public SegmentedControlOption(string text)
         {
-            get => (string)GetValue(TextProperty);
-            set => SetValue(TextProperty, value);
-        }
-    }
-    
-    public class ElementChildrenChanging : EventArgs
-    {
-        public ElementChildrenChanging(IList<SegmentedControlOption> oldValues, IList<SegmentedControlOption> newValues)
-        {
-            OldValues = oldValues;
-            NewValues = newValues;
+            Text = text;
         }
         
-        public IList<SegmentedControlOption> OldValues { get; }
-        public IList<SegmentedControlOption> NewValues { get; }
-    }
-    
-    public class SegmentSelectEventArgs : EventArgs
-    {
-        public int NewValue { get; set; }
+        public string Text { get; }
     }
 }
