@@ -218,20 +218,15 @@ namespace XamarinForms.Core.Controls
         public static readonly BindableProperty SelectedBorderColorProperty = BindableProperty.Create(nameof(SelectedBorderColor),
             typeof(Color),
             typeof(FlatCheckBox),
-            Color.Transparent,
-            propertyChanged: OnSelectedBorderColorChanged);
+            Color.Transparent);
 
+        [Obsolete]
         public Color SelectedBorderColor
         {
             get => (Color) GetValue(SelectedBorderColorProperty);
             set => SetValue(SelectedBorderColorProperty, value);
         }
-
-        private static void OnSelectedBorderColorChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var ctrl = (FlatCheckBox) bindable;
-            ctrl?.UpdateColors();
-        }
+        
 
         #endregion
 
@@ -240,9 +235,9 @@ namespace XamarinForms.Core.Controls
         public static readonly BindableProperty UnselectedBorderColorProperty = BindableProperty.Create(nameof(UnselectedBorderColor),
             typeof(Color),
             typeof(FlatCheckBox),
-            Color.Transparent,
-            propertyChanged: OnSelectedBorderColorChanged);
-
+            Color.Transparent);
+        
+        [Obsolete]
         public Color UnselectedBorderColor
         {
             get => (Color) GetValue(UnselectedBorderColorProperty);
@@ -263,14 +258,14 @@ namespace XamarinForms.Core.Controls
             if (IsChecked)
             {
                 ctrlRoot.BackgroundColor = SelectedColor;
-                ctrlRoot.BorderColor = SelectedBorderColor;
+                //ctrlRoot.BorderColor = SelectedBorderColor;
                 IconTintColorEffect.SetTintColor(img, SelectedTextColor);
                 lbl.TextColor = SelectedTextColor;
             }
             else
             {
                 ctrlRoot.BackgroundColor = UnselectedColor;
-                ctrlRoot.BorderColor = UnselectedBorderColor;
+                //ctrlRoot.BorderColor = UnselectedBorderColor;
                 IconTintColorEffect.SetTintColor(img, UnselectedTextColor);
                 lbl.TextColor = UnselectedTextColor;
             }
