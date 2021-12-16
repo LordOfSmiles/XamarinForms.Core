@@ -6,7 +6,6 @@ using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.ViewModels;
-using FlyoutPage = Xamarin.Forms.FlyoutPage;
 
 namespace XamarinForms.Core.Views
 {
@@ -14,9 +13,7 @@ namespace XamarinForms.Core.Views
     {
         protected override async void OnAppearing()
         {
-            var vm = BindingContext as ViewModelBase;
-
-            if (vm != null)
+            if (BindingContext is ViewModelBase vm)
             {
                 try
                 {
@@ -41,42 +38,6 @@ namespace XamarinForms.Core.Views
         }
 
         public ShellContentPage()
-        {
-            On<iOS>().SetUseSafeArea(true);
-        }
-    }
-
-    public abstract class ShellFlyoutPage : FlyoutPage
-    {
-        protected override async void OnAppearing()
-        {
-            var vm = BindingContext as ViewModelBase;
-
-            if (vm != null)
-            {
-                try
-                {
-                    await vm.OnAppearingAsync(NavigationHelper.GetParametersByPageType(GetType()));
-                }
-                catch (Exception ex)
-                {
-                    var logger = FastContainer.TryResolve<ICrashlytics>();
-                    logger?.TrackError(ex);
-                }
-            }
-
-            base.OnAppearing();
-        }
-
-        protected override void OnDisappearing()
-        {
-            var vm = BindingContext as ViewModelBase;
-            vm?.OnDisappearing();
-
-            base.OnDisappearing();
-        }
-
-        protected ShellFlyoutPage()
         {
             On<iOS>().SetUseSafeArea(true);
         }
