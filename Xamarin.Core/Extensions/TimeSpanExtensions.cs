@@ -14,9 +14,19 @@ namespace Xamarin.Core.Extensions
             return timeSpan > TimeSpan.Zero;
         }
 
+        public static bool IsGreatOrEqualsThanZero(this TimeSpan timeSpan)
+        {
+            return timeSpan >= TimeSpan.Zero;
+        }
+
         public static bool IsLessThanZero(this TimeSpan timeSpan)
         {
             return timeSpan < TimeSpan.Zero;
+        }
+
+        public static bool IsLessOrEqualsThanZero(this TimeSpan timeSpan)
+        {
+            return timeSpan <= TimeSpan.Zero;
         }
     }
 }
