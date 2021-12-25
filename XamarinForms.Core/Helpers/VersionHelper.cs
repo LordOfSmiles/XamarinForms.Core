@@ -4,7 +4,7 @@ namespace XamarinForms.Core.Helpers
 {
     public static class VersionHelper
     {
-        public static bool IsEqualOrGreater(int major, int minor)
+        public static bool IsEqualOrGreater(int major, int minor=0)
         {
             var result = false;
             

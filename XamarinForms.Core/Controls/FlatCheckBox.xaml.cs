@@ -213,39 +213,6 @@ namespace XamarinForms.Core.Controls
 
         #endregion
 
-        #region SelectedBorderColor
-
-        public static readonly BindableProperty SelectedBorderColorProperty = BindableProperty.Create(nameof(SelectedBorderColor),
-            typeof(Color),
-            typeof(FlatCheckBox),
-            Color.Transparent);
-
-        [Obsolete]
-        public Color SelectedBorderColor
-        {
-            get => (Color) GetValue(SelectedBorderColorProperty);
-            set => SetValue(SelectedBorderColorProperty, value);
-        }
-        
-
-        #endregion
-
-        #region UnselectedBorderColor
-
-        public static readonly BindableProperty UnselectedBorderColorProperty = BindableProperty.Create(nameof(UnselectedBorderColor),
-            typeof(Color),
-            typeof(FlatCheckBox),
-            Color.Transparent);
-        
-        [Obsolete]
-        public Color UnselectedBorderColor
-        {
-            get => (Color) GetValue(UnselectedBorderColorProperty);
-            set => SetValue(UnselectedBorderColorProperty, value);
-        }
-
-        #endregion
-
         #endregion
 
         #region Private Methods
