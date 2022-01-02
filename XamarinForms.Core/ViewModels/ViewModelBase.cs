@@ -18,7 +18,7 @@ namespace XamarinForms.Core.ViewModels
 
         public virtual Task OnAppearingAsync(IDictionary<string, object> navigationParameters)
         {
-            return Task.FromResult<object>(null);
+            return Task.CompletedTask;
         }
 
         public virtual void OnDisappearing()
