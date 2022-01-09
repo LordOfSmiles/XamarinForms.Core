@@ -21,6 +21,18 @@ namespace XamarinForms.Core.Builders
             return this;
         }
 
+        public SpanBuilder WithUpper()
+        {
+            _span.TextTransform = TextTransform.Uppercase;
+            return this;
+        }
+        
+        public SpanBuilder WithLower()
+        {
+            _span.TextTransform = TextTransform.Lowercase;
+            return this;
+        }
+
         public SpanBuilder WithItalic()
         {
             _span.FontAttributes = FontAttributes.Italic;
