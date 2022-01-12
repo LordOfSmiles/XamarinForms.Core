@@ -1,7 +1,9 @@
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace XamarinForms.Core.Controls
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BottomGradientView
     {
         public BottomGradientView()

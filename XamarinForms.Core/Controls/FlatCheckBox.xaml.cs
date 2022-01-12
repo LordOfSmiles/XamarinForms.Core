@@ -2,9 +2,11 @@ using System;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace XamarinForms.Core.Controls
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FlatCheckBox
     {
         public FlatCheckBox()

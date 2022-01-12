@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace XamarinForms.Core.Controls.Pickers
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ContentPickerControl
     {
         public ContentPickerControl()
