@@ -1,9 +1,11 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
+using System.Linq;
 using SQLite;
 
 namespace Xamarin.Data.DAL
 {
-   public abstract class BaseDbContext
+    public abstract class BaseDbContext
     {
         #region Fields
 
@@ -12,9 +14,9 @@ namespace Xamarin.Data.DAL
         #endregion
 
         #region Dependencies
-        
+
         private readonly ISqlitePlatform _sqLitePlatform;
-        
+
         #endregion
 
         protected BaseDbContext(ISqlitePlatform sqLitePlatform)
@@ -29,12 +31,13 @@ namespace Xamarin.Data.DAL
                 if (_connection == null)
                 {
                     _connection = _sqLitePlatform.GetConnection();
-                    var oldVersion = GetDbVersion(_connection);
-                    
-                    CreateTables(_connection);
-                    MigrateData(_connection, oldVersion, DbVersion);
+                    var currentDbVersion = GetDbVersion(_connection);
 
-                    if (oldVersion != DbVersion)
+                    CreateTables(_connection);
+
+                    MigrateData(_connection, currentDbVersion, DbVersion);
+
+                    if (currentDbVersion != DbVersion)
                     {
                         SetDbVersion(_connection, DbVersion);
                     }
@@ -49,6 +52,9 @@ namespace Xamarin.Data.DAL
 
         protected abstract int DbVersion { get; }
 
+
+        protected DbMigrationBase[] Migrations { get; set; } = Array.Empty<DbMigrationBase>();
+
         /// <summary>
         /// миграция "на лету". Например, изменеие схемы
         /// </summary>
@@ -59,12 +65,19 @@ namespace Xamarin.Data.DAL
         /// миграция данных
         /// </summary>
         /// <param name="db"></param>
-        /// <param name="oldVersion"></param>
+        /// <param name="currentDbVersion"></param>
         /// <param name="newVersion"></param>
-        protected abstract void MigrateData(SQLiteConnection db, int oldVersion, int newVersion);
+        private void MigrateData(SQLiteConnection db, int currentDbVersion, int newVersion)
+        {
+            for (int i = currentDbVersion; i < newVersion; i++)
+            {
+                var migration = Migrations.FirstOrDefault(x => x.DbVersion == i);
+                migration?.Execute(db, i, newVersion);
+            }
+        }
 
         #endregion
-        
+
         protected static void SetDbVersion(SQLiteConnection db, int version)
         {
             db.Execute($"PRAGMA user_version={version.ToString(CultureInfo.InvariantCulture)}");
@@ -73,7 +86,7 @@ namespace Xamarin.Data.DAL
         protected static int GetDbVersionAfterUpdate(SQLiteConnection db, int version)
         {
             SetDbVersion(db, version);
-            
+
             return GetDbVersion(db);
         }
 
