@@ -52,7 +52,7 @@ namespace Xamarin.Data.DAL
         protected abstract int DbVersion { get; }
 
 
-        protected abstract DbMigrationBase[] Migrations { get; }
+        protected abstract DbMigrationBase[] Migrations { get; set; }
 
         /// <summary>
         /// миграция "на лету". Например, изменеие схемы

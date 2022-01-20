@@ -8,12 +8,12 @@ namespace Xamarin.Data.DAL
     {
         public abstract int DbVersion { get; }
 
-        public abstract int[] VersionsForDataModifications { get; }
+        protected abstract int[] VersionsForDataModifications { get; }
 
         public void Execute(SQLiteConnection db, int currentDbVersion, int newVersion)
         {
-            if (newVersion != DbVersion)
-                return;
+            // if (newVersion != DbVersion)
+            //     return;
 
             if (currentDbVersion < DbVersion)
             {
@@ -26,9 +26,9 @@ namespace Xamarin.Data.DAL
             }
         }
 
-        public abstract void AddNewData(SQLiteConnection db, int currentDbVersion);
+        protected abstract void AddNewData(SQLiteConnection db, int currentDbVersion);
 
-        public virtual void ModifyOldData(SQLiteConnection db, int currentDbVersion)
+        protected virtual void ModifyOldData(SQLiteConnection db, int currentDbVersion)
         {
         }
     }
