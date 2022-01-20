@@ -8,13 +8,16 @@ namespace Xamarin.Data.DAL
     {
         public abstract int DbVersion { get; }
 
-        public virtual int[] VersionsForDataModifications { get; } = Array.Empty<int>();
+        public abstract int[] VersionsForDataModifications { get; }
 
         public void Execute(SQLiteConnection db, int currentDbVersion, int newVersion)
         {
+            if (newVersion != DbVersion)
+                return;
+
             if (currentDbVersion < DbVersion)
             {
-                if (VersionsForDataModifications.Any() && VersionsForDataModifications.Contains(currentDbVersion))
+                if (VersionsForDataModifications!=null && VersionsForDataModifications.Contains(currentDbVersion))
                 {
                     ModifyOldData(db, currentDbVersion);
                 }

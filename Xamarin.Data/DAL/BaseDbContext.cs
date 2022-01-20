@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 using SQLite;
 
@@ -53,7 +52,7 @@ namespace Xamarin.Data.DAL
         protected abstract int DbVersion { get; }
 
 
-        protected DbMigrationBase[] Migrations { get; set; } = Array.Empty<DbMigrationBase>();
+        protected abstract DbMigrationBase[] Migrations { get; }
 
         /// <summary>
         /// миграция "на лету". Например, изменеие схемы
@@ -69,10 +68,13 @@ namespace Xamarin.Data.DAL
         /// <param name="newVersion"></param>
         private void MigrateData(SQLiteConnection db, int currentDbVersion, int newVersion)
         {
-            for (int i = currentDbVersion; i < newVersion; i++)
+            if (Migrations == null)
+                return;
+
+            var orderedMigrations = Migrations.OrderBy(x => x.DbVersion);
+            foreach (var migration in orderedMigrations)
             {
-                var migration = Migrations.FirstOrDefault(x => x.DbVersion == i);
-                migration?.Execute(db, i, newVersion);
+                migration.Execute(db, currentDbVersion, newVersion);
             }
         }
 
