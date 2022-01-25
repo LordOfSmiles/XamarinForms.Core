@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Linq;
 using SQLite;
 
@@ -6,12 +7,6 @@ namespace Xamarin.Data.DAL
 {
     public abstract class BaseDbContext
     {
-        #region Fields
-
-        protected readonly object LockObject = new object();
-
-        #endregion
-
         #region Dependencies
 
         private readonly ISqlitePlatform _sqLitePlatform;
@@ -30,13 +25,13 @@ namespace Xamarin.Data.DAL
                 if (_connection == null)
                 {
                     _connection = _sqLitePlatform.GetConnection();
-                    var currentDbVersion = GetDbVersion(_connection);
+                    var oldDbVersion = GetDbVersion(_connection);
 
                     CreateTables(_connection);
 
-                    MigrateData(_connection, currentDbVersion, DbVersion);
+                    MigrateData(_connection, oldDbVersion, DbVersion);
 
-                    if (currentDbVersion != DbVersion)
+                    if (oldDbVersion != DbVersion)
                     {
                         SetDbVersion(_connection, DbVersion);
                     }
@@ -50,9 +45,7 @@ namespace Xamarin.Data.DAL
         #region Virtual and abstract Methods
 
         protected abstract int DbVersion { get; }
-
-
-        protected abstract DbMigrationBase[] Migrations { get; set; }
+        protected DbMigrationBase[] Migrations { get; set; } = Array.Empty<DbMigrationBase>();
 
         /// <summary>
         /// миграция "на лету". Например, изменеие схемы
@@ -64,9 +57,9 @@ namespace Xamarin.Data.DAL
         /// миграция данных
         /// </summary>
         /// <param name="db"></param>
-        /// <param name="currentDbVersion"></param>
+        /// <param name="oldDbVersion"></param>
         /// <param name="newVersion"></param>
-        private void MigrateData(SQLiteConnection db, int currentDbVersion, int newVersion)
+        private void MigrateData(SQLiteConnection db, int oldDbVersion, int newVersion)
         {
             if (Migrations == null)
                 return;
@@ -74,7 +67,10 @@ namespace Xamarin.Data.DAL
             var orderedMigrations = Migrations.OrderBy(x => x.DbVersion);
             foreach (var migration in orderedMigrations)
             {
-                migration.Execute(db, currentDbVersion, newVersion);
+                if (migration.DbVersion <= newVersion)
+                {
+                    migration.Execute(db, oldDbVersion, newVersion);
+                }
             }
         }
 
