@@ -3,16 +3,16 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
-             x:Class="XamarinForms.Core.Controls.TopGradientView"
+             x:Class="XamarinForms.Core.Controls.GradientView"
              HeightRequest="8">
     <ContentView.Background>
         <LinearGradientBrush StartPoint="0,0"
                              EndPoint="0,1">
             <LinearGradientBrush.GradientStops>
                 <GradientStop Offset="0"
-                              Color="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:TopGradientView}}, Path=StartColor}" />
+                              Color="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:GradientView}}, Path=StartColor}" />
                 <GradientStop Offset="1"
-                              Color="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:TopGradientView}}, Path=EndColor}" />
+                              Color="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:GradientView}}, Path=EndColor}" />
             </LinearGradientBrush.GradientStops>
         </LinearGradientBrush>
     </ContentView.Background>

@@ -17,11 +17,7 @@
     <Compile Remove="Controls\ShapeView.cs" />
     <Compile Remove="Controls\ContentControl.cs" />
     <Compile Remove="Controls\ControlContainer.cs" />
-    <Compile Update="Controls\BottomGradientView.xaml.cs">
-      <DependentUpon>BottomGradientView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Controls\TopGradientView.xaml.cs">
+    <Compile Update="Controls\GradientView.xaml.cs">
       <DependentUpon>TopGradientView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

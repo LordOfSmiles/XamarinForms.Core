@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace XamarinForms.Core.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TopGradientView 
+    public partial class GradientView 
     {
-        public TopGradientView()
+        public GradientView()
         {
             InitializeComponent();
         }
@@ -17,7 +17,7 @@ namespace XamarinForms.Core.Controls
 
         public static readonly BindableProperty StartColorProperty = BindableProperty.Create(nameof(StartColor),
             typeof(Color),
-            typeof(TopGradientView),
+            typeof(GradientView),
             Color.Default);
 
         public Color StartColor
@@ -32,7 +32,7 @@ namespace XamarinForms.Core.Controls
 
         public static readonly BindableProperty EndColorProperty = BindableProperty.Create(nameof(EndColor),
             typeof(Color),
-            typeof(TopGradientView),
+            typeof(GradientView),
             Color.Default);
 
         public Color EndColor
