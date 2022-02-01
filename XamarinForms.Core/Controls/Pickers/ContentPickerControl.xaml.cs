@@ -148,15 +148,17 @@ namespace XamarinForms.Core.Controls.Pickers
             cnvContent.IsVisible = SelectedIndex != -1;
             cnvPlaceholder.IsVisible = SelectedIndex == -1;
         }
-
-        #region Classes
-
-        public record ContentPickerItem
+    }
+    
+    public record ContentPickerItem
+    {
+        public ContentPickerItem(string id, string text)
         {
-            public string Id { get; set; }
-            public string Text { get; set; }
+            Id = id;
+            Text = text;
         }
 
-        #endregion
+        public string Id { get; set; }
+        public string Text { get; set; }
     }
 }
