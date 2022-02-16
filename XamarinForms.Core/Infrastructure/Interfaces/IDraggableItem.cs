@@ -7,8 +7,7 @@ namespace XamarinForms.Core.Infrastructure.Interfaces
         public ICommand DragStartingCommand { get; set; }
         public ICommand DropCompletedCommand { get; set; }
         public ICommand DropCommand { get; set; }
-        public ICommand DragOverCommand { get; set; }
-        
+
         public bool AllowDrop { get; }
         public bool CanDrag { get; }
     }
