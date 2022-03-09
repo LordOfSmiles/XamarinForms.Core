@@ -66,23 +66,9 @@ namespace XamarinForms.Core.Controls.Pickers
             
             ctrl.UpdateControl();
         }
-
-        public static readonly BindableProperty PlaceholderViewProperty = BindableProperty.Create(nameof(PlaceholderView),
-            typeof(View),
-            typeof(PickerBase),
-            propertyChanged: OnViewChanged);
-
-        public View PlaceholderView
-        {
-            get => (View) GetValue(PlaceholderViewProperty);
-            set => SetValue(PlaceholderViewProperty, value);
-        }
-
+        
         #endregion
-
-        #region Properties
-
-        #endregion
+        
 
         #region Methods
 

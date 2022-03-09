@@ -21,8 +21,7 @@ namespace XamarinForms.Core.Views
                 }
                 catch (Exception ex)
                 {
-                    var logger = FastContainer.TryResolve<ICrashlytics>();
-                    logger?.TrackError(ex);
+                    //
                 }
             }
 
@@ -37,7 +36,7 @@ namespace XamarinForms.Core.Views
             base.OnDisappearing();
         }
 
-        public ShellContentPage()
+        protected ShellContentPage()
         {
             On<iOS>().SetUseSafeArea(true);
         }

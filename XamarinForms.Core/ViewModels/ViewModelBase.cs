@@ -89,19 +89,11 @@ namespace XamarinForms.Core.ViewModels
 
         #endregion
 
-        #region Dependencies
-
-        protected readonly ICrashlytics Crashlytics;
-        protected readonly IAnalyticsService Analytics;
-
-        #endregion
-
         #region Constructor
 
         protected ViewModelBase()
         {
-            Crashlytics = FastContainer.TryResolve<ICrashlytics>();
-            Analytics = FastContainer.TryResolve<IAnalyticsService>();
+           
         }
 
         #endregion
