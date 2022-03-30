@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Xamarin.Core.Infrastructure.Container;
 using Xamarin.Core.Interfaces;
 using Xamarin.Forms;
@@ -17,7 +18,13 @@ namespace XamarinForms.Core.Views
             {
                 try
                 {
-                    await vm.OnAppearingAsync(NavigationHelper.GetParametersByPageType(GetType()));
+                    var parameters = NavigationHelper.GetParametersByPageType(GetType());
+                    if (!parameters.Any())
+                    {
+                        parameters = NavigationHelper.Get(GetType().Name);
+                    }
+
+                    await vm.OnAppearingAsync(parameters);
                 }
                 catch (Exception ex)
                 {

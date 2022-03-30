@@ -1,5 +1,7 @@
+using System.Linq;
 using UIKit;
 using Xamarin.Forms;
+using XamarinForms.Core.Helpers;
 using XamarinForms.iOS.PlatformServices;
 using XamarinForms.Core.PlatformServices;
 
@@ -14,39 +16,42 @@ namespace XamarinForms.iOS.PlatformServices
             {
                 var result = false;
 
-                if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+                if (VersionHelper.IsEqualOrGreater(13))
                 {
-                    if (UIScreen.MainScreen.Bounds.Height==480)
+                    var window = UIApplication.SharedApplication.Windows.FirstOrDefault();
+                    var scene = window?.WindowScene;
+                    if (scene != null)
                     {
-                        //iPhone 4S
+                        result = CheckSafeArea(window, scene.InterfaceOrientation == UIInterfaceOrientation.Portrait);
                     }
-                    else if (UIScreen.MainScreen.Bounds.Height==568)
+                }
+                else if (VersionHelper.IsEqualOrGreater(11))
+                {
+                    var window = UIApplication.SharedApplication.Windows.FirstOrDefault(x => x.IsKeyWindow);
+                    if (window != null)
                     {
-                        //iPhone 5, 5S, SE
-                    }
-                    else if (UIScreen.MainScreen.Bounds.Height== 66)
-                    {
-                        //iPhone 6/6S/7/8
-                    }
-                    else if (UIScreen.MainScreen.Bounds.Height == 736 && UIScreen.MainScreen.Scale == 2208)
-                    {
-                        //iPhone 6+/6S+/7+/8+
-                    }
-                    else if (UIScreen.MainScreen.Bounds.Height == 812)
-                    {
-                        //Console.WriteLine("iPhone X, XS, 11 Pro, 12 mini");
-                        //iPhone X, XS, 11
-                        result = true;
-                    }
-                    else if (UIScreen.MainScreen.Bounds.Height  == 896)
-                    {
-                        //iPhone XS Max, 11 Pro Max";
-                        result = true;
+                        result = CheckSafeArea(window, UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.Portrait);
                     }
                 }
 
                 return result;
             }
         }
+        
+        #region Private Methods
+
+        private bool CheckSafeArea(UIWindow window, bool isPortrait)
+        {
+            if (isPortrait)
+            {
+                return window.SafeAreaInsets.Top >= 44;
+            }
+            else
+            {
+                return window.SafeAreaInsets.Left > 0 || window.SafeAreaInsets.Right > 0;
+            }
+        }
+
+        #endregion
     }
 }

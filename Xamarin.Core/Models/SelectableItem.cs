@@ -1,7 +1,9 @@
+using System;
 using Xamarin.Core.Interfaces;
 
 namespace Xamarin.Core.Models
 {
+    [Obsolete("Поменять ID на string")]
     public class SelectableItem : NotifyObject, ISelectable, IUiListItem
     {
         #region ISelectable

@@ -9,6 +9,30 @@ namespace XamarinForms.Core.Infrastructure.Navigation
         {
             AddNavigationParameterByPageType(pageType, key, string.Empty);
         }
+        
+        public static void Add(string pageName, string key, object value)
+        {
+            if (!NavigationParameters2.ContainsKey(pageName))
+            {
+                NavigationParameters2.Add(pageName, new Dictionary<string, object>
+                {
+                    {key, value}
+                });
+            }
+            else
+            {
+                var entry = NavigationParameters2[pageName];
+
+                if (!entry.ContainsKey(key))
+                {
+                    entry.Add(key, value);
+                }
+                else
+                {
+                    entry[key] = value;
+                }
+            }
+        }
     
         public static void AddNavigationParameterByPageType(Type pageType, string key, object value)
         {
@@ -57,10 +81,24 @@ namespace XamarinForms.Core.Infrastructure.Navigation
 
             return result;
         }
+        
+        public static IDictionary<string, object> Get(string pageName)
+        {
+            IDictionary<string, object> result = new Dictionary<string, object>();
+
+            if (NavigationParameters2.ContainsKey(pageName))
+            {
+                result = NavigationParameters2[pageName];
+                NavigationParameters2.Remove(pageName);
+            }
+
+            return result;
+        }
 
         #region Fields
 
         private static readonly IDictionary<Type, IDictionary<string, object>> NavigationParameters = new Dictionary<Type, IDictionary<string, object>>();
+        private static readonly IDictionary<string, IDictionary<string, object>> NavigationParameters2 = new Dictionary<string, IDictionary<string, object>>();
 
         #endregion
     }
