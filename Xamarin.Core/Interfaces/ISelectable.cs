@@ -2,11 +2,9 @@ using System;
 
 namespace Xamarin.Core.Interfaces
 {
-    public interface ISelectable
+    public interface ISelectable : IUiListItem
     {
-        [Obsolete]
-        int Id { get; }
-        string Header { get; }
+        string Text { get; }
         bool IsSelected { get; set; }
         void SetSelected(bool isSelected);
     }

@@ -3,13 +3,12 @@ using Xamarin.Core.Interfaces;
 
 namespace Xamarin.Core.Models
 {
-    [Obsolete("Поменять ID на string")]
-    public class SelectableItem : NotifyObject, ISelectable, IUiListItem
+    public sealed class SelectableItem<T> : NotifyObject, ISelectable
     {
         #region ISelectable
 
-        public int Id { get; }
-
+        public string Text { get; }
+        
         public bool IsSelected
         {
             get => _isSelected;
@@ -43,14 +42,13 @@ namespace Xamarin.Core.Models
         
         #endregion
 
-        public SelectableItem(int id, string header, bool isSelected = false)
+        public SelectableItem(T id, string text, bool isSelected = false)
         {
             Id = id;
-            Header = header;
+            Text = text;
             IsSelected = isSelected;
         }
-
-        public string Header { get; protected set; }
-       
+        
+        public T Id { get; }
     }
 }
