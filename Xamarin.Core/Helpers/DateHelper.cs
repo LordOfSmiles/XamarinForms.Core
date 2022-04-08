@@ -32,5 +32,10 @@ namespace Xamarin.Core.Helpers
         {
             return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, 0);
         }
+        
+        public static string ParseToTimeString(DateTime date)
+        {
+            return $"{date.TimeOfDay.Hours:D2}:{date.TimeOfDay.Minutes:D2}";
+        }
     }
 }

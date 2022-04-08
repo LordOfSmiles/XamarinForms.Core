@@ -31,17 +31,16 @@ namespace Xamarin.Core.Helpers
                 return false;
             }
         }
-
-
+        
         public static TimeSpan ParseFromString(string timeString)
         {
-            var hours = int.Parse(timeString.Substring(0, 2));
+            var hours = int.Parse(timeString[..2]);
             var minutes = int.Parse(timeString.Substring(3, 2));
 
             return TimeSpan.FromMinutes(hours * 60 + minutes);
         }
 
-        public static string ParseFromTimeSpan(TimeSpan timeSpan)
+        public static string ParseToString(TimeSpan timeSpan)
         {
             return $"{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}";
         }
