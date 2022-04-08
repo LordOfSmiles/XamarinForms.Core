@@ -130,7 +130,7 @@ namespace XamarinForms.Core.ViewModels
 
         public DisplayOrientation Orientation => DeviceDisplay.MainDisplayInfo.Orientation;
 
-        public Thickness SideIndents
+        public virtual Thickness SideIndents
         {
             get
             {
@@ -142,6 +142,9 @@ namespace XamarinForms.Core.ViewModels
                 }
                 else
                 {
+                    result = Orientation == DisplayOrientation.Portrait
+                        ? new Thickness(128, 0)
+                        : new Thickness(256, 0);
                 }
 
                 return result;
