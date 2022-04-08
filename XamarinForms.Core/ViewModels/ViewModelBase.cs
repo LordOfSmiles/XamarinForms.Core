@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Core.Infrastructure.Container;
-using Xamarin.Core.Interfaces;
 using Xamarin.Core.Models;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace XamarinForms.Core.ViewModels
@@ -93,7 +92,13 @@ namespace XamarinForms.Core.ViewModels
 
         protected ViewModelBase()
         {
-           
+            DeviceDisplay.MainDisplayInfoChanged += OnMainDisplayInfoChanged;
+        }
+
+        private void OnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Orientation));
+            OnPropertyChanged(nameof(SideIndents));
         }
 
         #endregion
@@ -119,6 +124,29 @@ namespace XamarinForms.Core.ViewModels
             protected set => SetProperty(ref _isAnimationVisible, value);
         }
         private bool _isAnimationVisible;
+
+        public bool IsPhone => Device.Idiom == TargetIdiom.Phone;
+        public bool IsTablet => Device.Idiom == TargetIdiom.Tablet;
+
+        public DisplayOrientation Orientation => DeviceDisplay.MainDisplayInfo.Orientation;
+
+        public Thickness SideIndents
+        {
+            get
+            {
+                Thickness result;
+
+                if (IsPhone)
+                {
+                    result = new Thickness(16, 0);
+                }
+                else
+                {
+                }
+
+                return result;
+            }
+        }
 
         #endregion
 
