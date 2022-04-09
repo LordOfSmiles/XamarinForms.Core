@@ -20,7 +20,9 @@ namespace Xamarin.Core.Helpers
             var result = string.Empty;
 
             var remainder100 = number % 100;
-            var wordIndex = (remainder100 > 4 && remainder100 < 20) ? 2 : PluralCases[Math.Min(number % 10, 5)];
+            var wordIndex = remainder100 is > 4 and < 20
+                ? 2 
+                : PluralCases[Math.Min(number % 10, 5)];
 
             if (words != null && words.Length > wordIndex)
                 result = words[wordIndex];

@@ -1,4 +1,5 @@
 using System;
+using Xamarin.Core.Extensions;
 
 namespace Xamarin.Core.Helpers
 {
@@ -40,9 +41,39 @@ namespace Xamarin.Core.Helpers
             return TimeSpan.FromMinutes(hours * 60 + minutes);
         }
 
-        public static string ParseToString(TimeSpan timeSpan)
+        // public static string ParseToString(TimeSpan timeSpan)
+        // {
+        //     return $"{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}";
+        // }
+
+        public static string ParseToString(TimeSpan time)
         {
-            return $"{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}";
+            if (time.IsGreatThanZero())
+            {
+                if (time.Days >= 1)
+                {
+                    return $"{time.TotalHours:D2}:{time.Minutes:D2}";
+                }
+                else
+                {
+                    return $"{time.Hours:D2}:{time.Minutes:D2}";
+                }
+            }
+            else if (time.IsLessThanZero())
+            {
+                if (time.Days <= -1)
+                {
+                    return $"{Math.Abs(time.TotalHours):D2}:{Math.Abs(time.Minutes):D2}";
+                }
+                else
+                {
+                    return $"{Math.Abs(time.Hours):D2}:{Math.Abs(time.Minutes):D2}";
+                }
+            }
+            else
+            {
+                return "00:00";
+            }
         }
         
         public static TimeSpan GetDuration(DateTime start, DateTime? end)

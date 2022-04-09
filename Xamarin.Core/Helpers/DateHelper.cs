@@ -35,7 +35,7 @@ namespace Xamarin.Core.Helpers
         
         public static string ParseToTimeString(DateTime date)
         {
-            return $"{date.TimeOfDay.Hours:D2}:{date.TimeOfDay.Minutes:D2}";
+            return TimeSpanHelper.ParseToString(date.TimeOfDay);
         }
     }
 }
