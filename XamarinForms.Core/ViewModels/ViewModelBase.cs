@@ -142,9 +142,11 @@ namespace XamarinForms.Core.ViewModels
                 }
                 else
                 {
-                    result = Orientation == DisplayOrientation.Portrait
-                        ? new Thickness(128, 0)
-                        : new Thickness(256, 0);
+                    var side = Orientation == DisplayOrientation.Portrait
+                        ? 128
+                        : 160;
+                    
+                    result = new Thickness(side, 0);
                 }
 
                 return result;
