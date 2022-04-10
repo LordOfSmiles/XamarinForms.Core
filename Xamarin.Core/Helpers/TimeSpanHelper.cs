@@ -40,35 +40,25 @@ namespace Xamarin.Core.Helpers
 
             return TimeSpan.FromMinutes(hours * 60 + minutes);
         }
-
-        // public static string ParseToString(TimeSpan timeSpan)
-        // {
-        //     return $"{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}";
-        // }
-
+        
         public static string ParseToString(TimeSpan time)
         {
-            if (time.IsGreatThanZero())
+            if (!time.IsZero())
             {
+                var minutes = time.Minutes;
+                var hours = time.Hours;
                 if (time.Days >= 1)
                 {
-                    return $"{time.TotalHours:D2}:{time.Minutes:D2}";
+                    hours = time.Days * 24 + time.Hours;
                 }
-                else
+
+                if (time.IsLessThanZero())
                 {
-                    return $"{time.Hours:D2}:{time.Minutes:D2}";
+                    hours = Math.Abs(hours);
+                    minutes = Math.Abs(minutes);
                 }
-            }
-            else if (time.IsLessThanZero())
-            {
-                if (time.Days <= -1)
-                {
-                    return $"{Math.Abs(time.TotalHours):D2}:{Math.Abs(time.Minutes):D2}";
-                }
-                else
-                {
-                    return $"{Math.Abs(time.Hours):D2}:{Math.Abs(time.Minutes):D2}";
-                }
+                
+                return $"{hours:D2}:{minutes:D2}";
             }
             else
             {
