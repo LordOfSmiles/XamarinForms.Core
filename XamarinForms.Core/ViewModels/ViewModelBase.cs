@@ -5,10 +5,11 @@ using System.Windows.Input;
 using Xamarin.Core.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.ViewModels
 {
-    public abstract class ViewModelBase : NotifyObject, IDisposable
+    public abstract class ViewModelBase : NotifyObject
     {
         public const string NeedRefreshDataKey = "NeedRefreshData";
         protected const string GoBackKey = "BackNavigation";
@@ -143,31 +144,14 @@ namespace XamarinForms.Core.ViewModels
                 else
                 {
                     var side = Orientation == DisplayOrientation.Portrait
-                        ? 128
-                        : 160;
-                    
+                        ? DeviceHelper.OnPlatform(128, 64)
+                        : 128;
+
                     result = new Thickness(side, 0);
                 }
 
                 return result;
             }
-        }
-
-        #endregion
-
-        #region IDisposable
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         #endregion
