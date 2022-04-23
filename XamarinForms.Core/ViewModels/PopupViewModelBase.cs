@@ -12,6 +12,6 @@ namespace XamarinForms.Core.ViewModels
         }
         private bool _isConfirmed;
 
-        public virtual bool IsValid { get; set; }
+        public virtual bool IsValid { get; }
     }
 }
