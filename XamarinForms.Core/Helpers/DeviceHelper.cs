@@ -7,20 +7,12 @@ namespace XamarinForms.Core.Helpers
     {
         public static T OnPlatform<T>(T iOs, T android)
         {
-            T result;
-
-            switch (Device.RuntimePlatform)
+            T result = Device.RuntimePlatform switch
             {
-                case Device.iOS:
-                    result = iOs;
-                    break;
-                case Device.Android:
-                    result = android;
-                    break;
-                default:
-                    result = default;
-                    break;
-            }
+                Device.iOS => iOs,
+                Device.Android => android,
+                _ => default
+            };
 
             return result;
         }
@@ -45,13 +37,24 @@ namespace XamarinForms.Core.Helpers
                 action.Invoke();
             }
         }
-        
+
         public static void OnAndroid(Action action)
         {
             if (Device.RuntimePlatform == Device.Android)
             {
                 action.Invoke();
             }
+        }
+
+        public static T OnIdiom<T>(T phone, T tablet)
+        {
+            T result = Device.Idiom switch
+            {
+                TargetIdiom.Phone => phone,
+                _ => tablet
+            };
+
+            return result;
         }
     }
 }

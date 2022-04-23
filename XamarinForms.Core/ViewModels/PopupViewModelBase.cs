@@ -11,5 +11,7 @@ namespace XamarinForms.Core.ViewModels
             protected set => SetProperty(ref _isConfirmed, value);
         }
         private bool _isConfirmed;
+
+        public virtual bool IsValid { get; set; }
     }
 }
