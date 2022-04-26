@@ -2,7 +2,6 @@
       encoding="utf-8"?>
 <Frame xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
        xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
        x:Class="XamarinForms.Core.Controls.FlatCheckBox"
        Padding="0"
@@ -11,8 +10,8 @@
        x:Name="ctrlRoot"
        effects:TouchEffect.NativeAnimation="{OnPlatform Android=True}"
        effects:TouchEffect.PulseCount="{OnPlatform Android=1}"
-       effects:TouchEffect.NativeAnimationColor="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=RippleColor}"
-       effects:TouchEffect.PressedBackgroundColor="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=RippleColor}">
+       effects:TouchEffect.NativeAnimationColor="{Binding Source={x:Reference ctrlRoot}, Path=RippleColor}"
+       effects:TouchEffect.PressedBackgroundColor="{Binding Source={x:Reference ctrlRoot}, Path=RippleColor}">
     <StackLayout Orientation="Horizontal"
                  HorizontalOptions="Center"
                  VerticalOptions="Center"
@@ -32,7 +31,7 @@
                VerticalOptions="Center"
                HorizontalOptions="Center"
                InputTransparent="True"
-               TextTransform="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=TextTransform}"
-               Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FlatCheckBox}}, Path=Text}" />
+               TextTransform="{Binding Source={x:Reference ctrlRoot}, Path=TextTransform}"
+               Text="{Binding Source={x:Reference ctrlRoot}, Path=Text}" />
     </StackLayout>
 </Frame>
