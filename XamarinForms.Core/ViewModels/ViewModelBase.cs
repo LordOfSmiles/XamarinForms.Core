@@ -99,7 +99,7 @@ namespace XamarinForms.Core.ViewModels
         private void OnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
             OnPropertyChanged(nameof(Orientation));
-            OnPropertyChanged(nameof(SideIndents));
+            OnPropertyChanged(nameof(ContentIndents));
         }
 
         #endregion
@@ -131,7 +131,7 @@ namespace XamarinForms.Core.ViewModels
 
         public DisplayOrientation Orientation => DeviceDisplay.MainDisplayInfo.Orientation;
 
-        public virtual Thickness SideIndents
+        public virtual Thickness ContentIndents
         {
             get
             {
@@ -148,6 +148,29 @@ namespace XamarinForms.Core.ViewModels
                         : 128;
 
                     result = new Thickness(side, 0);
+                }
+
+                return result;
+            }
+        }
+        
+        public virtual Thickness ToolbarIndents
+        {
+            get
+            {
+                Thickness result;
+
+                if (IsPhone)
+                {
+                    result = new Thickness(16, 8);
+                }
+                else
+                {
+                    var side = Orientation == DisplayOrientation.Portrait
+                        ? DeviceHelper.OnPlatform(128, 64)
+                        : 128;
+
+                    result = new Thickness(side, 8);
                 }
 
                 return result;
