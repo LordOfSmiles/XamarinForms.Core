@@ -1,9 +1,6 @@
-using System.Threading.Tasks;
+namespace XamarinForms.Core.PlatformServices;
 
-namespace XamarinForms.Core.PlatformServices
+public interface IAdmobRewardedPlatformService
 {
-    public interface IAdmobRewardedPlatformService
-    {
-        Task<bool> ShowAsync(string adUnitId);
-    }
+    Task<bool> ShowAsync(string adUnitId);
 }

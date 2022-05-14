@@ -1,10 +1,8 @@
-﻿namespace Xamarin.Core.Infrastructure.Container
-{
-    public enum Owner
-    {
-        Container,
-        External,
-        Default
-    }
+﻿namespace Xamarin.Core.Infrastructure.Container;
 
+public enum Owner
+{
+    Container,
+    External,
+    Default
 }

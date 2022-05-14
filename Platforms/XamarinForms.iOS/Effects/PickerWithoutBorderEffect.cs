@@ -1,25 +1,22 @@
 ﻿using Xamarin.Forms.Platform.iOS;
-using UIKit;
-using Xamarin.Forms;
 
 [assembly: ResolutionGroupName("XamarinForms.iOS.Effects")]
 [assembly: ExportEffect(typeof(XamarinForms.iOS.Effects.PickerWithoutBorderEffect), "PickerWithoutBorderEffect")]
-namespace XamarinForms.iOS.Effects
+namespace XamarinForms.iOS.Effects;
+
+public sealed class PickerWithoutBorderEffect : PlatformEffect
 {
-    public sealed class PickerWithoutBorderEffect : PlatformEffect
+    protected override void OnAttached()
     {
-        protected override void OnAttached()
+        var uiTextView = Control as UITextField;
+        if (uiTextView != null)
         {
-            var uiTextView = Control as UITextField;
-            if (uiTextView != null)
-            {
-                uiTextView.Layer.BorderColor = UIColor.Clear.CGColor;
-            }
+            uiTextView.Layer.BorderColor = UIColor.Clear.CGColor;
         }
+    }
 
-        protected override void OnDetached()
-        {
+    protected override void OnDetached()
+    {
 
-        }
     }
 }

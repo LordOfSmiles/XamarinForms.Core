@@ -1,8 +1,7 @@
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Controls
+namespace XamarinForms.Core.Controls;
+
+public sealed class NoBounceScrollView : ScrollView
 {
-    public sealed class NoBounceScrollView : ScrollView
-    {
-    }
 }

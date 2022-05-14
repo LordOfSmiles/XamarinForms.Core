@@ -1,7 +1,4 @@
-﻿using System;
-using SQLite;
-
-namespace Xamarin.Data.DAL
+﻿namespace Xamarin.Data.DAL
 {
     public interface ISqlitePlatform
     {

@@ -1,11 +1,8 @@
-using System;
+namespace Xamarin.Core.Interfaces;
 
-namespace Xamarin.Core.Interfaces
+public interface ISelectable : IUiListItem
 {
-    public interface ISelectable : IUiListItem
-    {
-        string Text { get; }
-        bool IsSelected { get; set; }
-        void SetSelected(bool isSelected);
-    }
+    string Text { get; }
+    bool IsSelected { get; set; }
+    void SetSelected(bool isSelected);
 }

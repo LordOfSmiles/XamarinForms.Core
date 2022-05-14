@@ -1,7 +1,6 @@
-﻿namespace Xamarin.Core.Infrastructure.Container.Interfaces
+﻿namespace Xamarin.Core.Infrastructure.Container.Interfaces;
+
+public interface IFunqlet
 {
-    public interface IFunqlet
-    {
-        void Configure(Container container);
-    }
+    void Configure(Container container);
 }

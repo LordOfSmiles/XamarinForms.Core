@@ -1,30 +1,27 @@
 ﻿using System.Linq;
-using UIKit;
 
-namespace XamarinForms.iOS.Extensions
+namespace XamarinForms.iOS.Extensions;
+
+public static class UIViewControllerExtensions
 {
-	public static class UIViewControllerExtensions
+	public static UIViewController GetTopViewController(this UIViewController rootViewController)
 	{
-		public static UIViewController GetTopViewController(this UIViewController rootViewController)
+		while (true)
 		{
-			while (true)
-			{
-				if (rootViewController.PresentedViewController == null)
-					return rootViewController;
+			if (rootViewController.PresentedViewController == null)
+				return rootViewController;
 
-				var navigationController = rootViewController.PresentedViewController as UINavigationController;
-				if (navigationController != null)
-				{
-					var lastViewController = navigationController.ViewControllers.Last();
-					rootViewController = lastViewController;
-				}
-				else
-				{
-					var presentedViewController = rootViewController.PresentedViewController;
-					rootViewController = presentedViewController;
-				}
+			var navigationController = rootViewController.PresentedViewController as UINavigationController;
+			if (navigationController != null)
+			{
+				var lastViewController = navigationController.ViewControllers.Last();
+				rootViewController = lastViewController;
+			}
+			else
+			{
+				var presentedViewController = rootViewController.PresentedViewController;
+				rootViewController = presentedViewController;
 			}
 		}
 	}
 }
-

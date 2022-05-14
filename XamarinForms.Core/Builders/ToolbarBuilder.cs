@@ -1,43 +1,41 @@
-using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Builders
+namespace XamarinForms.Core.Builders;
+
+public sealed class ToolbarBuilder
 {
-    public sealed class ToolbarBuilder
+
+    public ToolbarBuilder WithCommand(ICommand command)
     {
-
-        public ToolbarBuilder WithCommand(ICommand command)
-        {
-            _toolbarItem.Command = command;
-            return this;
-        }
+        _toolbarItem.Command = command;
+        return this;
+    }
         
-        public ToolbarBuilder WithText(string text)
-        {
-            _toolbarItem.Text = text;
-            return this;
-        }
+    public ToolbarBuilder WithText(string text)
+    {
+        _toolbarItem.Text = text;
+        return this;
+    }
         
-        public ToolbarBuilder WithIcon(ImageSource imageSource)
-        {
-            _toolbarItem.IconImageSource = imageSource;
-            return this;
-        }
+    public ToolbarBuilder WithIcon(ImageSource imageSource)
+    {
+        _toolbarItem.IconImageSource = imageSource;
+        return this;
+    }
 
-        public ToolbarItem GetItem()
-        {
-            return _toolbarItem;
-        }
+    public ToolbarItem GetItem()
+    {
+        return _toolbarItem;
+    }
 
-        #region Fields
+    #region Fields
 
-        private readonly ToolbarItem _toolbarItem;
+    private readonly ToolbarItem _toolbarItem;
         
-        #endregion
+    #endregion
         
-        public ToolbarBuilder()
-        {
-            _toolbarItem = new ToolbarItem();
-        }
+    public ToolbarBuilder()
+    {
+        _toolbarItem = new ToolbarItem();
     }
 }

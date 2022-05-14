@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel;
 
-namespace Xamarin.Core.Infrastructure.Container.Interfaces
+namespace Xamarin.Core.Infrastructure.Container.Interfaces;
+
+[EditorBrowsable(EditorBrowsableState.Never)]
+public interface IOwned : IFluentInterface
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    public interface IOwned : IFluentInterface
-    {
-        void OwnedBy(Owner owner);
-    }
+    void OwnedBy(Owner owner);
 }

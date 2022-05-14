@@ -1,14 +1,11 @@
-using System.Windows.Input;
+namespace XamarinForms.Core.Infrastructure.Interfaces;
 
-namespace XamarinForms.Core.Infrastructure.Interfaces
+public interface IDraggableItem
 {
-    public interface IDraggableItem
-    {
-        public ICommand DragStartingCommand { get; set; }
-        public ICommand DropCompletedCommand { get; set; }
-        public ICommand DropCommand { get; set; }
+    public ICommand DragStartingCommand { get; set; }
+    public ICommand DropCompletedCommand { get; set; }
+    public ICommand DropCommand { get; set; }
 
-        public bool AllowDrop { get; }
-        public bool CanDrag { get; }
-    }
+    public bool AllowDrop { get; }
+    public bool CanDrag { get; }
 }

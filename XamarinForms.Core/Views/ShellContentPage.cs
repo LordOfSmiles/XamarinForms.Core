@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Xamarin.Core.Infrastructure.Container;
 using Xamarin.Core.Interfaces;
@@ -8,44 +7,43 @@ using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.ViewModels;
 
-namespace XamarinForms.Core.Views
+namespace XamarinForms.Core.Views;
+
+public class ShellContentPage : ContentPage
 {
-    public class ShellContentPage : ContentPage
+    protected override async void OnAppearing()
     {
-        protected override async void OnAppearing()
+        if (BindingContext is ViewModelBase vm)
         {
-            if (BindingContext is ViewModelBase vm)
+            try
             {
-                try
+                var parameters = NavigationHelper.GetParametersByPageType(GetType());
+                if (!parameters.Any())
                 {
-                    var parameters = NavigationHelper.GetParametersByPageType(GetType());
-                    if (!parameters.Any())
-                    {
-                        parameters = NavigationHelper.Get(GetType().Name);
-                    }
+                    parameters = NavigationHelper.Get(GetType().Name);
+                }
 
-                    await vm.OnAppearingAsync(parameters);
-                }
-                catch (Exception ex)
-                {
-                    //
-                }
+                await vm.OnAppearingAsync(parameters);
             }
-
-            base.OnAppearing();
+            catch (Exception ex)
+            {
+                //
+            }
         }
 
-        protected override void OnDisappearing()
-        {
-            var vm = BindingContext as ViewModelBase;
-            vm?.OnDisappearing();
+        base.OnAppearing();
+    }
 
-            base.OnDisappearing();
-        }
+    protected override void OnDisappearing()
+    {
+        var vm = BindingContext as ViewModelBase;
+        vm?.OnDisappearing();
 
-        protected ShellContentPage()
-        {
-            On<iOS>().SetUseSafeArea(true);
-        }
+        base.OnDisappearing();
+    }
+
+    protected ShellContentPage()
+    {
+        On<iOS>().SetUseSafeArea(true);
     }
 }

@@ -1,7 +1,6 @@
-namespace XamarinForms.Core.PlatformServices
+namespace XamarinForms.Core.PlatformServices;
+
+public interface IExtendedDevicePlatformService
 {
-    public interface IExtendedDevicePlatformService
-    {
-        bool IsDeviceWithSafeArea { get; }
-    }
+    bool IsDeviceWithSafeArea { get; }
 }

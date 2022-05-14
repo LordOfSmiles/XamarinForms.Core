@@ -1,30 +1,29 @@
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Helpers
+namespace XamarinForms.Core.Helpers;
+
+public static class ResourceDictionaryHelper
 {
-    public static class ResourceDictionaryHelper
+    public static T GetValueByKey<T>(string key)
     {
-        public static T GetValueByKey<T>(string key)
-        {
-            var result = default(T);
+        var result = default(T);
             
-            if (Application.Current.Resources.ContainsKey(key))
+        if (Application.Current.Resources.ContainsKey(key))
+        {
+            result = (T) Application.Current.Resources[key];
+        }
+        else
+        {
+            foreach (var dictionary in Application.Current.Resources.MergedDictionaries)
             {
-                result = (T) Application.Current.Resources[key];
-            }
-            else
-            {
-                foreach (var dictionary in Application.Current.Resources.MergedDictionaries)
+                if (dictionary.ContainsKey(key))
                 {
-                    if (dictionary.ContainsKey(key))
-                    {
-                        result = (T) dictionary[key];
-                        break;
-                    }
+                    result = (T) dictionary[key];
+                    break;
                 }
             }
-
-            return result;
         }
+
+        return result;
     }
 }

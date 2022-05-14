@@ -1,39 +1,36 @@
-﻿using System;
+﻿namespace Xamarin.Core.Models;
 
-namespace Xamarin.Core.Models
+public sealed class PlatformCulture
 {
-    public sealed class PlatformCulture
+    public PlatformCulture(string platformCultureString)
     {
-        public PlatformCulture(string platformCultureString)
+        if (string.IsNullOrEmpty(platformCultureString))
         {
-            if (string.IsNullOrEmpty(platformCultureString))
-            {
-                throw new ArgumentException(@"Expected culture identifier", nameof(platformCultureString)); 
-            }
-
-            PlatformString = platformCultureString.Replace("_", "-"); // .NET expects dash, not underscore
-            var dashIndex = PlatformString.IndexOf("-", StringComparison.Ordinal);
-            if (dashIndex > 0)
-            {
-                var parts = PlatformString.Split('-');
-                LanguageCode = parts[0];
-                LocaleCode = parts[1];
-            }
-            else
-            {
-                LanguageCode = PlatformString;
-                LocaleCode = "";
-            }
+            throw new ArgumentException(@"Expected culture identifier", nameof(platformCultureString)); 
         }
 
-
-        public string PlatformString { get; }
-        public string LanguageCode { get;  }
-        public string LocaleCode { get;}
-
-        public override string ToString()
+        PlatformString = platformCultureString.Replace("_", "-"); // .NET expects dash, not underscore
+        var dashIndex = PlatformString.IndexOf("-", StringComparison.Ordinal);
+        if (dashIndex > 0)
         {
-            return PlatformString;
+            var parts = PlatformString.Split('-');
+            LanguageCode = parts[0];
+            LocaleCode = parts[1];
         }
+        else
+        {
+            LanguageCode = PlatformString;
+            LocaleCode = "";
+        }
+    }
+
+
+    public string PlatformString { get; }
+    public string LanguageCode { get;  }
+    public string LocaleCode { get;}
+
+    public override string ToString()
+    {
+        return PlatformString;
     }
 }

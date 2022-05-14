@@ -1,6 +1,3 @@
-using System;
-using SQLite;
-
 namespace Xamarin.Data.DAL
 {
     public abstract class DbMigrationBase

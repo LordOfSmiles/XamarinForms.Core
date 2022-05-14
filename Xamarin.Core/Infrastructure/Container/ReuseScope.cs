@@ -1,10 +1,9 @@
-﻿namespace Xamarin.Core.Infrastructure.Container
+﻿namespace Xamarin.Core.Infrastructure.Container;
+
+public enum ReuseScope
 {
-    public enum ReuseScope
-    {
-        Container = 0,
-        Default = 1,
-        Hierarchy = 1,
-        None = 2
-    }
+    Container = 0,
+    Default = 1,
+    Hierarchy = 1,
+    None = 2
 }

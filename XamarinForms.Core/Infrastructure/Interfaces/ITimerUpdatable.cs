@@ -1,11 +1,8 @@
-using System;
+namespace XamarinForms.Core.Infrastructure.Interfaces;
 
-namespace XamarinForms.Core.Infrastructure.Interfaces
+public interface ITimerUpdatable
 {
-    public interface ITimerUpdatable
-    {
-        void ForceRefresh();
+    void ForceRefresh();
         
-        DateTime LastDate { get; set; }
-    }
+    DateTime LastDate { get; set; }
 }

@@ -1,10 +1,9 @@
 ﻿using System.Globalization;
 
-namespace XamarinForms.Core.PlatformServices
+namespace XamarinForms.Core.PlatformServices;
+
+public interface ILocalizePlatformService
 {
-    public interface ILocalizePlatformService
-    {
-        CultureInfo GetCurrentCultureInfo();
-        void SetLocale(CultureInfo ci);
-    }
+    CultureInfo GetCurrentCultureInfo();
+    void SetLocale(CultureInfo ci);
 }

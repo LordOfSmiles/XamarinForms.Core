@@ -1,27 +1,26 @@
 using System.Collections.Generic;
 using Xamarin.Core.Interfaces;
 
-namespace Xamarin.Core.Helpers
+namespace Xamarin.Core.Helpers;
+
+public static class SelectableHelper
 {
-    public static class SelectableHelper
+    public static void SetSelection(ISelectable sender, IEnumerable<ISelectable> allItemsForSelection, bool withDeselection = false)
     {
-        public static void SetSelection(ISelectable sender, IEnumerable<ISelectable> allItemsForSelection, bool withDeselection = false)
+        if (sender.IsSelected)
         {
-            if (sender.IsSelected)
+            foreach (var selectable in allItemsForSelection)
             {
-                foreach (var selectable in allItemsForSelection)
-                {
-                    selectable.SetSelected(sender.Text == selectable.Text);
-                }
+                selectable.SetSelected(sender.Text == selectable.Text);
             }
-            else if(withDeselection)
-            {
-                sender.SetSelected(false);
-            }
-            else
-            {
-                sender.SetSelected(true);
-            }
+        }
+        else if(withDeselection)
+        {
+            sender.SetSelected(false);
+        }
+        else
+        {
+            sender.SetSelected(true);
         }
     }
 }

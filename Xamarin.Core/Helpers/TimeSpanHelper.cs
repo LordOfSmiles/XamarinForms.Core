@@ -1,78 +1,76 @@
-using System;
 using Xamarin.Core.Extensions;
 
-namespace Xamarin.Core.Helpers
+namespace Xamarin.Core.Helpers;
+
+public static class TimeSpanHelper
 {
-    public static class TimeSpanHelper
+    public static bool IsIntersected(TimeSpan start, TimeSpan end, TimeSpan value)
     {
-        public static bool IsIntersected(TimeSpan start, TimeSpan end, TimeSpan value)
-        {
-            return start <= value && value <= end;
-        }
+        return start <= value && value <= end;
+    }
         
-        public static bool IsIntersectedWithoutBounds(TimeSpan start, TimeSpan end, TimeSpan value)
-        {
-            return start < value && value < end;
-        }
+    public static bool IsIntersectedWithoutBounds(TimeSpan start, TimeSpan end, TimeSpan value)
+    {
+        return start < value && value < end;
+    }
         
-        public static bool IsIntersected(TimeSpan start, TimeSpan end, TimeSpan start2, TimeSpan end2)
+    public static bool IsIntersected(TimeSpan start, TimeSpan end, TimeSpan start2, TimeSpan end2)
+    {
+        if (start < start2 && start2 < end)
         {
-            if (start < start2 && start2 < end)
-            {
-                //start date of 2nd span within range of first span
-                return true;
-            }
-            else if (start < end2 && end2 < end)
-            {
-                //end date of 2nd span within range of first span
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            //start date of 2nd span within range of first span
+            return true;
         }
-        
-        public static TimeSpan ParseFromString(string timeString)
+        else if (start < end2 && end2 < end)
         {
-            var hours = int.Parse(timeString[..2]);
-            var minutes = int.Parse(timeString.Substring(3, 2));
+            //end date of 2nd span within range of first span
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+        
+    public static TimeSpan ParseFromString(string timeString)
+    {
+        var hours = int.Parse(timeString[..2]);
+        var minutes = int.Parse(timeString.Substring(3, 2));
 
-            return TimeSpan.FromMinutes(hours * 60 + minutes);
-        }
+        return TimeSpan.FromMinutes(hours * 60 + minutes);
+    }
         
-        public static string ParseToString(TimeSpan time)
+    public static string ParseToString(TimeSpan time)
+    {
+        if (!time.IsZero())
         {
-            if (!time.IsZero())
+            var minutes = time.Minutes;
+            var hours = time.Hours;
+            if (time.Days >= 1)
             {
-                var minutes = time.Minutes;
-                var hours = time.Hours;
-                if (time.Days >= 1)
-                {
-                    hours = time.Days * 24 + time.Hours;
-                }
+                hours = time.Days * 24 + time.Hours;
+            }
 
-                if (time.IsLessThanZero())
-                {
-                    hours = Math.Abs(hours);
-                    minutes = Math.Abs(minutes);
-                }
+            if (time.IsLessThanZero())
+            {
+                hours = Math.Abs(hours);
+                minutes = Math.Abs(minutes);
+            }
                 
-                return $"{hours:D2}:{minutes:D2}";
-            }
-            else
-            {
-                return "00:00";
-            }
+            return $"{hours:D2}:{minutes:D2}";
         }
-        
-        public static TimeSpan GetDuration(DateTime start, DateTime? end)
+        else
         {
-            var roundedStart = DateHelper.RoundDate(start);
-            var roundedEnd = DateHelper.RoundDate(end ?? DateTime.Now);
-
-            var result = roundedEnd - roundedStart;
-            return result;
+            return "00:00";
         }
+    }
+        
+    public static TimeSpan GetDuration(DateTime start, DateTime? end)
+    {
+        var roundedStart = DateHelper.RoundDate(start);
+        var roundedEnd = DateHelper.RoundDate(end ?? DateTime.Now);
+
+        var result = roundedEnd - roundedStart;
+        return result;
     }
 }

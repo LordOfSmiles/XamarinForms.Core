@@ -1,44 +1,41 @@
-﻿using UIKit;
+﻿namespace XamarinForms.iOS.Helpers;
 
-namespace XamarinForms.iOS.Helpers
+public static class UIViewControllerHelper
 {
-    public static class UIViewControllerHelper
+    public static UIViewController GetRootViewController()
     {
-        public static UIViewController GetRootViewController()
+        UIViewController result = null;
+
+        var windows = UIApplication.SharedApplication.Windows;
+        foreach (var window in windows)
         {
-            UIViewController result = null;
-
-            var windows = UIApplication.SharedApplication.Windows;
-            foreach (var window in windows)
+            if (window.RootViewController != null)
             {
-                if (window.RootViewController != null)
-                {
-                    result = window.RootViewController;
-                    break;
-                }
+                result = window.RootViewController;
+                break;
             }
-
-            return result;
         }
 
-        public static UIViewController GetVisibleViewController(UIViewController controller = null)
+        return result;
+    }
+
+    public static UIViewController GetVisibleViewController(UIViewController controller = null)
+    {
+        controller = controller ?? UIApplication.SharedApplication.KeyWindow.RootViewController;
+
+        if (controller.PresentedViewController == null)
+            return controller;
+
+        if (controller.PresentedViewController is UINavigationController)
         {
-            controller = controller ?? UIApplication.SharedApplication.KeyWindow.RootViewController;
-
-            if (controller.PresentedViewController == null)
-                return controller;
-
-            if (controller.PresentedViewController is UINavigationController)
-            {
-                return ((UINavigationController)controller.PresentedViewController).VisibleViewController;
-            }
-
-            if (controller.PresentedViewController is UITabBarController)
-            {
-                return ((UITabBarController)controller.PresentedViewController).SelectedViewController;
-            }
-
-            return GetVisibleViewController(controller.PresentedViewController);
+            return ((UINavigationController)controller.PresentedViewController).VisibleViewController;
         }
+
+        if (controller.PresentedViewController is UITabBarController)
+        {
+            return ((UITabBarController)controller.PresentedViewController).SelectedViewController;
+        }
+
+        return GetVisibleViewController(controller.PresentedViewController);
     }
 }

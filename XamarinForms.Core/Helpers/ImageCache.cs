@@ -1,39 +1,36 @@
-﻿using System.Collections.Generic;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace XamarinForms.Core.Helpers
+namespace XamarinForms.Core.Helpers;
+
+public static class ImageCache
 {
-	public static class ImageCache
+	private static readonly Dictionary<string, ImageSource> Cache = new Dictionary<string, ImageSource>();
+
+	public static ImageSource GetImageFromFileName(string filename)
 	{
-		private static readonly Dictionary<string, ImageSource> Cache = new Dictionary<string, ImageSource>();
+		ImageSource retVal = null;
+		var hit = Cache.TryGetValue(filename, out retVal);
 
-		public static ImageSource GetImageFromFileName(string filename)
+		if (!hit)
 		{
-			ImageSource retVal = null;
-			var hit = Cache.TryGetValue(filename, out retVal);
-
-			if (!hit)
-			{
-				retVal = ImageSource.FromFile(filename);
-				Cache[filename] = retVal;
-			}
-
-			return retVal;
+			retVal = ImageSource.FromFile(filename);
+			Cache[filename] = retVal;
 		}
 
-		public static ImageSource GetImageFromResource(string filename)
+		return retVal;
+	}
+
+	public static ImageSource GetImageFromResource(string filename)
+	{
+		ImageSource retVal = null;
+		var hit = Cache.TryGetValue(filename, out retVal);
+
+		if (!hit)
 		{
-			ImageSource retVal = null;
-			var hit = Cache.TryGetValue(filename, out retVal);
-
-			if (!hit)
-			{
-				retVal = ImageSource.FromResource(filename);
-				Cache[filename] = retVal;
-			}
-
-			return retVal;
+			retVal = ImageSource.FromResource(filename);
+			Cache[filename] = retVal;
 		}
+
+		return retVal;
 	}
 }
-

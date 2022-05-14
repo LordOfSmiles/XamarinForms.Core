@@ -2,25 +2,23 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Xamarin.Core.Models
+namespace Xamarin.Core.Models;
+
+public abstract class NotifyObject : INotifyPropertyChanged
 {
-    public abstract class NotifyObject : INotifyPropertyChanged
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnPropertyChanged([CallerMemberName]string propertyName = "")
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
-        protected void OnPropertyChanged([CallerMemberName]string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected void SetProperty<T>(ref T oldValue, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(oldValue, newValue)) 
-                return;
+    protected void SetProperty<T>(ref T oldValue, T newValue, [CallerMemberName] string propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(oldValue, newValue)) 
+            return;
             
-            oldValue = newValue;
-            OnPropertyChanged(propertyName);
-        }
+        oldValue = newValue;
+        OnPropertyChanged(propertyName);
     }
 }
-

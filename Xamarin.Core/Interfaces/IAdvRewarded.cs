@@ -1,9 +1,6 @@
-using System.Threading.Tasks;
+namespace Xamarin.Core.Interfaces;
 
-namespace Xamarin.Core.Interfaces
+public interface IAdvRewarded
 {
-    public interface IAdvRewarded
-    {
-        Task<bool> ShowAsync(string adUnitId);
-    }
+    Task<bool> ShowAsync(string adUnitId);
 }

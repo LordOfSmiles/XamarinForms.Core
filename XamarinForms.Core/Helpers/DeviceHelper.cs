@@ -1,60 +1,58 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace XamarinForms.Core.Helpers
+namespace XamarinForms.Core.Helpers;
+
+public static class DeviceHelper
 {
-    public static class DeviceHelper
+    public static T OnPlatform<T>(T iOs, T android)
     {
-        public static T OnPlatform<T>(T iOs, T android)
+        T result = Device.RuntimePlatform switch
         {
-            T result = Device.RuntimePlatform switch
-            {
-                Device.iOS => iOs,
-                Device.Android => android,
-                _ => default
-            };
+            Device.iOS => iOs,
+            Device.Android => android,
+            _ => default
+        };
 
-            return result;
-        }
+        return result;
+    }
 
-        public static void OnPlatform(Action iOs, Action android)
+    public static void OnPlatform(Action iOs, Action android)
+    {
+        switch (Device.RuntimePlatform)
         {
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    iOs.Invoke();
-                    break;
-                case Device.Android:
-                    android.Invoke();
-                    break;
-            }
+            case Device.iOS:
+                iOs.Invoke();
+                break;
+            case Device.Android:
+                android.Invoke();
+                break;
         }
+    }
 
-        public static void OniOs(Action action)
+    public static void OniOs(Action action)
+    {
+        if (Device.RuntimePlatform == Device.iOS)
         {
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                action.Invoke();
-            }
+            action.Invoke();
         }
+    }
 
-        public static void OnAndroid(Action action)
+    public static void OnAndroid(Action action)
+    {
+        if (Device.RuntimePlatform == Device.Android)
         {
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                action.Invoke();
-            }
+            action.Invoke();
         }
+    }
 
-        public static T OnIdiom<T>(T phone, T tablet)
+    public static T OnIdiom<T>(T phone, T tablet)
+    {
+        T result = Device.Idiom switch
         {
-            T result = Device.Idiom switch
-            {
-                TargetIdiom.Phone => phone,
-                _ => tablet
-            };
+            TargetIdiom.Phone => phone,
+            _ => tablet
+        };
 
-            return result;
-        }
+        return result;
     }
 }

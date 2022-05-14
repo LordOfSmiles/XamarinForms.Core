@@ -1,21 +1,19 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
-namespace Xamarin.Core.Infrastructure.Container.Interfaces
+namespace Xamarin.Core.Infrastructure.Container.Interfaces;
+
+[EditorBrowsable(EditorBrowsableState.Never)]
+public interface IFluentInterface
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public interface IFluentInterface
-    {
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        Type GetType();
+    Type GetType();
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        int GetHashCode();
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    int GetHashCode();
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        string ToString();
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    string ToString();
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        bool Equals(object obj);
-    }
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    bool Equals(object obj);
 }

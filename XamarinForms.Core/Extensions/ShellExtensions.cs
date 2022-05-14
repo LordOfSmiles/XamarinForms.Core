@@ -1,13 +1,11 @@
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace XamarinForms.Core.Extensions
+namespace XamarinForms.Core.Extensions;
+
+public static class ShellExtensions
 {
-    public static class ShellExtensions
+    public static Task GoBack(this Shell shell)
     {
-        public static Task GoBack(this Shell shell)
-        {
-            return shell.Navigation.PopAsync();
-        }
+        return shell.Navigation.PopAsync();
     }
 }
