@@ -27,7 +27,7 @@
         <WarningLevel>4</WarningLevel>
         <AndroidLinkMode>None</AndroidLinkMode>
         <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
-        <LangVersion>10.0</LangVersion>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugType>pdbonly</DebugType>
