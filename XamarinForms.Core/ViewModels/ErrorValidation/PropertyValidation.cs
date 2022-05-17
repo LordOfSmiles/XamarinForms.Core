@@ -6,7 +6,6 @@ public sealed class PropertyValidation
 
     private Func<bool> _validationCriteria;
     private string _errorMessage;
-    private readonly string _propertyName;
 
     #endregion
 
@@ -14,14 +13,14 @@ public sealed class PropertyValidation
 
     public PropertyValidation(string propertyName)
     {
-        _propertyName = propertyName;
+        PropertyName = propertyName;
     }
 
     #endregion
 
     #region Properties
 
-    public string PropertyName => _propertyName;
+    public string PropertyName { get; }
 
     #endregion
 

@@ -6,12 +6,23 @@ namespace XamarinForms.Core.ViewModels;
 
 public abstract class ValidationViewModelBase : ViewModelBase
 {
+    protected abstract void InitValidationRules();
+    
     #region Fields
 
-    private readonly List<PropertyValidation> _validations = new List<PropertyValidation>();
+    private readonly List<PropertyValidation> _validations = new();
 
-    private Dictionary<string, List<string>> _errorMessages = new Dictionary<string, List<string>>();
+    private Dictionary<string, List<string>> _errorMessages = new();
 
+    #endregion
+    
+    #region Constructor
+
+    protected ValidationViewModelBase()
+    {
+        InitValidationRules();
+    }
+    
     #endregion
 
     #region INotifyDataErrorInfo implementation
@@ -21,7 +32,7 @@ public abstract class ValidationViewModelBase : ViewModelBase
         if (_errorMessages.ContainsKey(propertyName))
             return _errorMessages[propertyName];
 
-        return new string[0];
+        return Array.Empty<string>();
     }
 
     public string GetFirstError(string propertyName)
@@ -33,6 +44,11 @@ public abstract class ValidationViewModelBase : ViewModelBase
     }
         
     public bool HasErrors => _errorMessages.Any();
+
+    public string FirstError =>
+        _errorMessages.Any()
+            ? _errorMessages.First().Value[0]
+            : string.Empty;
 
     public Dictionary<string, List<string>> ErrorMessages => _errorMessages;
 
@@ -66,6 +82,7 @@ public abstract class ValidationViewModelBase : ViewModelBase
         }
 
         OnPropertyChanged(nameof(HasErrors));
+        OnPropertyChanged(nameof(FirstError));
         OnPropertyChanged(nameof(ErrorMessages));
     }
 
@@ -86,6 +103,7 @@ public abstract class ValidationViewModelBase : ViewModelBase
         OnErrorsChanged(propertyName);
 
         OnPropertyChanged(nameof(HasErrors));
+        OnPropertyChanged(nameof(FirstError));
         OnPropertyChanged(nameof(ErrorMessages));
     }
 
