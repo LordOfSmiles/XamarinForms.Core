@@ -212,6 +212,21 @@ public partial class FlatCheckBox
     }
 
     #endregion
+    
+    #region FontAttributes
+
+    public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes),
+        typeof(FontAttributes),
+        typeof(FlatCheckBox),
+        Xamarin.Forms.FontAttributes.Bold);
+
+    public FontAttributes FontAttributes
+    {
+        get => (FontAttributes)GetValue(FontAttributesProperty);
+        set => SetValue(FontAttributesProperty, value);
+    }
+    
+    #endregion
 
     #endregion
 

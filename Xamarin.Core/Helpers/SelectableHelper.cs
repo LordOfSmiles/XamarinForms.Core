@@ -5,6 +5,16 @@ namespace Xamarin.Core.Helpers;
 
 public static class SelectableHelper
 {
+    public static void SetSelectionNew(ISelectable sender, IEnumerable<ISelectable> allItemsForSelection)
+    {
+        sender.SetSelected(!sender.IsSelected);
+
+        foreach (var selectable in allItemsForSelection.Where(x => x.Text != sender.Text))
+        {
+            selectable.SetSelected(false);
+        }
+    }
+
     public static void SetSelection(ISelectable sender, IEnumerable<ISelectable> allItemsForSelection, bool withDeselection = false)
     {
         if (sender.IsSelected)
@@ -14,7 +24,7 @@ public static class SelectableHelper
                 selectable.SetSelected(sender.Text == selectable.Text);
             }
         }
-        else if(withDeselection)
+        else if (withDeselection)
         {
             sender.SetSelected(false);
         }

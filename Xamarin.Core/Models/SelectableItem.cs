@@ -1,3 +1,4 @@
+using System.Windows.Input;
 using Xamarin.Core.Interfaces;
 
 namespace Xamarin.Core.Models;
@@ -20,6 +21,8 @@ public sealed class SelectableItem<T> : NotifyObject, ISelectable
         _isSelected = isSelected;
         OnPropertyChanged(nameof(IsSelected));
     }
+
+    public ICommand TapCommand { get; set; }
 
     #endregion
         
