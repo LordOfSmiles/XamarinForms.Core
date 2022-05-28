@@ -11,23 +11,21 @@ public partial class ContentPickerControl
     {
         InitializeComponent();
 
-        var gesture = new TapGestureRecognizer()
-        {
-            Command = OpenPickerCommand
-        };
-
-        GestureRecognizers.Add(gesture);
+        // var gesture = new TapGestureRecognizer()
+        // {
+        //     Command = OpenPickerCommand
+        // };
+        //
+        // GestureRecognizers.Add(gesture);
 
         UpdateControl();
     }
 
     #region Commands
 
-    protected override Task OnOpenPicker()
+    protected override void OnOpenPicker()
     {
         picker.Focus();
-
-        return Task.CompletedTask;
     }
 
     #endregion
@@ -141,22 +139,10 @@ public partial class ContentPickerControl
     #endregion
 
     #endregion
-
-    protected override void UpdateControl()
-    {
-        cnvContent.IsVisible = SelectedIndex != -1;
-        cnvPlaceholder.IsVisible = SelectedIndex == -1;
-    }
 }
-    
-public record ContentPickerItem
-{
-    public ContentPickerItem(string id, string text)
-    {
-        Id = id;
-        Text = text;
-    }
 
-    public string Id { get; set; }
-    public string Text { get; set; }
+public record ContentPickerItem(string Id, string Text)
+{
+    public string Id { get; set; } = Id;
+    public string Text { get; set; } = Text;
 }

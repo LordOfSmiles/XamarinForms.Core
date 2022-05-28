@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Xamarin.Forms.Platform.iOS;
+using XamarinForms.Core.Helpers;
 
 
 namespace XamarinForms.iOS.Renderers;
@@ -16,7 +17,7 @@ public sealed class BorderlessDatePickerRenderer : DatePickerRenderer
             Control.BorderStyle = UITextBorderStyle.None;
 
             var picker = (UIDatePicker)Control.InputView;
-            if (picker != null)
+            if (VersionHelper.IsEqualOrGreater(13, 4) && picker != null)
                 picker.PreferredDatePickerStyle = UIDatePickerStyle.Wheels;
         }
     }
@@ -34,7 +35,7 @@ public sealed class BorderlessTimePickerRenderer : TimePickerRenderer
             Control.BorderStyle = UITextBorderStyle.None;
 
             var picker = (UIDatePicker)Control.InputView;
-            if (picker != null)
+            if (VersionHelper.IsEqualOrGreater(13, 4) && picker != null)
                 picker.PreferredDatePickerStyle = UIDatePickerStyle.Wheels;
         }
     }

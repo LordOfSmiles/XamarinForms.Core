@@ -3,36 +3,31 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Controls.Pickers;
 
+
 public abstract class PickerBase : Grid
 {
+    protected PickerBase()
+    {
+        var gesture = new TapGestureRecognizer()
+        {
+            Command = OpenPickerCommand
+        };
+        GestureRecognizers.Add(gesture);
+    }
+    
     #region Commands
 
-    public ICommand OpenPickerCommand => new AsyncCommand(OnOpenPicker);
+    public ICommand OpenPickerCommand => new Command(OnOpenPicker);
 
-    protected virtual Task OnOpenPicker()
+    protected virtual void OnOpenPicker()
     {
-        return Task.CompletedTask;
+        
     }
 
     #endregion
 
     #region Bindable Proeprties
 
-    #region Title
-
-    public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title),
-        typeof(string),
-        typeof(PickerBase),
-        string.Empty);
-
-    public string Title
-    {
-        get => (string) GetValue(TitleProperty);
-        set => SetValue(TitleProperty, value);
-    }
-
-    #endregion
-        
     #region AcceptCommand
 
     public static readonly BindableProperty AcceptCommandProperty = BindableProperty.Create(nameof(AcceptCommand),
@@ -46,6 +41,8 @@ public abstract class PickerBase : Grid
     }
 
     #endregion
+    
+    #region ContentView
 
     public static readonly BindableProperty ContentViewProperty = BindableProperty.Create(nameof(ContentView),
         typeof(View),
@@ -64,10 +61,11 @@ public abstract class PickerBase : Grid
             
         ctrl.UpdateControl();
     }
-        
+    
     #endregion
         
-
+    #endregion
+    
     #region Methods
 
     protected virtual void UpdateControl()

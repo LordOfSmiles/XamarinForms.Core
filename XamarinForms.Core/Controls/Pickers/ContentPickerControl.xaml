@@ -19,6 +19,4 @@
 
     <ContentView x:Name="cnvContent"
                  Content="{Binding Source={x:Reference ctrlRoot}, Path=ContentView}" />
-    <ContentView x:Name="cnvPlaceholder"
-                 Content="{Binding Source={x:Reference ctrlRoot}, Path=PlaceholderView}" />
 </pickers1:PickerBase>
