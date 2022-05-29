@@ -10,15 +10,6 @@ public partial class ContentPickerControl
     public ContentPickerControl()
     {
         InitializeComponent();
-
-        // var gesture = new TapGestureRecognizer()
-        // {
-        //     Command = OpenPickerCommand
-        // };
-        //
-        // GestureRecognizers.Add(gesture);
-
-        UpdateControl();
     }
 
     #region Commands
@@ -39,20 +30,12 @@ public partial class ContentPickerControl
     public static readonly BindableProperty SelectedIndexProperty = BindableProperty.Create(nameof(SelectedIndex),
         typeof(int),
         typeof(ContentPickerControl),
-        -1,
-        propertyChanged: SelectedIndexChanged);
+        -1);
 
     public int SelectedIndex
     {
         get => (int)GetValue(SelectedIndexProperty);
         set => SetValue(SelectedIndexProperty, value);
-    }
-
-    private static void SelectedIndexChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var ctrl = (ContentPickerControl)bindable;
-
-        ctrl.UpdateControl();
     }
 
     #endregion
@@ -61,20 +44,12 @@ public partial class ContentPickerControl
 
     public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem),
         typeof(object),
-        typeof(ContentPickerControl),
-        propertyChanged: SelectedItemChanged);
+        typeof(ContentPickerControl));
 
     public object SelectedItem
     {
         get => GetValue(SelectedItemProperty);
         set => SetValue(SelectedItemProperty, value);
-    }
-
-    private static void SelectedItemChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var ctrl = (ContentPickerControl)bindable;
-
-        ctrl.UpdateControl();
     }
 
     #endregion

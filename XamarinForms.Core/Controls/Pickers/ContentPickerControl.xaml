@@ -17,6 +17,5 @@
             SelectedIndex="{Binding Source={x:Reference ctrlRoot}, Path=SelectedIndex, Mode=TwoWay}"
             SelectedItem="{Binding Source={x:Reference ctrlRoot}, Path=SelectedItem, Mode=TwoWay}" />
 
-    <ContentView x:Name="cnvContent"
-                 Content="{Binding Source={x:Reference ctrlRoot}, Path=ContentView}" />
+    <ContentView Content="{Binding Source={x:Reference ctrlRoot}, Path=ContentView}" />
 </pickers1:PickerBase>

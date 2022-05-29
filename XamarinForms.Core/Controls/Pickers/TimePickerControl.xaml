@@ -10,7 +10,8 @@
                     effects:TouchEffect.PressedBackgroundColor="{Binding Source={x:Reference ctrlRoot}, Path=PressedColor}"
                     effects:TouchEffect.NativeAnimationColor="{Binding Source={x:Reference ctrlRoot}, Path=PressedColor}"
                     effects:TouchEffect.NativeAnimation="{OnPlatform Android=true}"
-                    effects:TouchEffect.PulseCount="{OnPlatform Android=1}">
+                    effects:TouchEffect.PulseCount="{OnPlatform Android=1}"
+                    VerticalOptions="Center">
 
     <TimePicker x:Name="timePicker"
                 IsVisible="False"

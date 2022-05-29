@@ -164,6 +164,7 @@ public partial class TimePickerControl
         if (e.PropertyName == TimePicker.TimeProperty.PropertyName)
         {
             SelectedTime = timePicker.Time;
+            AcceptCommand?.Execute(null);
         }
     }
 

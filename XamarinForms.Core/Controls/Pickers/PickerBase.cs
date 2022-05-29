@@ -46,8 +46,7 @@ public abstract class PickerBase : Grid
 
     public static readonly BindableProperty ContentViewProperty = BindableProperty.Create(nameof(ContentView),
         typeof(View),
-        typeof(PickerBase),
-        propertyChanged: OnViewChanged);
+        typeof(PickerBase));
 
     public View ContentView
     {
@@ -55,13 +54,6 @@ public abstract class PickerBase : Grid
         set => SetValue(ContentViewProperty, value);
     }
 
-    private static void OnViewChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var ctrl = (PickerBase) bindable;
-            
-        ctrl.UpdateControl();
-    }
-    
     #endregion
     
     #region PressedColor
@@ -79,13 +71,5 @@ public abstract class PickerBase : Grid
 
     #endregion
         
-    #endregion
-    
-    #region Methods
-
-    protected virtual void UpdateControl()
-    {
-    }
-
     #endregion
 }
