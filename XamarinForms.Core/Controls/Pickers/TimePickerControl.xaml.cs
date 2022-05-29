@@ -1,6 +1,9 @@
 using System.ComponentModel;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
+using TimePicker = Xamarin.Forms.TimePicker;
 
 namespace XamarinForms.Core.Controls.Pickers;
 
@@ -14,6 +17,8 @@ public partial class TimePickerControl
     public TimePickerControl()
     {
         InitializeComponent();
+
+        timePicker.On<iOS>().SetUpdateMode(UpdateMode.Immediately);
     }
 
     #region Command
@@ -115,6 +120,37 @@ public partial class TimePickerControl
     {
         get => (TimeSpan)GetValue(MaximumTimeProperty);
         set => SetValue(MaximumTimeProperty, value);
+    }
+
+    #endregion
+
+    #region WithDone
+
+    public static readonly BindableProperty WithFinishedUpdateModeProperty = BindableProperty.Create(nameof(WithFinishedUpdateMode),
+        typeof(bool),
+        typeof(TimePickerControl),
+        false,
+        propertyChanged: OnWithDoneChanged);
+
+    public bool WithFinishedUpdateMode
+    {
+        get => (bool)GetValue(WithFinishedUpdateModeProperty);
+        set => SetValue(WithFinishedUpdateModeProperty, value);
+    }
+
+    private static void OnWithDoneChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var ctrl = (TimePickerControl)bindable;
+
+        var withDone = (bool)newValue;
+        if (withDone)
+        {
+            ctrl.timePicker.On<iOS>().SetUpdateMode(UpdateMode.WhenFinished);
+        }
+        else
+        {
+            ctrl.timePicker.On<iOS>().SetUpdateMode(UpdateMode.Immediately);
+        }
     }
 
     #endregion

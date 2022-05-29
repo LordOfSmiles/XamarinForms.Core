@@ -1,4 +1,6 @@
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace XamarinForms.Core.Controls.Pickers;
@@ -9,6 +11,8 @@ public partial class DatePickerControl
     public DatePickerControl()
     {
         InitializeComponent();
+        
+        datePicker.On<iOS>().SetUpdateMode(UpdateMode.Immediately);
     }
 
     #region Commands
@@ -117,6 +121,37 @@ public partial class DatePickerControl
     {
         get => (DateTime?)GetValue(DefaultDateProperty);
         set => SetValue(DefaultDateProperty, value);
+    }
+
+    #endregion
+    
+    #region WithDone
+
+    public static readonly BindableProperty WithFinishedUpdateModeProperty = BindableProperty.Create(nameof(WithFinishedUpdateMode),
+        typeof(bool),
+        typeof(DatePickerControl),
+        false,
+        propertyChanged: OnWithDoneChanged);
+
+    public bool WithFinishedUpdateMode
+    {
+        get => (bool)GetValue(WithFinishedUpdateModeProperty);
+        set => SetValue(WithFinishedUpdateModeProperty, value);
+    }
+
+    private static void OnWithDoneChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var ctrl = (DatePickerControl)bindable;
+
+        var withFinished = (bool)newValue;
+        if (withFinished)
+        {
+            ctrl.datePicker.On<iOS>().SetUpdateMode(UpdateMode.WhenFinished);
+        }
+        else
+        {
+            ctrl.datePicker.On<iOS>().SetUpdateMode(UpdateMode.Immediately);
+        }
     }
 
     #endregion

@@ -7,8 +7,8 @@
             x:Class="XamarinForms.Core.Controls.Pickers.DatePickerControl"
             x:Name="ctrlRoot"
             effects:TouchEffect.NormalBackgroundColor="Transparent"
-            effects:TouchEffect.PressedBackgroundColor="{AppThemeBinding Light={StaticResource PressedLight}, Dark={StaticResource PressedDark}}"
-            effects:TouchEffect.NativeAnimationColor="{AppThemeBinding Light={StaticResource PressedLight}, Dark={StaticResource PressedDark}}"
+            effects:TouchEffect.PressedBackgroundColor="{Binding Source={x:Reference ctrlRoot}, Path=PressedColor}"
+            effects:TouchEffect.NativeAnimationColor="{Binding Source={x:Reference ctrlRoot}, Path=PressedColor}"
             effects:TouchEffect.NativeAnimation="{OnPlatform Android=true}"
             effects:TouchEffect.PulseCount="{OnPlatform Android=1}">
     <DatePicker x:Name="datePicker"

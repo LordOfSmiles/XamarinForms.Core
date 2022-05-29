@@ -63,6 +63,21 @@ public abstract class PickerBase : Grid
     }
     
     #endregion
+    
+    #region PressedColor
+
+    public static readonly BindableProperty PressedColorProperty = BindableProperty.Create(nameof(PressedColor),
+        typeof(Color),
+        typeof(ContentPickerControl),
+        Color.Accent);
+
+    public Color PressedColor
+    {
+        get => (Color)GetValue(PressedColorProperty);
+        set => SetValue(PressedColorProperty, value);
+    }
+
+    #endregion
         
     #endregion
     

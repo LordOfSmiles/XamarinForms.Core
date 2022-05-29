@@ -32,20 +32,7 @@ public partial class ContentPickerControl
 
     #region Bindable Properties
 
-    #region PressedColor
-
-    public static readonly BindableProperty PressedColorProperty = BindableProperty.Create(nameof(PressedColor),
-        typeof(Color),
-        typeof(ContentPickerControl),
-        Color.Accent);
-
-    public Color PressedColor
-    {
-        get => (Color)GetValue(PressedColorProperty);
-        set => SetValue(PressedColorProperty, value);
-    }
-
-    #endregion
+  
 
     #region SelectedIndex
 
