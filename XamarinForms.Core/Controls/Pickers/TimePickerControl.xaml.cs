@@ -50,12 +50,30 @@ public partial class TimePickerControl
         typeof(TimePickerControl),
         null,
         BindingMode.TwoWay,
+        coerceValue: OnSelectedTimeCoerced,
         propertyChanged: OnSelectedTimeChanged);
 
     public TimeSpan? SelectedTime
     {
         get => (TimeSpan?)GetValue(SelectedTimeProperty);
         set => SetValue(SelectedTimeProperty, value);
+    }
+
+    private static object OnSelectedTimeCoerced(BindableObject bindable, object value)
+    {
+        var ctrl = (TimePickerControl)bindable;
+        var time = (TimeSpan?)value;
+
+        var timeToSet = time ?? TimeSpan.Zero;
+
+        if (ctrl.MinimumTime <= timeToSet && timeToSet <= ctrl.MaximumTime)
+        {
+            return time ?? null;
+        }
+        else
+        {
+            return ctrl.SelectedTime;
+        }
     }
 
     private static void OnSelectedTimeChanged(BindableObject bindable, object oldValue, object newValue)
@@ -66,15 +84,16 @@ public partial class TimePickerControl
 
         var timeToSet = time ?? TimeSpan.Zero;
 
-        if (ctrl.MinimumTime <= timeToSet && timeToSet <= ctrl.MaximumTime)
-        {
-            ctrl.timePicker.Time = time ?? TimeSpan.Zero;
-        }
-        else
-        {
-            var oldTime = (TimeSpan?)oldValue;
-            ctrl.timePicker.Time = oldTime ?? DateTime.Now.TimeOfDay;
-        }
+        // if (ctrl.MinimumTime <= timeToSet && timeToSet <= ctrl.MaximumTime)
+        // {
+        ctrl.timePicker.Time = timeToSet;
+
+        // }
+        // else
+        // {
+        //     var oldTime = (TimeSpan?)oldValue;
+        //     ctrl.timePicker.Time = oldTime ?? DateTime.Now.TimeOfDay;
+        // }
     }
 
     #endregion
@@ -114,7 +133,7 @@ public partial class TimePickerControl
     public static readonly BindableProperty MaximumTimeProperty = BindableProperty.Create(nameof(MaximumTime),
         typeof(TimeSpan),
         typeof(TimePickerControl),
-        TimeSpan.MaxValue);
+        new TimeSpan(23, 59, 59));
 
     public TimeSpan MaximumTime
     {
@@ -163,8 +182,14 @@ public partial class TimePickerControl
     {
         if (e.PropertyName == TimePicker.TimeProperty.PropertyName)
         {
+            timePicker.PropertyChanged -= OnPickerPropertyChanged;
             SelectedTime = timePicker.Time;
-            AcceptCommand?.Execute(null);
+            timePicker.PropertyChanged += OnPickerPropertyChanged;
+            
+            if (SelectedTime == timePicker.Time)
+            {
+                AcceptCommand?.Execute(null);
+            }
         }
     }
 
