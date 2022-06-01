@@ -45,13 +45,24 @@ public partial class DatePickerControl
         null,
         BindingMode.TwoWay,
         propertyChanged: OnSelectedDateChanged);
-
+    
     public DateTime? SelectedDate
     {
         get => (DateTime?)GetValue(SelectedDateProperty);
         set => SetValue(SelectedDateProperty, value);
     }
-
+    
+    // private static object OnSelectedDateCoerced(BindableObject bindable, object value)
+    // {
+    //     var ctrl = (DatePickerControl)bindable;
+    //
+    //     var date = (DateTime?)value;
+    //     
+    //     var minDate = ctrl.MinimumDate ?? DateTime.MinValue;
+    //     var maxDate = ctrl.MaximumDate ?? DateTime.MaxValue;
+    //     
+    // }
+    
     private static void OnSelectedDateChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var ctrl = (DatePickerControl)bindable;
@@ -169,7 +180,10 @@ public partial class DatePickerControl
     private void OnDateSelected(object sender, DateChangedEventArgs e)
     {
         SelectedDate = e.NewDate;
-        AcceptCommand?.Execute(null);
+        if (SelectedDate == e.NewDate)
+        {
+            AcceptCommand?.Execute(null);
+        }
     }
 
     #endregion

@@ -33,8 +33,7 @@ public partial class TimePickerControl
         {
             timePicker.Time = SelectedTime.Value;
         }
-
-        timePicker.PropertyChanged += OnPickerPropertyChanged;
+        
         timePicker.Unfocused += OnPickerUnfocused;
         timePicker.Focus();
     }
@@ -43,7 +42,7 @@ public partial class TimePickerControl
 
     #region Bindable Properties
 
-    #region Time
+    #region SelectedTime
 
     public static readonly BindableProperty SelectedTimeProperty = BindableProperty.Create(nameof(SelectedTime),
         typeof(TimeSpan?),
@@ -68,7 +67,7 @@ public partial class TimePickerControl
 
         if (ctrl.MinimumTime <= timeToSet && timeToSet <= ctrl.MaximumTime)
         {
-            return time ?? null;
+            return time;
         }
         else
         {
@@ -178,24 +177,15 @@ public partial class TimePickerControl
 
     #region Handlers
 
-    private void OnPickerPropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == TimePicker.TimeProperty.PropertyName)
-        {
-            timePicker.PropertyChanged -= OnPickerPropertyChanged;
-            SelectedTime = timePicker.Time;
-            timePicker.PropertyChanged += OnPickerPropertyChanged;
-            
-            if (SelectedTime == timePicker.Time)
-            {
-                AcceptCommand?.Execute(null);
-            }
-        }
-    }
-
     private void OnPickerUnfocused(object sender, FocusEventArgs e)
     {
-        timePicker.PropertyChanged -= OnPickerPropertyChanged;
+        SelectedTime = timePicker.Time;
+        
+        if (SelectedTime == timePicker.Time)
+        {
+            AcceptCommand?.Execute(null);
+        }
+        
         timePicker.Unfocused -= OnPickerUnfocused;
     }
 
