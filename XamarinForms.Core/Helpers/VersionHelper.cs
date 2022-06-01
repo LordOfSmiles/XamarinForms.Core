@@ -19,4 +19,20 @@ public static class VersionHelper
 
         return result;
     }
+    
+    public static bool IsEqualOrLess(int major, int minor=0)
+    {
+        var result = false;
+            
+        var currentMajor = DeviceInfo.Version.Major;
+            
+        result = currentMajor < major;
+
+        if (!result)
+        {
+            result = currentMajor == major && DeviceInfo.Version.Minor <= minor;
+        }
+
+        return result;
+    }
 }
