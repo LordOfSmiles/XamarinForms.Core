@@ -77,6 +77,29 @@ public abstract class ViewModelBase : NotifyObject
         }
     }
 
+    protected T ParseNavParameters<T>(IDictionary<string, object> navParams, string key)
+    {
+        T result;
+
+        if (navParams != null && navParams.ContainsKey(key))
+        {
+            try
+            {
+                result = (T)navParams[key];
+            }
+            catch
+            {
+                result = default;
+            }
+        }
+        else
+        {
+            result = default;
+        }
+
+        return result;
+    }
+
     #endregion
 
     #region Fields
