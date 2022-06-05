@@ -1,5 +1,3 @@
-using System.Windows.Input;
-
 namespace Xamarin.Core.Interfaces;
 
 public interface ISelectable : IUiListItem

@@ -1,4 +1,3 @@
-using System.Windows.Input;
 using Xamarin.Core.Interfaces;
 
 namespace Xamarin.Core.Models;
