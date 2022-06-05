@@ -16,11 +16,11 @@ public sealed class SelectableItem<T> : NotifyObject, ISelectable
     }
     private bool _isSelected;
 
-    public void SetSelected(bool isSelected)
-    {
-        _isSelected = isSelected;
-        OnPropertyChanged(nameof(IsSelected));
-    }
+    // public void SetSelected(bool isSelected)
+    // {
+    //     _isSelected = isSelected;
+    //     OnPropertyChanged(nameof(IsSelected));
+    // }
 
     public ICommand TapCommand { get; set; }
 

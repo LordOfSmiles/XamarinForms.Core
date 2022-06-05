@@ -6,6 +6,10 @@ public interface ISelectable : IUiListItem
 {
     string Text { get; }
     bool IsSelected { get; set; }
-    void SetSelected(bool isSelected);
     ICommand TapCommand { get; set; }
+}
+
+public interface ISelectable<out T> : ISelectable
+{
+    T Id { get; }
 }
