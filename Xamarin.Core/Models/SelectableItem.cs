@@ -2,7 +2,7 @@ using Xamarin.Core.Interfaces;
 
 namespace Xamarin.Core.Models;
 
-public sealed class SelectableItem<T> : NotifyObject, ISelectable
+public sealed class SelectableItem<T> : NotifyObject, ISelectableWithOrder
 {
     #region ISelectable
 
@@ -14,13 +14,7 @@ public sealed class SelectableItem<T> : NotifyObject, ISelectable
         set => SetProperty(ref _isSelected, value);
     }
     private bool _isSelected;
-
-    // public void SetSelected(bool isSelected)
-    // {
-    //     _isSelected = isSelected;
-    //     OnPropertyChanged(nameof(IsSelected));
-    // }
-
+    
     public ICommand TapCommand { get; set; }
 
     #endregion
