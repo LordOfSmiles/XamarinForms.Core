@@ -28,4 +28,33 @@ public static class TextPluralHelper
 
         return result;
     }
+
+    public static string GetPluralForm(long number, string word1, string word2, string word5)
+    {
+        if (number < 0)
+            number = 0;
+
+        var result = string.Empty;
+
+        var remainder100 = number % 100;
+
+        var wordIndex = remainder100 is > 4 and < 20
+            ? 2
+            : PluralCases[Math.Min(number % 10, 5)];
+
+        if (wordIndex == 0)
+        {
+            result = word1;
+        }
+        else if (wordIndex == 1)
+        {
+            result = word2;
+        }
+        else if (wordIndex == 2)
+        {
+            result = word5;
+        }
+
+        return result;
+    }
 }
