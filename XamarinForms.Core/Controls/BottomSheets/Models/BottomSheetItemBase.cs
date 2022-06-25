@@ -20,11 +20,5 @@ public abstract class BottomSheetItemBase:IUiListItem
 
     public string Text { get; }
     public bool IsDestructive { get; }
-        
     public bool IsSecondary { get; set; }
-        
-        
-    public ICommand Command { get; set; }
-    public object CommandParameter { get; set; }
-       
 }
