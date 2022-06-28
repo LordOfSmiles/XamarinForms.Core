@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Xamarin.Core.Interfaces;
 
 public interface ISelectableGroup :ISelectable

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Xamarin.Core.Infrastructure.Container.Interfaces;
 
 namespace Xamarin.Core.Infrastructure.Container;

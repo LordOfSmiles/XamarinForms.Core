@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Xamarin.Core.Interfaces;
 
 namespace Xamarin.Core.Helpers;

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Xamarin.Core.Extensions;
 
 public static class EnumerableExtensions

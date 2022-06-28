@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Xamarin.Core.Services;
+﻿namespace Xamarin.Core.Services;
 
 public static class StateManager
 {

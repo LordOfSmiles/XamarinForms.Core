@@ -11,7 +11,7 @@ public partial class DatePickerControl
     public DatePickerControl()
     {
         InitializeComponent();
-        
+
         datePicker.On<iOS>().SetUpdateMode(UpdateMode.WhenFinished);
     }
 
@@ -19,17 +19,32 @@ public partial class DatePickerControl
 
     protected override void OnOpenPicker()
     {
+        DateTime initialDate;
+
         if (!SelectedDate.HasValue && DefaultDate.HasValue)
         {
-            datePicker.Date = DefaultDate.Value;
+            initialDate = DefaultDate.Value;
         }
         else if (SelectedDate.HasValue)
         {
-            datePicker.Date = SelectedDate.Value;
+            initialDate = SelectedDate.Value;
         }
+        else
+        {
+            initialDate = DateTime.Today;
+        }
+
+        //костыль
+        if (Device.RuntimePlatform == Device.iOS && datePicker.Date == initialDate)
+        {
+            datePicker.Date = GetFakeDate(initialDate);
+        }
+
+        datePicker.Date = initialDate;
 
         datePicker.DateSelected += OnDateSelected;
         datePicker.Unfocused += OnDatePickerUnfocused;
+
         datePicker.Focus();
     }
 
@@ -45,13 +60,13 @@ public partial class DatePickerControl
         null,
         BindingMode.TwoWay,
         propertyChanged: OnSelectedDateChanged);
-    
+
     public DateTime? SelectedDate
     {
         get => (DateTime?)GetValue(SelectedDateProperty);
         set => SetValue(SelectedDateProperty, value);
     }
-    
+
     // private static object OnSelectedDateCoerced(BindableObject bindable, object value)
     // {
     //     var ctrl = (DatePickerControl)bindable;
@@ -62,7 +77,7 @@ public partial class DatePickerControl
     //     var maxDate = ctrl.MaximumDate ?? DateTime.MaxValue;
     //     
     // }
-    
+
     private static void OnSelectedDateChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var ctrl = (DatePickerControl)bindable;
@@ -149,9 +164,30 @@ public partial class DatePickerControl
     private void OnDateSelected(object sender, DateChangedEventArgs e)
     {
         SelectedDate = e.NewDate;
+
         if (SelectedDate == e.NewDate)
         {
             AcceptCommand?.Execute(null);
+        }
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    private static DateTime GetFakeDate(DateTime date)
+    {
+        if (date > DateTime.MinValue)
+        {
+            return date.AddDays(-1);
+        }
+        else if (date < DateTime.MaxValue)
+        {
+            return date.AddDays(+1);
+        }
+        else
+        {
+            return date;
         }
     }
 
