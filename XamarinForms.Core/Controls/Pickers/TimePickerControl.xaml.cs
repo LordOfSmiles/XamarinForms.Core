@@ -12,6 +12,9 @@ public partial class TimePickerControl
 {
     #region Fields
 
+    private bool _isTimeChanged;
+    private bool _isOpened;
+
     #endregion
 
     public TimePickerControl()
@@ -21,20 +24,46 @@ public partial class TimePickerControl
         timePicker.On<iOS>().SetUpdateMode(UpdateMode.Immediately);
     }
 
+    #region Events
+
+    public event EventHandler<TimeSpan?> TimeChanged;
+
+    #endregion
+
     #region Command
 
     protected override void OnOpenPicker()
     {
+        _isTimeChanged = false;
+
+        TimeSpan initialTime;
+
         if (!SelectedTime.HasValue && DefaultTime.HasValue)
         {
-            timePicker.Time = DefaultTime.Value;
+            initialTime = DefaultTime.Value;
         }
         else if (SelectedTime.HasValue)
         {
-            timePicker.Time = SelectedTime.Value;
+            initialTime = SelectedTime.Value;
         }
-        
-        timePicker.Unfocused += OnPickerUnfocused;
+        else
+        {
+            initialTime = DateTime.Now.TimeOfDay;
+        }
+
+        timePicker.Time = initialTime;
+
+        if (Device.RuntimePlatform == Device.iOS)
+        {
+            timePicker.DoneEvent += OnDone;
+        }
+        else
+        {
+            timePicker.Focused += OnPickerFocused;
+            timePicker.PropertyChanged += OnPickerPropertyChanged;
+            timePicker.Unfocused += OnPickerUnfocused;
+        }
+
         timePicker.Focus();
     }
 
@@ -82,17 +111,7 @@ public partial class TimePickerControl
         var time = (TimeSpan?)newValue;
 
         var timeToSet = time ?? TimeSpan.Zero;
-
-        // if (ctrl.MinimumTime <= timeToSet && timeToSet <= ctrl.MaximumTime)
-        // {
         ctrl.timePicker.Time = timeToSet;
-
-        // }
-        // else
-        // {
-        //     var oldTime = (TimeSpan?)oldValue;
-        //     ctrl.timePicker.Time = oldTime ?? DateTime.Now.TimeOfDay;
-        // }
     }
 
     #endregion
@@ -142,51 +161,47 @@ public partial class TimePickerControl
 
     #endregion
 
-    #region WithDone
-
-    public static readonly BindableProperty WithFinishedUpdateModeProperty = BindableProperty.Create(nameof(WithFinishedUpdateMode),
-        typeof(bool),
-        typeof(TimePickerControl),
-        false,
-        propertyChanged: OnWithDoneChanged);
-
-    public bool WithFinishedUpdateMode
-    {
-        get => (bool)GetValue(WithFinishedUpdateModeProperty);
-        set => SetValue(WithFinishedUpdateModeProperty, value);
-    }
-
-    private static void OnWithDoneChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var ctrl = (TimePickerControl)bindable;
-
-        var withDone = (bool)newValue;
-        if (withDone)
-        {
-            ctrl.timePicker.On<iOS>().SetUpdateMode(UpdateMode.WhenFinished);
-        }
-        else
-        {
-            ctrl.timePicker.On<iOS>().SetUpdateMode(UpdateMode.Immediately);
-        }
-    }
-
-    #endregion
-
     #endregion
 
     #region Handlers
 
+    private void OnPickerFocused(object sender, FocusEventArgs e)
+    {
+        _isOpened = true;
+    }
+
+    private void OnPickerPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == TimePicker.TimeProperty.PropertyName)
+        {
+            _isTimeChanged = _isOpened && timePicker.Time != SelectedTime;
+        }
+    }
+
     private void OnPickerUnfocused(object sender, FocusEventArgs e)
     {
-        SelectedTime = timePicker.Time;
-        
-        if (SelectedTime == timePicker.Time)
+        _isOpened = false;
+
+        if (_isTimeChanged && SelectedTime != timePicker.Time)
         {
-            AcceptCommand?.Execute(null);
+            SelectedTime = timePicker.Time;
+            TimeChanged?.Invoke(this, timePicker.Time);
         }
-        
+
+        timePicker.Focused -= OnPickerFocused;
+        timePicker.PropertyChanged -= OnPickerPropertyChanged;
         timePicker.Unfocused -= OnPickerUnfocused;
+    }
+
+    private void OnDone(object sender, EventArgs e)
+    {
+        if (SelectedTime != timePicker.Time)
+        {
+            SelectedTime = timePicker.Time;
+            TimeChanged?.Invoke(this, timePicker.Time);
+        }
+
+        timePicker.DoneEvent -= OnDone;
     }
 
     #endregion

@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
                     xmlns:pickers="clr-namespace:XamarinForms.Core.Controls.Pickers;assembly=XamarinForms.Core"
+                    xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
                     x:Class="XamarinForms.Core.Controls.Pickers.TimePickerControl"
                     x:Name="ctrlRoot"
                     effects:TouchEffect.NormalBackgroundColor="Transparent"
@@ -13,7 +14,7 @@
                     effects:TouchEffect.PulseCount="{OnPlatform Android=1}"
                     VerticalOptions="Center">
 
-    <TimePicker x:Name="timePicker"
+    <controls:ExtendedTimePicker x:Name="timePicker"
                 IsVisible="False"
                 Format="HH:mm" />
 

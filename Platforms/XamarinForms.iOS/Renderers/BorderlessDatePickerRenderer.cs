@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Xamarin.Forms.Platform.iOS;
+using XamarinForms.Core.Controls;
 using XamarinForms.Core.Helpers;
 
 
@@ -35,8 +37,43 @@ public sealed class BorderlessTimePickerRenderer : TimePickerRenderer
             Control.BorderStyle = UITextBorderStyle.None;
 
             var picker = (UIDatePicker)Control.InputView;
+            
             if (VersionHelper.IsEqualOrGreater(13, 4) && picker != null)
                 picker.PreferredDatePickerStyle = UIDatePickerStyle.Wheels;
+            
+            var toolbar = Control.InputAccessoryView as UIToolbar;
+            if (toolbar?.Items != null)
+            {
+                foreach (var button in toolbar.Items)
+                {
+                    if (button.Style == UIBarButtonItemStyle.Done)
+                    {
+                        button.Clicked -= OnDoneButtonClicked;
+                        button.Clicked += OnDoneButtonClicked;
+                    }
+                }
+            }
         }
     }
+
+    protected override void OnElementChanged(ElementChangedEventArgs<TimePicker> e)
+    {
+        if (e.NewElement is ExtendedTimePicker timePickerElement)
+        {
+            _timePickerElement = timePickerElement;
+        }
+        
+        base.OnElementChanged(e);
+    }
+
+    private void OnDoneButtonClicked(object sender, EventArgs e)
+    {
+        _timePickerElement?.RaiseDoneEvent();
+    }
+
+    #region Fields
+
+    private ExtendedTimePicker _timePickerElement;
+
+    #endregion
 }
