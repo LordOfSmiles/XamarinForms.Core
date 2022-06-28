@@ -34,6 +34,9 @@ public partial class TimePickerControl
 
     protected override void OnOpenPicker()
     {
+        if (!IsEnabled)
+            return;
+        
         _isTimeChanged = false;
 
         TimeSpan initialTime;
@@ -186,6 +189,7 @@ public partial class TimePickerControl
         {
             SelectedTime = timePicker.Time;
             TimeChanged?.Invoke(this, timePicker.Time);
+            AcceptCommand?.Execute(null);
         }
 
         timePicker.Focused -= OnPickerFocused;
@@ -199,6 +203,7 @@ public partial class TimePickerControl
         {
             SelectedTime = timePicker.Time;
             TimeChanged?.Invoke(this, timePicker.Time);
+            AcceptCommand?.Execute(null);
         }
 
         timePicker.DoneEvent -= OnDone;
