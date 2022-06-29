@@ -37,9 +37,11 @@ public sealed class BorderlessTimePickerRenderer : TimePickerRenderer
             Control.BorderStyle = UITextBorderStyle.None;
 
             var picker = (UIDatePicker)Control.InputView;
-            
+
             if (VersionHelper.IsEqualOrGreater(13, 4) && picker != null)
+            {
                 picker.PreferredDatePickerStyle = UIDatePickerStyle.Wheels;
+            }
             
             var toolbar = Control.InputAccessoryView as UIToolbar;
             if (toolbar?.Items != null)
