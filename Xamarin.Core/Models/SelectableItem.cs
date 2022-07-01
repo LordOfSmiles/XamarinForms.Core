@@ -2,25 +2,38 @@ using Xamarin.Core.Interfaces;
 
 namespace Xamarin.Core.Models;
 
-public sealed class SelectableItem<T> : NotifyObject, ISelectableWithOrder
+public sealed class SelectableItem<T> : SelectableItem
+{
+    public SelectableItem(T id, string text, bool isSelected = false)
+        : base(text, isSelected)
+    {
+        Id = id;
+    }
+
+    public T Id { get; }
+}
+
+public class SelectableItem : NotifyObject, ISelectableWithOrder
 {
     #region ISelectable
 
     public string Text { get; }
-        
+
     public bool IsSelected
     {
         get => _isSelected;
         set => SetProperty(ref _isSelected, value);
     }
     private bool _isSelected;
-    
+
+    public LayoutTypeEnum LayoutType { get; set; }
+
     public ICommand TapCommand { get; set; }
 
     #endregion
-        
+
     #region IUiListItem
-        
+
     public bool IsFirst
     {
         get => _isFirst;
@@ -34,15 +47,12 @@ public sealed class SelectableItem<T> : NotifyObject, ISelectableWithOrder
         set => SetProperty(ref _isLast, value);
     }
     private bool _isLast;
-        
+
     #endregion
 
-    public SelectableItem(T id, string text, bool isSelected = false)
+    public SelectableItem(string text, bool isSelected = false)
     {
-        Id = id;
         Text = text;
         IsSelected = isSelected;
     }
-        
-    public T Id { get; }
 }

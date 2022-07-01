@@ -4,6 +4,7 @@ public interface ISelectable
 {
     string Text { get; }
     bool IsSelected { get; set; }
+    LayoutTypeEnum LayoutType { get; set; }
     ICommand TapCommand { get; set; }
 }
 
@@ -14,4 +15,10 @@ public interface ISelectable<out T> : ISelectable
 
 public interface ISelectableWithOrder : ISelectable, IUiListItem
 {
+}
+
+public enum LayoutTypeEnum
+{
+    Vertical,
+    Wrap
 }
