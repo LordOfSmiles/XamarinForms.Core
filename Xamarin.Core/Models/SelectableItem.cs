@@ -2,7 +2,7 @@ using Xamarin.Core.Interfaces;
 
 namespace Xamarin.Core.Models;
 
-public sealed class SelectableItem<T> : SelectableItem
+public sealed class SelectableItem<T> : SelectableItem, ISelectable<T>
 {
     public SelectableItem(T id, string text, bool isSelected = false)
         : base(text, isSelected)
