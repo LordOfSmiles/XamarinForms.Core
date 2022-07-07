@@ -26,8 +26,6 @@ public class SelectableItem : NotifyObject, ISelectableWithOrder
     }
     private bool _isSelected;
 
-    public LayoutTypeEnum LayoutType { get; set; }
-
     public ICommand TapCommand { get; set; }
 
     #endregion

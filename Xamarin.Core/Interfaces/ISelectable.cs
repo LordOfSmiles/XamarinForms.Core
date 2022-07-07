@@ -4,7 +4,6 @@ public interface ISelectable
 {
     string Text { get; }
     bool IsSelected { get; set; }
-    LayoutTypeEnum LayoutType { get; set; }
     ICommand TapCommand { get; set; }
 }
 
