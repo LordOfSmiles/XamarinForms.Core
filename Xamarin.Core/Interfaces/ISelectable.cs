@@ -15,9 +15,3 @@ public interface ISelectable<out T> : ISelectable
 public interface ISelectableWithOrder : ISelectable, IUiListItem
 {
 }
-
-public enum LayoutTypeEnum
-{
-    Vertical,
-    Wrap
-}

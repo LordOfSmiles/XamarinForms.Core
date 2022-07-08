@@ -77,7 +77,7 @@ public abstract class ViewModelBase : NotifyObject
         }
     }
 
-    protected T ParseNavParameters<T>(IDictionary<string, object> navParams, string key)
+    protected T ParseNavParameters<T>(IDictionary<string, object> navParams, string key, T initialValue = default)
     {
         T result;
 
@@ -89,12 +89,12 @@ public abstract class ViewModelBase : NotifyObject
             }
             catch
             {
-                result = default;
+                result = initialValue;
             }
         }
         else
         {
-            result = default;
+            result = initialValue;
         }
 
         return result;
