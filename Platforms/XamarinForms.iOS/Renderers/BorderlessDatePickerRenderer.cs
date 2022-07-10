@@ -20,8 +20,44 @@ public sealed class BorderlessDatePickerRenderer : DatePickerRenderer
 
             var picker = (UIDatePicker)Control.InputView;
             if (VersionHelper.IsEqualOrGreater(13, 4) && picker != null)
+            {
                 picker.PreferredDatePickerStyle = UIDatePickerStyle.Wheels;
+            }
+            
+            var toolbar = Control.InputAccessoryView as UIToolbar;
+            if (toolbar?.Items != null)
+            {
+                foreach (var button in toolbar.Items)
+                {
+                    if (button.Style == UIBarButtonItemStyle.Done)
+                    {
+                        button.Clicked -= OnDoneButtonClicked;
+                        button.Clicked += OnDoneButtonClicked;
+                    }
+                }
+            }
         }
+    }
+
+    protected override void OnElementChanged(ElementChangedEventArgs<DatePicker> e)
+    {
+        if (e.NewElement is ExtendedDatePicker datePickerElement)
+        {
+            _datePickerElement = datePickerElement;
+        }
+        
+        base.OnElementChanged(e);
+    }
+    
+    #region Fields
+
+    private ExtendedDatePicker _datePickerElement;
+    
+    #endregion
+
+    private void OnDoneButtonClicked(object sender, EventArgs e)
+    {
+        _datePickerElement?.RaiseDoneEvent();
     }
 }
 

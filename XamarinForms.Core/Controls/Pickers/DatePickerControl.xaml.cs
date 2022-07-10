@@ -42,12 +42,20 @@ public partial class DatePickerControl
 
         datePicker.Date = initialDate;
 
-        datePicker.DateSelected += OnDateSelected;
-        datePicker.Unfocused += OnDatePickerUnfocused;
+        if (Device.RuntimePlatform == Device.iOS)
+        {
+            datePicker.DoneEvent += OnDone;
+        }
+        else
+        {
+            datePicker.DateSelected += OnDateSelected;
+            datePicker.Unfocused += OnDatePickerUnfocused;
+        }
 
         datePicker.Focus();
     }
 
+   
     #endregion
 
     #region Bindable Properties
@@ -170,6 +178,18 @@ public partial class DatePickerControl
             AcceptCommand?.Execute(null);
         }
     }
+    
+    private void OnDone(object sender, EventArgs e)
+    {
+        if (SelectedDate != datePicker.Date)
+        {
+            SelectedDate = datePicker.Date;
+            AcceptCommand?.Execute(null);
+        }
+
+        datePicker.DoneEvent -= OnDone;
+    }
+
 
     #endregion
 

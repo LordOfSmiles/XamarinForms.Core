@@ -100,6 +100,14 @@ public abstract class ViewModelBase : NotifyObject
         return result;
     }
 
+    protected virtual void OnOrientationChanged()
+    {
+        OnPropertyChanged(nameof(Orientation));
+        OnPropertyChanged(nameof(ToolbarIndents));
+        OnPropertyChanged(nameof(BottomButtonIndents));
+        OnPropertyChanged(nameof(ContentIndents));
+    }
+
     #endregion
 
     #region Fields
@@ -112,13 +120,15 @@ public abstract class ViewModelBase : NotifyObject
 
     protected ViewModelBase()
     {
-        DeviceDisplay.MainDisplayInfoChanged += OnMainDisplayInfoChanged;
+        if (Device.Idiom != TargetIdiom.Phone)
+        {
+            DeviceDisplay.MainDisplayInfoChanged += OnMainDisplayInfoChanged;
+        }
     }
 
     private void OnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
     {
-        OnPropertyChanged(nameof(Orientation));
-        OnPropertyChanged(nameof(ContentIndents));
+        OnOrientationChanged();
     }
 
     #endregion
@@ -163,8 +173,8 @@ public abstract class ViewModelBase : NotifyObject
             else
             {
                 var side = Orientation == DisplayOrientation.Portrait
-                    ? DeviceHelper.OnPlatform(128, 64)
-                    : 128;
+                    ? 48
+                    : 64;
 
                 result = new Thickness(side, 0);
             }
@@ -172,7 +182,7 @@ public abstract class ViewModelBase : NotifyObject
             return result;
         }
     }
-        
+
     public virtual Thickness ToolbarIndents
     {
         get
@@ -186,10 +196,31 @@ public abstract class ViewModelBase : NotifyObject
             else
             {
                 var side = Orientation == DisplayOrientation.Portrait
-                    ? DeviceHelper.OnPlatform(128, 64)
-                    : 128;
+                    ? 48
+                    : 64;
 
                 result = new Thickness(side, 8);
+            }
+
+            return result;
+        }
+    }
+
+    public virtual Thickness BottomButtonIndents
+    {
+        get
+        {
+            Thickness result;
+
+            if (IsPhone)
+            {
+                result = new Thickness(16, 0, 16, 16);
+            }
+            else
+            {
+                result = Orientation == DisplayOrientation.Portrait
+                    ? new Thickness(48, 0, 48, 16)
+                    : new Thickness(64, 0, 64, 16);
             }
 
             return result;
