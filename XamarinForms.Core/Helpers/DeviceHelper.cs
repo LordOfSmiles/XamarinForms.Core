@@ -47,7 +47,7 @@ public static class DeviceHelper
 
     public static T OnIdiom<T>(T phone, T tablet)
     {
-        T result = Device.Idiom switch
+        var result = Device.Idiom switch
         {
             TargetIdiom.Phone => phone,
             _ => tablet
