@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Xamarin.Data.Models;
@@ -58,14 +56,14 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
         }
     }
 
-    public void Delete(int dbId)
+    public void Delete(int primaryKey)
     {
-        if (dbId < 0)
+        if (primaryKey < 0)
             return;
 
         try
         {
-            Db.Connection.Delete<T>(dbId);
+            Db.Connection.Delete<T>(primaryKey);
             Db.OnDataChanged();
         }
         catch
@@ -100,39 +98,35 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
         }
     }
 
-    public T FindById(int id)
+    public T FindByPrimaryKey(object key)
     {
-        return Db.Connection.Find<T>(id);
+        return Db.Connection.Find<T>(key);
     }
-    
-    public T Find(Expression<Func<T,bool>> predicate)
+
+    public T Find(Expression<Func<T, bool>> predicate)
     {
         return Db.Connection.Find(predicate);
     }
 
-    public T[] GetAll()
+    public T[] GetAll(Expression<Func<T, bool>> predicate = null)
     {
-        return Db.Connection.Table<T>().ToArray();
-    }
-    
-    public T[] GetAll(Expression<Func<T,bool>> predicate)
-    {
-        return Db.Connection.Table<T>().Where(predicate).ToArray();
+        return predicate == null
+            ? Db.Connection.Table<T>().ToArray()
+            : Db.Connection.Table<T>().Where(predicate).ToArray();
     }
 
-    public bool Any()
+    public bool Any(Func<T, bool> predicate = null)
     {
-        return Db.Connection.Table<T>().Any();
+        return predicate == null
+            ? Db.Connection.Table<T>().Any()
+            : Db.Connection.Table<T>().Any(predicate);
     }
 
-    public bool Any(Func<T, bool> predicate)
+    public int Count(Func<T, bool> predicate = null)
     {
-        return Db.Connection.Table<T>().Any(predicate);
-    }
-
-    public int Count()
-    {
-        return Db.Connection.Table<T>().Count();
+        return predicate == null
+            ? Db.Connection.Table<T>().Count()
+            : Db.Connection.Table<T>().Where(predicate).Count();
     }
 
     #region Fields
@@ -157,21 +151,17 @@ public interface IDbRepositoryBase<T> where T : DbEntity_Old, new()
 
     void Delete(T item);
 
-    void Delete(int dbId);
+    void Delete(int primaryKey);
 
     void Delete(Expression<Func<T, bool>> predicate);
 
-    T FindById(int id);
+    T FindByPrimaryKey(object key);
 
     T Find(Expression<Func<T, bool>> predicate);
 
-    T[] GetAll();
+    T[] GetAll(Expression<Func<T, bool>> predicate = null);
 
-    T[] GetAll(Expression<Func<T, bool>> predicate);
+    bool Any(Func<T, bool> predicate = null);
 
-    bool Any();
-
-    bool Any(Func<T, bool> predicate);
-
-    int Count();
+    int Count(Func<T, bool> predicate = null);
 }

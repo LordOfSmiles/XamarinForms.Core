@@ -1,11 +1,10 @@
-﻿namespace Xamarin.Data.DAL
-{
-    public interface ISqlitePlatform
-    {
-        SQLiteConnection GetConnection();
-        bool IsFileExist();
-        void OnDataChanged();
+﻿namespace Xamarin.Data.DAL;
 
-        event EventHandler DataChanged;
-    }
+public interface ISqlitePlatform
+{
+    SQLiteConnection GetConnection();
+    bool IsFileExist();
+    void OnDataChanged();
+
+    event EventHandler DataChanged;
 }
