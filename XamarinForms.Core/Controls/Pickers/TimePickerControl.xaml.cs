@@ -36,7 +36,7 @@ public partial class TimePickerControl
     {
         if (!IsEnabled)
             return;
-        
+
         _isTimeChanged = false;
 
         TimeSpan initialTime;
@@ -115,6 +115,9 @@ public partial class TimePickerControl
 
         var timeToSet = time ?? TimeSpan.Zero;
         ctrl.timePicker.Time = timeToSet;
+
+        // ctrl.TimeChanged?.Invoke(ctrl, timeToSet);
+        // ctrl.AcceptCommand?.Execute(null);
     }
 
     #endregion
@@ -202,8 +205,9 @@ public partial class TimePickerControl
         if (SelectedTime != timePicker.Time)
         {
             SelectedTime = timePicker.Time;
+
             TimeChanged?.Invoke(this, timePicker.Time);
-            AcceptCommand?.Execute(null);
+            AcceptCommand?.Execute(timePicker.Time);
         }
 
         timePicker.DoneEvent -= OnDone;
