@@ -115,9 +115,6 @@ public partial class TimePickerControl
 
         var timeToSet = time ?? TimeSpan.Zero;
         ctrl.timePicker.Time = timeToSet;
-
-        // ctrl.TimeChanged?.Invoke(ctrl, timeToSet);
-        // ctrl.AcceptCommand?.Execute(null);
     }
 
     #endregion
