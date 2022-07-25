@@ -5,65 +5,64 @@ using Xamarin.Forms;
 using View = Android.Views.View;
 
 
-namespace XamarinForms.Droid.Helpers
+namespace XamarinForms.Droid.Helpers;
+
+public static class KeyboardHelper
 {
-    public static class KeyboardHelper
+    private const string KeyboardExtensions = "Xamarin.Forms.Platform.Android.KeyboardExtensions, Xamarin.Forms.Platform.Android";
+
+    private const string KeyboardExtensionsToInputType = "ToInputType";
+
+    private const string KeyboardManager = "Xamarin.Forms.Platform.Android.KeyboardManager, Xamarin.Forms.Platform.Android";
+
+    private const string KeyboardManagerHideKeyboard = "HideKeyboard";
+
+    private const string KeyboardManagerShowKeyboard = "ShowKeyboard";
+
+    private const BindingFlags StaticMethodBindingFlags = BindingFlags.NonPublic | BindingFlags.Static;
+
+    public static InputTypes GetInputType(Keyboard keyboard)
     {
-        private const string KeyboardExtensions = "Xamarin.Forms.Platform.Android.KeyboardExtensions, Xamarin.Forms.Platform.Android";
+        var type = Type.GetType(KeyboardExtensions, true);
+        if (type == null)
+            throw new NullReferenceException(nameof(type));
 
-        private const string KeyboardExtensionsToInputType = "ToInputType";
+        var method = type.GetMethod(KeyboardExtensionsToInputType);
+        if (method == null)
+            throw new MissingMethodException(type.Name, KeyboardExtensionsToInputType);
 
-        private const string KeyboardManager = "Xamarin.Forms.Platform.Android.KeyboardManager, Xamarin.Forms.Platform.Android";
+        return (InputTypes)method.Invoke(null, new object[] { keyboard });
+    }
 
-        private const string KeyboardManagerHideKeyboard = "HideKeyboard";
+    public static void HideKeyboard(View view)
+    {
+        var type = Type.GetType(KeyboardManager, true);
+        if (type == null)
+            return;
 
-        private const string KeyboardManagerShowKeyboard = "ShowKeyboard";
+        var method = type.GetMethod(KeyboardManagerHideKeyboard, StaticMethodBindingFlags);
 
-        private const BindingFlags StaticMethodBindingFlags = BindingFlags.NonPublic | BindingFlags.Static;
-
-        public static InputTypes GetInputType(Keyboard keyboard)
+        if (method == null)
         {
-            var type = Type.GetType(KeyboardExtensions, true);
-            if (type == null)
-                throw new NullReferenceException(nameof(type));
-
-            var method = type.GetMethod(KeyboardExtensionsToInputType);
-            if (method == null)
-                throw new MissingMethodException(type.Name, KeyboardExtensionsToInputType);
-
-            return (InputTypes)method.Invoke(null, new object[] { keyboard });
+            throw new MissingMethodException(type.Name, KeyboardManagerHideKeyboard);
         }
 
-        public static void HideKeyboard(View view)
+        method.Invoke(null, new object[] { view });
+    }
+
+    public static void ShowKeyboard(View view)
+    {
+        var type = Type.GetType(KeyboardManager, true);
+        if (type == null)
+            return;
+
+        var method = type.GetMethod(KeyboardManagerShowKeyboard, StaticMethodBindingFlags);
+
+        if (method == null)
         {
-            var type = Type.GetType(KeyboardManager, true);
-            if (type == null)
-                return;
-
-            var method = type.GetMethod(KeyboardManagerHideKeyboard, StaticMethodBindingFlags);
-
-            if (method == null)
-            {
-                throw new MissingMethodException(type.Name, KeyboardManagerHideKeyboard);
-            }
-
-            method.Invoke(null, new object[] { view });
+            throw new MissingMethodException(type.Name, KeyboardManagerShowKeyboard);
         }
 
-        public static void ShowKeyboard(View view)
-        {
-            var type = Type.GetType(KeyboardManager, true);
-            if (type == null)
-                return;
-
-            var method = type.GetMethod(KeyboardManagerShowKeyboard, StaticMethodBindingFlags);
-
-            if (method == null)
-            {
-                throw new MissingMethodException(type.Name, KeyboardManagerShowKeyboard);
-            }
-
-            method.Invoke(null, new object[] { view });
-        }
+        method.Invoke(null, new object[] { view });
     }
 }
