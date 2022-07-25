@@ -2,21 +2,15 @@
       encoding="utf-8"?>
 <pickers:PickerBase xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
                     xmlns:pickers="clr-namespace:XamarinForms.Core.Controls.Pickers;assembly=XamarinForms.Core"
                     xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
                     x:Class="XamarinForms.Core.Controls.Pickers.TimePickerControl"
                     x:Name="ctrlRoot"
-                    effects:TouchEffect.NormalBackgroundColor="Transparent"
-                    effects:TouchEffect.PressedBackgroundColor="{Binding Source={x:Reference ctrlRoot}, Path=PressedColor}"
-                    effects:TouchEffect.NativeAnimationColor="{Binding Source={x:Reference ctrlRoot}, Path=PressedColor}"
-                    effects:TouchEffect.NativeAnimation="{OnPlatform Android=true}"
-                    effects:TouchEffect.PulseCount="{OnPlatform Android=1}"
                     VerticalOptions="Center">
 
     <controls:ExtendedTimePicker x:Name="timePicker"
-                IsVisible="False"
-                Format="HH:mm" />
+                                 IsVisible="False"
+                                 Format="HH:mm" />
 
     <ContentView Content="{Binding Source={x:Reference ctrlRoot}, Path=ContentView}" />
 </pickers:PickerBase>

@@ -5,12 +5,7 @@
                      xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
                      xmlns:pickers1="clr-namespace:XamarinForms.Core.Controls.Pickers;assembly=XamarinForms.Core"
                      x:Class="XamarinForms.Core.Controls.Pickers.ContentPickerControl"
-                     x:Name="ctrlRoot"
-                     effects:TouchEffect.NormalBackgroundColor="Transparent"
-                     effects:TouchEffect.PressedBackgroundColor="{Binding Source={x:Reference ctrlRoot}, Path=PressedColor}"
-                     effects:TouchEffect.NativeAnimationColor="{Binding Source={x:Reference ctrlRoot}, Path=PressedColor}"
-                     effects:TouchEffect.NativeAnimation="{OnPlatform Android=true}"
-                     effects:TouchEffect.PulseCount="{OnPlatform Android=1}">
+                     x:Name="ctrlRoot">
     <Picker x:Name="picker"
             IsVisible="False"
             ItemsSource="{Binding Source={x:Reference ctrlRoot}, Path=ItemsSource}"

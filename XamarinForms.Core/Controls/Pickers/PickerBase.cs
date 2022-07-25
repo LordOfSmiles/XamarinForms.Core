@@ -3,8 +3,7 @@ using Xamarin.Forms;
 
 namespace XamarinForms.Core.Controls.Pickers;
 
-
-public abstract class PickerBase : Grid
+public abstract class PickerBase : TouchableGrid
 {
     protected PickerBase()
     {
@@ -12,16 +11,16 @@ public abstract class PickerBase : Grid
         {
             Command = OpenPickerCommand
         };
+
         GestureRecognizers.Add(gesture);
     }
-    
+
     #region Commands
 
     public ICommand OpenPickerCommand => new Command(OnOpenPicker);
 
     protected virtual void OnOpenPicker()
     {
-        
     }
 
     #endregion
@@ -36,12 +35,12 @@ public abstract class PickerBase : Grid
 
     public ICommand AcceptCommand
     {
-        get => (ICommand) GetValue(AcceptCommandProperty);
+        get => (ICommand)GetValue(AcceptCommandProperty);
         set => SetValue(AcceptCommandProperty, value);
     }
 
     #endregion
-    
+
     #region ContentView
 
     public static readonly BindableProperty ContentViewProperty = BindableProperty.Create(nameof(ContentView),
@@ -50,26 +49,11 @@ public abstract class PickerBase : Grid
 
     public View ContentView
     {
-        get => (View) GetValue(ContentViewProperty);
+        get => (View)GetValue(ContentViewProperty);
         set => SetValue(ContentViewProperty, value);
     }
 
     #endregion
-    
-    #region PressedColor
 
-    public static readonly BindableProperty PressedColorProperty = BindableProperty.Create(nameof(PressedColor),
-        typeof(Color),
-        typeof(ContentPickerControl),
-        Color.Accent);
-
-    public Color PressedColor
-    {
-        get => (Color)GetValue(PressedColorProperty);
-        set => SetValue(PressedColorProperty, value);
-    }
-
-    #endregion
-        
     #endregion
 }
