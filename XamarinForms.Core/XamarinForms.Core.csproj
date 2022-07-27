@@ -44,7 +44,6 @@
     <Folder Include="Infrastructure\Interfaces\" />
     <Folder Include="Controls\Cells\">
     </Folder>
-    <Folder Include="Services" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Controls\ItemsControl.xaml" />

@@ -17,7 +17,8 @@ public partial class TouchableGrid
 
     public static readonly BindableProperty PressedColorProperty = BindableProperty.Create(nameof(PressedColor),
         typeof(Color),
-        typeof(TouchableGrid));
+        typeof(TouchableGrid),
+        Color.Accent);
 
     public Color PressedColor
     {
@@ -31,7 +32,8 @@ public partial class TouchableGrid
 
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
         typeof(Color),
-        typeof(TouchableGrid));
+        typeof(TouchableGrid),
+        Color.Transparent);
 
     public Color NormalColor
     {
