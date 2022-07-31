@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
              x:Class="XamarinForms.Core.Controls.TouchableContentView"
+             x:Name="root"
              BackgroundColor="{Binding Source={RelativeSource Mode=Self}, Path=NormalColor}"
              effects:TouchEffect.NativeAnimation="True"
              effects:TouchEffect.PulseCount="{OnPlatform Android=1}"

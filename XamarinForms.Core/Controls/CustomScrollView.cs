@@ -27,7 +27,7 @@ public sealed class CustomScrollView:ScrollView
         }
         catch
         {
-                
+            // ignored
         }
     }
 
