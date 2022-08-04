@@ -1,24 +1,25 @@
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 
 namespace XamarinForms.Core.Helpers;
 
 public static class ColorHelper
 {
-    public static Color GetTextColorForBackground(Color backgroundColor, Color darkTextColor, Color lightTextColor)
+    public static Color GetTextColorForBackground(Color background, Color light, Color dark)
     {
-        return IsLightBackground(backgroundColor)
-            ? darkTextColor
-            : lightTextColor;
+        return IsLightBackground(background)
+            ? dark
+            : light;
     }
 
-    public static bool IsLightBackground(Color backgroundColor)
+    public static bool IsLightBackground(Color background)
     {
-        var r = backgroundColor.R;
-        var g = backgroundColor.G;
-        var b = backgroundColor.B;
+        var r = background.GetByteRed();
+        var g = background.GetByteGreen();
+        var b = background.GetByteBlue();
 
-        var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+        var luminosity = ((r * 0.299) + (g * 0.587) + (b * 0.114)) / 255;
 
-        return yiq >= 0.5;
+        return background.Luminosity >= 0.5;
     }
 }
