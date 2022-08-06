@@ -5,14 +5,14 @@ namespace XamarinForms.Core.Helpers;
 
 public static class ColorHelper
 {
-    public static Color GetTextColorForBackground(Color background, Color light, Color dark)
+    public static Color GetTextColorForBackground(Color background, Color textColorForLightBackground, Color textColorForDarkBackground)
     {
-        return IsLightBackground(background)
-            ? dark
-            : light;
+        return IsLightColor(background)
+            ? textColorForDarkBackground
+            : textColorForLightBackground;
     }
 
-    public static bool IsLightBackground(Color background)
+    public static bool IsLightColor(Color background)
     {
         var r = background.GetByteRed();
         var g = background.GetByteGreen();
