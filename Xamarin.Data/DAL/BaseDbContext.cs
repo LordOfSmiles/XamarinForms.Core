@@ -23,13 +23,13 @@ public abstract class BaseDbContext
             if (_connection == null)
             {
                 _connection = _sqLitePlatform.GetConnection();
-                var oldDbVersion = GetDbVersion(_connection);
+                var currentDbVersion = GetDbVersion(_connection);
 
                 CreateTables(_connection);
 
-                MigrateData(_connection, oldDbVersion, DbVersion);
+                ExecuteMigrations(_connection, currentDbVersion, DbVersion);
 
-                if (oldDbVersion != DbVersion)
+                if (currentDbVersion != DbVersion)
                 {
                     SetDbVersion(_connection, DbVersion);
                 }
@@ -55,20 +55,29 @@ public abstract class BaseDbContext
     /// миграция данных
     /// </summary>
     /// <param name="db"></param>
-    /// <param name="oldDbVersion"></param>
-    /// <param name="newVersion"></param>
-    private void MigrateData(SQLiteConnection db, int oldDbVersion, int newVersion)
+    /// <param name="currentDbVersion"></param>
+    /// <param name="newDbVersion"></param>
+    private void ExecuteMigrations(SQLiteConnection db, int currentDbVersion, int newDbVersion)
     {
         if (Migrations == null)
             return;
 
-        var orderedMigrations = Migrations.OrderBy(x => x.DbVersion);
-        foreach (var migration in orderedMigrations)
+        if (currentDbVersion >= newDbVersion)
+            return;
+
+        // var orderedMigrations = Migrations.OrderBy(x => x.DbVersion);
+        // foreach (var migration in orderedMigrations)
+        // {
+        //     if (migration.DbVersion <= newVersion)
+        //     {
+        //         migration.Execute(db, oldDbVersion, newVersion);
+        //     }
+        // }
+
+        for (var i = currentDbVersion; i < newDbVersion; i++)
         {
-            if (migration.DbVersion <= newVersion)
-            {
-                migration.Execute(db, oldDbVersion, newVersion);
-            }
+            var existMigration = Migrations.FirstOrDefault(x => x.DbVersion == i);
+            existMigration?.Execute(db, currentDbVersion, newDbVersion);
         }
     }
 
@@ -77,13 +86,6 @@ public abstract class BaseDbContext
     protected static void SetDbVersion(SQLiteConnection db, int version)
     {
         db.Execute($"PRAGMA user_version={version.ToString(CultureInfo.InvariantCulture)}");
-    }
-
-    protected static int GetDbVersionAfterUpdate(SQLiteConnection db, int version)
-    {
-        SetDbVersion(db, version);
-
-        return GetDbVersion(db);
     }
 
     protected static int GetDbVersion(SQLiteConnection db)
