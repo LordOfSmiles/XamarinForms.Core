@@ -27,7 +27,14 @@ public abstract class BaseDbContext
 
                 CreateTables(_connection);
 
-                ExecuteMigrations(_connection, currentDbVersion, DbVersion);
+                try
+                {
+                    ExecuteMigrations(_connection, currentDbVersion, DbVersion);
+                }
+                catch (Exception e)
+                {
+                   //
+                }
 
                 if (currentDbVersion != DbVersion)
                 {

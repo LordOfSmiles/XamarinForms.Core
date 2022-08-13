@@ -23,7 +23,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
                 Db.Connection.Update(item, typeof(T));
             }
         }
-        catch
+        catch (Exception e)
         {
             //
         }
@@ -40,22 +40,6 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
         }
     }
 
-    public void Delete(T item)
-    {
-        if (item == null)
-            return;
-
-        try
-        {
-            Db.Connection.Delete(item, new TableMapping(typeof(T)));
-            Db.OnDataChanged();
-        }
-        catch
-        {
-            //
-        }
-    }
-
     public void Delete(int primaryKey)
     {
         if (primaryKey < 0)
@@ -66,7 +50,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
             Db.Connection.Delete<T>(primaryKey);
             Db.OnDataChanged();
         }
-        catch
+        catch (Exception e)
         {
             //
         }
@@ -79,7 +63,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
             Db.Connection.DeleteAll<T>();
             Db.OnDataChanged();
         }
-        catch
+        catch (Exception e)
         {
             //
         }
@@ -92,13 +76,13 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
             Db.Connection.Table<T>().Delete(predicate);
             Db.OnDataChanged();
         }
-        catch
+        catch (Exception e)
         {
             //
         }
     }
 
-    public T FindByPrimaryKey(object key)
+    public T Find(object key)
     {
         return Db.Connection.Find<T>(key);
     }
@@ -149,13 +133,11 @@ public interface IDbRepositoryBase<T> where T : DbEntity_Old, new()
 
     void Delete();
 
-    void Delete(T item);
-
     void Delete(int primaryKey);
 
     void Delete(Expression<Func<T, bool>> predicate);
 
-    T FindByPrimaryKey(object key);
+    T Find(object key);
 
     T Find(Expression<Func<T, bool>> predicate);
 
