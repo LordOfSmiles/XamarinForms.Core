@@ -4,8 +4,8 @@ using Xamarin.Data.Models;
 
 namespace Xamarin.Data.DAL;
 
-public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
-    where T : DbEntity, new()
+public abstract class DbRepositoryBaseOld<T> : IDbRepositoryBaseOld<T>
+    where T : DbEntity_Old, new()
 {
     public void AddOrUpdate(T item)
     {
@@ -14,7 +14,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
 
         try
         {
-            if (item.DbId == 0)
+            if (item.Id == 0)
             {
                 Db.Connection.Insert(item, typeof(T));
             }
@@ -23,7 +23,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
                 Db.Connection.Update(item, typeof(T));
             }
         }
-        catch (Exception)
+        catch (Exception e)
         {
             //
         }
@@ -50,7 +50,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
             Db.Connection.Delete<T>(primaryKey);
             Db.OnDataChanged();
         }
-        catch (Exception)
+        catch (Exception e)
         {
             //
         }
@@ -63,7 +63,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
             Db.Connection.DeleteAll<T>();
             Db.OnDataChanged();
         }
-        catch (Exception)
+        catch (Exception e)
         {
             //
         }
@@ -76,7 +76,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
             Db.Connection.Table<T>().Delete(predicate);
             Db.OnDataChanged();
         }
-        catch (Exception)
+        catch (Exception e)
         {
             //
         }
@@ -119,13 +119,13 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
 
     #endregion
 
-    protected DbRepositoryBase(BaseDbContext db)
+    protected DbRepositoryBaseOld(BaseDbContext db)
     {
         Db = db;
     }
 }
 
-public interface IDbRepositoryBase<T> where T : DbEntity, new()
+public interface IDbRepositoryBaseOld<T> where T : DbEntity_Old, new()
 {
     void AddOrUpdate(T item);
 
