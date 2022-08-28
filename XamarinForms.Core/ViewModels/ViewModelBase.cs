@@ -37,38 +37,6 @@ public abstract class ViewModelBase : NotifyObject
         InputTransparent = false;
     }
 
-    protected async Task DisplayAlert(string title, string message, string cancel)
-    {
-        if (Application.Current?.MainPage != null)
-        {
-            await Application.Current.MainPage.DisplayAlert(title, message, cancel);
-        }
-    }
-
-    protected async Task<bool> DisplayAlert(string title, string message, string accept, string cancel)
-    {
-        var result = false;
-
-        if (Application.Current?.MainPage != null)
-        {
-            result = await Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
-        }
-
-        return result;
-    }
-
-    protected async Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons)
-    {
-        var result = string.Empty;
-
-        if (Application.Current?.MainPage != null)
-        {
-            result = await Application.Current.MainPage.DisplayActionSheet(title, cancel, destruction, buttons);
-        }
-
-        return result;
-    }
-
     protected virtual async void OnClose()
     {
         if (Shell.Current?.Navigation != null)
