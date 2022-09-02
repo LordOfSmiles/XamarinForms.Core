@@ -33,7 +33,7 @@ public abstract class BaseDbContext
                 }
                 catch (Exception e)
                 {
-                   //
+                    //
                 }
 
                 if (currentDbVersion != DbVersion)
@@ -81,7 +81,7 @@ public abstract class BaseDbContext
         //     }
         // }
 
-        for (var i = currentDbVersion; i < newDbVersion; i++)
+        for (var i = currentDbVersion; i <= newDbVersion; i++)
         {
             var existMigration = Migrations.FirstOrDefault(x => x.DbVersion == i);
             existMigration?.Execute(db, currentDbVersion, newDbVersion);
