@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -34,11 +29,14 @@ public partial class LightDarkIndicator
         var ctrl = (LightDarkIndicator)bindable;
 
         var value = (LightDarkIndicatorModel)newValue;
+        if (!string.IsNullOrEmpty(value.LightColorString)
+            && !string.IsNullOrEmpty(value.DarkColorString))
+        {
+            var lightColor = Color.FromHex(value.LightColorString);
+            var darkColor = Color.FromHex(value.DarkColorString);
 
-        var lightColor = Color.FromHex(value.LightColorString);
-        var darkColor = Color.FromHex(value.DarkColorString);
-
-        ctrl.SetAppThemeColor(BackgroundColorProperty, lightColor, darkColor);
+            ctrl.SetAppThemeColor(BackgroundColorProperty, lightColor, darkColor);
+        }
     }
 
     #endregion
