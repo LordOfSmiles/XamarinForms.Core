@@ -14,7 +14,7 @@
         <FileAlignment>512</FileAlignment>
         <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
         <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-        <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v12.1</TargetFrameworkVersion>
         <LangVersion>default</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -66,11 +66,11 @@
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\Xamarin.Core\Xamarin.Core.csproj">
-        <Project>{49829FF8-535B-420C-9918-B2B539CF6032}</Project>
+        <Project>{4A3F0AA4-8BC9-47DC-8B66-9876C0834509}</Project>
         <Name>Xamarin.Core</Name>
       </ProjectReference>
       <ProjectReference Include="..\..\XamarinForms.Core\XamarinForms.Core.csproj">
-        <Project>{5AC9AC02-E6A2-4546-ADF3-D1C4DC1379E9}</Project>
+        <Project>{8192930E-E5DA-45DC-82D6-D80304C29CAD}</Project>
         <Name>XamarinForms.Core</Name>
       </ProjectReference>
     </ItemGroup>
