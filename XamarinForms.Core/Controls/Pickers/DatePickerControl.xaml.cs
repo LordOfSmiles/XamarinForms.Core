@@ -42,15 +42,7 @@ public partial class DatePickerControl
 
         datePicker.Date = initialDate;
 
-        if (Device.RuntimePlatform == Device.iOS)
-        {
-            datePicker.DoneEvent += OnDone;
-        }
-        else
-        {
-            datePicker.DateSelected += OnDateSelected;
-            datePicker.Unfocused += OnDatePickerUnfocused;
-        }
+        datePicker.DoneEvent += OnDone;
 
         datePicker.Focus();
     }
@@ -74,17 +66,6 @@ public partial class DatePickerControl
         get => (DateTime?)GetValue(SelectedDateProperty);
         set => SetValue(SelectedDateProperty, value);
     }
-
-    // private static object OnSelectedDateCoerced(BindableObject bindable, object value)
-    // {
-    //     var ctrl = (DatePickerControl)bindable;
-    //
-    //     var date = (DateTime?)value;
-    //     
-    //     var minDate = ctrl.MinimumDate ?? DateTime.MinValue;
-    //     var maxDate = ctrl.MaximumDate ?? DateTime.MaxValue;
-    //     
-    // }
 
     private static void OnSelectedDateChanged(BindableObject bindable, object oldValue, object newValue)
     {
@@ -162,12 +143,6 @@ public partial class DatePickerControl
     #endregion
 
     #region Handlers
-
-    private void OnDatePickerUnfocused(object sender, FocusEventArgs e)
-    {
-        datePicker.DateSelected -= OnDateSelected;
-        datePicker.Unfocused -= OnDatePickerUnfocused;
-    }
 
     private void OnDateSelected(object sender, DateChangedEventArgs e)
     {

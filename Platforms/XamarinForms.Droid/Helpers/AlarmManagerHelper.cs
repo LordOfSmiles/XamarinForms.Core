@@ -3,6 +3,7 @@ using Android.App;
 using Android.Appwidget;
 using Android.Content;
 using Android.OS;
+using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Droid.Helpers;
 
@@ -15,11 +16,11 @@ public static class AlarmManagerHelper
         var intent = GetAlarmPendingIntent(context, receiverType);
         var interval = SystemClock.ElapsedRealtime() + intervalInMs;
 
-        if (VersionHelper.IsAndroid6AndHigher)
+        if (VersionHelper.IsEqualOrGreater(6))
         {
             alarmManager?.SetExactAndAllowWhileIdle(AlarmType.ElapsedRealtimeWakeup, interval, intent);
         }
-        else if (VersionHelper.IsAndroid5AndHigher)
+        else if (VersionHelper.IsEqualOrGreater(5))
         {
             alarmManager?.SetExact(AlarmType.ElapsedRealtimeWakeup, interval, intent);
         }
@@ -33,7 +34,8 @@ public static class AlarmManagerHelper
     {
         var intent = GetCancelPendingIntent(context, receiverType);
         var alarmManager = context.GetSystemService(Context.AlarmService) as AlarmManager;
-        if (alarmManager != null && intent != null)
+        if (alarmManager != null
+            && intent != null)
         {
             alarmManager.Cancel(intent);
             intent.Cancel();
@@ -46,14 +48,22 @@ public static class AlarmManagerHelper
     {
         var intent = new Intent(context, receiverType);
         intent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
-        return PendingIntent.GetBroadcast(context, 0, intent, 0);
+        var intentFlag = VersionHelper.IsEqualOrGreater(12)
+            ? PendingIntentFlags.Mutable
+            : PendingIntentFlags.OneShot;
+
+        return PendingIntent.GetBroadcast(context, 0, intent, intentFlag);
     }
 
     private static PendingIntent GetCancelPendingIntent(Context context, Type receiverType)
     {
         var intent = new Intent(context, receiverType);
         intent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
-        return PendingIntent.GetBroadcast(context, 0, intent, 0);
+        var intentFlag = VersionHelper.IsEqualOrGreater(12)
+            ? PendingIntentFlags.Mutable
+            : PendingIntentFlags.OneShot;
+        
+        return PendingIntent.GetBroadcast(context, 0, intent, intentFlag);
     }
 
     #endregion

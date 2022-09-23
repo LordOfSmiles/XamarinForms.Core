@@ -5,6 +5,7 @@ using Android.Appwidget;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
+using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Droid.Helpers;
 
@@ -72,7 +73,7 @@ public static class WidgetHelper
     {
         var result = false;
 
-        if (VersionHelper.IsAndroid8AndHigher)
+        if (VersionHelper.IsEqualOrGreater(8))
         {
             var widgetManager = AppWidgetManager.GetInstance(context);
 

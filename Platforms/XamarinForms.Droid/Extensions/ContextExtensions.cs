@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
+using XamarinForms.Core.Helpers;
 using XamarinForms.Droid.Helpers;
 
 namespace XamarinForms.Droid.Extensions;
@@ -16,7 +17,7 @@ public static class ContextExtensions
             intent.PutExtras(args);
         }
 
-        if (VersionHelper.IsAndroid8AndHigher)
+        if (VersionHelper.IsEqualOrGreater(8))
         {
             context.StartForegroundService(intent);
         }
