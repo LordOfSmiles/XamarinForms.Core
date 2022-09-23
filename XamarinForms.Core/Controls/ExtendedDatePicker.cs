@@ -9,5 +9,10 @@ public sealed class ExtendedDatePicker:DatePicker
         DoneEvent?.Invoke(this, EventArgs.Empty);
     }
     
+    public void Unsubscribe()
+    {
+        DoneEvent = null;
+    }
+    
     public event EventHandler DoneEvent;
 }
