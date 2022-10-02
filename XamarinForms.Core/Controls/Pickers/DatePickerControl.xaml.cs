@@ -42,6 +42,7 @@ public partial class DatePickerControl
 
         datePicker.Date = initialDate;
 
+        datePicker.DoneEvent -= OnDone;
         datePicker.DoneEvent += OnDone;
 
         datePicker.Focus();
@@ -144,16 +145,6 @@ public partial class DatePickerControl
 
     #region Handlers
 
-    private void OnDateSelected(object sender, DateChangedEventArgs e)
-    {
-        SelectedDate = e.NewDate;
-
-        if (SelectedDate == e.NewDate)
-        {
-            AcceptCommand?.Execute(null);
-        }
-    }
-    
     private void OnDone(object sender, EventArgs e)
     {
         if (SelectedDate != datePicker.Date)
@@ -163,6 +154,7 @@ public partial class DatePickerControl
         }
 
         datePicker.DoneEvent -= OnDone;
+        datePicker.Unfocus();
     }
 
 

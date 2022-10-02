@@ -41,7 +41,8 @@ public partial class TimePickerControl
 
         TimeSpan initialTime;
 
-        if (!SelectedTime.HasValue && DefaultTime.HasValue)
+        if (!SelectedTime.HasValue
+            && DefaultTime.HasValue)
         {
             initialTime = DefaultTime.Value;
         }
@@ -54,6 +55,11 @@ public partial class TimePickerControl
             initialTime = DateTime.Now.TimeOfDay;
         }
 
+        if (initialTime.Days > 0)
+        {
+            initialTime = new TimeSpan(initialTime.Hours, initialTime.Minutes, initialTime.Seconds);
+        }
+        
         timePicker.Time = initialTime;
 
         if (Device.RuntimePlatform == Device.iOS)
@@ -77,12 +83,12 @@ public partial class TimePickerControl
     #region SelectedTime
 
     public static readonly BindableProperty SelectedTimeProperty = BindableProperty.Create(nameof(SelectedTime),
-        typeof(TimeSpan?),
-        typeof(TimePickerControl),
-        null,
-        BindingMode.TwoWay,
-        coerceValue: OnSelectedTimeCoerced,
-        propertyChanged: OnSelectedTimeChanged);
+                                                                                           typeof(TimeSpan?),
+                                                                                           typeof(TimePickerControl),
+                                                                                           null,
+                                                                                           BindingMode.TwoWay,
+                                                                                           coerceValue: OnSelectedTimeCoerced,
+                                                                                           propertyChanged: OnSelectedTimeChanged);
 
     public TimeSpan? SelectedTime
     {
@@ -97,7 +103,8 @@ public partial class TimePickerControl
 
         var timeToSet = time ?? TimeSpan.Zero;
 
-        if (ctrl.MinimumTime <= timeToSet && timeToSet <= ctrl.MaximumTime)
+        if (ctrl.MinimumTime <= timeToSet
+            && timeToSet <= ctrl.MaximumTime)
         {
             return time;
         }
@@ -122,9 +129,9 @@ public partial class TimePickerControl
     #region DefaultTime
 
     public static readonly BindableProperty DefaultTimeProperty = BindableProperty.Create(nameof(DefaultTime),
-        typeof(TimeSpan?),
-        typeof(TimePickerControl),
-        DateTime.Now.TimeOfDay);
+                                                                                          typeof(TimeSpan?),
+                                                                                          typeof(TimePickerControl),
+                                                                                          DateTime.Now.TimeOfDay);
 
     public TimeSpan? DefaultTime
     {
@@ -137,9 +144,9 @@ public partial class TimePickerControl
     #region MinimumTime
 
     public static readonly BindableProperty MinimumTimeProperty = BindableProperty.Create(nameof(MinimumTime),
-        typeof(TimeSpan),
-        typeof(TimePickerControl),
-        TimeSpan.Zero);
+                                                                                          typeof(TimeSpan),
+                                                                                          typeof(TimePickerControl),
+                                                                                          TimeSpan.Zero);
 
     public TimeSpan MinimumTime
     {
@@ -152,9 +159,9 @@ public partial class TimePickerControl
     #region MaximumTime
 
     public static readonly BindableProperty MaximumTimeProperty = BindableProperty.Create(nameof(MaximumTime),
-        typeof(TimeSpan),
-        typeof(TimePickerControl),
-        new TimeSpan(23, 59, 59));
+                                                                                          typeof(TimeSpan),
+                                                                                          typeof(TimePickerControl),
+                                                                                          new TimeSpan(23, 59, 59));
 
     public TimeSpan MaximumTime
     {
@@ -208,6 +215,7 @@ public partial class TimePickerControl
         }
 
         timePicker.DoneEvent -= OnDone;
+        timePicker.Unfocus();
     }
 
     #endregion
