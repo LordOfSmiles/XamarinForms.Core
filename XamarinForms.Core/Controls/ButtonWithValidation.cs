@@ -15,10 +15,10 @@ public sealed class ButtonWithValidation : Button
     #region IsValid
 
     public static readonly BindableProperty IsValidProperty = BindableProperty.Create(nameof(IsValid),
-        typeof(bool),
-        typeof(ButtonWithValidation),
-        true,
-        propertyChanged: OnIsValidChanged);
+                                                                                      typeof(bool),
+                                                                                      typeof(ButtonWithValidation),
+                                                                                      true,
+                                                                                      propertyChanged: OnIsValidChanged);
 
     public bool IsValid
     {
@@ -48,8 +48,8 @@ public sealed class ButtonWithValidation : Button
     #region NormalColor
 
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
-        typeof(Color),
-        typeof(ButtonWithValidation));
+                                                                                          typeof(Color),
+                                                                                          typeof(ButtonWithValidation));
 
     public Color NormalColor
     {
@@ -62,8 +62,8 @@ public sealed class ButtonWithValidation : Button
     #region NormalTextColor
 
     public static readonly BindableProperty NormalTextColorProperty = BindableProperty.Create(nameof(NormalTextColor),
-        typeof(Color),
-        typeof(ButtonWithValidation));
+                                                                                              typeof(Color),
+                                                                                              typeof(ButtonWithValidation));
 
     public Color NormalTextColor
     {
@@ -76,8 +76,8 @@ public sealed class ButtonWithValidation : Button
     #region InvalidColor
 
     public static readonly BindableProperty InvalidColorProperty = BindableProperty.Create(nameof(InvalidColor),
-        typeof(Color),
-        typeof(ButtonWithValidation));
+                                                                                           typeof(Color),
+                                                                                           typeof(ButtonWithValidation));
 
     public Color InvalidColor
     {
@@ -90,8 +90,8 @@ public sealed class ButtonWithValidation : Button
     #region InvalidTextColor
 
     public static readonly BindableProperty InvalidTextColorProperty = BindableProperty.Create(nameof(InvalidTextColor),
-        typeof(Color),
-        typeof(ButtonWithValidation));
+                                                                                               typeof(Color),
+                                                                                               typeof(ButtonWithValidation));
 
     public Color InvalidTextColor
     {
