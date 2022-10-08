@@ -5,8 +5,10 @@ namespace XamarinForms.Core.ViewModels;
 public abstract class PopupViewModelBase<T> : NotifyObject
 {
     public abstract T GetResult();
+    
+    protected T Original { get; set; }
 
-    public virtual bool IsModified { get; }
+    public abstract bool IsModified { get; }
 
     public bool InputTransparent
     {
