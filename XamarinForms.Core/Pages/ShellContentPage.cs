@@ -1,13 +1,10 @@
-using System.Linq;
-using Xamarin.Core.Infrastructure.Container;
-using Xamarin.Core.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.ViewModels;
 
-namespace XamarinForms.Core.Views;
+namespace XamarinForms.Core.Pages;
 
 public class ShellContentPage : ContentPage
 {
@@ -17,12 +14,7 @@ public class ShellContentPage : ContentPage
         {
             try
             {
-                var parameters = NavigationHelper.GetParametersByPageType(GetType());
-                if (!parameters.Any())
-                {
-                    parameters = NavigationHelper.Get(GetType().Name);
-                }
-
+                var parameters = NavigationHelper.Get(GetType().Name);
                 await vm.OnAppearingAsync(parameters);
             }
             catch (Exception ex)

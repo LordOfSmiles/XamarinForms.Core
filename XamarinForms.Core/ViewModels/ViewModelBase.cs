@@ -45,27 +45,11 @@ public abstract class ViewModelBase : NotifyObject
         }
     }
 
-    protected T ParseNavParameters<T>(IDictionary<string, object> navParams, string key, T initialValue = default)
+    protected static T ParseNavParameters<T>(IDictionary<string, object> navParams, string key, T initialValue = default)
     {
-        T result;
-
-        if (navParams != null && navParams.ContainsKey(key))
-        {
-            try
-            {
-                result = (T)navParams[key];
-            }
-            catch
-            {
-                result = initialValue;
-            }
-        }
-        else
-        {
-            result = initialValue;
-        }
-
-        return result;
+        return navParams.TryGetValue(key, out var value)
+                   ? (T)value
+                   : initialValue;
     }
 
     protected virtual void OnOrientationChanged()
