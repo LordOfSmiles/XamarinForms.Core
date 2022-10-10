@@ -13,11 +13,13 @@ public sealed class SelectableItem<T> : SelectableItem, ISelectable<T>
     public T Id { get; }
 }
 
-public class SelectableItem : NotifyObject, ISelectableWithOrder
+public class SelectableItem : NotifyObject, ISelectable
 {
     #region ISelectable
 
     public string Text { get; }
+
+    public bool IsDestruction { get; set; }
 
     public bool IsSelected
     {
@@ -27,24 +29,6 @@ public class SelectableItem : NotifyObject, ISelectableWithOrder
     private bool _isSelected;
 
     public ICommand TapCommand { get; set; }
-
-    #endregion
-
-    #region IUiListItem
-
-    public bool IsFirst
-    {
-        get => _isFirst;
-        set => SetProperty(ref _isFirst, value);
-    }
-    private bool _isFirst;
-
-    public bool IsLast
-    {
-        get => _isLast;
-        set => SetProperty(ref _isLast, value);
-    }
-    private bool _isLast;
 
     #endregion
 
