@@ -42,18 +42,13 @@ public static class TextPluralHelper
             ? 2
             : PluralCases[Math.Min(number % 10, 5)];
 
-        if (wordIndex == 0)
+        result = wordIndex switch
         {
-            result = word1;
-        }
-        else if (wordIndex == 1)
-        {
-            result = word2;
-        }
-        else if (wordIndex == 2)
-        {
-            result = word5;
-        }
+            0 => word1,
+            1 => word2,
+            2 => word5,
+            _ => result
+        };
 
         return result;
     }
