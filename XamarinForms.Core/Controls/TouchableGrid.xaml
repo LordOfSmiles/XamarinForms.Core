@@ -5,8 +5,7 @@
       xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
       x:Class="XamarinForms.Core.Controls.TouchableGrid"
       BackgroundColor="{Binding Source={RelativeSource Mode=Self}, Path=NormalColor}"
-      effects:TouchEffect.NativeAnimation="{OnPlatform Android=true}"
+      effects:TouchEffect.NativeAnimation="True"
       effects:TouchEffect.PulseCount="{OnPlatform Android=1}"
       effects:TouchEffect.NativeAnimationColor="{Binding Source={RelativeSource Mode=Self}, Path=PressedColor}"
-      effects:TouchEffect.PressedBackgroundColor="{Binding Source={RelativeSource Mode=Self}, Path=PressedColor}"
-      effects:TouchEffect.NormalBackgroundColor="{Binding Source={RelativeSource Mode=Self}, Path=NormalColor}" />
+      effects:TouchEffect.NormalBackgroundColor="{Binding Source={RelativeSource Mode=Self}, Path=NormalColor}"  />
