@@ -1,5 +1,3 @@
-using Xamarin.Forms;
-
 namespace XamarinForms.Core.Controls;
 
 public interface ILazyView

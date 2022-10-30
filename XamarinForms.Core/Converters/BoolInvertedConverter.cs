@@ -1,5 +1,4 @@
 using System.Globalization;
-using Xamarin.Forms;
 
 namespace XamarinForms.Core.Converters;
 

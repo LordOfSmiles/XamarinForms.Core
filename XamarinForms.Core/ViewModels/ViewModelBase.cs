@@ -1,7 +1,5 @@
 ﻿using Xamarin.Core.Models;
 using Xamarin.Essentials;
-using Xamarin.Forms;
-using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.ViewModels;
 

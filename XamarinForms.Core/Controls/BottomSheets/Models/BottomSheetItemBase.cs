@@ -1,5 +1,4 @@
 using Xamarin.Core.Interfaces;
-using XamarinForms.Core.Infrastructure.Interfaces;
 
 namespace XamarinForms.Core.Controls.BottomSheets.Models;
 

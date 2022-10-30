@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace XamarinForms.Core.Extensions;
+﻿namespace XamarinForms.Core.Extensions;
 
 public static class ViewExtensions
 {

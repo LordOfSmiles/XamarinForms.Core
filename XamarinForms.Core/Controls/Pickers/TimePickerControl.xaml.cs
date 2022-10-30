@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
@@ -196,7 +195,7 @@ public partial class TimePickerControl
         {
             SelectedTime = timePicker.Time;
             TimeChanged?.Invoke(this, timePicker.Time);
-            AcceptCommand?.Execute(null);
+            AcceptCommand?.Execute(timePicker.Time);
         }
 
         timePicker.Focused -= OnPickerFocused;

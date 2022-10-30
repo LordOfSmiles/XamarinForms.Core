@@ -1,32 +1,25 @@
 ﻿using System.Globalization;
 using System.Linq;
-using Xamarin.Forms;
 
 namespace XamarinForms.Core.Converters;
 
-public sealed class ToVisibilityConverter : IValueConverter
+public sealed class ToVisibilityConverter : GenericConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         var isVisible = true;
 
         if (value != null)
         {
-            switch (value)
+            isVisible = value switch
             {
-                case int i:
-                    isVisible = i > 0;
-                    break;
-                case bool b:
-                    isVisible = b;
-                    break;
-                case string s:
-                    isVisible = !string.IsNullOrEmpty(s);
-                    break;
-                case IEnumerable<object> enumerable:
-                    isVisible = enumerable.Any();
-                    break;
-            }
+                int i => i > 0,
+                double d => d > 0,
+                bool b => b,
+                string s => !string.IsNullOrWhiteSpace(s),
+                IEnumerable<object> enumerable => enumerable.Any(),
+                _ => true
+            };
         }
         else
         {
@@ -34,8 +27,8 @@ public sealed class ToVisibilityConverter : IValueConverter
         }
 
         var stringParameter = parameter is string
-            ? parameter.ToString()
-            : string.Empty;
+                                  ? parameter.ToString()
+                                  : string.Empty;
 
         if (stringParameter.Contains("i"))
         {
@@ -44,12 +37,4 @@ public sealed class ToVisibilityConverter : IValueConverter
 
         return isVisible;
     }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-
-    public static ToVisibilityConverter Current => _current ?? (_current = new ToVisibilityConverter());
-    private static ToVisibilityConverter _current;
 }

@@ -10,17 +10,16 @@ public class TaskMonitor : TaskMonitorBase
     private readonly Action<ITaskMonitor> _whenSuccessfullyCompleted;
 
     /// <inheritdoc />
-    internal TaskMonitor(
-        Task task,
-        Action<ITaskMonitor> whenCanceled = null,
-        Action<ITaskMonitor> whenFaulted = null,
-        Action<ITaskMonitor> whenCompleted = null,
-        Action<ITaskMonitor> whenSuccessfullyCompleted = null,
-        string name = null,
-        bool inNewTask = false,
-        bool isHot = false,
-        bool? considerCanceledAsFaulted = null,
-        Action<ITaskMonitor, string, Exception> errorHandler = null)
+    internal TaskMonitor(Task task,
+                         Action<ITaskMonitor> whenCanceled = null,
+                         Action<ITaskMonitor> whenFaulted = null,
+                         Action<ITaskMonitor> whenCompleted = null,
+                         Action<ITaskMonitor> whenSuccessfullyCompleted = null,
+                         string name = null,
+                         bool inNewTask = false,
+                         bool isHot = false,
+                         bool? considerCanceledAsFaulted = null,
+                         Action<ITaskMonitor, string, Exception> errorHandler = null)
         : base(task, whenCanceled, whenFaulted, whenCompleted, name, inNewTask, isHot, considerCanceledAsFaulted, errorHandler)
     {
         _whenSuccessfullyCompleted = whenSuccessfullyCompleted;
@@ -36,45 +35,41 @@ public class TaskMonitor : TaskMonitorBase
     /// <summary>
     /// Creates a new task monitor watching the specified task.
     /// </summary>
-    public static TaskMonitor Create(
-        Task task,
-        Action<ITaskMonitor> whenCompleted = null,
-        Action<ITaskMonitor> whenFaulted = null,
-        Action<ITaskMonitor> whenSuccessfullyCompleted = null,
-        bool isHot = true,
-        string name = null,
-        bool inNewTask = false)
+    public static TaskMonitor Create(Task task,
+                                     Action<ITaskMonitor> whenCompleted = null,
+                                     Action<ITaskMonitor> whenFaulted = null,
+                                     Action<ITaskMonitor> whenSuccessfullyCompleted = null,
+                                     bool isHot = true,
+                                     string name = null,
+                                     bool inNewTask = false)
     {
-        return new TaskMonitor(
-            task,
-            whenCompleted: whenCompleted,
-            whenFaulted: whenFaulted,
-            whenSuccessfullyCompleted: whenSuccessfullyCompleted,
-            name: name,
-            isHot: isHot,
-            inNewTask: inNewTask);
+        return new TaskMonitor(task,
+                               whenCompleted: whenCompleted,
+                               whenFaulted: whenFaulted,
+                               whenSuccessfullyCompleted: whenSuccessfullyCompleted,
+                               name: name,
+                               isHot: isHot,
+                               inNewTask: inNewTask);
     }
 
     /// <summary>
     /// Creates a new task monitor watching the specified task.
     /// </summary>
-    public static TaskMonitor Create(
-        Func<Task> task,
-        Action<ITaskMonitor> whenCompleted = null,
-        Action<ITaskMonitor> whenFaulted = null,
-        Action<ITaskMonitor> whenSuccessfullyCompleted = null,
-        bool isHot = true,
-        string name = null,
-        bool inNewTask = false)
+    public static TaskMonitor Create(Func<Task> task,
+                                     Action<ITaskMonitor> whenCompleted = null,
+                                     Action<ITaskMonitor> whenFaulted = null,
+                                     Action<ITaskMonitor> whenSuccessfullyCompleted = null,
+                                     bool isHot = true,
+                                     string name = null,
+                                     bool inNewTask = false)
     {
-        return new TaskMonitor(
-            task(),
-            whenCompleted: whenCompleted,
-            whenFaulted: whenFaulted,
-            whenSuccessfullyCompleted: whenSuccessfullyCompleted,
-            name: name,
-            isHot: isHot,
-            inNewTask: inNewTask);
+        return new TaskMonitor(task(),
+                               whenCompleted: whenCompleted,
+                               whenFaulted: whenFaulted,
+                               whenSuccessfullyCompleted: whenSuccessfullyCompleted,
+                               name: name,
+                               isHot: isHot,
+                               inNewTask: inNewTask);
     }
 
     protected override void OnSuccessfullyCompleted()

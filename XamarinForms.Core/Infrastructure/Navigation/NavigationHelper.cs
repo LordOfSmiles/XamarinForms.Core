@@ -12,22 +12,14 @@ public static class NavigationHelper
         if (!InnerDict.ContainsKey(pageName))
         {
             InnerDict.Add(pageName, new Dictionary<string, object>
-                                    {
-                                        { key, value }
-                                    });
+            {
+                { key, value }
+            });
         }
         else
         {
             var entry = InnerDict[pageName];
-
-            if (!entry.ContainsKey(key))
-            {
-                entry.Add(key, value);
-            }
-            else
-            {
-                entry[key] = value;
-            }
+            entry.TryAdd(key, value);
         }
     }
 

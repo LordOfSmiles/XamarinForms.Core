@@ -1,4 +1,3 @@
-using Xamarin.Forms;
 using XamarinForms.Core.Extensions;
 using XamarinForms.Core.Helpers;
 

@@ -1,6 +1,3 @@
-using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms;
-
 namespace XamarinForms.Core.Controls.Pickers;
 
 public abstract class PickerBase : TouchableGrid

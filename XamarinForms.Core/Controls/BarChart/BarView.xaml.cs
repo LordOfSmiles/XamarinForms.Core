@@ -1,8 +1,3 @@
-using System.Linq;
-using System.Text;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
 namespace XamarinForms.Core.Controls.BarChart;
 
 public partial class BarView

@@ -1,4 +1,3 @@
-using Xamarin.Forms;
 using XamarinForms.Core.Helpers.TaskMonitor;
 
 namespace XamarinForms.Core.Controls;

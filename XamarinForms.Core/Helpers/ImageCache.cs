@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace XamarinForms.Core.Helpers;
+﻿namespace XamarinForms.Core.Helpers;
 
 public static class ImageCache
 {
@@ -8,29 +6,27 @@ public static class ImageCache
 
 	public static ImageSource GetImageFromFileName(string filename)
 	{
-		ImageSource retVal = null;
-		var hit = Cache.TryGetValue(filename, out retVal);
+		var hit = Cache.TryGetValue(filename, out var result);
 
 		if (!hit)
 		{
-			retVal = ImageSource.FromFile(filename);
-			Cache[filename] = retVal;
+			result = ImageSource.FromFile(filename);
+			Cache[filename] = result;
 		}
 
-		return retVal;
+		return result;
 	}
 
 	public static ImageSource GetImageFromResource(string filename)
 	{
-		ImageSource retVal = null;
-		var hit = Cache.TryGetValue(filename, out retVal);
+		var hit = Cache.TryGetValue(filename, out var result);
 
 		if (!hit)
 		{
-			retVal = ImageSource.FromResource(filename);
-			Cache[filename] = retVal;
+			result = ImageSource.FromResource(filename);
+			Cache[filename] = result;
 		}
 
-		return retVal;
+		return result;
 	}
 }

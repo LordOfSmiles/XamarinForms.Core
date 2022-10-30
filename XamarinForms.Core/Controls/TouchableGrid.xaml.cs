@@ -1,4 +1,3 @@
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace XamarinForms.Core.Controls;

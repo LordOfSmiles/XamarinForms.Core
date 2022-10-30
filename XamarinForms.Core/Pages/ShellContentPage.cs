@@ -1,4 +1,3 @@
-using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using XamarinForms.Core.Infrastructure.Navigation;

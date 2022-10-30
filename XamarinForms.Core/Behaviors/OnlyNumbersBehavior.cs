@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Xamarin.Forms;
 
 namespace XamarinForms.Core.Behaviors;
 

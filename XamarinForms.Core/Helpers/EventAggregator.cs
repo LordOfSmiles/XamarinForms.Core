@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace XamarinForms.Core.Helpers;
+﻿namespace XamarinForms.Core.Helpers;
 
 public sealed class EventAggregator
 {

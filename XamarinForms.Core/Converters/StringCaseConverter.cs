@@ -1,29 +1,18 @@
 ﻿using System.Globalization;
-using Xamarin.Forms;
 
 namespace XamarinForms.Core.Converters;
 
-public sealed class StringCaseConverter : IValueConverter
+public sealed class StringCaseConverter : GenericConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         var result = value?.ToString() ?? string.Empty;
 
         var stringParameter = parameter?.ToString() ?? string.Empty;
-        if (stringParameter.Contains("l"))
-        {
-            result = result.ToLower();
-        }
-        else
-        {
-            result = result.ToUpper();
-        }
+        result = stringParameter.Contains("l")
+                     ? result.ToLower()
+                     : result.ToUpper();
 
         return result;
-    }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
     }
 }

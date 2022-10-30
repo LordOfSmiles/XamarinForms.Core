@@ -2,8 +2,8 @@
 
 public interface ISqlitePlatform
 {
-    SQLiteConnection GetConnection();
-    bool IsFileExist();
+    SQLiteConnection GetConnection(string dbName);
+    bool IsFileExist(string dbName);
     void OnDataChanged();
 
     event EventHandler DataChanged;

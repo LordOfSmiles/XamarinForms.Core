@@ -2,7 +2,6 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using XamarinForms.Core.Helpers;
-using XamarinForms.Droid.Helpers;
 
 namespace XamarinForms.Droid.Extensions;
 

@@ -1,4 +1,3 @@
-using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
@@ -35,16 +34,15 @@ public partial class DatePickerControl
         }
 
         //костыль
-        if (Device.RuntimePlatform == Device.iOS && datePicker.Date == initialDate)
-        {
+        if (datePicker.Date == initialDate)
             datePicker.Date = GetFakeDate(initialDate);
-        }
 
         datePicker.Date = initialDate;
 
         datePicker.DoneEvent -= OnDone;
         datePicker.DoneEvent += OnDone;
 
+        FocusedEvent?.Invoke(this, EventArgs.Empty);
         datePicker.Focus();
     }
 
@@ -142,6 +140,13 @@ public partial class DatePickerControl
     #endregion
 
     #endregion
+    
+    #region Events
+
+    public event EventHandler FocusedEvent;
+    public event EventHandler UnfocusedEvent;
+    
+    #endregion
 
     #region Handlers
 
@@ -154,6 +159,7 @@ public partial class DatePickerControl
         }
 
         datePicker.DoneEvent -= OnDone;
+        UnfocusedEvent?.Invoke(this, EventArgs.Empty);
         datePicker.Unfocus();
     }
 

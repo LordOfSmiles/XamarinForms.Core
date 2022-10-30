@@ -1,5 +1,3 @@
-using Xamarin.Forms;
-
 namespace XamarinForms.Core.Helpers;
 
 public static class ResourceDictionaryHelper
@@ -7,7 +5,7 @@ public static class ResourceDictionaryHelper
     public static T GetValueByKey<T>(string key)
     {
         var result = default(T);
-            
+        
         if (Application.Current.Resources.ContainsKey(key))
         {
             result = (T) Application.Current.Resources[key];

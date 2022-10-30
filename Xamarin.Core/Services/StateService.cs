@@ -2,24 +2,13 @@
 
 public static class StateManager
 {
-    private static readonly Dictionary<string, object> AppService = new Dictionary<string, object>();
+    private static readonly Dictionary<string, object> AppService = new();
 
-    public static void Set<T>(string name, T value)
-    {
-        AppService[name] = value;
-    }
+    public static void Set<T>(string name, T value) => AppService.TryAdd(name, value);
 
-    public static T Get<T>(string name)
-    {
-        T result = default(T);
-
-        if (AppService.ContainsKey(name))
-        {
-            result = (T)AppService[name];
-        }
-
-        return result;
-    }
+    public static T Get<T>(string key) => AppService.TryGetValue(key, out var result)
+                                              ? (T)result
+                                              : default;
 
     public static void RemoveKey(string key)
     {
@@ -29,8 +18,5 @@ public static class StateManager
         }
     }
 
-    public static bool ContainsKey(string name)
-    {
-        return AppService.ContainsKey(name);
-    }
+    public static bool ContainsKey(string name) => AppService.ContainsKey(name);
 }

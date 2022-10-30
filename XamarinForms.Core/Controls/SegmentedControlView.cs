@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Xamarin.Forms;
 
 namespace XamarinForms.Core.Controls;
 

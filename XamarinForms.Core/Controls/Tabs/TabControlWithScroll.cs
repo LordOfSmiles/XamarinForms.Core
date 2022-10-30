@@ -2,7 +2,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using Xamarin.Core.Models;
-using Xamarin.Forms;
 
 namespace XamarinForms.Core.Controls.Tabs;
 

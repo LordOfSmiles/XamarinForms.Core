@@ -6,12 +6,9 @@ public static class VersionHelper
 {
     public static bool IsEqualOrGreater(int major, int minor=0)
     {
-        var result = false;
-            
         var currentMajor = DeviceInfo.Version.Major;
             
-        result = currentMajor > major;
-
+        var result = currentMajor > major;
         if (!result)
         {
             result = currentMajor == major && DeviceInfo.Version.Minor >= minor;
@@ -22,11 +19,9 @@ public static class VersionHelper
     
     public static bool IsEqualOrLess(int major, int minor=0)
     {
-        var result = false;
-            
         var currentMajor = DeviceInfo.Version.Major;
             
-        result = currentMajor < major;
+        var result = currentMajor < major;
 
         if (!result)
         {
@@ -38,11 +33,9 @@ public static class VersionHelper
     
     public static bool IsLess(int major, int minor=0)
     {
-        var result = false;
-            
         var currentMajor = DeviceInfo.Version.Major;
             
-        result = currentMajor < major;
+        var result = currentMajor < major;
 
         if (!result)
         {

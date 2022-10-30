@@ -1,5 +1,3 @@
-using Xamarin.Forms;
-
 namespace XamarinForms.Core.Behaviors;
 
 public sealed class MinMaxEntryBehavior:BehaviorBase<Entry>

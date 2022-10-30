@@ -14,18 +14,4 @@ public static class IntHelper
 
         return firstRange.Intersect(secondRange).Any();
     }
-
-    public static int Max(int a, int b)
-    {
-        return a > b
-            ? a
-            : b;
-    }
-
-    public static int? Max(int? a, int? b)
-    {
-        return a > b
-            ? a
-            : b;
-    }
 }

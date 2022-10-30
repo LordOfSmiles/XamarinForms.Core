@@ -1,10 +1,7 @@
-using Xamarin.Forms;
-
 namespace XamarinForms.Core.Builders;
 
 public sealed class ToolbarBuilder
 {
-
     public ToolbarBuilder WithCommand(ICommand command)
     {
         _toolbarItem.Command = command;

@@ -1,5 +1,3 @@
-using Xamarin.Forms;
-
 namespace XamarinForms.Core.Controls.BottomSheets.Models;
 
 public sealed class BottomSheetItemWithIcon : BottomSheetItemBase

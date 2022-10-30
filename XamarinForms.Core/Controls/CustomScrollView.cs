@@ -1,6 +1,4 @@
-using System.Diagnostics;
 using System.Threading;
-using Xamarin.Forms;
 
 namespace XamarinForms.Core.Controls;
 

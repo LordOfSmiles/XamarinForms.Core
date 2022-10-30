@@ -22,7 +22,7 @@ public abstract class BaseDbContext
         {
             if (_connection == null)
             {
-                _connection = _sqLitePlatform.GetConnection();
+                _connection = _sqLitePlatform.GetConnection(DbFileName ?? "localDb");
                 var currentDbVersion = GetDbVersion(_connection);
 
                 CreateTables(_connection);
@@ -48,7 +48,8 @@ public abstract class BaseDbContext
     private SQLiteConnection _connection;
 
     #region Virtual and abstract Methods
-
+    
+    public string DbFileName { get; set; }
     protected abstract int DbVersion { get; }
     protected DbMigrationBase[] Migrations { get; set; } = Array.Empty<DbMigrationBase>();
 
@@ -72,15 +73,6 @@ public abstract class BaseDbContext
         if (currentDbVersion >= newDbVersion)
             return;
 
-        // var orderedMigrations = Migrations.OrderBy(x => x.DbVersion);
-        // foreach (var migration in orderedMigrations)
-        // {
-        //     if (migration.DbVersion <= newVersion)
-        //     {
-        //         migration.Execute(db, oldDbVersion, newVersion);
-        //     }
-        // }
-
         for (var i = currentDbVersion; i <= newDbVersion; i++)
         {
             var existMigration = Migrations.FirstOrDefault(x => x.DbVersion == i);
@@ -89,6 +81,11 @@ public abstract class BaseDbContext
     }
 
     #endregion
+
+    public void ResetConnection()
+    {
+        _connection = null;
+    }
 
     protected static void SetDbVersion(SQLiteConnection db, int version)
     {

@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace XamarinForms.Core.Controls;
+﻿namespace XamarinForms.Core.Controls;
 
 public class ProgressControl : Grid
 {

@@ -1,5 +1,4 @@
 using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.Forms;
 
 namespace XamarinForms.Core.Helpers;
 
