@@ -54,7 +54,6 @@
         <Compile Include="Helpers\AlarmManagerHelper.cs" />
         <Compile Include="Helpers\ImageSourceHelper.cs" />
         <Compile Include="Helpers\KeyboardHelper.cs" />
-        <Compile Include="Helpers\ThemeHelper.cs" />
         <Compile Include="Helpers\TouchCollector.cs" />
         <Compile Include="Helpers\WidgetHelper.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
