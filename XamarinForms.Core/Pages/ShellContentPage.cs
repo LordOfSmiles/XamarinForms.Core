@@ -16,7 +16,7 @@ public class ShellContentPage : ContentPage
                 var parameters = NavigationHelper.Get(GetType().Name);
                 await vm.OnAppearingAsync(parameters);
             }
-            catch (Exception ex)
+            catch
             {
                 //
             }
