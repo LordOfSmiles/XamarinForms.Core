@@ -15,6 +15,7 @@ public sealed class ToVisibilityConverter : GenericConverter
             {
                 int i => i > 0,
                 double d => d > 0,
+                float f => f > 0,
                 bool b => b,
                 string s => !string.IsNullOrWhiteSpace(s),
                 IEnumerable<object> enumerable => enumerable.Any(),

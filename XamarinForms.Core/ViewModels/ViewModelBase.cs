@@ -118,13 +118,13 @@ public abstract class ViewModelBase : NotifyObject
 
             if (IsPhone)
             {
-                result = new Thickness(16, 0);
+                result = new Thickness(8, 0);
             }
             else
             {
                 var side = Orientation == DisplayOrientation.Portrait
-                    ? 48
-                    : 64;
+                    ? 32
+                    : 48;
 
                 result = new Thickness(side, 0);
             }
@@ -141,13 +141,13 @@ public abstract class ViewModelBase : NotifyObject
 
             if (IsPhone)
             {
-                result = new Thickness(16, 8);
+                result = new Thickness(8, 8);
             }
             else
             {
                 var side = Orientation == DisplayOrientation.Portrait
-                    ? 48
-                    : 64;
+                    ? 32
+                    : 48;
 
                 result = new Thickness(side, 8);
             }
@@ -164,13 +164,13 @@ public abstract class ViewModelBase : NotifyObject
 
             if (IsPhone)
             {
-                result = new Thickness(16, 0, 16, 16);
+                result = new Thickness(8, 0, 8, 16);
             }
             else
             {
                 result = Orientation == DisplayOrientation.Portrait
-                    ? new Thickness(48, 0, 48, 16)
-                    : new Thickness(64, 0, 64, 16);
+                    ? new Thickness(32, 0, 32, 16)
+                    : new Thickness(48, 0, 48, 16);
             }
 
             return result;
