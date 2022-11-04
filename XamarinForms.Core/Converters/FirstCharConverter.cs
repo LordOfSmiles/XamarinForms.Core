@@ -9,14 +9,9 @@ public sealed class FirstCharConverter : IValueConverter
         var inputString = value.ToString() ?? string.Empty;
         if (!string.IsNullOrWhiteSpace(inputString))
         {
-            if (inputString.Length == 1)
-            {
-                return inputString;
-            }
-            else
-            {
-                return inputString[0].ToString().ToUpper();
-            }
+            return inputString.Length == 1
+                       ? inputString
+                       : inputString[0].ToString().ToUpper();
         }
         else
         {
