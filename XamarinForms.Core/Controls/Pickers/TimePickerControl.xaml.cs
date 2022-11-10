@@ -2,6 +2,7 @@ using System.ComponentModel;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
+using XamarinForms.Core.Helpers;
 using TimePicker = Xamarin.Forms.TimePicker;
 
 namespace XamarinForms.Core.Controls.Pickers;
@@ -61,7 +62,7 @@ public partial class TimePickerControl
         
         timePicker.Time = initialTime;
 
-        if (Device.RuntimePlatform == Device.iOS)
+        if (DeviceHelper.IsIos)
         {
             timePicker.DoneEvent += OnDone;
         }

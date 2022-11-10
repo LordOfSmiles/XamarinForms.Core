@@ -73,7 +73,7 @@ public partial class FrameWithContextMenu
 
     private static void OnTapCommandChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        if (Device.RuntimePlatform == Device.iOS
+        if (DeviceHelper.IsIos
             && VersionHelper.IsEqualOrGreater(13))
             return;
 

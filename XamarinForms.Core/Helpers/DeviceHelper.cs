@@ -1,56 +1,34 @@
-﻿namespace XamarinForms.Core.Helpers;
+﻿
+using Xamarin.Essentials;
+
+namespace XamarinForms.Core.Helpers;
 
 public static class DeviceHelper
 {
-    public static T OnPlatform<T>(T iOs, T android)
-    {
-        T result = Device.RuntimePlatform switch
-        {
-            Device.iOS => iOs,
-            Device.Android => android,
-            _ => default
-        };
+    public static bool IsIos => DeviceInfo.Platform == DevicePlatform.iOS;
+    public static bool IsAndroid => DeviceInfo.Platform == DevicePlatform.Android;
 
-        return result;
-    }
+    public static T OnPlatform<T>(T iOs, T android) => IsIos
+                                                           ? iOs
+                                                           : android;
 
     public static void OnPlatform(Action iOs, Action android)
     {
-        switch (Device.RuntimePlatform)
+        if (IsIos)
         {
-            case Device.iOS:
-                iOs.Invoke();
-                break;
-            case Device.Android:
-                android.Invoke();
-                break;
+            iOs.Invoke();
+        }
+        else
+        {
+            android.Invoke();
         }
     }
+    public static T OnIdiom<T>(T phone, T tablet) => IsPhone
+                                                         ? phone
+                                                         : tablet;
 
-    public static void OniOs(Action action)
-    {
-        if (Device.RuntimePlatform == Device.iOS)
-        {
-            action.Invoke();
-        }
-    }
+    public static bool IsPhone => DeviceInfo.Idiom == DeviceIdiom.Phone;
+    public static bool IsTablet => DeviceInfo.Idiom == DeviceIdiom.Tablet;
 
-    public static void OnAndroid(Action action)
-    {
-        if (Device.RuntimePlatform == Device.Android)
-        {
-            action.Invoke();
-        }
-    }
-
-    public static T OnIdiom<T>(T phone, T tablet)
-    {
-        var result = Device.Idiom switch
-        {
-            TargetIdiom.Phone => phone,
-            _ => tablet
-        };
-
-        return result;
-    }
+    public static bool IsPortrait => DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait;
 }

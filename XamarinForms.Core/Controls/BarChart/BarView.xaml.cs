@@ -42,6 +42,12 @@ public partial class BarView
                 filledSpace = 0;
             }
 
+            if (emptySpace < 0)
+                emptySpace = 0;
+
+            if (filledSpace < 0)
+                filledSpace = 0;
+
             ctrl.rowEmpty.Height = new GridLength(emptySpace, GridUnitType.Star);
             ctrl.rowValue.Height = new GridLength(filledSpace, GridUnitType.Star);
         }

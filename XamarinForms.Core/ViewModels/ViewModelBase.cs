@@ -1,5 +1,6 @@
 ﻿using Xamarin.Core.Models;
 using Xamarin.Essentials;
+using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.ViewModels;
 
@@ -70,7 +71,7 @@ public abstract class ViewModelBase : NotifyObject
 
     protected ViewModelBase()
     {
-        if (Device.Idiom != TargetIdiom.Phone)
+        if (!DeviceHelper.IsPhone)
         {
             DeviceDisplay.MainDisplayInfoChanged += OnMainDisplayInfoChanged;
         }
@@ -105,8 +106,8 @@ public abstract class ViewModelBase : NotifyObject
     }
     private bool _isAnimationVisible;
 
-    public bool IsPhone => Device.Idiom == TargetIdiom.Phone;
-    public bool IsTablet => Device.Idiom == TargetIdiom.Tablet;
+    public bool IsPhone => DeviceHelper.IsPhone;
+    public bool IsTablet => DeviceHelper.IsTablet;
 
     public DisplayOrientation Orientation => DeviceDisplay.MainDisplayInfo.Orientation;
 
