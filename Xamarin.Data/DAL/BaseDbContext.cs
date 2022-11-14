@@ -48,7 +48,7 @@ public abstract class BaseDbContext
     private SQLiteConnection _connection;
 
     #region Virtual and abstract Methods
-    
+
     public string DbFileName { get; set; }
     protected abstract int DbVersion { get; }
     protected DbMigrationBase[] Migrations { get; set; } = Array.Empty<DbMigrationBase>();
@@ -73,7 +73,7 @@ public abstract class BaseDbContext
         if (currentDbVersion >= newDbVersion)
             return;
 
-        for (var i = currentDbVersion; i <= newDbVersion; i++)
+        for (var i = currentDbVersion + 1; i <= newDbVersion; i++)
         {
             var existMigration = Migrations.FirstOrDefault(x => x.DbVersion == i);
             existMigration?.Execute(db, currentDbVersion, newDbVersion);
