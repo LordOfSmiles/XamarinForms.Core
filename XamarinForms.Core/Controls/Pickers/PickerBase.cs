@@ -2,6 +2,16 @@ namespace XamarinForms.Core.Controls.Pickers;
 
 public abstract class PickerBase : TouchableGrid
 {
+    public void InvokeFocusedEvent()
+    {
+        FocusedEvent?.Invoke(this, EventArgs.Empty);
+    }
+    
+    public void InvokeUnfocusedEvent()
+    {
+        UnfocusedEvent?.Invoke(this, EventArgs.Empty);
+    }
+    
     protected PickerBase()
     {
         var gesture = new TapGestureRecognizer()
@@ -52,5 +62,12 @@ public abstract class PickerBase : TouchableGrid
 
     #endregion
 
+    #endregion
+    
+    #region Events
+
+    public event EventHandler FocusedEvent;
+    public event EventHandler UnfocusedEvent;
+    
     #endregion
 }

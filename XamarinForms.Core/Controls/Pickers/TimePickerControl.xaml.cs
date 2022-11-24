@@ -73,6 +73,7 @@ public partial class TimePickerControl
             timePicker.Unfocused += OnPickerUnfocused;
         }
 
+        InvokeFocusedEvent();
         timePicker.Focus();
     }
 
@@ -215,6 +216,7 @@ public partial class TimePickerControl
         }
 
         timePicker.DoneEvent -= OnDone;
+        InvokeUnfocusedEvent();
         timePicker.Unfocus();
     }
 

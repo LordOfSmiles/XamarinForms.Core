@@ -11,18 +11,31 @@ public partial class ContentPickerControl
         InitializeComponent();
     }
 
+    private void OnPickerUnfocused(object sender, FocusEventArgs e)
+    {
+        picker.Unfocused -= OnPickerUnfocused;
+        InvokeUnfocusedEvent();
+    }
+
+    private void OnPickerFocused(object sender, FocusEventArgs e)
+    {
+        picker.Unfocused += OnPickerUnfocused;
+        picker.Focused -= OnPickerFocused;
+        
+        InvokeFocusedEvent();
+    }
+
     #region Commands
 
     protected override void OnOpenPicker()
     {
+        picker.Focused += OnPickerFocused;
         picker.Focus();
     }
 
     #endregion
 
     #region Bindable Properties
-
-  
 
     #region SelectedIndex
 

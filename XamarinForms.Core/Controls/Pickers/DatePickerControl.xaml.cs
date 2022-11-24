@@ -42,7 +42,7 @@ public partial class DatePickerControl
         datePicker.DoneEvent -= OnDone;
         datePicker.DoneEvent += OnDone;
 
-        FocusedEvent?.Invoke(this, EventArgs.Empty);
+        InvokeFocusedEvent();
         datePicker.Focus();
     }
 
@@ -140,13 +140,6 @@ public partial class DatePickerControl
     #endregion
 
     #endregion
-    
-    #region Events
-
-    public event EventHandler FocusedEvent;
-    public event EventHandler UnfocusedEvent;
-    
-    #endregion
 
     #region Handlers
 
@@ -159,7 +152,7 @@ public partial class DatePickerControl
         }
 
         datePicker.DoneEvent -= OnDone;
-        UnfocusedEvent?.Invoke(this, EventArgs.Empty);
+        InvokeUnfocusedEvent();
         datePicker.Unfocus();
     }
 
