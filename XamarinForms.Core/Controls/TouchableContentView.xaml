@@ -6,7 +6,8 @@
              x:Class="XamarinForms.Core.Controls.TouchableContentView"
              x:Name="root"
              BackgroundColor="{Binding Source={RelativeSource Mode=Self}, Path=NormalColor}"
-             effects:TouchEffect.NativeAnimation="True"
+             effects:TouchEffect.NativeAnimation="{OnPlatform Android=True}"
              effects:TouchEffect.PulseCount="{OnPlatform Android=1}"
              effects:TouchEffect.NativeAnimationColor="{Binding Source={RelativeSource Mode=Self}, Path=PressedColor}"
+             effects:TouchEffect.PressedBackgroundColor="{Binding Source={RelativeSource Mode=Self}, Path=PressedColor}"
              effects:TouchEffect.NormalBackgroundColor="{Binding Source={RelativeSource Mode=Self}, Path=NormalColor}" />

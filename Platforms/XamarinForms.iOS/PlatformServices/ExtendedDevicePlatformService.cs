@@ -38,15 +38,15 @@ public sealed class ExtendedDevicePlatformService:IExtendedDevicePlatformService
         
     #region Private Methods
 
-    private bool CheckSafeArea(UIWindow window, bool isPortrait)
+    private bool CheckSafeArea(UIView window, bool isPortrait)
     {
         if (isPortrait)
         {
-            return window.SafeAreaInsets.Top >= 44;
+            return window.SafeAreaInsets.Top >= DeviceHelper.OnIdiom(44, 24);
         }
         else
         {
-            return window.SafeAreaInsets.Left > 0 || window.SafeAreaInsets.Right > 0;
+            return window.SafeAreaInsets.Bottom > 0 || window.SafeAreaInsets.Top > 0;
         }
     }
 

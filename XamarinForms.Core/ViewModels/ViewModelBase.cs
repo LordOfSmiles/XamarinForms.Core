@@ -6,10 +6,10 @@ namespace XamarinForms.Core.ViewModels;
 
 public abstract class ViewModelBase : NotifyObject
 {
-    public const string NeedRefreshDataKey = "NeedRefreshData";
-    protected const string GoBackKey = "BackNavigation";
+    public static string NeedRefreshDataKey => nameof(NeedRefreshDataKey);
+    protected static string GoBackKey => nameof(GoBackKey);
 
-    #region Public Methods
+    #region Navigation
 
     public virtual Task OnAppearingAsync(IDictionary<string, object> navigationParameters)
     {
@@ -17,12 +17,23 @@ public abstract class ViewModelBase : NotifyObject
     }
 
     public virtual void OnDisappearing()
-    {
-    }
+    { }
 
     #endregion
 
     #region Protected Methods
+    
+    protected async Task GoToPageAsync(string pageName)
+    {
+        if (InputTransparent)
+            return;
+
+        InputTransparent = true;
+
+        await Shell.Current.GoToAsync(new ShellNavigationState(pageName));
+
+        InputTransparent = false;
+    }
 
     protected void ShowAnimation()
     {
@@ -56,7 +67,7 @@ public abstract class ViewModelBase : NotifyObject
         OnPropertyChanged(nameof(Orientation));
         OnPropertyChanged(nameof(ToolbarIndents));
         OnPropertyChanged(nameof(BottomButtonIndents));
-        OnPropertyChanged(nameof(ContentIndents));
+        OnPropertyChanged(nameof(LeftRightPagePadding));
     }
 
     #endregion
@@ -111,21 +122,21 @@ public abstract class ViewModelBase : NotifyObject
 
     public DisplayOrientation Orientation => DeviceDisplay.MainDisplayInfo.Orientation;
 
-    public virtual Thickness ContentIndents
+    public virtual Thickness LeftRightPagePadding
     {
         get
         {
             Thickness result;
 
-            if (IsPhone)
+            if (DeviceHelper.IsPhone)
             {
                 result = new Thickness(8, 0);
             }
             else
             {
-                var side = Orientation == DisplayOrientation.Portrait
-                    ? 32
-                    : 48;
+                var side = DeviceHelper.IsPortrait
+                               ? 32
+                               : 48;
 
                 result = new Thickness(side, 0);
             }
@@ -138,20 +149,22 @@ public abstract class ViewModelBase : NotifyObject
     {
         get
         {
-            Thickness result;
+            var result = LeftRightPagePadding;
+            result.Top = 8;
+            result.Bottom = 8;
 
-            if (IsPhone)
-            {
-                result = new Thickness(8, 8);
-            }
-            else
-            {
-                var side = Orientation == DisplayOrientation.Portrait
-                    ? 32
-                    : 48;
-
-                result = new Thickness(side, 8);
-            }
+            // if (IsPhone)
+            // {
+            //     result = new Thickness(8, 8);
+            // }
+            // else
+            // {
+            //     var side = DeviceHelper.IsPortrait
+            //                    ? 32
+            //                    : 48;
+            //
+            //     result = new Thickness(side, 8);
+            // }
 
             return result;
         }
@@ -161,18 +174,20 @@ public abstract class ViewModelBase : NotifyObject
     {
         get
         {
-            Thickness result;
+            var result = LeftRightPagePadding;
 
-            if (IsPhone)
-            {
-                result = new Thickness(8, 0, 8, 16);
-            }
-            else
-            {
-                result = Orientation == DisplayOrientation.Portrait
-                    ? new Thickness(32, 0, 32, 16)
-                    : new Thickness(48, 0, 48, 16);
-            }
+            result.Bottom = 16;
+
+            // if (IsPhone)
+            // {
+            //     result = new Thickness(8, 0, 8, 16);
+            // }
+            // else
+            // {
+            //     result = DeviceHelper.IsPortrait
+            //                  ? new Thickness(32, 0, 32, 16)
+            //                  : new Thickness(48, 0, 48, 16);
+            // }
 
             return result;
         }
