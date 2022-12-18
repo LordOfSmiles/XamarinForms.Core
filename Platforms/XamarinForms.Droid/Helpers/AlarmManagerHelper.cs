@@ -9,7 +9,7 @@ namespace XamarinForms.Droid.Helpers;
 
 public static class AlarmManagerHelper
 {
-    public static void FireWidgetIntent(Context context, Type receiverType, int intervalInMs)
+    public static void FireIntent(Context context, Type receiverType, int intervalInMs)
     {
         var alarmManager = context.GetSystemService(Context.AlarmService) as AlarmManager;
 
