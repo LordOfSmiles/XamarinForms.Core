@@ -22,6 +22,8 @@ public abstract class DbRepositoryBaseOld<T> : IDbRepositoryBaseOld<T>
             {
                 Db.Connection.Update(item, typeof(T));
             }
+            
+            Db.OnDataChanged();
         }
         catch (Exception e)
         {
