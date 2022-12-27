@@ -97,5 +97,5 @@ public abstract class BaseDbContext
         return db.ExecuteScalar<int>("PRAGMA user_version");
     }
 
-    public void OnDataChanged() => _sqLitePlatform.OnDataChanged();
+    public void OnDataChanged(object sender) => _sqLitePlatform.OnDataChanged(sender);
 }

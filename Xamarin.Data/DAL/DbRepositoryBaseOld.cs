@@ -22,8 +22,8 @@ public abstract class DbRepositoryBaseOld<T> : IDbRepositoryBaseOld<T>
             {
                 Db.Connection.Update(item, typeof(T));
             }
-            
-            Db.OnDataChanged();
+
+            Db.OnDataChanged(this);
         }
         catch (Exception e)
         {
@@ -50,7 +50,7 @@ public abstract class DbRepositoryBaseOld<T> : IDbRepositoryBaseOld<T>
         try
         {
             Db.Connection.Delete<T>(primaryKey);
-            Db.OnDataChanged();
+            Db.OnDataChanged(this);
         }
         catch (Exception e)
         {
@@ -63,7 +63,7 @@ public abstract class DbRepositoryBaseOld<T> : IDbRepositoryBaseOld<T>
         try
         {
             Db.Connection.DeleteAll<T>();
-            Db.OnDataChanged();
+            Db.OnDataChanged(this);
         }
         catch (Exception e)
         {
@@ -76,7 +76,7 @@ public abstract class DbRepositoryBaseOld<T> : IDbRepositoryBaseOld<T>
         try
         {
             Db.Connection.Table<T>().Delete(predicate);
-            Db.OnDataChanged();
+            Db.OnDataChanged(this);
         }
         catch (Exception e)
         {
