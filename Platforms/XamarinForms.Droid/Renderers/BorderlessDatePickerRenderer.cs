@@ -29,7 +29,7 @@ public sealed class BorderlessDatePickerRenderer : DatePickerRenderer
         var dialog = base.CreateDatePickerDialog(year, month, day);
         if (Element is ExtendedDatePicker extendedDatePicker)
         {
-            dialog.SetButton((int)DialogButtonType.Positive, "Ok", (sender, args) =>
+            dialog.SetButton((int)DialogButtonType.Positive, "Ok", (_, _) =>
             {
                 extendedDatePicker.Date = dialog.DatePicker.DateTime;
                 extendedDatePicker.RaiseDoneEvent();
