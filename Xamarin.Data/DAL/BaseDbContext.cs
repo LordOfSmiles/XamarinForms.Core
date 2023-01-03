@@ -5,6 +5,20 @@ namespace Xamarin.Data.DAL;
 
 public abstract class BaseDbContext
 {
+    #region Public Methods
+
+    public void CloseConnection()
+    {
+        if (_connection != null)
+        {
+            _connection.Dispose();
+            _connection = null;
+        }
+    }
+    
+    #endregion
+    
+    
     #region Dependencies
 
     private readonly ISqlitePlatform _sqLitePlatform;

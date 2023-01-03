@@ -6,5 +6,7 @@ public interface ISqlitePlatform
     bool IsFileExist(string dbName);
     void OnDataChanged(object sender);
 
+    string GetPath(string dbName);
+
     event EventHandler DataChanged;
 }
