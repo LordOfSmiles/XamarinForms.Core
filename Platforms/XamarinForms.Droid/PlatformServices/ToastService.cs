@@ -5,7 +5,7 @@ namespace XamarinForms.Droid.PlatformServices;
 
 public sealed class ToastService : IToastService
 {
-    public void Show(string text, bool isLong)
+    public void Show(string text, bool isLong = true)
     {
         var length = isLong
                          ? ToastLength.Long
