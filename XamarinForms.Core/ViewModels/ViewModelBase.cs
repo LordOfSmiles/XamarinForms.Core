@@ -22,7 +22,7 @@ public abstract class ViewModelBase : NotifyObject
     #endregion
 
     #region Protected Methods
-    
+
     protected async Task GoToPageAsync(string pageName)
     {
         if (InputTransparent)
@@ -145,6 +145,27 @@ public abstract class ViewModelBase : NotifyObject
         }
     }
 
+    public virtual Thickness StartEndHorizontalPadding
+    {
+        get
+        {
+            int side;
+
+            if (DeviceHelper.IsPhone)
+            {
+                side = 16;
+            }
+            else
+            {
+                side = DeviceHelper.IsPortrait
+                           ? 32
+                           : 48;
+            }
+
+            return new Thickness(side, 0);
+        }
+    }
+
     public virtual Thickness ToolbarIndents
     {
         get
@@ -152,19 +173,6 @@ public abstract class ViewModelBase : NotifyObject
             var result = LeftRightPagePadding;
             result.Top = 8;
             result.Bottom = 8;
-
-            // if (IsPhone)
-            // {
-            //     result = new Thickness(8, 8);
-            // }
-            // else
-            // {
-            //     var side = DeviceHelper.IsPortrait
-            //                    ? 32
-            //                    : 48;
-            //
-            //     result = new Thickness(side, 8);
-            // }
 
             return result;
         }
@@ -175,19 +183,7 @@ public abstract class ViewModelBase : NotifyObject
         get
         {
             var result = LeftRightPagePadding;
-
             result.Bottom = 16;
-
-            // if (IsPhone)
-            // {
-            //     result = new Thickness(8, 0, 8, 16);
-            // }
-            // else
-            // {
-            //     result = DeviceHelper.IsPortrait
-            //                  ? new Thickness(32, 0, 32, 16)
-            //                  : new Thickness(48, 0, 48, 16);
-            // }
 
             return result;
         }
