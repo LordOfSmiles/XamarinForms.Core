@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using XamarinForms.Core.ViewModels.ErrorValidation;
 
 namespace XamarinForms.Core.ViewModels;

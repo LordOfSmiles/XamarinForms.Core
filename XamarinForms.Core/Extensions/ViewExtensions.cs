@@ -16,6 +16,7 @@ public static class ViewExtensions
     {
         if (view == null)
             throw new ArgumentNullException(nameof(view));
+
         if (easing == null)
             easing = Easing.Linear;
 
@@ -23,7 +24,11 @@ public static class ViewExtensions
         var startColor = view.BackgroundColor;
 
         new Animation(AnimateColorCallback(view, startColor, toColor), 0, 1, easing)
-            .Commit(view, ColorToHandle, 16, length, finished: (f, a) => tcs.SetResult(a));
+            .Commit(view,
+                    ColorToHandle,
+                    16,
+                    length,
+                    finished: (f, a) => tcs.SetResult(a));
 
         return tcs.Task;
     }
@@ -38,7 +43,11 @@ public static class ViewExtensions
             throw new ArgumentException("Can't target View");
         }
 
-        Action<double> setColor = f => { frameRef.BackgroundColor = ComputeColor(startColor, toColor, f); };
+        Action<double> setColor = f =>
+        {
+            frameRef.BackgroundColor = ComputeColor(startColor, toColor, f);
+        };
+
         return setColor;
     }
 

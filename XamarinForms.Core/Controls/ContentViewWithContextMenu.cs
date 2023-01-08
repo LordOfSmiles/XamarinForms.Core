@@ -1,4 +1,3 @@
-using Xamarin.CommunityToolkit.Effects;
 using XamarinForms.Core.Helpers;
 using XamarinForms.Core.Infrastructure.ContextMenu;
 

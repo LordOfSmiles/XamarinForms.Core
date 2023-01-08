@@ -22,19 +22,8 @@ public abstract class ViewModelBase : NotifyObject
     #endregion
 
     #region Protected Methods
-
-    protected async Task GoToPageAsync(string pageName)
-    {
-        if (InputTransparent)
-            return;
-
-        InputTransparent = true;
-
-        await Shell.Current.GoToAsync(new ShellNavigationState(pageName));
-
-        InputTransparent = false;
-    }
-
+    
+    
     protected void ShowAnimation()
     {
         IsAnimationVisible = true;
@@ -106,7 +95,7 @@ public abstract class ViewModelBase : NotifyObject
     public bool InputTransparent
     {
         get => _inputTransparent;
-        protected set => SetProperty(ref _inputTransparent, value);
+        set => SetProperty(ref _inputTransparent, value);
     }
     private bool _inputTransparent;
 

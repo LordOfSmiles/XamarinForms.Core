@@ -1,4 +1,3 @@
-using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms.Xaml;
 
 namespace XamarinForms.Core.Controls;
@@ -13,7 +12,7 @@ public partial class FlatCheckBox
         img.IsVisible = Icon != null;
 
         UpdateColors();
-        TouchEffect.SetCommand(this, TapCommand);
+        Command = TapCommand;
     }
 
     #region Commands
@@ -105,21 +104,6 @@ public partial class FlatCheckBox
     {
         get => (TextTransform) GetValue(TextTransformProperty);
         set => SetValue(TextTransformProperty, value);
-    }
-
-    #endregion
-
-    #region RippleColor
-
-    public static readonly BindableProperty RippleColorProperty = BindableProperty.Create(nameof(RippleColor),
-        typeof(Color),
-        typeof(FlatCheckBox),
-        Color.LightGray);
-
-    public Color RippleColor
-    {
-        get => (Color) GetValue(RippleColorProperty);
-        set => SetValue(RippleColorProperty, value);
     }
 
     #endregion
@@ -238,15 +222,13 @@ public partial class FlatCheckBox
 
         if (IsChecked)
         {
-            ctrlRoot.BackgroundColor = SelectedColor;
-            //ctrlRoot.BorderColor = SelectedBorderColor;
+            ctrlRoot.NormalColor = SelectedColor;
             IconTintColorEffect.SetTintColor(img, SelectedTextColor);
             lbl.TextColor = SelectedTextColor;
         }
         else
         {
-            ctrlRoot.BackgroundColor = UnselectedColor;
-            //ctrlRoot.BorderColor = UnselectedBorderColor;
+            ctrlRoot.NormalColor = UnselectedColor;
             IconTintColorEffect.SetTintColor(img, UnselectedTextColor);
             lbl.TextColor = UnselectedTextColor;
         }

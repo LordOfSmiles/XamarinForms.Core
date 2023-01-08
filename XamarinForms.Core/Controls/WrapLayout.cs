@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace XamarinForms.Core.Controls;
 
 public sealed class WrapLayout : Layout<View>
