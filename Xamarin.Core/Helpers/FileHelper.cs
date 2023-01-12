@@ -4,10 +4,10 @@ namespace Xamarin.Core.Helpers;
 
 public static class FileHelper
 {
-    public static Task<string> StringFromStreamAsync(Stream fileStream)
+    public static async Task<string> StringFromStreamAsync(Stream fileStream)
     {
         using var sr = new StreamReader(fileStream);
-        return sr.ReadToEndAsync();
+        return await sr.ReadToEndAsync();
     }
 
     public static async Task<byte[]> GetByteArrayFromStreamAsync(Stream inputStream)

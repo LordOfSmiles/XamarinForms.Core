@@ -29,7 +29,7 @@ public sealed class ToastService : IToastService
              .SetAppearance(appearance)
              .SetPosition(ToastPosition.Bottom)
              .SetDuration(duration)
-             .SetShowShadow(false)
+             .SetShowShadow(true)
              .Show();
     }
 }

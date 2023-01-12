@@ -30,6 +30,19 @@ public static class ColorHelper
 
     public static bool IsDark(this Color c)
     {
-        return (int)c.GetByteRed() + (int)c.GetByteGreen() + (int)c.GetByteBlue() <= 381;
+        return c.GetByteRed() + c.GetByteGreen() + c.GetByteBlue() <= 381;
+    }
+
+    public static Color CalculatePressedColor(Color backgroundColor, int koef = 20)
+    {
+        var red = backgroundColor.GetByteRed();
+        var green = backgroundColor.GetByteGreen();
+        var blue = backgroundColor.GetByteBlue();
+
+        var endColor = !backgroundColor.IsDark()
+                           ? Color.FromRgb(red - koef, green - koef, blue - koef)
+                           : Color.FromRgb(red + koef, green + koef, blue + koef);
+
+        return endColor;
     }
 }

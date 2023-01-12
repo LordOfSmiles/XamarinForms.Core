@@ -73,21 +73,9 @@ public class TouchableGrid : Grid
 
     private async void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
     {
-        const int koef = 25;
-
-        var startColor = NormalColor;
-
-        var red = startColor.GetByteRed();
-        var green = startColor.GetByteGreen();
-        var blue = startColor.GetByteBlue();
-
-        var endColor = !ColorHelper.IsDark(startColor)
-                           ? Color.FromRgb(red - koef, green - koef, blue - koef)
-                           : Color.FromRgb(red + koef, green + koef, blue + koef);
-
-        await this.ColorTo(endColor, 150);
+        await this.ColorTo(ColorHelper.CalculatePressedColor(NormalColor), 150);
         await Task.Delay(25);
-        await this.ColorTo(startColor, 50);
+        await this.ColorTo(NormalColor, 50);
 
         Command?.Execute(CommandParameter);
     }

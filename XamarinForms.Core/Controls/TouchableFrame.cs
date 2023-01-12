@@ -1,13 +1,17 @@
 using Xamarin.CommunityToolkit.Extensions;
-using XamarinForms.Core.Extensions;
 using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls;
 
-public class TouchableContentView : ContentView
+public class TouchableFrame : Frame
 {
-    public TouchableContentView()
+    public TouchableFrame()
     {
+        HasShadow = false;
+        Padding = 0;
+
+        BackgroundColor = NormalColor;
+
         var tapGesture = new TapGestureRecognizer();
         tapGesture.Tapped += TapGestureRecognizer_OnTapped;
         GestureRecognizers.Add(tapGesture);
@@ -19,7 +23,7 @@ public class TouchableContentView : ContentView
 
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
-                                                                                          typeof(TouchableContentView),
+                                                                                          typeof(TouchableFrame),
                                                                                           propertyChanged: OnDefaultColorChanged);
 
     public Color NormalColor
@@ -30,7 +34,7 @@ public class TouchableContentView : ContentView
 
     private static void OnDefaultColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var ctrl = (TouchableContentView)bindable;
+        var ctrl = (TouchableFrame)bindable;
 
         ctrl.BackgroundColor = (Color)newValue;
     }
@@ -41,7 +45,7 @@ public class TouchableContentView : ContentView
 
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command),
                                                                                       typeof(ICommand),
-                                                                                      typeof(TouchableContentView));
+                                                                                      typeof(TouchableFrame));
 
     public ICommand Command
     {
@@ -55,7 +59,7 @@ public class TouchableContentView : ContentView
 
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter),
                                                                                                typeof(object),
-                                                                                               typeof(TouchableContentView));
+                                                                                               typeof(TouchableFrame));
 
     public object CommandParameter
     {
