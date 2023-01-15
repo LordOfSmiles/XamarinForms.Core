@@ -1,8 +1,10 @@
 using System.ComponentModel;
+using Xamarin.Core.Helpers;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 using XamarinForms.Core.Helpers;
+using XamarinForms.Core.PlatformServices;
 using TimePicker = Xamarin.Forms.TimePicker;
 
 namespace XamarinForms.Core.Controls.Pickers;
@@ -104,8 +106,7 @@ public partial class TimePickerControl
 
         var timeToSet = time ?? TimeSpan.Zero;
 
-        if (ctrl.MinimumTime <= timeToSet
-            && timeToSet <= ctrl.MaximumTime)
+        if (TimeSpanHelper.IsIntersected(ctrl.MinimumTime, ctrl.MaximumTime, timeToSet))
         {
             return time;
         }

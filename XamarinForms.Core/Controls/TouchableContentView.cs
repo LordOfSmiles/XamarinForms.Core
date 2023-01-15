@@ -71,9 +71,23 @@ public class TouchableContentView : ContentView
 
     private async void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
     {
-        await this.ColorTo(ColorHelper.CalculatePressedColor(NormalColor), 150);
+        var startColor = NormalColor.IsTransparent()
+                             ? ColorHelper.FindParentRealColor((View)sender)
+                             : NormalColor;
+
+        await this.ColorTo(ColorHelper.CalculatePressedColor(startColor), 150);
         await Task.Delay(25);
-        await this.ColorTo(NormalColor, 50);
+
+        if (NormalColor.IsTransparent())
+        {
+            await this.ColorTo(startColor, 50);
+            BackgroundColor = NormalColor;
+        }
+        else
+        {
+            await this.ColorTo(NormalColor, 50);
+        }
+
 
         Command?.Execute(CommandParameter);
     }

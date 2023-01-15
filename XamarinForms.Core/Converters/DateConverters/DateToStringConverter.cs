@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace XamarinForms.Core.Converters;
+namespace XamarinForms.Core.Converters.DateConverters;
 
 public sealed class DateToStringConverter : GenericConverter
 {

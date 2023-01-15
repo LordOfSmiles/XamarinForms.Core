@@ -4,6 +4,8 @@ namespace XamarinForms.Core.Helpers;
 
 public static class ColorHelper
 {
+    public static bool IsTransparent(this Color color) => color == Color.Transparent;
+    
     public static bool IsColorsEquals(Color color1, Color color2)
     {
         return color1.ToHex() == color2.ToHex();
@@ -44,5 +46,29 @@ public static class ColorHelper
                            : Color.FromRgb(red + koef, green + koef, blue + koef);
 
         return endColor;
+    }
+
+    public static Color FindParentRealColor(View view)
+    {
+        Color result;
+
+        if (!view.BackgroundColor.IsTransparent() && !view.BackgroundColor.IsDefault)
+        {
+            result = view.BackgroundColor;
+        }
+        else if (view.Parent is View parent)
+        {
+            result = FindParentRealColor(parent);
+        }
+        else if (view.Parent is Page page)
+        {
+            result = page.BackgroundColor;
+        }
+        else
+        {
+            result = Color.Transparent;
+        }
+
+        return result;
     }
 }
