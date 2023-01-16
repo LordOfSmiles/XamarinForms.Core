@@ -1,9 +1,70 @@
 using Xamarin.Essentials;
+using XamarinForms.Core.Infrastructure.Permissions;
 
 namespace XamarinForms.Core.Helpers;
 
 public static class PermissionHelper
 {
+    public static async Task<bool> AllowNotificationsAsync()
+    {
+        bool hasPermission;
+
+        if (DeviceHelper.IsIos
+            || (DeviceHelper.IsAndroid && VersionHelper.IsEqualOrGreater(13)))
+        {
+            var permission = DependencyService.Get<IAllowNotificationsPermission>();
+            var status = await permission.CheckStatusAsync();
+            if (status != PermissionStatus.Granted)
+            {
+                status = await permission.RequestAsync();
+                hasPermission = status == PermissionStatus.Granted;
+            }
+            else
+            {
+                hasPermission = true;
+            }
+        }
+        else
+        {
+            hasPermission = true;
+        }
+
+        return hasPermission;
+    }
+
+    public static async Task<bool> CanReadStorageAsync()
+    {
+        bool hasPermission;
+
+        if (DeviceHelper.IsAndroid
+            && VersionHelper.IsEqualOrGreater(13))
+        {
+            hasPermission = true;
+        }
+        else
+        {
+            hasPermission = await CheckAndRequestPermission(new Permissions.StorageRead());
+        }
+
+        return hasPermission;
+    }
+
+    public static async Task<bool> CanWriteStorageAsync()
+    {
+        bool hasPermission;
+        if (DeviceHelper.IsAndroid
+            && VersionHelper.IsEqualOrGreater(11))
+        {
+            hasPermission = true;
+        }
+        else
+        {
+            hasPermission = await CheckAndRequestPermission(new Permissions.StorageWrite());
+        }
+
+        return hasPermission;
+    }
+
     public static async Task<bool> CheckAndRequestPermission<T>(T permission)
         where T : Permissions.BasePermission
     {
