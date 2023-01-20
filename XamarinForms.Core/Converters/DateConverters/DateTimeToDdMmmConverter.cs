@@ -2,12 +2,7 @@ using System.Globalization;
 
 namespace XamarinForms.Core.Converters.DateConverters;
 
-public sealed class DateTimeToDdMmmConverter:GenericConverter
+public sealed class DateTimeToDdMmmConverter:DateTimeConverterBase
 {
-    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        var input = (DateTime?)value;
-
-        return input?.ToString("dd MMM");
-    }
+    protected override string DateFormat => "dd MMM";
 }
