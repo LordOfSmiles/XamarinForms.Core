@@ -57,7 +57,8 @@
         <Compile Include="Helpers\TouchCollector.cs" />
         <Compile Include="Helpers\WidgetHelper.cs" />
         <Compile Include="PlatformServices\AllowNotificationsPermission.cs" />
-        <Compile Include="PlatformServices\SystemMessageService.cs" />
+        <Compile Include="PlatformServices\SnackbarService.cs" />
+        <Compile Include="PlatformServices\ToastService.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Renderers\BorderlessDatePickerRenderer.cs" />
         <Compile Include="Renderers\BorderlessEditorRenderer.cs" />

@@ -13,7 +13,7 @@ using View = Android.Views.View;
 
 namespace XamarinForms.Droid.PlatformServices;
 
-public sealed class SystemMessageService : ISystemMessageService
+public sealed class ToastService : IToastService
 {
     public void ShowToast(string text, bool isLong = true)
     {
@@ -25,13 +25,7 @@ public sealed class SystemMessageService : ISystemMessageService
         toast?.Show();
     }
 
-    public void ShowSnackbar(string text, Xamarin.Forms.Color backgroundColor)
-    {
-        var view = Xamarin.Essentials.Platform.CurrentActivity.FindViewById(Android.Resource.Id.Content);
-        var snack = Snackbar.Make(view, text, Snackbar.LengthLong);
-        snack.SetBackgroundTint(backgroundColor.ToAndroid());
-        snack.Show();
-    }
+   
 
     #region Private Methods
 

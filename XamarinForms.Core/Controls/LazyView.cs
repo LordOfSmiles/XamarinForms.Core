@@ -1,3 +1,5 @@
+using XamarinForms.Core.Helpers.TaskMonitor;
+
 namespace XamarinForms.Core.Controls;
 
 public interface ILazyView
@@ -13,25 +15,22 @@ public interface ILazyView
 
 public abstract class ALazyView : ContentView, ILazyView, IDisposable, IAnimatableReveal
 {
-    public static readonly BindableProperty AccentColorProperty = BindableProperty.Create(
-        nameof(AccentColor),
-        typeof(Color),
-        typeof(ILazyView),
-        Color.Accent,
-        propertyChanged: AccentColorChanged);
+    public static readonly BindableProperty AccentColorProperty = BindableProperty.Create(nameof(AccentColor),
+                                                                                          typeof(Color),
+                                                                                          typeof(ILazyView),
+                                                                                          Color.Accent,
+                                                                                          propertyChanged: AccentColorChanged);
 
-    public static readonly BindableProperty UseActivityIndicatorProperty = BindableProperty.Create(
-        nameof(UseActivityIndicator),
-        typeof(bool),
-        typeof(ILazyView),
-        false,
-        propertyChanged: UseActivityIndicatorChanged);
+    public static readonly BindableProperty UseActivityIndicatorProperty = BindableProperty.Create(nameof(UseActivityIndicator),
+                                                                                                   typeof(bool),
+                                                                                                   typeof(ILazyView),
+                                                                                                   false,
+                                                                                                   propertyChanged: UseActivityIndicatorChanged);
 
-    public static readonly BindableProperty AnimateProperty = BindableProperty.Create(
-        nameof(Animate),
-        typeof(bool),
-        typeof(ILazyView),
-        false);
+    public static readonly BindableProperty AnimateProperty = BindableProperty.Create(nameof(Animate),
+                                                                                      typeof(bool),
+                                                                                      typeof(ILazyView),
+                                                                                      false);
 
     public Color AccentColor
     {
@@ -65,7 +64,8 @@ public abstract class ALazyView : ContentView, ILazyView, IDisposable, IAnimatab
 
     protected override void OnBindingContextChanged()
     {
-        if (Content != null && !(Content is ActivityIndicator))
+        if (Content != null
+            && !(Content is ActivityIndicator))
         {
             Content.BindingContext = BindingContext;
         }
@@ -110,7 +110,80 @@ public class LazyView<TView> : ALazyView
         Content = view;
     }
 }
-    
+
+public class DelayedView : ALazyView
+{
+    public static readonly BindableProperty ViewProperty = BindableProperty.Create(nameof(View),
+                                                                                   typeof(View),
+                                                                                   typeof(DelayedView),
+                                                                                   default(View));
+
+    public View View
+    {
+        get => (View)GetValue(ViewProperty);
+        set => SetValue(ViewProperty, value);
+    }
+
+    public int DelayInMilliseconds { get; set; } = 200;
+
+    public override void LoadView()
+    {
+        if (IsLoaded)
+        {
+            return;
+        }
+
+        TaskMonitor.Create(async () =>
+        {
+            await Task.Delay(DelayInMilliseconds);
+
+            if (IsLoaded)
+            {
+                return;
+            }
+
+            IsLoaded = true;
+            Content = View;
+        });
+    }
+}
+
+public class DelayedView<TView> : LazyView<TView>
+    where TView : View, new()
+{
+    public int DelayInMilliseconds { get; set; } = 200;
+
+    public override void LoadView()
+    {
+        TaskMonitor.Create(async () =>
+        {
+            View? view = null;
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                await Task.Run(() =>
+                {
+                    view = new TView
+                    {
+                        BindingContext = BindingContext,
+                    };
+                });
+            }
+            else
+            {
+                view = new TView
+                {
+                    BindingContext = BindingContext,
+                };
+            }
+
+            await Task.Delay(DelayInMilliseconds);
+
+            IsLoaded = true;
+            Content = view;
+        });
+    }
+}
+
 public interface IAnimatableReveal
 {
     bool Animate { get; }

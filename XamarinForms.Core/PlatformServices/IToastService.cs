@@ -2,9 +2,7 @@ using XamarinForms.Core.Infrastructure.Interfaces;
 
 namespace XamarinForms.Core.PlatformServices;
 
-public interface ISystemMessageService
+public interface IToastService
 {
     void ShowToast(string text, bool isLong = true);
-
-    void ShowSnackbar(string text, Color backgroundColor);
 }

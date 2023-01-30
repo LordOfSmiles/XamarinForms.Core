@@ -11,6 +11,12 @@ public class ShellContentPage : ContentPage
     {
         if (BindingContext is ViewModelBase vm)
         {
+            if (vm is TabbedViewModelBase tabbedVm
+                && !tabbedVm.IsTabActive)
+            {
+                return;
+            }
+
             try
             {
                 var parameters = NavigationHelper.Get(GetType().Name);

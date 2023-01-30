@@ -5,31 +5,23 @@ namespace XamarinForms.Core.Helpers;
 public static class ColorHelper
 {
     public static bool IsTransparent(this Color color) => color == Color.Transparent;
-    
+
     public static bool IsColorsEquals(Color color1, Color color2)
     {
         return color1.ToHex() == color2.ToHex();
     }
-
-    public static Color GetColorByTheme(Color lightColor, Color darkColor)
-    {
-        return ThemeHelper.IsDarkTheme
-                   ? darkColor
-                   : lightColor;
-    }
-
-    public static Color GetTextColorForBackground(Color background, Color textColorForLightBackground, Color textColorForDarkBackground)
-    {
-        return !IsDark(background)
-                   ? textColorForDarkBackground
-                   : textColorForLightBackground;
-    }
+    
+    public static Color OnTheme(Color light, Color dark) => ThemeHelper.IsDarkTheme
+                                                                ? dark
+                                                                : light;
 
     public static bool IsDarkForTheEye(this Color c)
     {
         return c.GetByteRed() * 0.299 + c.GetByteGreen() * 0.587 + c.GetByteBlue() * 0.114 <= 186.0;
     }
 
+    public static bool IsLight(this Color c) => !IsDark(c);
+    
     public static bool IsDark(this Color c)
     {
         return c.GetByteRed() + c.GetByteGreen() + c.GetByteBlue() <= 381;
@@ -52,7 +44,8 @@ public static class ColorHelper
     {
         Color result;
 
-        if (!view.BackgroundColor.IsTransparent() && !view.BackgroundColor.IsDefault)
+        if (!view.BackgroundColor.IsTransparent()
+            && !view.BackgroundColor.IsDefault)
         {
             result = view.BackgroundColor;
         }

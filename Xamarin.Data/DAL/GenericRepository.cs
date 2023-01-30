@@ -7,8 +7,7 @@ public sealed class GenericRepositoryOld<T> : DbRepositoryBaseOld<T>
 {
     public GenericRepositoryOld(BaseDbContext db)
         : base(db)
-    {
-    }
+    { }
 }
 
 public sealed class GenericRepository<T> : DbRepositoryBase<T>
@@ -16,6 +15,5 @@ public sealed class GenericRepository<T> : DbRepositoryBase<T>
 {
     public GenericRepository(BaseDbContext db)
         : base(db)
-    {
-    }
+    { }
 }
