@@ -194,7 +194,8 @@ public partial class TimePickerControl
     {
         _isOpened = false;
 
-        if (_isTimeChanged && SelectedTime != timePicker.Time)
+       // if (_isTimeChanged && SelectedTime != timePicker.Time)
+        if (SelectedTime != timePicker.Time)
         {
             SelectedTime = timePicker.Time;
             TimeChanged?.Invoke(this, timePicker.Time);

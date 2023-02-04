@@ -3,6 +3,7 @@ using Android.App;
 using Android.Appwidget;
 using Android.Content;
 using Android.OS;
+using AndroidX.Core.App;
 using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Droid.Helpers;
@@ -34,10 +35,9 @@ public static class AlarmManagerHelper
     {
         var intent = GetCancelPendingIntent(context, receiverType);
         var alarmManager = context.GetSystemService(Context.AlarmService) as AlarmManager;
-        if (alarmManager != null
-            && intent != null)
+        if (intent != null)
         {
-            alarmManager.Cancel(intent);
+            alarmManager?.Cancel(intent);
             intent.Cancel();
         }
     }
@@ -49,8 +49,8 @@ public static class AlarmManagerHelper
         var intent = new Intent(context, receiverType);
         intent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
         var intentFlag = VersionHelper.IsEqualOrGreater(12)
-            ? PendingIntentFlags.Mutable
-            : PendingIntentFlags.OneShot;
+                             ? PendingIntentFlags.Mutable
+                             : PendingIntentFlags.OneShot;
 
         return PendingIntent.GetBroadcast(context, 0, intent, intentFlag);
     }
@@ -60,9 +60,9 @@ public static class AlarmManagerHelper
         var intent = new Intent(context, receiverType);
         intent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
         var intentFlag = VersionHelper.IsEqualOrGreater(12)
-            ? PendingIntentFlags.Mutable
-            : PendingIntentFlags.OneShot;
-        
+                             ? PendingIntentFlags.Mutable
+                             : PendingIntentFlags.OneShot;
+
         return PendingIntent.GetBroadcast(context, 0, intent, intentFlag);
     }
 
