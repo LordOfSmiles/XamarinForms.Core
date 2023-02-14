@@ -3,7 +3,7 @@ using XamarinForms.Core.Helpers;
 using XamarinForms.iOS.PlatformServices;
 using XamarinForms.Core.PlatformServices;
 
-[assembly:Dependency(typeof(ExtendedDevicePlatformService))]
+
 namespace XamarinForms.iOS.PlatformServices;
 
 public sealed class ExtendedDevicePlatformService:IExtendedDevicePlatformService
@@ -35,7 +35,17 @@ public sealed class ExtendedDevicePlatformService:IExtendedDevicePlatformService
             return result;
         }
     }
+
+    public void GoToPowerSettings()
+    {
         
+    }
+
+    public bool IsIgnoredPowerOptimizations()
+    {
+        return false;
+    }
+
     #region Private Methods
 
     private bool CheckSafeArea(UIView window, bool isPortrait)

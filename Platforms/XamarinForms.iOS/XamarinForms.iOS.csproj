@@ -69,6 +69,7 @@
     <Compile Include="Helpers\TouchGestureRecognizer.cs" />
     <Compile Include="PlatformServices\AllowNotificationsPermission.cs" />
     <Compile Include="PlatformServices\ExtendedDevicePlatformService.cs" />
+    <Compile Include="PlatformServices\ToastService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
     <Compile Include="Effects\PickerWithoutBorderEffect.cs" />

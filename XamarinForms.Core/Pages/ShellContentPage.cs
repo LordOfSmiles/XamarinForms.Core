@@ -11,8 +11,7 @@ public class ShellContentPage : ContentPage
     {
         if (BindingContext is ViewModelBase vm)
         {
-            if (vm is TabbedViewModelBase tabbedVm
-                && !tabbedVm.IsTabActive)
+            if (vm is TabbedViewModelBase { IsTabActive: false })
             {
                 return;
             }
@@ -37,6 +36,17 @@ public class ShellContentPage : ContentPage
         vm?.OnDisappearing();
 
         base.OnDisappearing();
+    }
+
+    protected override void OnParentSet()
+    {
+        if (Parent == null)
+        {
+            var vm = BindingContext as ViewModelBase;
+            vm?.Cleanup();
+        }
+
+        base.OnParentSet();
     }
 
     protected ShellContentPage()

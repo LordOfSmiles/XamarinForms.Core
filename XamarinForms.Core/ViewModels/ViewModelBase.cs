@@ -19,11 +19,13 @@ public abstract class ViewModelBase : NotifyObject
     public virtual void OnDisappearing()
     { }
 
+    public virtual void Cleanup()
+    { }
+
     #endregion
 
     #region Protected Methods
-    
-    
+
     protected void ShowAnimation()
     {
         IsAnimationVisible = true;
@@ -119,7 +121,7 @@ public abstract class ViewModelBase : NotifyObject
 
             if (DeviceHelper.IsPhone)
             {
-                result = new Thickness(8, 0);
+                result = new Thickness(16, 0);
             }
             else
             {

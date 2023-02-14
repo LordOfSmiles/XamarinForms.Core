@@ -16,19 +16,19 @@ public static class DateHelper
                    : date2;
     }
 
-    public static TimeSpan GetDateIntersection(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
+    public static TimeSpan GetIntersection(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
     {
-        return IsDateIntersected(start1, end1, start2, end2)
+        return IsIntersected(start1, end1, start2, end2)
                    ? end1 - start2
                    : TimeSpan.Zero;
     }
 
-    public static bool IsDateIntersected(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
+    public static bool IsIntersected(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
     {
         return start2 <= end1 && start1 <= end2;
     }
 
-    public static bool IsDateIntersected(DateTime start, DateTime end, DateTime date)
+    public static bool IsIntersected(DateTime start, DateTime end, DateTime date)
     {
         return start <= date && date <= end;
     }
