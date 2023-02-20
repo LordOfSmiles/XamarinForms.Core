@@ -3,13 +3,10 @@ using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls;
 
-public class TouchableFrame : Frame
+public class TouchableFrame : Border
 {
     public TouchableFrame()
     {
-        HasShadow = false;
-        Padding = 0;
-
         BackgroundColor = NormalColor;
 
         var tapGesture = new TapGestureRecognizer();
