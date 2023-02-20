@@ -16,11 +16,4 @@ public abstract class PopupViewModelBase<T> : NotifyObject
         protected set => SetProperty(ref _inputTransparent, value);
     }
     private bool _inputTransparent;
-
-    public bool HasKeyboardOffset
-    {
-        get => _keyboardHasKeyboardOffset;
-        set => SetProperty(ref _keyboardHasKeyboardOffset, value);
-    }
-    private bool _keyboardHasKeyboardOffset;
 }

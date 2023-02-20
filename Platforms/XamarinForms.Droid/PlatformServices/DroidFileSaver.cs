@@ -66,7 +66,7 @@ public sealed class DroidFileSaver : IDroidFileSaver
                 }
             }
         }
-        catch (Exception e)
+        catch
         {
             //
         }
