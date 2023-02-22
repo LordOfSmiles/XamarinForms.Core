@@ -7,5 +7,6 @@ public class Border : Frame
         HasShadow = false;
         Padding = 0;
         IsClippedToBounds = true;
+        BackgroundColor = Color.Transparent;
     }
 }

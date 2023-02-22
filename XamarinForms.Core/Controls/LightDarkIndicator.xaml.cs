@@ -49,7 +49,6 @@ public struct LightDarkIndicatorModel
         DarkColorString = dark;
     }
 
-    public string LightColorString { get; set; }
-
-    public string DarkColorString { get; set; }
+    public string LightColorString { get;  }
+    public string DarkColorString { get;  }
 }

@@ -1,12 +1,11 @@
 <?xml version="1.0"
       encoding="utf-8"?>
-<Frame xmlns="http://xamarin.com/schemas/2014/forms"
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       x:Class="XamarinForms.Core.Controls.BarChart.BarView"
-       x:Name="ctrlRoot"
-       HasShadow="False"
-       CornerRadius="3"
-       Padding="0">
+<controls:Border xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
+                 x:Class="XamarinForms.Core.Controls.BarChart.BarView"
+                 x:Name="ctrlRoot"
+                 CornerRadius="3">
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="rowEmpty" />
@@ -17,4 +16,4 @@
                  CornerRadius="3"
                  Color="{Binding Source={x:Reference ctrlRoot}, Path=ValueColor}" />
     </Grid>
-</Frame>
+</controls:Border>

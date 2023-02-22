@@ -13,7 +13,7 @@ public sealed class SelectableItem<T> : SelectableItem, ISelectable<T>
     public T Id { get; }
 }
 
-public class SelectableItem : NotifyObject, ISelectable
+public class SelectableItem : NotifyObject, ISelectable, IUiListItem
 {
     #region ISelectable
 
@@ -30,6 +30,13 @@ public class SelectableItem : NotifyObject, ISelectable
 
     public ICommand TapCommand { get; set; }
 
+    #endregion
+    
+    #region IUiListItem
+    
+    public bool IsFirst { get; set; }
+    public bool IsLast { get; set; }
+    
     #endregion
 
     public SelectableItem(string text, bool isSelected = false)
