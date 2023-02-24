@@ -13,9 +13,8 @@ namespace XamarinForms.Core.Controls.Pickers;
 public partial class TimePickerControl
 {
     #region Fields
-
-    private bool _isTimeChanged;
-    private bool _isOpened;
+    
+    private bool _isCanceled;
 
     #endregion
 
@@ -39,8 +38,6 @@ public partial class TimePickerControl
         if (!IsEnabled)
             return;
 
-        _isTimeChanged = false;
-
         TimeSpan initialTime;
 
         if (!SelectedTime.HasValue
@@ -61,20 +58,11 @@ public partial class TimePickerControl
         {
             initialTime = new TimeSpan(initialTime.Hours, initialTime.Minutes, initialTime.Seconds);
         }
-        
+
         timePicker.Time = initialTime;
-
-        if (DeviceHelper.IsIos)
-        {
-            timePicker.DoneEvent += OnDone;
-        }
-        else
-        {
-            timePicker.Focused += OnPickerFocused;
-            timePicker.PropertyChanged += OnPickerPropertyChanged;
-            timePicker.Unfocused += OnPickerUnfocused;
-        }
-
+        timePicker.CancelEvent += OnCancel;
+        timePicker.DoneEvent += OnDone;
+        
         InvokeFocusedEvent();
         timePicker.Focus();
     }
@@ -176,40 +164,14 @@ public partial class TimePickerControl
     #endregion
 
     #region Handlers
-
-    private void OnPickerFocused(object sender, FocusEventArgs e)
-    {
-        _isOpened = true;
-    }
-
-    private void OnPickerPropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == TimePicker.TimeProperty.PropertyName)
-        {
-            _isTimeChanged = _isOpened && timePicker.Time != SelectedTime;
-        }
-    }
-
-    private void OnPickerUnfocused(object sender, FocusEventArgs e)
-    {
-        _isOpened = false;
-
-       // if (_isTimeChanged && SelectedTime != timePicker.Time)
-        if (SelectedTime != timePicker.Time)
-        {
-            SelectedTime = timePicker.Time;
-            TimeChanged?.Invoke(this, timePicker.Time);
-            AcceptCommand?.Execute(timePicker.Time);
-        }
-
-        timePicker.Focused -= OnPickerFocused;
-        timePicker.PropertyChanged -= OnPickerPropertyChanged;
-        timePicker.Unfocused -= OnPickerUnfocused;
-    }
-
+    
     private void OnDone(object sender, EventArgs e)
     {
-        if (SelectedTime != timePicker.Time)
+        var condition = DeviceHelper.IsIos
+                            ? SelectedTime != timePicker.Time
+                            : SelectedTime != timePicker.Time && !_isCanceled;
+
+        if (condition)
         {
             SelectedTime = timePicker.Time;
 
@@ -217,9 +179,16 @@ public partial class TimePickerControl
             AcceptCommand?.Execute(timePicker.Time);
         }
 
+        _isCanceled = false;
         timePicker.DoneEvent -= OnDone;
+        timePicker.CancelEvent -= OnCancel;
         InvokeUnfocusedEvent();
         timePicker.Unfocus();
+    }
+
+    private void OnCancel(object sender, EventArgs e)
+    {
+        _isCanceled = true;
     }
 
     #endregion

@@ -23,17 +23,19 @@ public sealed class BorderlessDatePickerRenderer : DatePickerRenderer
             SetPadding(0, 0, 0, 0);
         }
     }
-    
+
     protected override DatePickerDialog CreateDatePickerDialog(int year, int month, int day)
     {
         var dialog = base.CreateDatePickerDialog(year, month, day);
         if (Element is ExtendedDatePicker extendedDatePicker)
         {
-            dialog.SetButton((int)DialogButtonType.Positive, "Ok", (_, _) =>
-            {
-                extendedDatePicker.Date = dialog.DatePicker.DateTime;
-                extendedDatePicker.RaiseDoneEvent();
-            });
+            dialog.SetButton((int)DialogButtonType.Positive,
+                             "Ok",
+                             (_, _) =>
+                             {
+                                 extendedDatePicker.Date = dialog.DatePicker.DateTime;
+                                 extendedDatePicker.RaiseDoneEvent();
+                             });
         }
 
         return dialog;
@@ -41,9 +43,7 @@ public sealed class BorderlessDatePickerRenderer : DatePickerRenderer
 
     public BorderlessDatePickerRenderer(Context context)
         : base(context)
-    {
-            
-    }
+    { }
 }
 
 public sealed class BorderlessTimePickerRenderer : TimePickerRenderer
@@ -65,8 +65,27 @@ public sealed class BorderlessTimePickerRenderer : TimePickerRenderer
         }
     }
 
+    protected override TimePickerDialog CreateTimePickerDialog(int hours, int minutes)
+    {
+        var dialog = base.CreateTimePickerDialog(hours, minutes);
+
+        if (Element is ExtendedTimePicker extendedTimePicker)
+        {
+            dialog.DismissEvent += (_, _) =>
+            {
+                extendedTimePicker.RaiseDoneEvent();
+            };
+
+            dialog.CancelEvent += (_, _) =>
+            {
+                extendedTimePicker.RaiseCancelEvent();
+            };
+        }
+
+        return dialog;
+    }
+
     public BorderlessTimePickerRenderer(Context context)
         : base(context)
-    {
-    }
+    { }
 }
