@@ -17,7 +17,7 @@ public abstract class CellItemBase : NotifyObject, ISupportOrientation, IUiListI
 
             if (DeviceHelper.IsPhone)
             {
-                result = 16;
+                result = 8;
             }
             else
             { 
@@ -108,4 +108,6 @@ public abstract class CellItemBase : NotifyObject, ISupportOrientation, IUiListI
     private bool _isLast;
 
     #endregion
+    
+    public ICommand TapCommand { get; set; }
 }

@@ -161,11 +161,10 @@ public abstract class ViewModelBase : NotifyObject
     {
         get
         {
-            var result = LeftRightPagePadding;
-            result.Top = 8;
-            result.Bottom = 8;
+            var topBottom = 4;
+            var side = DeviceHelper.OnIdiom(8, LeftRightPagePadding.Left);
 
-            return result;
+            return new Thickness(side, topBottom);
         }
     }
 
