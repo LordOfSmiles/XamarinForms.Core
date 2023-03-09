@@ -51,6 +51,8 @@
     <ItemGroup>
         <Compile Include="Extensions\ContextExtensions.cs" />
         <Compile Include="Extensions\ViewGroupExtensions.cs" />
+        <Compile Include="Factories\PendingIntentFactory.cs" />
+        <Compile Include="Helpers\ActivityHelper.cs" />
         <Compile Include="Helpers\AlarmManagerHelper.cs" />
         <Compile Include="Helpers\ImageSourceHelper.cs" />
         <Compile Include="Helpers\KeyboardHelper.cs" />
@@ -70,7 +72,7 @@
     <ItemGroup>
       <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.5" />
       <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
-      <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />
+      <PackageReference Include="Xamarin.Forms" Version="5.0.0.2578" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\XamarinForms.Core\XamarinForms.Core.csproj">

@@ -1,6 +1,6 @@
 <?xml version="1.0"
       encoding="utf-8"?>
-<controls:TouchableContentView xmlns="http://xamarin.com/schemas/2014/forms"
+<controls:TouchableFrame xmlns="http://xamarin.com/schemas/2014/forms"
                                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                                xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
                                x:Class="XamarinForms.Core.Controls.FlatCheckBox"
@@ -27,4 +27,4 @@
                TextTransform="{Binding Source={x:Reference ctrlRoot}, Path=TextTransform}"
                Text="{Binding Source={x:Reference ctrlRoot}, Path=Text}" />
     </StackLayout>
-</controls:TouchableContentView>
+</controls:TouchableFrame>

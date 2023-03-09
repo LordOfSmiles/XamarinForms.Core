@@ -69,7 +69,7 @@ public sealed class BorderlessTimePickerRenderer : TimePickerRenderer
 
         if (Control != null)
         {
-            Control.Layer.BorderWidth = 0;
+            Control.Layer.BorderWidth = (nfloat)0;
             Control.BorderStyle = UITextBorderStyle.None;
 
             var picker = (UIDatePicker)Control.InputView;
