@@ -44,12 +44,8 @@ public static class TimeSpanHelper
     {
         if (!time.IsZero())
         {
+            var hours = (int)time.TotalHours;
             var minutes = time.Minutes;
-            var hours = time.Hours;
-            if (time.Days >= 1)
-            {
-                hours = time.Days * 24 + time.Hours;
-            }
 
             if (time.IsLessThanZero())
             {
@@ -64,6 +60,7 @@ public static class TimeSpanHelper
             return "00:00";
         }
     }
+    
         
     public static TimeSpan GetDuration(DateTime start, DateTime? end)
     {
