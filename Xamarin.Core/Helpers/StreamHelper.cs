@@ -2,7 +2,7 @@ using System.IO;
 
 namespace Xamarin.Core.Helpers;
 
-public static class FileHelper
+public static class StreamHelper
 {
     public static async Task<string> StringFromStreamAsync(Stream fileStream)
     {

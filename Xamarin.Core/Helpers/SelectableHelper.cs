@@ -4,11 +4,15 @@ namespace Xamarin.Core.Helpers;
 
 public static class SelectableHelper
 {
-    public static void SetSelection(ISelectable sender, IEnumerable<ISelectable> allItemsForSelection)
+    public static void SetSelection(ISelectable selectedItem, IReadOnlyCollection<ISelectable> items, bool withNull = false)
     {
-        foreach (var selectable in allItemsForSelection)
+        foreach (var selectable in items)
         {
-            selectable.IsSelected = selectable.Text == sender.Text;
+            var isSelected = selectable.Text == selectedItem.Text;
+            if (!withNull || selectable.Text != selectedItem.Text)
+            {
+                selectable.IsSelected = isSelected;
+            }
         }
     }
 

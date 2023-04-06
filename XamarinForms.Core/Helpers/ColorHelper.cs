@@ -10,7 +10,7 @@ public static class ColorHelper
     {
         return color1.ToHex() == color2.ToHex();
     }
-    
+
     public static Color OnTheme(Color light, Color dark) => ThemeHelper.IsDarkTheme
                                                                 ? dark
                                                                 : light;
@@ -21,7 +21,7 @@ public static class ColorHelper
     }
 
     public static bool IsLight(this Color c) => !IsDark(c);
-    
+
     public static bool IsDark(this Color c)
     {
         return c.GetByteRed() + c.GetByteGreen() + c.GetByteBlue() <= 381;
@@ -29,13 +29,14 @@ public static class ColorHelper
 
     public static Color CalculatePressedColor(Color backgroundColor, int koef = 20)
     {
+        var alpha = backgroundColor.GetByteAlpha();
         var red = backgroundColor.GetByteRed();
         var green = backgroundColor.GetByteGreen();
         var blue = backgroundColor.GetByteBlue();
 
         var endColor = !backgroundColor.IsDark()
-                           ? Color.FromRgb(red - koef, green - koef, blue - koef)
-                           : Color.FromRgb(red + koef, green + koef, blue + koef);
+                           ? Color.FromRgba(red - koef, green - koef, blue - koef, alpha)
+                           : Color.FromRgba(red + koef, green + koef, blue + koef, alpha);
 
         return endColor;
     }
