@@ -11,28 +11,27 @@ public sealed class ToastService : IToastService
     {
         var appearance = new ToastAppearance()
         {
+            CornerRadius = 16,
             Color = config.BackgroundColor.ToUIColor(),
-            CornerRadius = 20,
-            MessageColor = config.BackgroundColor.IsDark()
-                               ? UIColor.White
-                               : UIColor.Black,
+            MessageColor = config.TextColor.ToUIColor(),
             MessageFont = UIFont.SystemFontOfSize(15, UIFontWeight.Medium)
         };
 
         var layout = new ToastLayout()
         {
-            PaddingLeading = 16,
-            PaddingTrailing = 16,
-            PaddingTop = 12,
-            PaddingBottom = 12
+            PaddingLeading = 12,
+            PaddingTrailing = 12,
+            PaddingTop = 8,
+            PaddingBottom = 8,
+            MarginBottom = 32
         };
 
         Toast.MakeToast(config.Text)
              .SetAppearance(appearance)
              .SetDuration(ToastDuration.Long)
-             .SetPosition(ToastPosition.Center)
+             .SetPosition(ToastPosition.Bottom)
              .SetLayout(layout)
-             .SetShowShadow(false)
+             .SetShowShadow(!ThemeHelper.IsDarkTheme)
              .Show();
     }
 

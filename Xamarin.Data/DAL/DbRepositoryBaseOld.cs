@@ -94,25 +94,30 @@ public abstract class DbRepositoryBaseOld<T> : IDbRepositoryBaseOld<T>
         return Db.Connection.Find(predicate);
     }
 
+    public T FirstOrDefault()
+    {
+        return Db.Connection.Table<T>().FirstOrDefault();
+    }
+
     public T[] GetAll(Expression<Func<T, bool>> predicate = null)
     {
         return predicate == null
-            ? Db.Connection.Table<T>().ToArray()
-            : Db.Connection.Table<T>().Where(predicate).ToArray();
+                   ? Db.Connection.Table<T>().ToArray()
+                   : Db.Connection.Table<T>().Where(predicate).ToArray();
     }
 
     public bool Any(Func<T, bool> predicate = null)
     {
         return predicate == null
-            ? Db.Connection.Table<T>().Any()
-            : Db.Connection.Table<T>().Any(predicate);
+                   ? Db.Connection.Table<T>().Any()
+                   : Db.Connection.Table<T>().Any(predicate);
     }
 
     public int Count(Func<T, bool> predicate = null)
     {
         return predicate == null
-            ? Db.Connection.Table<T>().Count()
-            : Db.Connection.Table<T>().Where(predicate).Count();
+                   ? Db.Connection.Table<T>().Count()
+                   : Db.Connection.Table<T>().Where(predicate).Count();
     }
 
     #region Fields
@@ -127,7 +132,8 @@ public abstract class DbRepositoryBaseOld<T> : IDbRepositoryBaseOld<T>
     }
 }
 
-public interface IDbRepositoryBaseOld<T> where T : DbEntity_Old, new()
+public interface IDbRepositoryBaseOld<T>
+    where T : DbEntity_Old, new()
 {
     void AddOrUpdate(T item);
 
@@ -142,6 +148,8 @@ public interface IDbRepositoryBaseOld<T> where T : DbEntity_Old, new()
     T Find(object key);
 
     T Find(Expression<Func<T, bool>> predicate);
+
+    T FirstOrDefault();
 
     T[] GetAll(Expression<Func<T, bool>> predicate = null);
 

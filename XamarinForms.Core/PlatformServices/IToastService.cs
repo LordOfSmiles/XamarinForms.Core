@@ -9,5 +9,7 @@ public sealed class ToastConfig
 {
     public string Text { get; set; }
     public bool IsLong { get; set; } = true;
+    
+    public Color TextColor { get; set; }
     public Color BackgroundColor { get; set; }
 }

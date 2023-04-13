@@ -11,7 +11,7 @@ public abstract class ViewModelBase : NotifyObject
 
     #region Navigation
 
-    public virtual Task OnAppearingAsync(IDictionary<string, object> navigationParameters)
+    public virtual Task OnAppearingAsync(IDictionary<string, object> navParameters)
     {
         return Task.CompletedTask;
     }
@@ -19,7 +19,7 @@ public abstract class ViewModelBase : NotifyObject
     public virtual void OnDisappearing()
     { }
 
-    public virtual void Cleanup()
+    public virtual void OnCleanup()
     { }
 
     #endregion

@@ -4,7 +4,7 @@ namespace Xamarin.Core.Helpers;
 
 public static class UiListHelper
 {
-    public static void SetFirstAndLast<T>(IList<T> items)
+    public static void SetFirstAndLast<T>(IReadOnlyList<T> items)
         where T : IUiListItem
     {
         for (var i = 0; i < items.Count; i++)

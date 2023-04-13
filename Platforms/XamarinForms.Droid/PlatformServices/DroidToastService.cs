@@ -20,4 +20,12 @@ public sealed class DroidToastService : IToastService
             toast.Show();
         }
     }
+
+    public void ShowToast(string text)
+    {
+        ShowToast(new ToastConfig()
+        {
+            Text = text
+        });
+    }
 }

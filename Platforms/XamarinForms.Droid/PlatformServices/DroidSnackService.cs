@@ -13,9 +13,9 @@ public sealed class DroidSnackService : IDroidSnackService
         var view = Xamarin.Essentials.Platform.CurrentActivity.FindViewById(Android.Resource.Id.Content);
         var snack = Snackbar.Make(view, config.Text, BaseTransientBottomBar.LengthLong);
 
-        snack.SetBackgroundTint(config.BackgroundColor.ToAndroid());
+        snack.SetBackgroundTint(config.TextColor.ToAndroid());
 
-        snack.SetTextColor(config.BackgroundColor.IsDark()
+        snack.SetTextColor(config.TextColor.IsDark()
                                ? Color.White
                                : Color.Black);
 

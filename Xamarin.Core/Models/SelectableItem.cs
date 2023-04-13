@@ -31,17 +31,26 @@ public class SelectableItem : NotifyObject, ISelectable, IUiListItem
     public ICommand TapCommand { get; set; }
 
     #endregion
-    
+
     #region IUiListItem
-    
+
     public bool IsFirst { get; set; }
     public bool IsLast { get; set; }
-    
+
     #endregion
 
     public SelectableItem(string text, bool isSelected = false)
     {
         Text = text;
         IsSelected = isSelected;
+    }
+}
+
+public sealed class ContextMenuSelectableItem : SelectableItem
+{
+    public ContextMenuSelectableItem(string text, bool isDestruction = false)
+        : base(text, false)
+    {
+        IsDestruction = isDestruction;
     }
 }

@@ -43,7 +43,7 @@ public class ShellContentPage : ContentPage
         if (Parent == null)
         {
             var vm = BindingContext as ViewModelBase;
-            vm?.Cleanup();
+            vm?.OnCleanup();
         }
 
         base.OnParentSet();
