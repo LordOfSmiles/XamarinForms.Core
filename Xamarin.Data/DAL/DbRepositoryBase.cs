@@ -22,7 +22,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
             {
                 Db.Connection.Update(item, typeof(T));
             }
-            
+
             Db.OnDataChanged(this);
         }
         catch (Exception)
@@ -50,7 +50,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
         try
         {
             Db.Connection.Delete<T>(primaryKey);
-            
+
             Db.OnDataChanged(this);
         }
         catch (Exception)
@@ -64,7 +64,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
         try
         {
             Db.Connection.DeleteAll<T>();
-            
+
             Db.OnDataChanged(this);
         }
         catch (Exception)
@@ -78,7 +78,7 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
         try
         {
             Db.Connection.Table<T>().Delete(predicate);
-         
+
             Db.OnDataChanged(this);
         }
         catch (Exception)
@@ -97,25 +97,33 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
         return Db.Connection.Find(predicate);
     }
 
+    public IReadOnlyCollection<T> GetAll(int currentPage, int itemsPerPage)
+    {
+        return Db.Connection.Table<T>()
+                 .Skip(currentPage * itemsPerPage)
+                 .Take(itemsPerPage)
+                 .ToArray();
+    }
+
     public T[] GetAll(Expression<Func<T, bool>> predicate = null)
     {
         return predicate == null
-            ? Db.Connection.Table<T>().ToArray()
-            : Db.Connection.Table<T>().Where(predicate).ToArray();
+                   ? Db.Connection.Table<T>().ToArray()
+                   : Db.Connection.Table<T>().Where(predicate).ToArray();
     }
 
     public bool Any(Func<T, bool> predicate = null)
     {
         return predicate == null
-            ? Db.Connection.Table<T>().Any()
-            : Db.Connection.Table<T>().Any(predicate);
+                   ? Db.Connection.Table<T>().Any()
+                   : Db.Connection.Table<T>().Any(predicate);
     }
 
     public int Count(Func<T, bool> predicate = null)
     {
         return predicate == null
-            ? Db.Connection.Table<T>().Count()
-            : Db.Connection.Table<T>().Where(predicate).Count();
+                   ? Db.Connection.Table<T>().Count()
+                   : Db.Connection.Table<T>().Where(predicate).Count();
     }
 
     #region Fields
@@ -130,7 +138,8 @@ public abstract class DbRepositoryBase<T> : IDbRepositoryBase<T>
     }
 }
 
-public interface IDbRepositoryBase<T> where T : DbEntity, new()
+public interface IDbRepositoryBase<T>
+    where T : DbEntity, new()
 {
     void AddOrUpdate(T item);
 
@@ -145,6 +154,8 @@ public interface IDbRepositoryBase<T> where T : DbEntity, new()
     T Find(object key);
 
     T Find(Expression<Func<T, bool>> predicate);
+
+    IReadOnlyCollection<T> GetAll(int currentPage, int itemsPerPage);
 
     T[] GetAll(Expression<Func<T, bool>> predicate = null);
 

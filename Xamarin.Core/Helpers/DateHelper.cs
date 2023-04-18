@@ -47,4 +47,9 @@ public static class DateHelper
     {
         return date1.Date == date2.Date;
     }
+
+    public static TimeSpan GetDuration(DateTime start, DateTime end)
+    {
+        return end - start;
+    }
 }

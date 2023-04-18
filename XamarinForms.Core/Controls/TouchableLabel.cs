@@ -1,12 +1,11 @@
-using Xamarin.CommunityToolkit.Extensions;
 using XamarinForms.Core.Extensions;
 using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls;
 
-public class TouchableStackLayout : StackLayout
+public sealed class TouchableLabel : Label
 {
-    public TouchableStackLayout()
+    public TouchableLabel()
     {
         var tapGesture = new TapGestureRecognizer();
         tapGesture.Tapped += TapGestureRecognizer_OnTapped;
@@ -19,7 +18,8 @@ public class TouchableStackLayout : StackLayout
 
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
-                                                                                          typeof(TouchableStackLayout),
+                                                                                          typeof(TouchableLabel),
+                                                                                          Color.Transparent,
                                                                                           propertyChanged: OnDefaultColorChanged);
 
     public Color NormalColor
@@ -30,7 +30,7 @@ public class TouchableStackLayout : StackLayout
 
     private static void OnDefaultColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var ctrl = (TouchableStackLayout)bindable;
+        var ctrl = (TouchableLabel)bindable;
 
         ctrl.BackgroundColor = (Color)newValue;
     }
@@ -41,7 +41,7 @@ public class TouchableStackLayout : StackLayout
 
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command),
                                                                                       typeof(ICommand),
-                                                                                      typeof(TouchableStackLayout));
+                                                                                      typeof(TouchableLabel));
 
     public ICommand Command
     {
@@ -55,7 +55,7 @@ public class TouchableStackLayout : StackLayout
 
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter),
                                                                                                typeof(object),
-                                                                                               typeof(TouchableStackLayout));
+                                                                                               typeof(TouchableLabel));
 
     public object CommandParameter
     {
@@ -87,7 +87,6 @@ public class TouchableStackLayout : StackLayout
         {
             await this.ColorTo(NormalColor, 50);
         }
-
 
         Command?.Execute(CommandParameter);
     }
