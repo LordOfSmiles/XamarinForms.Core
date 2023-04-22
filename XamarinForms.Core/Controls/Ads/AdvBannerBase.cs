@@ -1,8 +1,8 @@
-﻿namespace XamarinForms.Core.Controls;
+﻿namespace XamarinForms.Core.Controls.Ads;
 
-public sealed class AdvBanner : View
+public abstract class AdvBannerBase : View
 {
-    public AdvBanner(string adUnitId, Color colorLight, Color colorDark)
+    protected AdvBannerBase(string adUnitId, Color colorLight, Color colorDark)
     {
         AdUnitId = adUnitId;
         
