@@ -2,7 +2,7 @@ namespace XamarinForms.Core.Builders;
 
 public sealed class ToolbarBuilder
 {
-    public ToolbarBuilder WithCommand(ICommand command)
+    public ToolbarBuilder Command(ICommand command)
     {
         _toolbarItem.Command = command;
         return this;
@@ -14,13 +14,13 @@ public sealed class ToolbarBuilder
         return this;
     }
         
-    public ToolbarBuilder WithIcon(ImageSource imageSource)
+    public ToolbarBuilder Icon(ImageSource imageSource)
     {
         _toolbarItem.IconImageSource = imageSource;
         return this;
     }
 
-    public ToolbarItem GetItem()
+    public ToolbarItem Create()
     {
         return _toolbarItem;
     }
