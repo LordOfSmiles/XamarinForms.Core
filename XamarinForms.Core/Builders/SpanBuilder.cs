@@ -1,18 +1,30 @@
 namespace XamarinForms.Core.Builders;
 
-public class SpanBuilder
+public sealed class SpanBuilder
 {
-    public static Span NewLine(double fontSize = 2.0)
+    public static Span LineBreak(double fontSize = 2.0)
     {
-        return new SpanBuilder(Environment.NewLine).SetFontSize(fontSize).GetSpan();
+        return new Span()
+        {
+            Text = Environment.NewLine,
+            FontSize = fontSize
+        };
     }
 
-    public Span GetSpan()
+    public static Span NewSpan(string text)
+    {
+        return new Span()
+        {
+            Text = text
+        };
+    }
+
+    public Span Build()
     {
         return _span;
     }
 
-    public SpanBuilder WithBold()
+    public SpanBuilder Bold()
     {
         _span.FontAttributes = FontAttributes.Bold;
         return this;
@@ -23,28 +35,34 @@ public class SpanBuilder
         _span.TextTransform = TextTransform.Uppercase;
         return this;
     }
-        
+
     public SpanBuilder WithLower()
     {
         _span.TextTransform = TextTransform.Lowercase;
         return this;
     }
 
-    public SpanBuilder WithItalic()
+    public SpanBuilder Italic()
     {
         _span.FontAttributes = FontAttributes.Italic;
         return this;
     }
 
-    public SpanBuilder SetFontSize(double fontSize)
+    public SpanBuilder FontSize(double fontSize)
     {
         _span.FontSize = fontSize;
         return this;
     }
 
-    public SpanBuilder SetTextColor(Color lightColor, Color darkColor)
+    public SpanBuilder TextColor(Color lightColor, Color darkColor)
     {
         _span.SetAppThemeColor(Span.TextColorProperty, lightColor, darkColor);
+        return this;
+    }
+
+    public SpanBuilder TextColor(Color color)
+    {
+        _span.TextColor = color;
         return this;
     }
 

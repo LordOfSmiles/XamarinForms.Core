@@ -99,6 +99,11 @@ public abstract class DbRepositoryBaseOld<T> : IDbRepositoryBaseOld<T>
         return Db.Connection.Table<T>().FirstOrDefault();
     }
 
+    public T LastOrDefault()
+    {
+        return Db.Connection.Table<T>().LastOrDefault();
+    }
+
     public T[] GetAll(Expression<Func<T, bool>> predicate = null)
     {
         return predicate == null
@@ -150,6 +155,8 @@ public interface IDbRepositoryBaseOld<T>
     T Find(Expression<Func<T, bool>> predicate);
 
     T FirstOrDefault();
+
+    T LastOrDefault();
 
     T[] GetAll(Expression<Func<T, bool>> predicate = null);
 

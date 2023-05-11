@@ -1,6 +1,10 @@
+using Xamarin.Core.Infrastructure.Container;
+using Xamarin.Core.Interfaces;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using XamarinForms.Core.Helpers;
 using XamarinForms.Core.Infrastructure.Navigation;
+using XamarinForms.Core.PlatformServices;
 using XamarinForms.Core.ViewModels;
 
 namespace XamarinForms.Core.Pages;
@@ -14,6 +18,13 @@ public class ShellContentPage : ContentPage
             if (vm is TabbedViewModelBase { IsTabActive: false })
             {
                 return;
+            }
+
+            var from = Shell.Current?.CurrentPage.GetType();
+            if (from != null)
+            {
+                var analyticsService = FastContainer.TryResolve<IAnalyticsService>();
+                analyticsService?.OnNavigation(from.Name, GetType().Name);
             }
 
             try
@@ -53,4 +64,22 @@ public class ShellContentPage : ContentPage
     {
         On<iOS>().SetUseSafeArea(true);
     }
+
+    #region Methods
+
+    protected Thickness GetBottomButtonMargin()
+    {
+        var bottom = 16;
+
+        if (DeviceHelper.IsIos
+            && !On<iOS>().UsingSafeArea()
+            && DependencyService.Get<IExtendedDevicePlatformService>().IsDeviceWithSafeArea)
+        {
+            bottom = 50;
+        }
+
+        return new Thickness(0, 0, 0, bottom);
+    }
+
+    #endregion
 }

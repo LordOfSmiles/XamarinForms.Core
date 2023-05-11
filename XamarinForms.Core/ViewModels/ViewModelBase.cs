@@ -1,4 +1,6 @@
-﻿using Xamarin.Core.Models;
+﻿using Xamarin.Core.Infrastructure.Container;
+using Xamarin.Core.Interfaces;
+using Xamarin.Core.Models;
 using Xamarin.Essentials;
 using XamarinForms.Core.Helpers;
 
@@ -57,8 +59,7 @@ public abstract class ViewModelBase : NotifyObject
     {
         OnPropertyChanged(nameof(Orientation));
         OnPropertyChanged(nameof(ToolbarIndents));
-        OnPropertyChanged(nameof(BottomButtonIndents));
-        OnPropertyChanged(nameof(LeftRightPagePadding));
+        OnPropertyChanged(nameof(LeftRightPadding));
     }
 
     #endregion
@@ -69,11 +70,21 @@ public abstract class ViewModelBase : NotifyObject
 
     #endregion
 
+    #region Dependencies
+
+    protected readonly IAnalyticsService AnalyticsService;
+    protected readonly ICrashlyticsService CrashlyticsService;
+
+    #endregion
+
     #region Constructor
 
     protected ViewModelBase()
     {
-        if (!DeviceHelper.IsPhone)
+        AnalyticsService = FastContainer.TryResolve<IAnalyticsService>();
+        CrashlyticsService = FastContainer.TryResolve<ICrashlyticsService>();
+
+        if (DeviceHelper.IsTablet)
         {
             DeviceDisplay.MainDisplayInfoChanged += OnMainDisplayInfoChanged;
         }
@@ -108,12 +119,9 @@ public abstract class ViewModelBase : NotifyObject
     }
     private bool _isAnimationVisible;
 
-    public bool IsPhone => DeviceHelper.IsPhone;
-    public bool IsTablet => DeviceHelper.IsTablet;
-
     public DisplayOrientation Orientation => DeviceDisplay.MainDisplayInfo.Orientation;
 
-    public virtual Thickness LeftRightPagePadding
+    public virtual Thickness LeftRightPadding
     {
         get
         {
@@ -136,46 +144,14 @@ public abstract class ViewModelBase : NotifyObject
         }
     }
 
-    public virtual Thickness StartEndHorizontalPadding
-    {
-        get
-        {
-            int side;
-
-            if (DeviceHelper.IsPhone)
-            {
-                side = 16;
-            }
-            else
-            {
-                side = DeviceHelper.IsPortrait
-                           ? 32
-                           : 48;
-            }
-
-            return new Thickness(side, 0);
-        }
-    }
-
     public virtual Thickness ToolbarIndents
     {
         get
         {
             var topBottom = 4;
-            var side = DeviceHelper.OnIdiom(8, LeftRightPagePadding.Left);
+            var side = DeviceHelper.OnIdiom(8, LeftRightPadding.Left);
 
             return new Thickness(side, topBottom);
-        }
-    }
-
-    public virtual Thickness BottomButtonIndents
-    {
-        get
-        {
-            var result = LeftRightPagePadding;
-            result.Bottom = 16;
-
-            return result;
         }
     }
 

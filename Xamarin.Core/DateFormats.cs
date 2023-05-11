@@ -10,4 +10,5 @@ public static class DateFormats
 public static class TimeFormats
 {
     public static string HH_mm => string.Intern("HH:mm");
+    public static string HHmmTimeSpan => string.Intern(@"hh\:mm");
 }
