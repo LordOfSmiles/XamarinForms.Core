@@ -31,7 +31,7 @@ public sealed class ToastService : IToastService
              .SetDuration(ToastDuration.Long)
              .SetPosition(ToastPosition.Bottom)
              .SetLayout(layout)
-             .SetShowShadow(!ThemeHelper.IsDarkTheme)
+             .SetShowShadow(ThemeHelper.IsLightTheme)
              .Show();
     }
 

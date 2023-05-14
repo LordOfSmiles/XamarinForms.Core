@@ -9,10 +9,10 @@ public static class ViewModelBaseExtension
         if (viewModel.InputTransparent)
             return;
 
-        viewModel.InputTransparent = true;
+        viewModel.ShowAnimation();
 
         await Shell.Current.GoToAsync(pageName);
 
-        viewModel.InputTransparent = false;
+        viewModel.HideAnimation();
     }
 }

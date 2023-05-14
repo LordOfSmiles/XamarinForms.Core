@@ -6,17 +6,17 @@ public static class ResourceDictionaryHelper
     {
         var result = default(T);
         
-        if (Application.Current.Resources.ContainsKey(key))
+        if (Application.Current.Resources.TryGetValue(key, out var resource))
         {
-            result = (T) Application.Current.Resources[key];
+            result = (T) resource;
         }
         else
         {
             foreach (var dictionary in Application.Current.Resources.MergedDictionaries)
             {
-                if (dictionary.ContainsKey(key))
+                if (dictionary.TryGetValue(key, out var value))
                 {
-                    result = (T) dictionary[key];
+                    result = (T) value;
                     break;
                 }
             }

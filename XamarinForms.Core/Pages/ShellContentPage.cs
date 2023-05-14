@@ -64,22 +64,4 @@ public class ShellContentPage : ContentPage
     {
         On<iOS>().SetUseSafeArea(true);
     }
-
-    #region Methods
-
-    protected Thickness GetBottomButtonMargin()
-    {
-        var bottom = 16;
-
-        if (DeviceHelper.IsIos
-            && !On<iOS>().UsingSafeArea()
-            && DependencyService.Get<IExtendedDevicePlatformService>().IsDeviceWithSafeArea)
-        {
-            bottom = 50;
-        }
-
-        return new Thickness(0, 0, 0, bottom);
-    }
-
-    #endregion
 }

@@ -28,13 +28,13 @@ public abstract class ViewModelBase : NotifyObject
 
     #region Protected Methods
 
-    protected void ShowAnimation()
+    public void ShowAnimation()
     {
         IsAnimationVisible = true;
         InputTransparent = true;
     }
 
-    protected void HideAnimation()
+    public void HideAnimation()
     {
         IsAnimationVisible = false;
         InputTransparent = false;

@@ -8,7 +8,7 @@ public sealed class ToolbarBuilder
         return this;
     }
         
-    public ToolbarBuilder WithText(string text)
+    public ToolbarBuilder Text(string text)
     {
         _toolbarItem.Text = text;
         return this;
@@ -20,7 +20,7 @@ public sealed class ToolbarBuilder
         return this;
     }
 
-    public ToolbarItem Create()
+    public ToolbarItem Build()
     {
         return _toolbarItem;
     }

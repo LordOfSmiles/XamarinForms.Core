@@ -11,9 +11,9 @@ public static class ColorHelper
         return color1.ToHex() == color2.ToHex();
     }
 
-    public static Color OnTheme(Color light, Color dark) => ThemeHelper.IsDarkTheme
-                                                                ? dark
-                                                                : light;
+    public static Color OnTheme(Color light, Color dark) => ThemeHelper.IsLightTheme
+                                                                ? light
+                                                                : dark;
 
     public static bool IsDarkForTheEye(this Color c)
     {
