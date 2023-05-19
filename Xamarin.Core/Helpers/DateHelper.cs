@@ -40,7 +40,7 @@ public static class DateHelper
 
     public static string ParseToTimeString(DateTime date)
     {
-        return TimeSpanHelper.ParseToString(date.TimeOfDay);
+        return TimeSpanHelper.ToString(date.TimeOfDay);
     }
 
     public static bool IsEqualsByDate(DateTime date1, DateTime date2)

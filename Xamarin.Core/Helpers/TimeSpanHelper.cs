@@ -8,20 +8,22 @@ public static class TimeSpanHelper
     {
         return start <= value && value <= end;
     }
-        
+
     public static bool IsIntersectedWithoutBounds(TimeSpan start, TimeSpan end, TimeSpan value)
     {
         return start < value && value < end;
     }
-        
+
     public static bool IsIntersected(TimeSpan start, TimeSpan end, TimeSpan start2, TimeSpan end2)
     {
-        if (start < start2 && start2 < end)
+        if (start < start2
+            && start2 < end)
         {
             //start date of 2nd span within range of first span
             return true;
         }
-        else if (start < end2 && end2 < end)
+        else if (start < end2
+                 && end2 < end)
         {
             //end date of 2nd span within range of first span
             return true;
@@ -31,16 +33,21 @@ public static class TimeSpanHelper
             return false;
         }
     }
-        
-    public static TimeSpan ParseFromString(string timeString)
+
+    /// <summary>
+    /// 02:34 входной формат
+    /// </summary>
+    /// <param name="timeString"></param>
+    /// <returns></returns>
+    public static TimeSpan FromString(string timeString)
     {
-        var hours = int.Parse(timeString[..2]);
+        var hours = int.Parse(timeString.Substring(0, 2));
         var minutes = int.Parse(timeString.Substring(3, 2));
 
         return TimeSpan.FromMinutes(hours * 60 + minutes);
     }
-        
-    public static string ParseToString(TimeSpan time)
+
+    public static string ToString(TimeSpan time)
     {
         if (!time.IsZero())
         {
@@ -52,7 +59,7 @@ public static class TimeSpanHelper
                 hours = Math.Abs(hours);
                 minutes = Math.Abs(minutes);
             }
-                
+
             return $"{hours:D2}:{minutes:D2}";
         }
         else
@@ -60,8 +67,8 @@ public static class TimeSpanHelper
             return "00:00";
         }
     }
-    
-        
+
+
     public static TimeSpan GetDuration(DateTime start, DateTime? end)
     {
         var roundedStart = DateHelper.RoundDate(start);
