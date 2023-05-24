@@ -12,13 +12,14 @@ public sealed class ToVisibilityConverter : GenericConverter
         {
             isVisible = value switch
             {
-                int i => i > 0,
-                double d => d > 0,
-                float f => f > 0,
-                bool b => b,
-                string s => !string.IsNullOrWhiteSpace(s),
-                IEnumerable<object> enumerable => enumerable.Any(),
-                _ => true
+                int intValue                    => intValue > 0,
+                double doubleValue              => doubleValue > 0,
+                float floatValue                => floatValue > 0,
+                bool boolValue                  => boolValue,
+                string stringValue              => !string.IsNullOrWhiteSpace(stringValue),
+                IEnumerable<object> enumerable  => enumerable.Any(),
+                FormattedString formattedString => formattedString.Spans.Any(),
+                _                               => true
             };
         }
         else
