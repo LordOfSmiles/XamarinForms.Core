@@ -45,7 +45,7 @@ public abstract class BaseDbContext
                 {
                     ExecuteMigrations(_connection, currentDbVersion, DbVersion);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     //
                 }

@@ -6,6 +6,12 @@ namespace XamarinForms.Core.Controls;
 
 public class TouchableContentView : ContentView
 {
+    #region Fields
+
+    protected bool IsBusy;
+    
+    #endregion
+    
     public TouchableContentView()
     {
         var tapGesture = new TapGestureRecognizer();
@@ -71,6 +77,11 @@ public class TouchableContentView : ContentView
 
     private async void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
     {
+        if (IsBusy)
+            return;
+
+        IsBusy = true;
+        
         var startColor = NormalColor.IsTransparent()
                              ? ColorHelper.FindParentRealColor((View)sender)
                              : NormalColor;
@@ -87,9 +98,10 @@ public class TouchableContentView : ContentView
         {
             await this.ColorTo(NormalColor, 50);
         }
-
-
+        
         Command?.Execute(CommandParameter);
+
+        IsBusy = false;
     }
 
     #endregion

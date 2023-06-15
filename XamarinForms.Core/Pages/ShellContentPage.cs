@@ -20,16 +20,20 @@ public class ShellContentPage : ContentPage
                 return;
             }
 
-            var from = Shell.Current?.CurrentPage.GetType();
+            var currentType = GetType();
+
+            var from = NavigationHelper.LastPage;
             if (from != null)
             {
                 var analyticsService = FastContainer.TryResolve<IAnalyticsService>();
-                analyticsService?.OnNavigation(from.Name, GetType().Name);
+                analyticsService?.OnNavigation(from.Name, currentType.Name);
             }
+
+            NavigationHelper.LastPage = currentType;
 
             try
             {
-                var parameters = NavigationHelper.Get(GetType().Name);
+                var parameters = NavigationHelper.Get(currentType.Name);
                 await vm.OnAppearingAsync(parameters);
             }
             catch

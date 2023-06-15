@@ -3,6 +3,7 @@ using Xamarin.Core.Interfaces;
 using Xamarin.Core.Models;
 using Xamarin.Essentials;
 using XamarinForms.Core.Helpers;
+using XamarinForms.Core.PlatformServices;
 
 namespace XamarinForms.Core.ViewModels;
 
@@ -22,7 +23,9 @@ public abstract class ViewModelBase : NotifyObject
     { }
 
     public virtual void OnCleanup()
-    { }
+    {
+        IsInitCompleted = false;
+    }
 
     #endregion
 
@@ -144,14 +147,29 @@ public abstract class ViewModelBase : NotifyObject
         }
     }
 
+    public Thickness TopBottomPadding
+    {
+        get
+        {
+            double bottom = 72;
+
+            if (DeviceHelper.IsIos
+                && DependencyService.Get<IExtendedDevicePlatformService>().IsDeviceWithSafeArea)
+            {
+                bottom = 96;
+            }
+
+            return new Thickness(0, 16, 0, bottom);
+        }
+    }
+
     public virtual Thickness ToolbarIndents
     {
         get
         {
-            var topBottom = 4;
             var side = DeviceHelper.OnIdiom(8, LeftRightPadding.Left);
 
-            return new Thickness(side, topBottom);
+            return new Thickness(side, 4);
         }
     }
 

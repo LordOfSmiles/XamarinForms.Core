@@ -6,6 +6,12 @@ namespace XamarinForms.Core.Controls;
 
 public class TouchableGrid : Grid
 {
+    #region Fields
+
+    protected bool IsBusy;
+
+    #endregion
+
     public TouchableGrid()
     {
         BackgroundColor = NormalColor;
@@ -73,6 +79,11 @@ public class TouchableGrid : Grid
 
     private async void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
     {
+        if (IsBusy)
+            return;
+
+        IsBusy = true;
+
         var startColor = NormalColor.IsTransparent()
                              ? ColorHelper.FindParentRealColor((View)sender)
                              : NormalColor;
@@ -90,8 +101,9 @@ public class TouchableGrid : Grid
             await this.ColorTo(NormalColor, 50);
         }
 
-
         Command?.Execute(CommandParameter);
+
+        IsBusy = false;
     }
 
     #endregion

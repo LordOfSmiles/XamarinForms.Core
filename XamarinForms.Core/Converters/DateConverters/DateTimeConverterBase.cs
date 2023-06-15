@@ -9,7 +9,13 @@ public abstract class DateTimeConverterBase : GenericConverter
     public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         var input = (DateTime?)value;
-
-        return input?.ToString(DateFormat);
+        if (input.HasValue)
+        {
+            return input.Value.ToString(DateFormat);
+        }
+        else
+        {
+            return string.Empty;
+        }
     }
 }

@@ -5,6 +5,12 @@ namespace XamarinForms.Core.Controls;
 
 public class TouchableFrame : Border
 {
+    #region Fields
+
+    protected bool IsBusy;
+    
+    #endregion
+    
     public TouchableFrame()
     {
         BackgroundColor = NormalColor;
@@ -72,6 +78,11 @@ public class TouchableFrame : Border
 
     private async void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
     {
+        if (IsBusy)
+            return;
+
+        IsBusy = true;
+        
         var startColor = NormalColor.IsTransparent()
                              ? ColorHelper.FindParentRealColor((View)sender)
                              : NormalColor;
@@ -89,8 +100,9 @@ public class TouchableFrame : Border
             await this.ColorTo(NormalColor, 50);
         }
 
-
         Command?.Execute(CommandParameter);
+
+        IsBusy = false;
     }
 
     #endregion
