@@ -30,6 +30,6 @@ public static class PageHelper
             }
         }
 
-        return new Thickness(0, 0, 0, bottom);
+        return new Thickness(0, 16, 0, bottom);
     }
 }
