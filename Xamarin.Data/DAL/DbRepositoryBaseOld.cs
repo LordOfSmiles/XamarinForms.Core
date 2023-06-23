@@ -104,7 +104,12 @@ public abstract class DbRepositoryBaseOld<T> : IDbRepositoryBaseOld<T>
         return Db.Connection.Table<T>().LastOrDefault();
     }
 
-    public T[] GetAll(Expression<Func<T, bool>> predicate = null)
+    public IReadOnlyList<T> All()
+    {
+        return Db.Connection.Table<T>().ToArray();
+    }
+
+    public IReadOnlyList<T> Filter(Expression<Func<T, bool>> predicate = null)
     {
         return predicate == null
                    ? Db.Connection.Table<T>().ToArray()
@@ -158,7 +163,8 @@ public interface IDbRepositoryBaseOld<T>
 
     T LastOrDefault();
 
-    T[] GetAll(Expression<Func<T, bool>> predicate = null);
+    IReadOnlyList<T> All();
+    IReadOnlyList<T> Filter(Expression<Func<T, bool>> predicate = null);
 
     bool Any(Func<T, bool> predicate = null);
 
