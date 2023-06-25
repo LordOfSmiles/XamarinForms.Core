@@ -6,7 +6,7 @@ public sealed class ToVisibilityConverter : GenericConverter
 {
     public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        var isVisible = true;
+        bool isVisible;
 
         if (value != null)
         {
