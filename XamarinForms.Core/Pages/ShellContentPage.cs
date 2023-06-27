@@ -1,3 +1,4 @@
+using Xamarin.Core.Extensions;
 using Xamarin.Core.Infrastructure.Container;
 using Xamarin.Core.Interfaces;
 using Xamarin.Forms.PlatformConfiguration;
@@ -11,7 +12,7 @@ namespace XamarinForms.Core.Pages;
 
 public class ShellContentPage : ContentPage
 {
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         if (BindingContext is ViewModelBase vm)
         {
@@ -34,7 +35,7 @@ public class ShellContentPage : ContentPage
             try
             {
                 var parameters = NavigationHelper.Get(currentType.Name);
-                await vm.OnAppearingAsync(parameters);
+                vm.OnAppearingAsync(parameters).FireAndForget();
             }
             catch
             {
