@@ -4,11 +4,7 @@ public sealed class SpanBuilder
 {
     public static Span LineBreak(double fontSize = 2.0)
     {
-        return new Span()
-        {
-            Text = Environment.NewLine,
-            FontSize = fontSize
-        };
+        return new LineBreak(fontSize);
     }
 
     public static Span NewSpan(string text)
@@ -78,5 +74,14 @@ public sealed class SpanBuilder
         {
             Text = text
         };
+    }
+}
+
+public sealed class LineBreak : Span
+{
+    public LineBreak(double fontSize = 2.0)
+    {
+        FontSize = fontSize;
+        Text = Environment.NewLine;
     }
 }
