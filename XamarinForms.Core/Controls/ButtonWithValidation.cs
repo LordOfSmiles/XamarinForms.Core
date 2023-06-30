@@ -1,10 +1,12 @@
+using XamarinForms.Core.Controls.Buttons;
+
 namespace XamarinForms.Core.Controls;
 
-public sealed class ButtonWithValidation : Button
+public sealed class ButtonWithValidation : CustomButton
 {
     public ButtonWithValidation()
     {
-        BackgroundColor = NormalColor;
+        BackgroundColor = ValidColor;
         TextColor = NormalTextColor;
     }
 
@@ -31,12 +33,12 @@ public sealed class ButtonWithValidation : Button
         var isValid = (bool)newValue;
         if (isValid)
         {
-            ctrl.BackgroundColor = ctrl.NormalColor;
+            ctrl.NormalColor = ctrl.ValidColor;
             ctrl.TextColor = ctrl.NormalTextColor;
         }
         else
         {
-            ctrl.BackgroundColor = ctrl.InvalidColor;
+            ctrl.NormalColor = ctrl.InvalidColor;
             ctrl.TextColor = ctrl.InvalidTextColor;
         }
     }
@@ -45,14 +47,14 @@ public sealed class ButtonWithValidation : Button
 
     #region NormalColor
 
-    public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
-                                                                                          typeof(Color),
-                                                                                          typeof(ButtonWithValidation));
+    public static readonly BindableProperty ValidColorProperty = BindableProperty.Create(nameof(ValidColor),
+                                                                                         typeof(Color),
+                                                                                         typeof(ButtonWithValidation));
 
-    public Color NormalColor
+    public Color ValidColor
     {
-        get => (Color)GetValue(NormalColorProperty);
-        set => SetValue(NormalColorProperty, value);
+        get => (Color)GetValue(ValidColorProperty);
+        set => SetValue(ValidColorProperty, value);
     }
 
     #endregion
