@@ -21,7 +21,7 @@ public class CustomButton : TouchableFrame
         }
         else
         {
-            Padding = new Thickness(16, 12);
+            Padding = new Thickness(16, 10);
         }
 
 
@@ -31,12 +31,13 @@ public class CustomButton : TouchableFrame
             HorizontalOptions = LayoutOptions.Center,
             VerticalOptions = LayoutOptions.Center,
             HorizontalTextAlignment = TextAlignment.Center,
-            VerticalTextAlignment = TextAlignment.Center
+            VerticalTextAlignment = TextAlignment.Center,
+            FontAttributes = FontAttributes.Bold
         };
 
-        if (DeviceHelper.IsIos)
+        if (DeviceHelper.IsAndroid)
         {
-            _lbl.FontAttributes = FontAttributes.Bold;
+            _lbl.TextTransform = TextTransform.Uppercase;
         }
 
         Content = _lbl;

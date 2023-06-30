@@ -6,8 +6,8 @@ public sealed class ButtonWithValidation : CustomButton
 {
     public ButtonWithValidation()
     {
-        BackgroundColor = ValidColor;
-        TextColor = NormalTextColor;
+        NormalColor = ValidColor;
+        TextColor = ValidTextColor;
     }
 
     #region Bindable Properties
@@ -34,7 +34,7 @@ public sealed class ButtonWithValidation : CustomButton
         if (isValid)
         {
             ctrl.NormalColor = ctrl.ValidColor;
-            ctrl.TextColor = ctrl.NormalTextColor;
+            ctrl.TextColor = ctrl.ValidTextColor;
         }
         else
         {
@@ -61,14 +61,14 @@ public sealed class ButtonWithValidation : CustomButton
 
     #region NormalTextColor
 
-    public static readonly BindableProperty NormalTextColorProperty = BindableProperty.Create(nameof(NormalTextColor),
+    public static readonly BindableProperty ValidTextColorProperty = BindableProperty.Create(nameof(ValidTextColor),
                                                                                               typeof(Color),
                                                                                               typeof(ButtonWithValidation));
 
-    public Color NormalTextColor
+    public Color ValidTextColor
     {
-        get => (Color)GetValue(NormalTextColorProperty);
-        set => SetValue(NormalTextColorProperty, value);
+        get => (Color)GetValue(ValidTextColorProperty);
+        set => SetValue(ValidTextColorProperty, value);
     }
 
     #endregion

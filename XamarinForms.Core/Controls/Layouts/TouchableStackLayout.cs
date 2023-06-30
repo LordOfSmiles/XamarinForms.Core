@@ -20,7 +20,6 @@ public class TouchableStackLayout : StackLayout, ITouchableLayout
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
                                                                                           typeof(TouchableStackLayout),
-                                                                                          Color.Transparent,
                                                                                           propertyChanged: OnDefaultColorChanged);
 
     public Color NormalColor
