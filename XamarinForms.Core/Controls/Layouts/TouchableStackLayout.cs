@@ -1,22 +1,15 @@
-using Xamarin.CommunityToolkit.Extensions;
-using XamarinForms.Core.Helpers;
+using XamarinForms.Core.Controls.Layouts.Helpers;
 
-namespace XamarinForms.Core.Controls;
+namespace XamarinForms.Core.Controls.Layouts;
 
-public class TouchableFrame : Border
+public class TouchableStackLayout : StackLayout, ITouchableLayout
 {
-    #region Fields
-
-    protected bool IsBusy;
-    
-    #endregion
-    
-    public TouchableFrame()
+    protected TouchableStackLayout()
     {
         BackgroundColor = NormalColor;
 
         var tapGesture = new TapGestureRecognizer();
-        tapGesture.Tapped += TapGestureRecognizer_OnTapped;
+        tapGesture.Tapped += (sender, _) => TouchableLayoutHelper.ProcessTapAsync(this, sender);
         GestureRecognizers.Add(tapGesture);
     }
 
@@ -26,7 +19,8 @@ public class TouchableFrame : Border
 
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
-                                                                                          typeof(TouchableFrame),
+                                                                                          typeof(TouchableStackLayout),
+                                                                                          Color.Transparent,
                                                                                           propertyChanged: OnDefaultColorChanged);
 
     public Color NormalColor
@@ -37,7 +31,7 @@ public class TouchableFrame : Border
 
     private static void OnDefaultColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var ctrl = (TouchableFrame)bindable;
+        var ctrl = (TouchableStackLayout)bindable;
 
         ctrl.BackgroundColor = (Color)newValue;
     }
@@ -48,7 +42,7 @@ public class TouchableFrame : Border
 
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command),
                                                                                       typeof(ICommand),
-                                                                                      typeof(TouchableFrame));
+                                                                                      typeof(TouchableStackLayout));
 
     public ICommand Command
     {
@@ -62,7 +56,7 @@ public class TouchableFrame : Border
 
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter),
                                                                                                typeof(object),
-                                                                                               typeof(TouchableFrame));
+                                                                                               typeof(TouchableStackLayout));
 
     public object CommandParameter
     {
@@ -74,36 +68,11 @@ public class TouchableFrame : Border
 
     #endregion
 
-    #region Handlers
+    #region ITouchableLayout
 
-    private async void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
-    {
-        if (IsBusy)
-            return;
+    public bool IsBusy { get; set; }
 
-        IsBusy = true;
-        
-        var startColor = NormalColor.IsTransparent()
-                             ? ColorHelper.FindParentRealColor((View)sender)
-                             : NormalColor;
-
-        await this.ColorTo(ColorHelper.CalculatePressedColor(startColor), 150);
-        await Task.Delay(25);
-
-        if (NormalColor.IsTransparent())
-        {
-            await this.ColorTo(startColor, 50);
-            BackgroundColor = NormalColor;
-        }
-        else
-        {
-            await this.ColorTo(NormalColor, 50);
-        }
-
-        Command?.Execute(CommandParameter);
-
-        IsBusy = false;
-    }
+    public Task ColorTo(Color endColor, uint duration) => Extensions.ViewExtensions.ColorTo(this, endColor, duration);
 
     #endregion
 }

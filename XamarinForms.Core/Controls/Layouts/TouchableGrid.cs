@@ -1,21 +1,15 @@
-using Xamarin.CommunityToolkit.Extensions;
-using XamarinForms.Core.Extensions;
-using XamarinForms.Core.Helpers;
+using XamarinForms.Core.Controls.Layouts.Helpers;
 
-namespace XamarinForms.Core.Controls;
+namespace XamarinForms.Core.Controls.Layouts;
 
-public class TouchableContentView : ContentView
+public class TouchableGrid : Grid, ITouchableLayout
 {
-    #region Fields
-
-    protected bool IsBusy;
-    
-    #endregion
-    
-    public TouchableContentView()
+    public TouchableGrid()
     {
+        BackgroundColor = NormalColor;
+
         var tapGesture = new TapGestureRecognizer();
-        tapGesture.Tapped += TapGestureRecognizer_OnTapped;
+        tapGesture.Tapped += (sender, _) => TouchableLayoutHelper.ProcessTapAsync(this, sender);
         GestureRecognizers.Add(tapGesture);
     }
 
@@ -25,7 +19,7 @@ public class TouchableContentView : ContentView
 
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
-                                                                                          typeof(TouchableContentView),
+                                                                                          typeof(TouchableGrid),
                                                                                           propertyChanged: OnDefaultColorChanged);
 
     public Color NormalColor
@@ -36,7 +30,7 @@ public class TouchableContentView : ContentView
 
     private static void OnDefaultColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var ctrl = (TouchableContentView)bindable;
+        var ctrl = (TouchableGrid)bindable;
 
         ctrl.BackgroundColor = (Color)newValue;
     }
@@ -47,7 +41,7 @@ public class TouchableContentView : ContentView
 
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command),
                                                                                       typeof(ICommand),
-                                                                                      typeof(TouchableContentView));
+                                                                                      typeof(TouchableGrid));
 
     public ICommand Command
     {
@@ -61,7 +55,7 @@ public class TouchableContentView : ContentView
 
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter),
                                                                                                typeof(object),
-                                                                                               typeof(TouchableContentView));
+                                                                                               typeof(TouchableGrid));
 
     public object CommandParameter
     {
@@ -73,36 +67,11 @@ public class TouchableContentView : ContentView
 
     #endregion
 
-    #region Handlers
+    #region ITouchableLayout
 
-    private async void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
-    {
-        if (IsBusy)
-            return;
+    public bool IsBusy { get; set; }
 
-        IsBusy = true;
-        
-        var startColor = NormalColor.IsTransparent()
-                             ? ColorHelper.FindParentRealColor((View)sender)
-                             : NormalColor;
-
-        await this.ColorTo(ColorHelper.CalculatePressedColor(startColor), 150);
-        await Task.Delay(25);
-
-        if (NormalColor.IsTransparent())
-        {
-            await this.ColorTo(startColor, 50);
-            BackgroundColor = NormalColor;
-        }
-        else
-        {
-            await this.ColorTo(NormalColor, 50);
-        }
-        
-        Command?.Execute(CommandParameter);
-
-        IsBusy = false;
-    }
+    public Task ColorTo(Color endColor, uint duration) => Extensions.ViewExtensions.ColorTo(this, endColor, duration);
 
     #endregion
 }
