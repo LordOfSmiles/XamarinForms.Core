@@ -5,7 +5,26 @@ namespace XamarinForms.Core.Helpers;
 
 public static class PermissionHelper
 {
-    public static async Task<bool> AllowNotificationsAsync()
+    public static async Task<bool> IsNotificationsAllowedAsync()
+    {
+        bool hasPermission;
+
+        if (DeviceHelper.IsIos
+            || (DeviceHelper.IsAndroid && VersionHelper.IsEqualOrGreater(13)))
+        {
+            var permission = DependencyService.Get<IAllowNotificationsPermission>();
+            var status = await permission.CheckStatusAsync();
+            hasPermission = status == PermissionStatus.Granted;
+        }
+        else
+        {
+            hasPermission = true;
+        }
+
+        return hasPermission;
+    }
+    
+    public static async Task<bool> RequestNotificationsPermissionAsync()
     {
         bool hasPermission;
 
