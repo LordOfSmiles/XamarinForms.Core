@@ -27,7 +27,7 @@ public class CustomButton : TouchableFrame
 
         _lbl = new Label()
         {
-            FontSize = 16,
+            FontSize = DeviceHelper.OnPlatform(16, 15),
             HorizontalOptions = LayoutOptions.Center,
             VerticalOptions = LayoutOptions.Center,
             HorizontalTextAlignment = TextAlignment.Center,
