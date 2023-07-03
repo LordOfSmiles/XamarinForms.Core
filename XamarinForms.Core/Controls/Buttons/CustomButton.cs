@@ -11,34 +11,21 @@ public class CustomButton : TouchableFrame
 
     #endregion
 
-    public CustomButton()
+    protected CustomButton()
     {
         CornerRadius = 12;
 
-        if (DeviceHelper.IsIos)
-        {
-            Padding = new Thickness(16, 10);
-        }
-        else
-        {
-            Padding = new Thickness(16, 10);
-        }
-
+        Padding = new Thickness(16, 10);
 
         _lbl = new Label()
         {
-            FontSize = DeviceHelper.OnPlatform(16, 15),
+            FontSize = 16,
             HorizontalOptions = LayoutOptions.Center,
             VerticalOptions = LayoutOptions.Center,
             HorizontalTextAlignment = TextAlignment.Center,
             VerticalTextAlignment = TextAlignment.Center,
             FontAttributes = FontAttributes.Bold
         };
-
-        if (DeviceHelper.IsAndroid)
-        {
-            _lbl.TextTransform = TextTransform.Uppercase;
-        }
 
         Content = _lbl;
     }
