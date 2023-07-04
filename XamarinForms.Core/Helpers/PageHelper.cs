@@ -26,7 +26,7 @@ public static class PageHelper
 
             if (!page.On<iOS>().UsingSafeArea())
             {
-                bottom = 50;
+                bottom += (int)page.On<iOS>().SafeAreaInsets().Bottom;
             }
         }
 
