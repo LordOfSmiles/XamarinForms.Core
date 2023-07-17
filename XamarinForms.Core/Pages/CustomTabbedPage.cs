@@ -1,3 +1,4 @@
+using Xamarin.Core.Extensions;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -20,7 +21,7 @@ public abstract class CustomTabbedPage : TabbedPage
         Xamarin.Forms.PlatformConfiguration.AndroidSpecific.TabbedPage.SetOffscreenPageLimit(this, 1);
     }
 
-    protected override async void OnCurrentPageChanged()
+    protected override void OnCurrentPageChanged()
     {
         var pages = Children.ToArray();
         foreach (var page in pages)
@@ -35,7 +36,7 @@ public abstract class CustomTabbedPage : TabbedPage
                     try
                     {
                         var parameters = NavigationHelper.Get(page.GetType().Name);
-                        await tabbedViewModel.OnAppearingAsync(parameters);
+                        tabbedViewModel.OnAppearingAsync(parameters).FireAndForget();
                     }
                     catch
                     {

@@ -35,8 +35,13 @@
       <DependentUpon>TimePickerControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Selectors\SelectorControl.xaml.cs">
+      <DependentUpon>SelectorControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controls\Selectors\Helpers\" />
     <Folder Include="Infrastructure\Interfaces\" />
     <Folder Include="Controls\Cells\">
     </Folder>
