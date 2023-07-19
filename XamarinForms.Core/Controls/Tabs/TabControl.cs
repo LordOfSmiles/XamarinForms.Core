@@ -7,70 +7,70 @@ public sealed class TabControl : Grid
 {
     public TabControl()
     {
-        ColumnSpacing = 0;
+        ColumnSpacing = 8;
     }
-        
+
     #region Bindable Properties
-        
+
     #region ItemsSource
 
     public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource),
-        typeof(ObservableCollection<TabOption>),
-        typeof(TabControl),
-        new ObservableCollection<TabOption>(),
-        propertyChanged: OnItemsSourceChanged);
+                                                                                          typeof(ObservableCollection<TabOption>),
+                                                                                          typeof(TabControl),
+                                                                                          new ObservableCollection<TabOption>(),
+                                                                                          propertyChanged: OnItemsSourceChanged);
 
     public ObservableCollection<TabOption> ItemsSource
     {
         get => (ObservableCollection<TabOption>)GetValue(ItemsSourceProperty);
         set => SetValue(ItemsSourceProperty, value);
     }
-        
+
     private static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var ctrl = bindable as TabControl;
         if (ctrl == null)
             return;
 
-        var oldItems = (ObservableCollection<TabOption>) oldValue;
+        var oldItems = (ObservableCollection<TabOption>)oldValue;
         oldItems.CollectionChanged -= ctrl.NewValueINotifyCollectionChangedCollectionChanged;
 
-        var newItems = (ObservableCollection<TabOption>) newValue;
-            
+        var newItems = (ObservableCollection<TabOption>)newValue;
+
         newItems.CollectionChanged -= ctrl.NewValueINotifyCollectionChangedCollectionChanged;
         newItems.CollectionChanged += ctrl.NewValueINotifyCollectionChangedCollectionChanged;
-            
+
         ctrl.FillControl(newItems);
     }
-        
+
     #endregion
-        
+
     #region ItemTemplate
-        
+
     public static readonly BindableProperty ItemTemplateProperty = BindableProperty.Create(nameof(ItemTemplate),
-        typeof(DataTemplate), 
-        typeof(TabControl));
+                                                                                           typeof(DataTemplate),
+                                                                                           typeof(TabControl));
 
     public DataTemplate ItemTemplate
     {
         get => (DataTemplate)GetValue(ItemTemplateProperty);
         set => SetValue(ItemTemplateProperty, value);
     }
-        
+
     #endregion
-        
+
     #region SelectedIndex
 
     public static readonly BindableProperty SelectedIndexProperty = BindableProperty.Create(nameof(SelectedIndex),
-        typeof(int),
-        typeof(TabControl),
-        0,
-        BindingMode.TwoWay,
-        propertyChanged: OnSelectedIndexChanged);
+                                                                                            typeof(int),
+                                                                                            typeof(TabControl),
+                                                                                            0,
+                                                                                            BindingMode.TwoWay,
+                                                                                            propertyChanged: OnSelectedIndexChanged);
 
     public int SelectedIndex
     {
-        get => (int) GetValue(SelectedIndexProperty);
+        get => (int)GetValue(SelectedIndexProperty);
         set => SetValue(SelectedIndexProperty, value);
     }
 
@@ -80,25 +80,26 @@ public sealed class TabControl : Grid
         if (ctrl == null)
             return;
 
-        var index = (int) newValue;
+        var index = (int)newValue;
 
-        if (ctrl.ItemsSource != null && ctrl.ItemsSource.Count > index)
+        if (ctrl.ItemsSource != null
+            && ctrl.ItemsSource.Count > index)
         {
             foreach (var option in ctrl.ItemsSource.Where((x, i) => i != index))
             {
                 option.IsSelected = false;
             }
 
-            ctrl.ItemsSource[index].IsSelected = true;
+            ctrl.ItemsSource[index].TapCommand.Execute(null);
         }
     }
-        
+
     #endregion
-        
+
     #endregion
-        
+
     #region Handlers
-        
+
     private void OnTabOptionTap(object sender, EventArgs e)
     {
         var view = sender as View;
@@ -113,8 +114,9 @@ public sealed class TabControl : Grid
         {
             option.IsSelected = false;
         }
+
         tabOption.IsSelected = true;
-            
+
         var index = ItemsSource.IndexOf(tabOption);
         SelectedIndex = index;
     }
@@ -137,7 +139,6 @@ public sealed class TabControl : Grid
                     ColumnDefinitions.RemoveAt(indexToRemove);
                     Children.RemoveAt(indexToRemove);
                 }
-
             }
         }
 
@@ -147,7 +148,7 @@ public sealed class TabControl : Grid
             {
                 if (Children.All(prop => prop.BindingContext != item))
                 {
-                    var element = CreateNewItem((TabOption) item);
+                    var element = CreateNewItem((TabOption)item);
                     ColumnDefinitions.Add(new ColumnDefinition());
                     SetColumn(element, ColumnDefinitions.Count - 1);
                     Children.Add(element);
@@ -157,7 +158,7 @@ public sealed class TabControl : Grid
     }
 
     #endregion
-        
+
     #region Private Methods
 
     private void FillControl(IList<TabOption> items)
@@ -189,7 +190,7 @@ public sealed class TabControl : Grid
 
         SelectedIndex = 0;
     }
-        
+
     private View CreateNewItem(TabOption item)
     {
         View view = null;
@@ -197,13 +198,13 @@ public sealed class TabControl : Grid
         if (ItemTemplate != null)
         {
             var content = ItemTemplate.CreateContent();
-                
+
             view = content is View
-                ? content as View
-                : ((ViewCell) content).View;
+                       ? content as View
+                       : ((ViewCell)content).View;
 
             view.BindingContext = item;
-                
+
             var gesture = new TapGestureRecognizer();
             gesture.Tapped += OnTabOptionTap;
             view.GestureRecognizers.Add(gesture);

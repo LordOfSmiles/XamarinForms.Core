@@ -41,10 +41,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\Selectors\Helpers\" />
     <Folder Include="Infrastructure\Interfaces\" />
-    <Folder Include="Controls\Cells\">
-    </Folder>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Controls\ItemsControl.xaml" />

@@ -10,11 +10,4 @@ public abstract class GenericConverter : IValueConverter
     {
         throw new NotImplementedException();
     }
-
-    protected GenericConverter()
-    {
-        Current = this;
-    }
-
-    public static IValueConverter Current { get; private set; }
 }
