@@ -2,10 +2,14 @@ using XamarinForms.Core.Controls.Buttons;
 
 namespace XamarinForms.Core.Controls;
 
-public sealed class ButtonWithValidation : CustomButton
+public sealed class ButtonWithValidation : CustomButtonBase
 {
     public ButtonWithValidation()
     {
+        CornerRadius = 12;
+
+        Padding = new Thickness(16, 10);
+        
         NormalColor = ValidColor;
         TextColor = ValidTextColor;
     }
@@ -17,30 +21,12 @@ public sealed class ButtonWithValidation : CustomButton
     public static readonly BindableProperty IsValidProperty = BindableProperty.Create(nameof(IsValid),
                                                                                       typeof(bool),
                                                                                       typeof(ButtonWithValidation),
-                                                                                      true,
-                                                                                      propertyChanged: OnIsValidChanged);
+                                                                                      true);
 
     public bool IsValid
     {
         get => (bool)GetValue(IsValidProperty);
         set => SetValue(IsValidProperty, value);
-    }
-
-    private static void OnIsValidChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var ctrl = (ButtonWithValidation)bindable;
-
-        var isValid = (bool)newValue;
-        if (isValid)
-        {
-            ctrl.NormalColor = ctrl.ValidColor;
-            ctrl.TextColor = ctrl.ValidTextColor;
-        }
-        else
-        {
-            ctrl.NormalColor = ctrl.InvalidColor;
-            ctrl.TextColor = ctrl.InvalidTextColor;
-        }
     }
 
     #endregion
@@ -102,4 +88,23 @@ public sealed class ButtonWithValidation : CustomButton
     #endregion
 
     #endregion
+
+    protected override void OnPropertyChanged(string propertyName = null)
+    {
+        if (propertyName == nameof(IsValid))
+        {
+            if (IsValid)
+            {
+                NormalColor = ValidColor;
+                TextColor = ValidTextColor;
+            }
+            else
+            {
+                NormalColor = InvalidColor;
+                TextColor = InvalidTextColor;
+            }
+        }
+        
+        base.OnPropertyChanged(propertyName);
+    }
 }

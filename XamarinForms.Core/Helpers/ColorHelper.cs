@@ -15,6 +15,8 @@ public static class ColorHelper
                                                                 ? light
                                                                 : dark;
 
+    public static bool IsLightForTheEye(this Color c) => !c.IsDarkForTheEye();
+
     public static bool IsDarkForTheEye(this Color c)
     {
         return c.GetByteRed() * 0.299 + c.GetByteGreen() * 0.587 + c.GetByteBlue() * 0.114 <= 186.0;
@@ -27,16 +29,31 @@ public static class ColorHelper
         return c.GetByteRed() + c.GetByteGreen() + c.GetByteBlue() <= 381;
     }
 
-    public static Color CalculatePressedColor(Color backgroundColor, int koef = 20)
+    public static Color CalculatePressedColor(Color backgroundColor, int koef = 15)
     {
         var alpha = backgroundColor.GetByteAlpha();
         var red = backgroundColor.GetByteRed();
         var green = backgroundColor.GetByteGreen();
         var blue = backgroundColor.GetByteBlue();
 
-        var endColor = !backgroundColor.IsDark()
-                           ? Color.FromRgba(red - koef, green - koef, blue - koef, alpha)
-                           : Color.FromRgba(red + koef, green + koef, blue + koef, alpha);
+
+        Color endColor;
+
+        if (alpha == 255)
+        {
+            if (backgroundColor.IsLight())
+            {
+                endColor = Color.FromRgb(red - koef, green - koef, blue - koef);
+            }
+            else
+            {
+                endColor = Color.FromRgb(red + koef, green + koef, blue + koef);
+            }
+        }
+        else
+        {
+            endColor = Color.FromRgba(red, green, blue, alpha + koef);
+        }
 
         return endColor;
     }
