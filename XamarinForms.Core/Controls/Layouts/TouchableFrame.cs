@@ -11,7 +11,7 @@ public class TouchableFrame : Border,ITouchableLayout
         BackgroundColor = NormalColor;
 
         var tapGesture = new TapGestureRecognizer();
-        tapGesture.Tapped += (sender, _) => TouchableLayoutHelper.ProcessTapAsync(this);
+        tapGesture.Tapped += (_, _) => TouchableLayoutHelper.ProcessTapAsync(this);
         GestureRecognizers.Add(tapGesture);
     }
 

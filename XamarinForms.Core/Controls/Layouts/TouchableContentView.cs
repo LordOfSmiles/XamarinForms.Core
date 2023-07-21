@@ -10,7 +10,7 @@ public class TouchableContentView : ContentView,ITouchableLayout
     public TouchableContentView()
     {
         var tapGesture = new TapGestureRecognizer();
-        tapGesture.Tapped += (sender, _) => TouchableLayoutHelper.ProcessTapAsync(this);
+        tapGesture.Tapped += (_, _) => TouchableLayoutHelper.ProcessTapAsync(this);
         GestureRecognizers.Add(tapGesture);
     }
 
