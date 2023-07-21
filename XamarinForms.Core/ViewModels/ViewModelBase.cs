@@ -102,7 +102,7 @@ public abstract class ViewModelBase : NotifyObject
 
     #region Commands
 
-    public ICommand CloseCommand => new Command(OnClose);
+    public ICommand CloseCommand => CommandHelper.CreateCommand(OnClose);
 
     #endregion
 

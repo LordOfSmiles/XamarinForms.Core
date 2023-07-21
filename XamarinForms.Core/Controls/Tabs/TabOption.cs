@@ -1,4 +1,5 @@
 using Xamarin.Core.Models;
+using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Tabs;
 
@@ -9,7 +10,7 @@ public sealed class TabOption: NotifyObject
         Name = name;
     }
 
-    public ICommand TapCommand => new Command(OnTap);
+    public ICommand TapCommand => CommandHelper.CreateCommand(OnTap);
 
     private void OnTap()
     {

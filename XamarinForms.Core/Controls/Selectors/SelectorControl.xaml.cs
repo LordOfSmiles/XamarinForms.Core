@@ -1,3 +1,5 @@
+using XamarinForms.Core.Helpers;
+
 namespace XamarinForms.Core.Controls.Selectors;
 
 public partial class SelectorControl
@@ -12,7 +14,7 @@ public partial class SelectorControl
 
     #region Commands
 
-    private ICommand TapCommand => new Command(OnTap);
+    private ICommand TapCommand => CommandHelper.CreateCommand(OnTap);
 
     private void OnTap()
     {

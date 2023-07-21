@@ -1,4 +1,5 @@
 using XamarinForms.Core.Controls.Layouts;
+using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Pickers;
 
@@ -26,7 +27,7 @@ public abstract class PickerBase : TouchableGrid
 
     #region Commands
 
-    public ICommand OpenPickerCommand => new Command(OnOpenPicker);
+    public ICommand OpenPickerCommand => CommandHelper.CreateCommand(OnOpenPicker);
 
     protected virtual void OnOpenPicker()
     {
