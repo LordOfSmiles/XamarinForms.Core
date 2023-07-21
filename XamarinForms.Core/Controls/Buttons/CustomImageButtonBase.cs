@@ -4,11 +4,11 @@ namespace XamarinForms.Core.Controls.Buttons;
 
 public class CustomImageButtonBase : TouchableFrame
 {
-    protected Image Img { get; }
+    protected TintedImage Img { get; }
 
     protected CustomImageButtonBase()
     {
-        Img = new Image()
+        Img = new TintedImage()
         {
             WidthRequest = 24,
             HeightRequest = 24,
@@ -23,14 +23,14 @@ public class CustomImageButtonBase : TouchableFrame
 
     #region ImageSource
 
-    public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(nameof(Source),
+    public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source),
                                                                                           typeof(ImageSource),
                                                                                           typeof(CustomImageButtonBase));
 
     public ImageSource Source
     {
-        get => (ImageSource)GetValue(ImageSourceProperty);
-        set => SetValue(ImageSourceProperty, value);
+        get => (ImageSource)GetValue(SourceProperty);
+        set => SetValue(SourceProperty, value);
     }
 
     #endregion
@@ -59,7 +59,7 @@ public class CustomImageButtonBase : TouchableFrame
         }
         else if (propertyName == nameof(TintColor))
         {
-            IconTintColorEffect.SetTintColor(Img, TintColor);
+            Img.TintColor = TintColor;
         }
 
         base.OnPropertyChanged(propertyName);

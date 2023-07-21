@@ -1,6 +1,6 @@
 namespace XamarinForms.Core.Controls.Selectors;
 
-public sealed class SelectorImage:Image
+public sealed class SelectorImage:TintedImage
 {
     public SelectorImage()
     {
@@ -100,7 +100,7 @@ public sealed class SelectorImage:Image
             color = DisabledColor;
         }
 
-        IconTintColorEffect.SetTintColor(this, color);
+        this.TintColor = color;
     }
 
     #endregion

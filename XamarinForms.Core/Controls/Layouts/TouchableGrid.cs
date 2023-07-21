@@ -9,7 +9,7 @@ public class TouchableGrid : Grid, ITouchableLayout
         BackgroundColor = NormalColor;
 
         var tapGesture = new TapGestureRecognizer();
-        tapGesture.Tapped += (sender, _) => TouchableLayoutHelper.ProcessTapAsync(this, sender);
+        tapGesture.Tapped += (sender, _) => TouchableLayoutHelper.ProcessTapAsync(this);
         GestureRecognizers.Add(tapGesture);
     }
 
