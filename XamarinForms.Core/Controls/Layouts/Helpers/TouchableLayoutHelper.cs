@@ -1,3 +1,4 @@
+using XamarinForms.Core.Extensions;
 using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Layouts.Helpers;
@@ -10,15 +11,26 @@ public static class TouchableLayoutHelper
             return;
 
         layout.IsBusy = true;
+
+        var view = (View)layout;
         
-        var startColor = layout.NormalColor;
+        //var startColor = layout.NormalColor;
+
+        var startColor = layout.NormalColor.IsTransparent()
+                             ? ColorHelper.FindParentRealColor(view)
+                             : layout.NormalColor;
 
         var endColor = ColorHelper.CalculatePressedColor(startColor);
-        await layout.ColorTo(endColor, 150);
+        await view.ColorTo(endColor, 150);
         
         await Task.Delay(25);
         
-        await layout.ColorTo(startColor, 50);
+        await view.ColorTo(startColor, 50);
+
+        if (layout.NormalColor.IsTransparent())
+        {
+            layout.BackgroundColor = Color.Transparent;
+        }
 
         layout.Command?.Execute(layout.CommandParameter);
 

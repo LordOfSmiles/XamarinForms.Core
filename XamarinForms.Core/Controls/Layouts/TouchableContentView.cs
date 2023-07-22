@@ -1,7 +1,6 @@
 using XamarinForms.Core.Controls.Layouts.Helpers;
 using XamarinForms.Core.Extensions;
 using XamarinForms.Core.Helpers;
-using ViewExtensions = XamarinForms.Core.Extensions.ViewExtensions;
 
 namespace XamarinForms.Core.Controls.Layouts;
 
@@ -71,8 +70,6 @@ public class TouchableContentView : ContentView,ITouchableLayout
     #region ITouchableLayout
 
     public bool IsBusy { get; set; }
-    
-    public Task ColorTo(Color endColor, uint duration) => ViewExtensions.ColorTo(this, endColor, duration);
 
     #endregion
 }

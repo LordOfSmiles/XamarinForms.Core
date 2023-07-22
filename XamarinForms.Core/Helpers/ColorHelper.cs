@@ -52,7 +52,16 @@ public static class ColorHelper
         }
         else
         {
-            endColor = Color.FromRgba(red, green, blue, alpha + koef);
+            var color = new Color(red, green, blue);
+            
+            if (color.IsLight())
+            {
+                endColor = Color.FromRgba(red, green, blue, alpha - koef);
+            }
+            else
+            {
+                endColor = Color.FromRgba(red, green, blue, alpha + koef);
+            }
         }
 
         return endColor;

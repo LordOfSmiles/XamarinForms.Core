@@ -71,7 +71,5 @@ public class TouchableGrid : Grid, ITouchableLayout
 
     public bool IsBusy { get; set; }
 
-    public Task ColorTo(Color endColor, uint duration) => Extensions.ViewExtensions.ColorTo(this, endColor, duration);
-
     #endregion
 }
