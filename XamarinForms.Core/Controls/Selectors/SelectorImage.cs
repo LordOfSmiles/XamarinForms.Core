@@ -1,11 +1,9 @@
 namespace XamarinForms.Core.Controls.Selectors;
 
-public sealed class SelectorImage:TintedImage
+public sealed class SelectorImage : TintedImage
 {
     public SelectorImage()
-    {
-        
-    }
+    { }
 
     #region Bindable Proeprties
 
@@ -71,11 +69,11 @@ public sealed class SelectorImage:TintedImage
 
     protected override void OnPropertyChanged(string propertyName = null)
     {
-        if (propertyName == IsSelectedProperty.PropertyName
-            || propertyName == SelectedColorProperty.PropertyName
-            || propertyName == UnselectedColorProperty.PropertyName
-            || propertyName == DisabledColorProperty.PropertyName
-            || propertyName == IsEnabledProperty.PropertyName)
+        if (propertyName is nameof(IsSelected)
+                            or nameof(SelectedColor)
+                            or nameof(UnselectedColor)
+                            or nameof(DisabledColor)
+                            or nameof(IsEnabled))
         {
             SetColors();
         }

@@ -146,21 +146,15 @@ public interface IDbRepositoryBaseOld<T>
     where T : DbEntity_Old, new()
 {
     void AddOrUpdate(T item);
-
     void AddOrUpdate(IEnumerable<T> items);
 
     void Delete();
-
     void Delete(int primaryKey);
-
     void Delete(Expression<Func<T, bool>> predicate);
 
     T Find(object key);
-
     T Find(Expression<Func<T, bool>> predicate);
-
     T FirstOrDefault();
-
     T LastOrDefault();
 
     IReadOnlyList<T> All();
