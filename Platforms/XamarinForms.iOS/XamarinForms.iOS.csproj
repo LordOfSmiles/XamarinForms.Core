@@ -78,6 +78,7 @@
     <Compile Include="Extensions\ImageSourceExtensions.cs" />
     <Compile Include="Extensions\UIViewControllerExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Renderers\BorderlessTimePickerRenderer.cs" />
     <Compile Include="Renderers\NoBounceScrollViewRenderer.cs" />
     <Compile Include="Renderers\PageWithLeftToolbarButtonsRenderer.cs" />
     <Compile Include="Renderers\SegmentedControlRenderer.cs" />

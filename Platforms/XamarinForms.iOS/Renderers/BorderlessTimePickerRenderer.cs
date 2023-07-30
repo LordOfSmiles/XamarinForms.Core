@@ -1,13 +1,12 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using Xamarin.Forms.Platform.iOS;
 using XamarinForms.Core.Controls;
 using XamarinForms.Core.Helpers;
 
-
 namespace XamarinForms.iOS.Renderers;
 
-public sealed class BorderlessDatePickerRenderer : DatePickerRenderer
+public sealed class BorderlessTimePickerRenderer : TimePickerRenderer
 {
     protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
@@ -19,12 +18,12 @@ public sealed class BorderlessDatePickerRenderer : DatePickerRenderer
             Control.BorderStyle = UITextBorderStyle.None;
 
             var picker = (UIDatePicker)Control.InputView;
-            if (VersionHelper.IsEqualOrGreater(13, 4)
-                && picker != null)
-            {
-                picker.PreferredDatePickerStyle = PreferredStyle ?? UIDatePickerStyle.Wheels;
-            }
 
+            if (VersionHelper.IsEqualOrGreater(13, 4) && picker != null)
+            {
+                picker.PreferredDatePickerStyle = UIDatePickerStyle.Wheels;
+            }
+            
             var toolbar = Control.InputAccessoryView as UIToolbar;
             if (toolbar?.Items != null)
             {
@@ -40,30 +39,24 @@ public sealed class BorderlessDatePickerRenderer : DatePickerRenderer
         }
     }
 
-    protected override void OnElementChanged(ElementChangedEventArgs<DatePicker> e)
+    protected override void OnElementChanged(ElementChangedEventArgs<TimePicker> e)
     {
-        if (e.NewElement is ExtendedDatePicker datePickerElement)
+        if (e.NewElement is ExtendedTimePicker timePickerElement)
         {
-            _datePickerElement = datePickerElement;
+            _timePickerElement = timePickerElement;
         }
-
+        
         base.OnElementChanged(e);
+    }
+
+    private void OnDoneButtonClicked(object sender, EventArgs e)
+    {
+        _timePickerElement?.RaiseDoneEvent();
     }
 
     #region Fields
 
-    private ExtendedDatePicker _datePickerElement;
+    private ExtendedTimePicker _timePickerElement;
 
     #endregion
-
-    #region Properties
-
-    public static UIDatePickerStyle? PreferredStyle { get; set; }
-
-    #endregion
-
-    private void OnDoneButtonClicked(object sender, EventArgs e)
-    {
-        _datePickerElement?.RaiseDoneEvent();
-    }
 }

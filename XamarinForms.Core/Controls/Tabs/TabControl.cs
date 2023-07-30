@@ -90,7 +90,7 @@ public sealed class TabControl : Grid
                 option.IsSelected = false;
             }
 
-            ctrl.ItemsSource[index].TapCommand.Execute(null);
+            ctrl.ItemsSource[index].IsSelected = true;
         }
     }
 
@@ -110,7 +110,7 @@ public sealed class TabControl : Grid
         if (tabOption == null)
             return;
 
-        foreach (var option in ItemsSource)
+        foreach (var option in ItemsSource.Where(x => x != tabOption))
         {
             option.IsSelected = false;
         }
@@ -166,13 +166,10 @@ public sealed class TabControl : Grid
         ColumnDefinitions.Clear();
         Children.Clear();
 
-        foreach (var tabOption in items)
-        {
-            ColumnDefinitions.Add(new ColumnDefinition());
-        }
-
         for (var i = 0; i < items.Count; i++)
         {
+            ColumnDefinitions.Add(new ColumnDefinition());
+
             var newItem = CreateNewItem(items[i]);
 
             if (newItem != null)
