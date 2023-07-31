@@ -49,7 +49,7 @@ public class SelectableItem : NotifyObject, ISelectable, IUiListItem
 public sealed class ContextMenuSelectableItem : SelectableItem
 {
     public ContextMenuSelectableItem(string text, bool isDestruction = false)
-        : base(text, false)
+        : base(text)
     {
         IsDestruction = isDestruction;
     }

@@ -2,7 +2,7 @@ using XamarinForms.Core.Controls.Layouts;
 
 namespace XamarinForms.Core.Controls.Selectors;
 
-public sealed class SelectorLayout : TouchableFrame
+public sealed class SelectorLayout : FrameWithTap
 {
     public SelectorLayout()
     {

@@ -3,7 +3,7 @@ using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Pickers;
 
-public abstract class PickerBase : TouchableGrid
+public abstract class PickerBase : GridWithTap
 {
     public void InvokeFocusedEvent()
     {

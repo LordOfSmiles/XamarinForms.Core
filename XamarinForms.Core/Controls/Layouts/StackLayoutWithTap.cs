@@ -2,9 +2,9 @@ using XamarinForms.Core.Controls.Layouts.Helpers;
 
 namespace XamarinForms.Core.Controls.Layouts;
 
-public class TouchableStackLayout : StackLayout, ITouchableLayout
+public class StackLayoutWithTap : StackLayout, ITouchableLayout
 {
-    protected TouchableStackLayout()
+    protected StackLayoutWithTap()
     {
         BackgroundColor = NormalColor;
 
@@ -19,7 +19,7 @@ public class TouchableStackLayout : StackLayout, ITouchableLayout
 
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
-                                                                                          typeof(TouchableStackLayout),
+                                                                                          typeof(StackLayoutWithTap),
                                                                                           Color.Transparent,
                                                                                           propertyChanged: OnDefaultColorChanged);
 
@@ -31,7 +31,7 @@ public class TouchableStackLayout : StackLayout, ITouchableLayout
 
     private static void OnDefaultColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var ctrl = (TouchableStackLayout)bindable;
+        var ctrl = (StackLayoutWithTap)bindable;
 
         ctrl.BackgroundColor = (Color)newValue;
     }
@@ -42,7 +42,7 @@ public class TouchableStackLayout : StackLayout, ITouchableLayout
 
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command),
                                                                                       typeof(ICommand),
-                                                                                      typeof(TouchableStackLayout));
+                                                                                      typeof(StackLayoutWithTap));
 
     public ICommand Command
     {
@@ -56,7 +56,7 @@ public class TouchableStackLayout : StackLayout, ITouchableLayout
 
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter),
                                                                                                typeof(object),
-                                                                                               typeof(TouchableStackLayout));
+                                                                                               typeof(StackLayoutWithTap));
 
     public object CommandParameter
     {

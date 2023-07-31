@@ -3,7 +3,7 @@ using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Buttons;
 
-public abstract class CustomButtonBase : TouchableFrame
+public abstract class CustomButtonBase : FrameWithTap
 {
     #region Fields
 

@@ -4,9 +4,9 @@ using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Layouts;
 
-public class TouchableContentView : ContentView,ITouchableLayout
+public class ContentViewWithTap : ContentView,ITouchableLayout
 {
-    public TouchableContentView()
+    public ContentViewWithTap()
     {
         var tapGesture = new TapGestureRecognizer();
         tapGesture.Tapped += (_, _) => TouchableLayoutHelper.ProcessTapAsync(this);
@@ -19,7 +19,7 @@ public class TouchableContentView : ContentView,ITouchableLayout
 
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
-                                                                                          typeof(TouchableContentView),
+                                                                                          typeof(ContentViewWithTap),
                                                                                           propertyChanged: OnDefaultColorChanged);
 
     public Color NormalColor
@@ -30,7 +30,7 @@ public class TouchableContentView : ContentView,ITouchableLayout
 
     private static void OnDefaultColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var ctrl = (TouchableContentView)bindable;
+        var ctrl = (ContentViewWithTap)bindable;
 
         ctrl.BackgroundColor = (Color)newValue;
     }
@@ -41,7 +41,7 @@ public class TouchableContentView : ContentView,ITouchableLayout
 
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command),
                                                                                       typeof(ICommand),
-                                                                                      typeof(TouchableContentView));
+                                                                                      typeof(ContentViewWithTap));
 
     public ICommand Command
     {
@@ -55,7 +55,7 @@ public class TouchableContentView : ContentView,ITouchableLayout
 
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter),
                                                                                                typeof(object),
-                                                                                               typeof(TouchableContentView));
+                                                                                               typeof(ContentViewWithTap));
 
     public object CommandParameter
     {

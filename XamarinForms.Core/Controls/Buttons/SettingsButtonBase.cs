@@ -3,25 +3,8 @@ using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Buttons;
 
-public abstract class SettingsButtonBase : TouchableGrid
+public abstract class SettingsButtonBase : GridWithTap
 {
-    #region Fields
-
-    protected Label Lbl { get; }
-
-    #endregion
-
-    protected SettingsButtonBase()
-    {
-        Padding = new Thickness(12);
-
-        Lbl = new Label()
-        {
-            VerticalOptions = LayoutOptions.Center,
-            FontSize = FontSize
-        };
-    }
-
     #region Bindable Properties
 
     #region Text
@@ -54,19 +37,4 @@ public abstract class SettingsButtonBase : TouchableGrid
     #endregion
 
     #endregion
-
-    protected override void OnPropertyChanged(string propertyName = null)
-    {
-        switch (propertyName)
-        {
-            case nameof(Text):
-                Lbl.Text = Text;
-                break;
-            case nameof(FontSize):
-                Lbl.FontSize = FontSize;
-                break;
-        }
-
-        base.OnPropertyChanged(propertyName);
-    }
 }

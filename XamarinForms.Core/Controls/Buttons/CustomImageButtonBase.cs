@@ -2,16 +2,16 @@ using XamarinForms.Core.Controls.Layouts;
 
 namespace XamarinForms.Core.Controls.Buttons;
 
-public class CustomImageButtonBase : TouchableFrame
+public class CustomImageButtonBase : FrameWithTap
 {
-    protected TintedImage Img { get; }
+    private TintedImage Img { get; }
 
     protected CustomImageButtonBase()
     {
         Img = new TintedImage()
         {
-            WidthRequest = 24,
-            HeightRequest = 24,
+            WidthRequest = ImageWidth,
+            HeightRequest = ImageHeight,
             VerticalOptions = LayoutOptions.Center,
             HorizontalOptions = LayoutOptions.Center
         };
@@ -24,13 +24,43 @@ public class CustomImageButtonBase : TouchableFrame
     #region ImageSource
 
     public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source),
-                                                                                          typeof(ImageSource),
-                                                                                          typeof(CustomImageButtonBase));
+                                                                                     typeof(ImageSource),
+                                                                                     typeof(CustomImageButtonBase));
 
     public ImageSource Source
     {
         get => (ImageSource)GetValue(SourceProperty);
         set => SetValue(SourceProperty, value);
+    }
+
+    #endregion
+
+    #region ImageWidth
+
+    public static readonly BindableProperty ImageWidthProperty = BindableProperty.Create(nameof(ImageWidth),
+                                                                                         typeof(double),
+                                                                                         typeof(CustomImageButtonBase),
+                                                                                         24.0);
+
+    public double ImageWidth
+    {
+        get => (double)GetValue(ImageWidthProperty);
+        set => SetValue(ImageWidthProperty, value);
+    }
+
+    #endregion
+
+    #region ImageHeight
+
+    public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(nameof(ImageHeight),
+                                                                                          typeof(double),
+                                                                                          typeof(CustomImageButtonBase),
+                                                                                          24.0);
+
+    public double ImageHeight
+    {
+        get => (double)GetValue(ImageHeightProperty);
+        set => SetValue(ImageHeightProperty, value);
     }
 
     #endregion
@@ -60,6 +90,12 @@ public class CustomImageButtonBase : TouchableFrame
                 break;
             case nameof(TintColor):
                 Img.TintColor = TintColor;
+                break;
+            case nameof(ImageWidth):
+                Img.WidthRequest = ImageWidth;
+                break;
+            case nameof(ImageHeight):
+                Img.HeightRequest = ImageHeight;
                 break;
         }
 

@@ -2,9 +2,9 @@ using XamarinForms.Core.Controls.Layouts.Helpers;
 
 namespace XamarinForms.Core.Controls.Layouts;
 
-public class TouchableGrid : Grid, ITouchableLayout
+public class GridWithTap : Grid, ITouchableLayout
 {
-    public TouchableGrid()
+    public GridWithTap()
     {
         BackgroundColor = NormalColor;
 
@@ -19,7 +19,7 @@ public class TouchableGrid : Grid, ITouchableLayout
 
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
-                                                                                          typeof(TouchableGrid),
+                                                                                          typeof(GridWithTap),
                                                                                           propertyChanged: OnDefaultColorChanged);
 
     public Color NormalColor
@@ -30,7 +30,7 @@ public class TouchableGrid : Grid, ITouchableLayout
 
     private static void OnDefaultColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var ctrl = (TouchableGrid)bindable;
+        var ctrl = (GridWithTap)bindable;
 
         ctrl.BackgroundColor = (Color)newValue;
     }
@@ -41,7 +41,7 @@ public class TouchableGrid : Grid, ITouchableLayout
 
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command),
                                                                                       typeof(ICommand),
-                                                                                      typeof(TouchableGrid));
+                                                                                      typeof(GridWithTap));
 
     public ICommand Command
     {
@@ -55,7 +55,7 @@ public class TouchableGrid : Grid, ITouchableLayout
 
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter),
                                                                                                typeof(object),
-                                                                                               typeof(TouchableGrid));
+                                                                                               typeof(GridWithTap));
 
     public object CommandParameter
     {

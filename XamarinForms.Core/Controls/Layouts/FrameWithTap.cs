@@ -4,9 +4,9 @@ using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Layouts;
 
-public class TouchableFrame : Border,ITouchableLayout
+public class FrameWithTap : Border,ITouchableLayout
 {
-    public TouchableFrame()
+    public FrameWithTap()
     {
         BackgroundColor = NormalColor;
 
@@ -21,7 +21,7 @@ public class TouchableFrame : Border,ITouchableLayout
 
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
-                                                                                          typeof(TouchableFrame),
+                                                                                          typeof(FrameWithTap),
                                                                                           propertyChanged: OnDefaultColorChanged);
 
     public Color NormalColor
@@ -32,7 +32,7 @@ public class TouchableFrame : Border,ITouchableLayout
 
     private static void OnDefaultColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var ctrl = (TouchableFrame)bindable;
+        var ctrl = (FrameWithTap)bindable;
 
         ctrl.BackgroundColor = (Color)newValue;
     }
@@ -43,7 +43,7 @@ public class TouchableFrame : Border,ITouchableLayout
 
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command),
                                                                                       typeof(ICommand),
-                                                                                      typeof(TouchableFrame));
+                                                                                      typeof(FrameWithTap));
 
     public ICommand Command
     {
@@ -57,7 +57,7 @@ public class TouchableFrame : Border,ITouchableLayout
 
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter),
                                                                                                typeof(object),
-                                                                                               typeof(TouchableFrame));
+                                                                                               typeof(FrameWithTap));
 
     public object CommandParameter
     {
