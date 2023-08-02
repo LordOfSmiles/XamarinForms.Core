@@ -14,7 +14,7 @@ public partial class SelectorControl
 
     #region Commands
 
-    private ICommand TapCommand => CommandHelper.CreateCommand(OnTap);
+    private ICommand TapCommand => CommandHelper.Create(OnTap);
 
     private void OnTap()
     {

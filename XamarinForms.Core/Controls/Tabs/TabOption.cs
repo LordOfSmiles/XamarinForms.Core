@@ -10,7 +10,7 @@ public sealed class TabOption: NotifyObject
         Name = name;
     }
 
-    public ICommand TapCommand => CommandHelper.CreateCommand(OnTap);
+    public ICommand TapCommand => CommandHelper.Create(OnTap);
 
     private void OnTap()
     {

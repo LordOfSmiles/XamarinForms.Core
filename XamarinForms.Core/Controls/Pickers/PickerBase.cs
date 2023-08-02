@@ -17,17 +17,12 @@ public abstract class PickerBase : GridWithTap
     
     protected PickerBase()
     {
-        var gesture = new TapGestureRecognizer()
-        {
-            Command = OpenPickerCommand
-        };
-
-        GestureRecognizers.Add(gesture);
+        Command = OpenPickerCommand;
     }
 
     #region Commands
 
-    public ICommand OpenPickerCommand => CommandHelper.CreateCommand(OnOpenPicker);
+    public ICommand OpenPickerCommand => CommandHelper.Create(OnOpenPicker);
 
     protected virtual void OnOpenPicker()
     {
