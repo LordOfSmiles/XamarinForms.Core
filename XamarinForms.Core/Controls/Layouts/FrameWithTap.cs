@@ -8,11 +8,12 @@ public class FrameWithTap : Border,ITouchableLayout
 {
     public FrameWithTap()
     {
-        BackgroundColor = NormalColor;
-
         var tapGesture = new TapGestureRecognizer();
         tapGesture.Tapped += (_, _) => TouchableLayoutHelper.ProcessTapAsync(this);
         GestureRecognizers.Add(tapGesture);
+        
+        BackgroundColor = NormalColor;
+
     }
 
     #region Bindable Properties
@@ -22,6 +23,7 @@ public class FrameWithTap : Border,ITouchableLayout
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
                                                                                           typeof(FrameWithTap),
+                                                                                          Color.Transparent,
                                                                                           propertyChanged: OnDefaultColorChanged);
 
     public Color NormalColor

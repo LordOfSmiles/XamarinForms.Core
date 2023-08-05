@@ -6,11 +6,11 @@ public class StackLayoutWithTap : StackLayout, ITouchableLayout
 {
     protected StackLayoutWithTap()
     {
-        BackgroundColor = NormalColor;
-
         var tapGesture = new TapGestureRecognizer();
         tapGesture.Tapped += (_, _) => TouchableLayoutHelper.ProcessTapAsync(this);
         GestureRecognizers.Add(tapGesture);
+        
+        BackgroundColor = NormalColor;
     }
 
     #region Bindable Properties

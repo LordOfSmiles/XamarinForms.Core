@@ -10,7 +10,7 @@ using XamarinForms.Core.ViewModels;
 
 namespace XamarinForms.Core.Pages;
 
-public class ShellContentPage : ContentPage
+public abstract class ShellContentPage : ContentPage
 {
     protected override void OnAppearing()
     {
@@ -68,5 +68,7 @@ public class ShellContentPage : ContentPage
     protected ShellContentPage()
     {
         On<iOS>().SetUseSafeArea(true);
+
+        Shell.SetNavBarHasShadow(this, false);
     }
 }

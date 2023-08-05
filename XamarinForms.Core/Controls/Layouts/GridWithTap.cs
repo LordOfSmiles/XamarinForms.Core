@@ -6,11 +6,11 @@ public class GridWithTap : Grid, ITouchableLayout
 {
     public GridWithTap()
     {
-        BackgroundColor = NormalColor;
-
         var tapGesture = new TapGestureRecognizer();
         tapGesture.Tapped += (_, _) => TouchableLayoutHelper.ProcessTapAsync(this);
         GestureRecognizers.Add(tapGesture);
+        
+        BackgroundColor = NormalColor;
     }
 
     #region Bindable Properties
@@ -20,6 +20,7 @@ public class GridWithTap : Grid, ITouchableLayout
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
                                                                                           typeof(GridWithTap),
+                                                                                          Color.Transparent,
                                                                                           propertyChanged: OnDefaultColorChanged);
 
     public Color NormalColor
