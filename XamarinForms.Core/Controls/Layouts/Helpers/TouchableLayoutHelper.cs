@@ -7,6 +7,9 @@ public static class TouchableLayoutHelper
 {
     public static async void ProcessTapAsync(ITouchableLayout layout)
     {
+        if (layout == null)
+            return;
+        
         if (layout.IsBusy)
             return;
 
