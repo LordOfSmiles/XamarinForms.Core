@@ -2,10 +2,10 @@ using System;
 using Android.Content;
 using Android.OS;
 using Android.Provider;
-using Xamarin.Forms;
+using Xamarin.Essentials;
 using XamarinForms.Core.Helpers;
 using XamarinForms.Core.PlatformServices;
-using XamarinForms.Droid.PlatformServices;
+using Uri = Android.Net.Uri;
 
 namespace XamarinForms.Droid.PlatformServices;
 
@@ -18,33 +18,43 @@ public sealed class ExtendedDevicePlatformService:IExtendedDevicePlatformService
         if (VersionHelper.IsEqualOrGreater(6))
         {
             var intent = new Intent();
-            intent.SetAction(Settings.ActionIgnoreBatteryOptimizationSettings);
-            intent.SetFlags(ActivityFlags.NewTask);
+            if (IsIgnoredPowerOptimizations)
+            {
+                intent.SetAction(Settings.ActionIgnoreBatteryOptimizationSettings);
+            }
+            else
+            {
+                intent.SetAction(Settings.ActionRequestIgnoreBatteryOptimizations);
+                intent.SetData(Uri.Parse("package:" + AppInfo.PackageName));
+            }
 
             try
             {
-                Xamarin.Essentials.Platform.AppContext.StartActivity(intent);
+                Platform.CurrentActivity.StartActivity(intent);
             }
             catch
             {
-                //
+              //
             }
         }
     }
 
-    public bool IsIgnoredPowerOptimizations()
+    public bool IsIgnoredPowerOptimizations
     {
-        var result = true;
-
-        if (VersionHelper.IsEqualOrGreater(6))
+        get
         {
-            var powerManager = (PowerManager)Xamarin.Essentials.Platform.AppContext.GetSystemService(Context.PowerService);
-            if (powerManager != null)
-            {
-                result = powerManager.IsIgnoringBatteryOptimizations(Xamarin.Essentials.AppInfo.PackageName);
-            }
-        }
+            var result = true;
 
-        return result;
+            if (VersionHelper.IsEqualOrGreater(6))
+            {
+                var powerManager = (PowerManager)Platform.AppContext.GetSystemService(Context.PowerService);
+                if (powerManager != null)
+                {
+                    result = powerManager.IsIgnoringBatteryOptimizations(AppInfo.PackageName);
+                }
+            }
+
+            return result;
+        }
     }
 }

@@ -77,4 +77,38 @@ public static class TimeSpanHelper
         var result = roundedEnd - roundedStart;
         return result;
     }
+
+    public static bool IsLess(DateTime start, DateTime? end, TimeSpanHelperEnum comparison, int count)
+    {
+        var duration = GetDuration(start, end);
+
+        if (comparison == TimeSpanHelperEnum.Hours)
+        {
+            return duration.TotalHours < count;
+        }
+        else
+        {
+            return duration.TotalDays < count;
+        }
+    }
+
+    public static bool IsGreat(DateTime start, DateTime? end, TimeSpanHelperEnum comparison, int count)
+    {
+        var duration = GetDuration(start, end);
+
+        if (comparison == TimeSpanHelperEnum.Hours)
+        {
+            return duration.TotalHours > count;
+        }
+        else
+        {
+            return duration.TotalDays > count;
+        }
+    }
+}
+
+public enum TimeSpanHelperEnum
+{
+    Hours,
+    Days
 }

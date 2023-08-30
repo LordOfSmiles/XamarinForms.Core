@@ -41,10 +41,7 @@ public sealed class ExtendedDevicePlatformService:IExtendedDevicePlatformService
         
     }
 
-    public bool IsIgnoredPowerOptimizations()
-    {
-        return false;
-    }
+    public bool IsIgnoredPowerOptimizations => false;
 
     #region Private Methods
 

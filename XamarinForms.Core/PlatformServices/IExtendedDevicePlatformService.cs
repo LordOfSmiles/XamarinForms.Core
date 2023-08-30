@@ -6,5 +6,5 @@ public interface IExtendedDevicePlatformService
     
     void GoToPowerSettings();
 
-    bool IsIgnoredPowerOptimizations();
+    bool IsIgnoredPowerOptimizations { get; }
 }
