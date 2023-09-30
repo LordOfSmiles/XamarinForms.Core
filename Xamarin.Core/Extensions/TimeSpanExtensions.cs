@@ -26,4 +26,8 @@ public static class TimeSpanExtensions
     {
         return timeSpan <= TimeSpan.Zero;
     }
+
+    public static bool HasHours(this TimeSpan timeSpan, int hours = 0) => (int)timeSpan.TotalHours > hours;
+
+    public static bool HasMinutes(this TimeSpan timeSpan, int minutes = 0) => (int)timeSpan.TotalMinutes > minutes;
 }

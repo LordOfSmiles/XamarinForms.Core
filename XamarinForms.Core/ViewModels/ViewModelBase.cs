@@ -1,6 +1,4 @@
-﻿using Xamarin.Core.Infrastructure.Container;
-using Xamarin.Core.Interfaces;
-using Xamarin.Core.Models;
+﻿using Xamarin.Core.Models;
 using Xamarin.Essentials;
 using XamarinForms.Core.Helpers;
 using XamarinForms.Core.PlatformServices;
@@ -72,21 +70,11 @@ public abstract class ViewModelBase : NotifyObject
     protected bool IsInitCompleted;
 
     #endregion
-
-    #region Dependencies
-
-    protected readonly IAnalyticsService AnalyticsService;
-    protected readonly ICrashlyticsService CrashlyticsService;
-
-    #endregion
-
+    
     #region Constructor
 
     protected ViewModelBase()
     {
-        AnalyticsService = FastContainer.TryResolve<IAnalyticsService>();
-        CrashlyticsService = FastContainer.TryResolve<ICrashlyticsService>();
-
         if (DeviceHelper.IsTablet)
         {
             DeviceDisplay.MainDisplayInfoChanged += OnMainDisplayInfoChanged;

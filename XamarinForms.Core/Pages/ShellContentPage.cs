@@ -1,5 +1,5 @@
 using Xamarin.Core.Extensions;
-using Xamarin.Core.Infrastructure.Container;
+
 using Xamarin.Core.Interfaces;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -26,8 +26,8 @@ public abstract class ShellContentPage : ContentPage
             var from = NavigationHelper.LastPage;
             if (from != null)
             {
-                var analyticsService = FastContainer.TryResolve<IAnalyticsService>();
-                analyticsService?.OnNavigation(from.Name, currentType.Name);
+                // var analyticsService = FastContainer.TryResolve<IAnalyticsService>();
+                // analyticsService?.OnNavigation(from.Name, currentType.Name);
             }
 
             NavigationHelper.LastPage = currentType;
