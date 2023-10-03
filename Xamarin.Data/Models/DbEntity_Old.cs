@@ -19,4 +19,6 @@ public abstract class DbEntity : ISqliteEntity
 public interface ISqliteEntity
 {
     public int DbId { get; }
+    
+    
 }

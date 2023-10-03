@@ -25,12 +25,12 @@ public static class SqliteWriter
         }
     }
 
-    public static void AddOrUpdate<TDb, TDto>(SQLiteConnection db, TDto dto, Func<TDto, TDb> toDb)
+    public static TDto AddOrUpdate<TDb, TDto>(SQLiteConnection db, TDto dto, Func<TDto, TDb> toDb, Func<TDb, TDto> toDto)
         where TDb : ISqliteEntity
         where TDto : class
     {
         if (dto == null)
-            return;
+            return null;
 
         var dbItem = toDb(dto);
 
@@ -49,6 +49,8 @@ public static class SqliteWriter
         {
             //
         }
+
+        return toDto(dbItem);
     }
 
     public static void AddOrUpdate<TDb>(SQLiteConnection db, IEnumerable<TDb> items)
@@ -60,13 +62,13 @@ public static class SqliteWriter
         }
     }
 
-    public static void AddOrUpdate<TDb, TDto>(SQLiteConnection db, IEnumerable<TDto> items, Func<TDto, TDb> toDb)
+    public static void AddOrUpdate<TDb, TDto>(SQLiteConnection db, IEnumerable<TDto> items, Func<TDto, TDb> toDb, Func<TDb, TDto> toDto)
         where TDb : ISqliteEntity
         where TDto : class
     {
         foreach (var dto in items)
         {
-            AddOrUpdate(db, dto, toDb);
+            AddOrUpdate(db, dto, toDb, toDto);
         }
     }
 
@@ -83,12 +85,9 @@ public static class SqliteWriter
         }
     }
 
-    public static void Delete<TDb>(SQLiteConnection db, int primaryKey)
+    public static void Delete<TDb>(SQLiteConnection db, object primaryKey)
         where TDb : ISqliteEntity
     {
-        if (primaryKey < 0)
-            return;
-
         try
         {
             db.Delete<TDb>(primaryKey);

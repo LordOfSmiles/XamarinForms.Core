@@ -4,163 +4,98 @@ using Xamarin.Data.Models;
 
 namespace Xamarin.Data.DAL;
 
-public abstract class DbRepositoryBaseOld<T> : IDbRepositoryBaseOld<T>
-    where T : DbEntity_Old, new()
+public abstract class DbRepositoryBaseOld<TDto, TDb> : IDbRepositoryBaseOld<TDto, TDb>
+    where TDto : class, new()
+    where TDb : DbEntity_Old, new()
 {
-    public void AddOrUpdate(T item)
-    {
-        if (item == null)
-            return;
+    public TableQuery<TDb> QueryToTable => DbContext.Connection.Table<TDb>();
 
-        try
-        {
-            if (item.Id == 0)
-            {
-                Db.Connection.Insert(item, typeof(T));
-            }
-            else
-            {
-                Db.Connection.Update(item, typeof(T));
-            }
+    public abstract TDto ToDto(TDb db);
 
-            Db.OnDataChanged(this);
-        }
-        catch (Exception)
-        {
-            //
-        }
-    }
+    public abstract TDb ToDb(TDto dto);
 
-    public void AddOrUpdate(IEnumerable<T> items)
-    {
-        if (items == null)
-            return;
+    public virtual TDto AddOrUpdate(TDto item) => SqliteWriter.AddOrUpdate(DbContext.Connection, item, ToDb, ToDto);
 
-        foreach (var item in items)
-        {
-            AddOrUpdate(item);
-        }
-    }
+    public void AddOrUpdate(IEnumerable<TDto> items) => SqliteWriter.AddOrUpdate(DbContext.Connection, items, ToDb, ToDto);
 
-    public void Delete(int primaryKey)
-    {
-        if (primaryKey < 0)
-            return;
+    public void Delete() => SqliteWriter.Delete<TDb>(DbContext.Connection);
 
-        try
-        {
-            Db.Connection.Delete<T>(primaryKey);
-            Db.OnDataChanged(this);
-        }
-        catch (Exception)
-        {
-            //
-        }
-    }
+    public void Delete(object primaryKey) => SqliteWriter.Delete<TDb>(DbContext.Connection, primaryKey);
 
-    public void Delete()
-    {
-        try
-        {
-            Db.Connection.DeleteAll<T>();
-            Db.OnDataChanged(this);
-        }
-        catch (Exception)
-        {
-            //
-        }
-    }
+    public void Delete(Expression<Func<TDb, bool>> predicate) => SqliteWriter.Delete(DbContext.Connection, predicate);
 
-    public void Delete(Expression<Func<T, bool>> predicate)
-    {
-        try
-        {
-            Db.Connection.Table<T>().Delete(predicate);
-            Db.OnDataChanged(this);
-        }
-        catch (Exception)
-        {
-            //
-        }
-    }
+    public TDto Find(object key) => SqliteReader.Find<TDb, TDto>(DbContext.Connection, key, ToDto);
 
-    public T Find(object key)
-    {
-        return Db.Connection.Find<T>(key);
-    }
+    public TDto Find(Expression<Func<TDb, bool>> predicate) => SqliteReader.Find(DbContext.Connection, predicate, ToDto);
 
-    public T Find(Expression<Func<T, bool>> predicate)
-    {
-        return Db.Connection.Find(predicate);
-    }
+    public TDto FirstOrDefault() => SqliteReader.FirstOrDefault<TDb, TDto>(DbContext.Connection, ToDto);
 
-    public T FirstOrDefault()
-    {
-        return Db.Connection.Table<T>().FirstOrDefault();
-    }
+    public TDto LastOrDefault() => SqliteReader.LastOrDefault<TDb, TDto>(DbContext.Connection, ToDto);
 
-    public T LastOrDefault()
-    {
-        return Db.Connection.Table<T>().LastOrDefault();
-    }
-
-    public IReadOnlyList<T> All()
-    {
-        return Db.Connection.Table<T>().ToArray();
-    }
-
-    public IReadOnlyList<T> Filter(Expression<Func<T, bool>> predicate = null)
+    public IReadOnlyList<TDto> All(Expression<Func<TDb, bool>> predicate = null)
     {
         return predicate == null
-                   ? Db.Connection.Table<T>().ToArray()
-                   : Db.Connection.Table<T>().Where(predicate).ToArray();
+                   ? SqliteReader.All<TDb, TDto>(DbContext.Connection, ToDto)
+                   : SqliteReader.All(DbContext.Connection, predicate, ToDto);
     }
 
-    public bool Any(Func<T, bool> predicate = null)
+    public bool Any(Func<TDb, bool> predicate = null)
     {
         return predicate == null
-                   ? Db.Connection.Table<T>().Any()
-                   : Db.Connection.Table<T>().Any(predicate);
+                   ? SqliteReader.Any<TDb>(DbContext.Connection)
+                   : SqliteReader.Any(DbContext.Connection, predicate);
     }
 
-    public int Count(Func<T, bool> predicate = null)
+    public int Count(Func<TDb, bool> predicate = null)
     {
         return predicate == null
-                   ? Db.Connection.Table<T>().Count()
-                   : Db.Connection.Table<T>().Where(predicate).Count();
+                   ? SqliteReader.Count<TDb>(DbContext.Connection)
+                   : SqliteReader.Count(DbContext.Connection, predicate);
     }
 
     #region Fields
 
-    protected BaseDbContext Db { get; }
+    protected BaseDbContext DbContext { get; }
 
     #endregion
 
-    protected DbRepositoryBaseOld(BaseDbContext db)
+    protected DbRepositoryBaseOld(BaseDbContext dbContext)
     {
-        Db = db;
+        DbContext = dbContext;
     }
 }
 
-public interface IDbRepositoryBaseOld<T>
-    where T : DbEntity_Old, new()
+public interface IDbRepositoryBaseOld<TDto, TDb>
+    where TDto : class, new()
+    where TDb : DbEntity_Old, new()
 {
-    void AddOrUpdate(T item);
-    void AddOrUpdate(IEnumerable<T> items);
+    TableQuery<TDb> QueryToTable { get; }
+
+    TDto ToDto(TDb db);
+
+    TDb ToDb(TDto dto);
+
+    TDto AddOrUpdate(TDto item);
+
+    void AddOrUpdate(IEnumerable<TDto> items);
 
     void Delete();
-    void Delete(int primaryKey);
-    void Delete(Expression<Func<T, bool>> predicate);
 
-    T Find(object key);
-    T Find(Expression<Func<T, bool>> predicate);
-    T FirstOrDefault();
-    T LastOrDefault();
+    void Delete(object primaryKey);
 
-    IReadOnlyList<T> All();
-    IReadOnlyList<T> Filter(Expression<Func<T, bool>> predicate = null);
+    void Delete(Expression<Func<TDb, bool>> predicate);
 
-    bool Any(Func<T, bool> predicate = null);
+    TDto Find(object key);
 
-    int Count(Func<T, bool> predicate = null);
+    TDto Find(Expression<Func<TDb, bool>> predicate);
+
+    TDto FirstOrDefault();
+
+    TDto LastOrDefault();
+
+    IReadOnlyList<TDto> All(Expression<Func<TDb, bool>> predicate = null);
+
+    bool Any(Func<TDb, bool> predicate = null);
+
+    int Count(Func<TDb, bool> predicate = null);
 }
