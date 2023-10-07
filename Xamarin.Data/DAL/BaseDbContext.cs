@@ -18,7 +18,6 @@ public abstract class BaseDbContext
     
     #endregion
     
-    
     #region Dependencies
 
     private readonly ISqlitePlatform _sqLitePlatform;
