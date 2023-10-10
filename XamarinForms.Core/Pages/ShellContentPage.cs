@@ -1,5 +1,4 @@
 using Xamarin.Core.Extensions;
-
 using Xamarin.Core.Interfaces;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -37,7 +36,7 @@ public abstract class ShellContentPage : ContentPage
                 var parameters = NavigationHelper.Get(currentType.Name);
                 vm.OnAppearingAsync(parameters).FireAndForget();
             }
-            catch
+            catch (Exception e)
             {
                 //
             }

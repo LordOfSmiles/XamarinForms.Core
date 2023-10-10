@@ -22,8 +22,8 @@ public abstract class SqliteReaderBase
     }
 
     public IReadOnlyList<TDto> All<TDb, TDto>()
-        where TDb : ISqliteEntity, IConvertableToDto<TDto>, new()
-        where TDto : DtoBase, IConvertableToDb<TDb>
+        where TDb : ISqliteEntity, IDbItemWithConverter<TDto>, new()
+        where TDto : DtoBase, IDtoWithConverter<TDb>
     {
         return Connection.Table<TDb>()
                          .Select(x => x.ConvertToDto())
@@ -31,8 +31,8 @@ public abstract class SqliteReaderBase
     }
 
     public IReadOnlyList<TDto> All<TDb, TDto>(Expression<Func<TDb, bool>> predicate)
-        where TDb : ISqliteEntity, IConvertableToDto<TDto>, new()
-        where TDto : DtoBase, IConvertableToDb<TDb>
+        where TDb : ISqliteEntity, IDbItemWithConverter<TDto>, new()
+        where TDto : DtoBase, IDtoWithConverter<TDb>
     {
         return Connection.Table<TDb>()
                          .Where(predicate)
@@ -41,8 +41,8 @@ public abstract class SqliteReaderBase
     }
 
     public TDto Find<TDb, TDto>(object key)
-        where TDb : ISqliteEntity, IConvertableToDto<TDto>, new()
-        where TDto : DtoBase, IConvertableToDb<TDb>
+        where TDb : ISqliteEntity, IDbItemWithConverter<TDto>, new()
+        where TDto : DtoBase, IDtoWithConverter<TDb>
     {
         var dbItem = Connection.Find<TDb>(key);
 
@@ -52,8 +52,8 @@ public abstract class SqliteReaderBase
     }
 
     public TDto Find<TDb, TDto>(Expression<Func<TDb, bool>> predicate)
-        where TDb : ISqliteEntity, IConvertableToDto<TDto>, new()
-        where TDto : DtoBase, IConvertableToDb<TDb>
+        where TDb : ISqliteEntity, IDbItemWithConverter<TDto>, new()
+        where TDto : DtoBase, IDtoWithConverter<TDb>
     {
         var dbItem = Connection.Find(predicate);
 
@@ -63,8 +63,8 @@ public abstract class SqliteReaderBase
     }
 
     public TDto FirstOrDefault<TDb, TDto>()
-        where TDb : ISqliteEntity, IConvertableToDto<TDto>, new()
-        where TDto : DtoBase, IConvertableToDb<TDb>
+        where TDb : ISqliteEntity, IDbItemWithConverter<TDto>, new()
+        where TDto : DtoBase, IDtoWithConverter<TDb>
     {
         var dbItem = Connection.Table<TDb>().FirstOrDefault();
 
@@ -74,8 +74,8 @@ public abstract class SqliteReaderBase
     }
 
     public TDto LastOrDefault<TDb, TDto>()
-        where TDb : ISqliteEntity, IConvertableToDto<TDto>, new()
-        where TDto : DtoBase, IConvertableToDb<TDb>
+        where TDb : ISqliteEntity, IDbItemWithConverter<TDto>, new()
+        where TDto : DtoBase, IDtoWithConverter<TDb>
     {
         var dbItem = Connection.Table<TDb>().LastOrDefault();
 

@@ -2,7 +2,7 @@ using Xamarin.Data.Dto;
 
 namespace Xamarin.Data.Interfaces;
 
-public interface IConvertableToDto<TDto>
+public interface IDbItemWithConverter<out TDto>
     where TDto : DtoBase
 {
     public TDto ConvertToDto();

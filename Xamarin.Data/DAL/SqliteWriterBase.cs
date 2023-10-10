@@ -14,8 +14,8 @@ public abstract class SqliteWriterBase
     #endregion
 
     public TDto AddOrUpdate<TDb, TDto>(TDto dto)
-        where TDb : ISqliteEntity, IConvertableToDto<TDto>
-        where TDto : DtoBase, IConvertableToDb<TDb>
+        where TDb : ISqliteEntity, IDbItemWithConverter<TDto>
+        where TDto : DtoBase, IDtoWithConverter<TDb>
     {
         if (dto == null)
             return null;
@@ -42,8 +42,8 @@ public abstract class SqliteWriterBase
     }
 
     public void AddOrUpdate<TDb, TDto>(IEnumerable<TDto> items)
-        where TDb : ISqliteEntity, IConvertableToDto<TDto>
-        where TDto : DtoBase, IConvertableToDb<TDb>
+        where TDb : ISqliteEntity, IDbItemWithConverter<TDto>
+        where TDto : DtoBase, IDtoWithConverter<TDb>
     {
         foreach (var dto in items)
         {

@@ -65,6 +65,21 @@ public class CustomImageButtonBase : FrameWithTap
 
     #endregion
 
+    #region ImageRotation
+
+    public static readonly BindableProperty ImageRotationProperty = BindableProperty.Create(nameof(ImageRotation),
+                                                                                            typeof(double),
+                                                                                            typeof(CustomImageButtonBase),
+                                                                                            0.0);
+
+    public double ImageRotation
+    {
+        get => (double)GetValue(ImageRotationProperty);
+        set => SetValue(ImageRotationProperty, value);
+    }
+
+    #endregion
+
     #region TintColor
 
     public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor),
@@ -96,6 +111,9 @@ public class CustomImageButtonBase : FrameWithTap
                 break;
             case nameof(ImageHeight):
                 Img.HeightRequest = ImageHeight;
+                break;
+            case nameof(ImageRotation):
+                Img.Rotation = ImageRotation;
                 break;
         }
 

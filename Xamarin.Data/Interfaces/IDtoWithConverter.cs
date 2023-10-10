@@ -2,7 +2,7 @@ using Xamarin.Data.Models;
 
 namespace Xamarin.Data.Interfaces;
 
-public interface IConvertableToDb<TDb>
+public interface IDtoWithConverter<out TDb>
     where TDb : ISqliteEntity
 {
     public TDb ConvertToDb();
