@@ -2,6 +2,12 @@ namespace XamarinForms.Core.Extensions;
 
 public static class SpanExtensions
 {
+    public static Span Text(this Span span, string text)
+    {
+        span.Text = text;
+        return span;
+    }
+    
     public static Span Text(this Span span, object text)
     {
         span.Text = text?.ToString() ?? string.Empty;
