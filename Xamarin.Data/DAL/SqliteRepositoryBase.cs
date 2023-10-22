@@ -27,15 +27,14 @@ public abstract class SqliteRepositoryBase<TDb, TDto> : ISqliteRepositoryBase<TD
 
         try
         {
-            // if (dbItem.DbId == 0)
-            // {
-            //     DbContext.Connection.Insert(dbItem, typeof(TDb));
-            // }
-            // else
-            // {
-            //     DbContext.Connection.Update(dbItem, typeof(TDb));
-            // }
-            var count = DbContext.Connection.InsertOrReplace(dbItem, typeof(TDb));
+            if (dbItem.DbId == 0)
+            {
+                DbContext.Connection.Insert(dbItem, typeof(TDb));
+            }
+            else
+            {
+                DbContext.Connection.Update(dbItem, typeof(TDb));
+            }
         }
         catch (Exception)
         {
