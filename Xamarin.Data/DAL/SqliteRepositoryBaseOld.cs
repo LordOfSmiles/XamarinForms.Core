@@ -1,44 +1,34 @@
 using System.Linq;
 using System.Linq.Expressions;
 using Xamarin.Data.Dto;
+using Xamarin.Data.Interfaces;
 using Xamarin.Data.Models;
 
 namespace Xamarin.Data.DAL;
 
-public abstract class SqliteRepositoryBase<TDb, TDto> : ISqliteRepositoryBase<TDb, TDto>
+public abstract class SqliteRepositoryBaseOld<TDb, TDto> : ISqliteRepositoryBaseOld<TDb, TDto>
     where TDto : DtoBase
-    where TDb : DbEntity, new()
+    where TDb : DbEntity_Old, new()
 {
-    public TableQuery<TDb> Table() => DbContext.Connection.Table<TDb>();
+    public TableQuery<TDb> QueryToTable => DbContext.Connection.Table<TDb>();
 
     public abstract TDto ToDto(TDb db);
 
     public abstract TDb ToDb(TDto dto);
 
-    public void AddOrUpdate(IEnumerable<TDto> items)
+    public virtual void AddOrUpdate(TDto dto)
     {
-        if (items == null)
+        if (dto == null)
             return;
 
-        foreach (var dto in items)
-        {
-            AddOrUpdate(dto);
-        }
-    }
+        var dbItem = ToDb(dto);
 
-    public virtual void AddOrUpdate(TDto item)
-    {
-        if (item == null)
-            return;
-    
-        var dbItem = ToDb(item);
-    
         try
         {
             if (dbItem.DbId == 0)
             {
                 DbContext.Connection.Insert(dbItem, typeof(TDb));
-                item.DbId = dbItem.DbId;
+                dto.DbId = dbItem.DbId;
             }
             else
             {
@@ -48,6 +38,17 @@ public abstract class SqliteRepositoryBase<TDb, TDto> : ISqliteRepositoryBase<TD
         catch (Exception)
         {
             //
+        }
+    }
+
+    public void AddOrUpdate(IEnumerable<TDto> items)
+    {
+        if (items == null)
+            return;
+
+        foreach (var item in items)
+        {
+            AddOrUpdate(item);
         }
     }
 
@@ -131,7 +132,7 @@ public abstract class SqliteRepositoryBase<TDb, TDto> : ISqliteRepositoryBase<TD
         {
             query = query.Where(predicate);
         }
-
+        
         return query.Select(ToDto).ToArray();
     }
 
@@ -155,23 +156,23 @@ public abstract class SqliteRepositoryBase<TDb, TDto> : ISqliteRepositoryBase<TD
 
     #endregion
 
-    protected SqliteRepositoryBase(BaseDbContext dbContext)
+    protected SqliteRepositoryBaseOld(BaseDbContext dbContext)
     {
         DbContext = dbContext;
     }
 }
 
-public interface ISqliteRepositoryBase<TDb, TDto>
+public interface ISqliteRepositoryBaseOld<TDb, TDto>
     where TDto : DtoBase
-    where TDb : DbEntity
+    where TDb : DbEntity_Old
 {
-    TableQuery<TDb> Table();
+    TableQuery<TDb> QueryToTable { get; }
 
     TDto ToDto(TDb db);
 
     TDb ToDb(TDto dto);
 
-    void AddOrUpdate(TDto item);
+    void AddOrUpdate(TDto dto);
 
     void AddOrUpdate(IEnumerable<TDto> items);
 
@@ -184,6 +185,10 @@ public interface ISqliteRepositoryBase<TDb, TDto>
     TDto Find(object key);
 
     TDto Find(Expression<Func<TDb, bool>> predicate);
+
+    TDto FirstOrDefault();
+
+    TDto LastOrDefault();
 
     IReadOnlyList<TDto> All(Expression<Func<TDb, bool>> predicate = null);
 

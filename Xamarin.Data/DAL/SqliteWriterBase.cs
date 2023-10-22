@@ -13,12 +13,12 @@ public abstract class SqliteWriterBase
 
     #endregion
 
-    public TDto AddOrUpdate<TDb, TDto>(TDto dto)
+    public void AddOrUpdate<TDb, TDto>(TDto dto)
         where TDb : ISqliteEntity, IDbItemWithConverter<TDto>
         where TDto : DtoBase, IDtoWithConverter<TDb>
     {
         if (dto == null)
-            return null;
+            return;
 
         var dbItem = dto.ConvertToDb();
 
@@ -27,6 +27,7 @@ public abstract class SqliteWriterBase
             if (dbItem.DbId == 0)
             {
                 Connection.Insert(dbItem, typeof(TDb));
+                dto.DbId = dbItem.DbId;
             }
             else
             {
@@ -38,7 +39,7 @@ public abstract class SqliteWriterBase
             //
         }
 
-        return dbItem.ConvertToDto();
+        //dto = dbItem.ConvertToDto();
     }
 
     public void AddOrUpdate<TDb, TDto>(IEnumerable<TDto> items)
