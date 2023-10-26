@@ -6,6 +6,7 @@ using XamarinForms.Core.Helpers;
 using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.PlatformServices;
 using XamarinForms.Core.ViewModels;
+using NavigationPage = Xamarin.Forms.NavigationPage;
 
 namespace XamarinForms.Core.Pages;
 
@@ -67,7 +68,7 @@ public abstract class ShellContentPage : ContentPage
     protected ShellContentPage()
     {
         On<iOS>().SetUseSafeArea(true);
-
+        NavigationPage.SetBackButtonTitle(this, "");
         Shell.SetNavBarHasShadow(this, false);
     }
 }
