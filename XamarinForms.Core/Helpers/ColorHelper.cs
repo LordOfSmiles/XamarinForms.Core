@@ -11,6 +11,10 @@ public static class ColorHelper
         return color1.ToHex() == color2.ToHex();
     }
 
+    public static Color OnColor(this Color color, Color onLight, Color onDark) => color.IsLight()
+                                                                                      ? onLight
+                                                                                      : onDark;
+
     public static Color OnTheme(Color light, Color dark) => ThemeHelper.IsLightTheme
                                                                 ? light
                                                                 : dark;
