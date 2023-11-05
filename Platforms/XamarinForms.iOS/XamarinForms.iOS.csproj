@@ -96,10 +96,6 @@
       <Project>{49829FF8-535B-420C-9918-B2B539CF6032}</Project>
       <Name>Xamarin.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Xamarin.Data\Xamarin.Data.csproj">
-      <Project>{9B392EA9-5EBD-4E22-98ED-8392B70BAA57}</Project>
-      <Name>Xamarin.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\XamarinForms.Core\XamarinForms.Core.csproj">
       <Project>{5AC9AC02-E6A2-4546-ADF3-D1C4DC1379E9}</Project>
       <Name>XamarinForms.Core</Name>

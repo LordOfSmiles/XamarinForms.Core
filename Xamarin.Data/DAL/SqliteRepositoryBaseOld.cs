@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Linq.Expressions;
 using Xamarin.Data.Dto;
-using Xamarin.Data.Interfaces;
 using Xamarin.Data.Models;
 
 namespace Xamarin.Data.DAL;
@@ -10,7 +9,7 @@ public abstract class SqliteRepositoryBaseOld<TDb, TDto> : ISqliteRepositoryBase
     where TDto : DtoBase
     where TDb : DbEntity_Old, new()
 {
-    public TableQuery<TDb> QueryToTable => DbContext.Connection.Table<TDb>();
+    public TableQuery<TDb> Table => DbContext.Connection.Table<TDb>();
 
     public abstract TDto ToDto(TDb db);
 
@@ -166,7 +165,7 @@ public interface ISqliteRepositoryBaseOld<TDb, TDto>
     where TDto : DtoBase
     where TDb : DbEntity_Old
 {
-    TableQuery<TDb> QueryToTable { get; }
+    TableQuery<TDb> Table { get; }
 
     TDto ToDto(TDb db);
 
