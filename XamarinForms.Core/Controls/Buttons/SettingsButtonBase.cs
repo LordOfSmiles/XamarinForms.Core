@@ -20,21 +20,27 @@ public abstract class SettingsButtonBase : GridWithTap
     }
 
     #endregion
+    
+    #region ButtonType
 
-    #region FontSize
+    public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType),
+                                                                                         typeof(SettingsButtonTypeEnum),
+                                                                                         typeof(SettingsButtonBase),
+                                                                                         SettingsButtonTypeEnum.Default);
 
-    public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize),
-                                                                                       typeof(double),
-                                                                                       typeof(SettingsButtonBase),
-                                                                                       FontHelper.CaptionFontSize);
-
-    public double FontSize
+    public SettingsButtonTypeEnum ButtonType
     {
-        get => (double)GetValue(FontSizeProperty);
-        set => SetValue(FontSizeProperty, value);
+        get => (SettingsButtonTypeEnum)GetValue(ButtonTypeProperty);
+        set => SetValue(ButtonTypeProperty, value);
     }
 
     #endregion
 
     #endregion
+}
+
+public enum SettingsButtonTypeEnum
+{
+    Default,
+    Navigation
 }

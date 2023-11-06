@@ -46,8 +46,6 @@ public static class NavigationHelper
 
         return result;
     }
-    
-    public static Type LastPage { get; set; }
 
     #region Fields
 

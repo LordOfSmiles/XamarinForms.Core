@@ -20,21 +20,10 @@ public abstract class ShellContentPage : ContentPage
             {
                 return;
             }
-
-            var currentType = GetType();
-
-            var from = NavigationHelper.LastPage;
-            if (from != null)
-            {
-                // var analyticsService = FastContainer.TryResolve<IAnalyticsService>();
-                // analyticsService?.OnNavigation(from.Name, currentType.Name);
-            }
-
-            NavigationHelper.LastPage = currentType;
-
+            
             try
             {
-                var parameters = NavigationHelper.Get(currentType.Name);
+                var parameters = NavigationHelper.Get(GetType().Name);
                 vm.OnAppearingAsync(parameters).FireAndForget();
             }
             catch (Exception e)
