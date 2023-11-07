@@ -4,6 +4,8 @@ public sealed class SelectorLabel : Label
 {
     public SelectorLabel()
     {
+        LineBreakMode = LineBreakMode.NoWrap;
+        
         SetColors();
     }
 

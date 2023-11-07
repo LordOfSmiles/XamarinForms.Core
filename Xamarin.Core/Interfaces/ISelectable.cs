@@ -1,6 +1,6 @@
 namespace Xamarin.Core.Interfaces;
 
-public interface ISelectable
+public interface ISelectable : IUiListItem
 {
     string Text { get; }
     bool IsDestruction { get; }

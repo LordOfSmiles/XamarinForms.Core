@@ -3,8 +3,21 @@ using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Buttons;
 
-public abstract class SettingsButtonBase : GridWithTap
+public abstract class SettingsButtonBase : FrameWithTap
 {
+    #region Fields
+
+    protected readonly Grid Grd;
+    
+    #endregion
+    
+    protected SettingsButtonBase()
+    {
+        Grd = new Grid();
+
+        Content = Grd;
+    }
+    
     #region Bindable Properties
 
     #region Text

@@ -68,6 +68,7 @@
         <Compile Include="Renderers\BorderlessDatePickerRenderer.cs" />
         <Compile Include="Renderers\BorderlessEditorRenderer.cs" />
         <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
+        <Compile Include="Renderers\CustomFrameRenderer.cs" />
         <Compile Include="Renderers\IAdvInterstitial.cs" />
     </ItemGroup>
     <ItemGroup>

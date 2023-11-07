@@ -10,6 +10,8 @@ public static class UiListHelper
         for (var i = 0; i < items.Count; i++)
         {
             var item = items[i];
+            
+            item.Index = i;
             item.IsFirst = i == 0;
             item.IsLast = i == items.Count - 1;
         }
@@ -21,10 +23,12 @@ public static class UiListHelper
         if (items.Any())
         {
             var count = items.Count();
-                
+
             for (var i = 0; i < count; i++)
             {
                 var item = items.ElementAt(i);
+                
+                item.Index = i;
                 item.IsFirst = i == 0;
                 item.IsLast = i == count - 1;
             }

@@ -34,6 +34,7 @@ public class SelectableItem : NotifyObject, ISelectable, IUiListItem
 
     #region IUiListItem
 
+    public int Index { get; set; }
     public bool IsFirst { get; set; }
     public bool IsLast { get; set; }
 

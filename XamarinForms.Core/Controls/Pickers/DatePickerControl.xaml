@@ -6,9 +6,11 @@
                     xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
                     x:Class="XamarinForms.Core.Controls.Pickers.DatePickerControl"
                     x:Name="ctrlRoot">
-    <controls:ExtendedDatePicker x:Name="datePicker"
-                                 IsVisible="False"
-                                 Format="dd.MM.yyyy" />
+    <Grid>
+        <controls:ExtendedDatePicker x:Name="datePicker"
+                                     IsVisible="False"
+                                     Format="dd.MM.yyyy" />
 
-    <ContentView Content="{Binding Source={x:Reference ctrlRoot}, Path=ContentView}" />
+        <ContentView Content="{Binding Source={x:Reference ctrlRoot}, Path=ContentView}" />
+    </Grid>
 </pickers:PickerBase>

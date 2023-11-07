@@ -1,19 +1,16 @@
-using Xamarin.CommunityToolkit.Extensions;
 using XamarinForms.Core.Controls.Layouts.Helpers;
-using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Layouts;
 
-public class FrameWithTap : Border,ITouchableLayout
+public class FrameWithTap : Border, ITouchableLayout
 {
     public FrameWithTap()
     {
         var tapGesture = new TapGestureRecognizer();
         tapGesture.Tapped += (_, _) => TouchableLayoutHelper.ProcessTapAsync(this);
         GestureRecognizers.Add(tapGesture);
-        
-        BackgroundColor = NormalColor;
 
+        BackgroundColor = NormalColor;
     }
 
     #region Bindable Properties
@@ -23,20 +20,12 @@ public class FrameWithTap : Border,ITouchableLayout
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
                                                                                           typeof(FrameWithTap),
-                                                                                          Color.Transparent,
-                                                                                          propertyChanged: OnDefaultColorChanged);
+                                                                                          Color.Transparent);
 
     public Color NormalColor
     {
         get => (Color)GetValue(NormalColorProperty);
         set => SetValue(NormalColorProperty, value);
-    }
-
-    private static void OnDefaultColorChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var ctrl = (FrameWithTap)bindable;
-
-        ctrl.BackgroundColor = (Color)newValue;
     }
 
     #endregion
@@ -70,6 +59,16 @@ public class FrameWithTap : Border,ITouchableLayout
     #endregion
 
     #endregion
+
+    protected override void OnPropertyChanged(string propertyName = null)
+    {
+        if (propertyName == nameof(NormalColor))
+        {
+            BackgroundColor = NormalColor;
+        }
+
+        base.OnPropertyChanged(propertyName);
+    }
 
     #region ITouchableLayout
 

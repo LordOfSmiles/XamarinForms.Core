@@ -85,6 +85,7 @@ public abstract class CellItemBase : NotifyObject, ISupportOrientation, IUiListI
 
     #region IUiListItem
 
+    public int Index { get; set; }
     public bool IsFirst
     {
         get => _isFirst;

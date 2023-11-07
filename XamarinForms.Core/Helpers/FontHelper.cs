@@ -25,4 +25,7 @@ public static class FontHelper
     /// Android - 12
     /// </summary>
     public static readonly double SmallestTextFontSize = DeviceHelper.OnPlatform(11, 12);
+
+    public static readonly double ButtonTextSize = 16;
+    public static readonly double TextInputSize = DeviceHelper.OnPlatform(17, 16);
 }

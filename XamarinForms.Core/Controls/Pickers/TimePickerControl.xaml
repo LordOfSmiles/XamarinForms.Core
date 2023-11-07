@@ -7,10 +7,11 @@
                     x:Class="XamarinForms.Core.Controls.Pickers.TimePickerControl"
                     x:Name="ctrlRoot"
                     VerticalOptions="Center">
+    <Grid>
+        <controls:ExtendedTimePicker x:Name="timePicker"
+                                     IsVisible="False"
+                                     Format="HH:mm" />
 
-    <controls:ExtendedTimePicker x:Name="timePicker"
-                                 IsVisible="False"
-                                 Format="HH:mm" />
-
-    <ContentView Content="{Binding Source={x:Reference ctrlRoot}, Path=ContentView}" />
+        <ContentView Content="{Binding Source={x:Reference ctrlRoot}, Path=ContentView}" />
+    </Grid>
 </pickers:PickerBase>

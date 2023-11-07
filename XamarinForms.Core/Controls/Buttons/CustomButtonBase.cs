@@ -20,7 +20,7 @@ public abstract class CustomButtonBase : FrameWithTap
             VerticalOptions = LayoutOptions.Center,
             HorizontalTextAlignment = TextAlignment.Center,
             VerticalTextAlignment = TextAlignment.Center,
-            FontAttributes = FontAttributes.Bold,
+            FontAttributes = DeviceHelper.OnPlatform(FontAttributes.Bold, FontAttributes.None),
             TextColor = TextColor
         };
 
@@ -63,7 +63,7 @@ public abstract class CustomButtonBase : FrameWithTap
                                                                                        typeof(double),
                                                                                        typeof(CustomButtonBase),
                                                                                        16.0);
-    
+
     public double FontSize
     {
         get => (double)GetValue(FontSizeProperty);
@@ -76,17 +76,17 @@ public abstract class CustomButtonBase : FrameWithTap
 
     protected override void OnPropertyChanged(string propertyName = null)
     {
-        switch (propertyName)
+        if (propertyName == nameof(Text))
         {
-            case nameof(Text):
-                Lbl.Text = Text;
-                break;
-            case nameof(TextColor):
-                Lbl.TextColor = TextColor;
-                break;
-            case nameof(FontSize):
-                Lbl.FontSize = FontSize;
-                break;
+            Lbl.Text = Text;
+        }
+        else if (propertyName == nameof(TextColor))
+        {
+            Lbl.TextColor = TextColor;
+        }
+        else if (propertyName == nameof(FontSize))
+        {
+            Lbl.FontSize = FontSize;
         }
 
         base.OnPropertyChanged(propertyName);

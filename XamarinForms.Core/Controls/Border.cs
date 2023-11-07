@@ -1,11 +1,11 @@
 namespace XamarinForms.Core.Controls;
 
-public class Border : Frame
+public class Border : CustomFrame
 {
     public Border()
     {
         HasShadow = false;
-        Padding = 0;
+        Padding = new Thickness(0);
         IsClippedToBounds = true;
         BackgroundColor = Color.Transparent;
     }
