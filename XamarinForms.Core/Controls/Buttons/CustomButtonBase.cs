@@ -1,5 +1,5 @@
 using XamarinForms.Core.Controls.Layouts;
-using XamarinForms.Core.Helpers;
+using XamarinForms.Core.Controls.Renderers;
 
 namespace XamarinForms.Core.Controls.Buttons;
 
@@ -7,20 +7,20 @@ public abstract class CustomButtonBase : FrameWithTap
 {
     #region Fields
 
-    protected Label Lbl { get; }
+    protected CustomLabel Lbl { get; }
 
     #endregion
 
     protected CustomButtonBase()
     {
-        Lbl = new Label()
+        Lbl = new CustomLabel()
         {
-            FontSize = FontSize,
+            FontSize = 16,
             HorizontalOptions = LayoutOptions.Center,
             VerticalOptions = LayoutOptions.Center,
             HorizontalTextAlignment = TextAlignment.Center,
             VerticalTextAlignment = TextAlignment.Center,
-            FontAttributes = DeviceHelper.OnPlatform(FontAttributes.Bold, FontAttributes.None),
+            FontWeight = FontWeightTypeEnum.Medium,
             TextColor = TextColor
         };
 
@@ -57,21 +57,6 @@ public abstract class CustomButtonBase : FrameWithTap
 
     #endregion
 
-    #region FontSize
-
-    public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize),
-                                                                                       typeof(double),
-                                                                                       typeof(CustomButtonBase),
-                                                                                       16.0);
-
-    public double FontSize
-    {
-        get => (double)GetValue(FontSizeProperty);
-        set => SetValue(FontSizeProperty, value);
-    }
-
-    #endregion
-
     #endregion
 
     protected override void OnPropertyChanged(string propertyName = null)
@@ -83,10 +68,6 @@ public abstract class CustomButtonBase : FrameWithTap
         else if (propertyName == nameof(TextColor))
         {
             Lbl.TextColor = TextColor;
-        }
-        else if (propertyName == nameof(FontSize))
-        {
-            Lbl.FontSize = FontSize;
         }
 
         base.OnPropertyChanged(propertyName);
