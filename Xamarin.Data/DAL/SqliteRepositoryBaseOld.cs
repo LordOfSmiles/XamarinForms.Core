@@ -9,7 +9,7 @@ public abstract class SqliteRepositoryBaseOld<TDb, TDto> : ISqliteRepositoryBase
     where TDto : DtoBase
     where TDb : DbEntity_Old, new()
 {
-    public TableQuery<TDb> Table => DbContext.Connection.Table<TDb>();
+    public TableQuery<TDb> Table() => DbContext.Connection.Table<TDb>();
 
     public abstract TDto ToDto(TDb db);
 
@@ -165,7 +165,7 @@ public interface ISqliteRepositoryBaseOld<TDb, TDto>
     where TDto : DtoBase
     where TDb : DbEntity_Old
 {
-    TableQuery<TDb> Table { get; }
+    TableQuery<TDb> Table();
 
     TDto ToDto(TDb db);
 
