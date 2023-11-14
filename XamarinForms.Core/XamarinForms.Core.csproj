@@ -23,20 +23,12 @@
     <Compile Remove="Controls\ShapeView.cs" />
     <Compile Remove="Controls\ContentControl.cs" />
     <Compile Remove="Controls\ControlContainer.cs" />
-    <Compile Update="Controls\GradientView.xaml.cs">
-      <DependentUpon>TopGradientView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Controls\Pickers\DatePickerControl.xaml.cs">
       <DependentUpon>DatePickerControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Pickers\TimePickerControl.xaml.cs">
       <DependentUpon>TimePickerControl.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Controls\Selectors\SelectorControl.xaml.cs">
-      <DependentUpon>SelectorControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -51,7 +43,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.6" />
     <PackageReference Include="Xamarin.Essentials" Version="1.8.0" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2612" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2622" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.Core\Xamarin.Core.csproj" />

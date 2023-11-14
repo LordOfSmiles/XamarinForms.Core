@@ -1,27 +1,13 @@
-using XamarinForms.Core.Helpers;
+using XamarinForms.Core.Controls.Layouts;
 
 namespace XamarinForms.Core.Controls.Selectors;
 
-public partial class SelectorControl
+public abstract class SelectorLayoutBase : FrameWithTap
 {
-    public SelectorControl()
+    protected SelectorLayoutBase()
     {
-        InitializeComponent();
         SetColor();
-
-        Command = TapCommand;
     }
-
-    #region Commands
-
-    private ICommand TapCommand => CommandHelper.Create(OnTap);
-
-    private void OnTap()
-    {
-        IsSelected = !IsSelected;
-    }
-
-    #endregion
 
     #region Bindable Proeprties
 
@@ -29,9 +15,8 @@ public partial class SelectorControl
 
     public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected),
                                                                                          typeof(bool),
-                                                                                         typeof(SelectorControl),
-                                                                                         false,
-                                                                                         BindingMode.TwoWay);
+                                                                                         typeof(SelectorLayoutBase),
+                                                                                         false);
 
     public bool IsSelected
     {
@@ -45,8 +30,7 @@ public partial class SelectorControl
 
     public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create(nameof(SelectedColor),
                                                                                             typeof(Color),
-                                                                                            typeof(SelectorControl),
-                                                                                            Color.Red);
+                                                                                            typeof(SelectorLayoutBase));
 
     public Color SelectedColor
     {
@@ -60,13 +44,26 @@ public partial class SelectorControl
 
     public static readonly BindableProperty UnselectedColorProperty = BindableProperty.Create(nameof(UnselectedColor),
                                                                                               typeof(Color),
-                                                                                              typeof(SelectorControl),
-                                                                                              Color.Default);
+                                                                                              typeof(SelectorLayoutBase));
 
     public Color UnselectedColor
     {
         get => (Color)GetValue(UnselectedColorProperty);
         set => SetValue(UnselectedColorProperty, value);
+    }
+
+    #endregion
+
+    #region DisabledColor
+
+    public static readonly BindableProperty DisabledColorProperty = BindableProperty.Create(nameof(DisabledColor),
+                                                                                            typeof(Color),
+                                                                                            typeof(SelectorLayoutBase));
+
+    public Color DisabledColor
+    {
+        get => (Color)GetValue(DisabledColorProperty);
+        set => SetValue(DisabledColorProperty, value);
     }
 
     #endregion
@@ -77,7 +74,9 @@ public partial class SelectorControl
     {
         if (propertyName == IsSelectedProperty.PropertyName
             || propertyName == SelectedColorProperty.PropertyName
-            || propertyName == UnselectedColorProperty.PropertyName)
+            || propertyName == UnselectedColorProperty.PropertyName
+            || propertyName == IsEnabledProperty.PropertyName
+            || propertyName == DisabledColorProperty.PropertyName)
         {
             SetColor();
         }
@@ -89,9 +88,16 @@ public partial class SelectorControl
 
     private void SetColor()
     {
-        NormalColor = IsSelected
-                               ? SelectedColor
-                               : UnselectedColor;
+        if (IsEnabled)
+        {
+            NormalColor = IsSelected
+                              ? SelectedColor
+                              : UnselectedColor;
+        }
+        else
+        {
+            NormalColor = DisabledColor;
+        }
     }
 
     #endregion

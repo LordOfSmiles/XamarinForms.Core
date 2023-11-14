@@ -20,10 +20,10 @@ public abstract class CellItemBase : NotifyObject, ISupportOrientation, IUiListI
                 result = 8;
             }
             else
-            { 
+            {
                 result = DeviceHelper.IsPortrait
-                    ? 32
-                    : 48;
+                             ? 32
+                             : 48;
             }
 
             return result;
@@ -108,7 +108,14 @@ public abstract class CellItemBase : NotifyObject, ISupportOrientation, IUiListI
     }
     private bool _isLast;
 
+    public bool IsSingle
+    {
+        get => _isSingle;
+        set => SetProperty(ref _isSingle, value);
+    }
+    private bool _isSingle;
+
     #endregion
-    
+
     public ICommand TapCommand { get; set; }
 }

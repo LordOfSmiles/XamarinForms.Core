@@ -3,9 +3,9 @@ using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls;
 
-public sealed class TouchableLabel : Label
+public sealed class LabelWithTap : Label
 {
-    public TouchableLabel()
+    public LabelWithTap()
     {
         var tapGesture = new TapGestureRecognizer();
         tapGesture.Tapped += TapGestureRecognizer_OnTapped;
@@ -18,7 +18,7 @@ public sealed class TouchableLabel : Label
 
     public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(NormalColor),
                                                                                           typeof(Color),
-                                                                                          typeof(TouchableLabel),
+                                                                                          typeof(LabelWithTap),
                                                                                           Color.Transparent,
                                                                                           propertyChanged: OnDefaultColorChanged);
 
@@ -30,7 +30,7 @@ public sealed class TouchableLabel : Label
 
     private static void OnDefaultColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var ctrl = (TouchableLabel)bindable;
+        var ctrl = (LabelWithTap)bindable;
 
         ctrl.BackgroundColor = (Color)newValue;
     }
@@ -41,7 +41,7 @@ public sealed class TouchableLabel : Label
 
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command),
                                                                                       typeof(ICommand),
-                                                                                      typeof(TouchableLabel));
+                                                                                      typeof(LabelWithTap));
 
     public ICommand Command
     {
@@ -55,7 +55,7 @@ public sealed class TouchableLabel : Label
 
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter),
                                                                                                typeof(object),
-                                                                                               typeof(TouchableLabel));
+                                                                                               typeof(LabelWithTap));
 
     public object CommandParameter
     {

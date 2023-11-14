@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Xamarin.Data.DAL;
 
-public abstract class BaseDbContext
+public abstract class DbContextBase
 {
     #region Public Methods
 
@@ -24,7 +24,7 @@ public abstract class BaseDbContext
 
     #endregion
 
-    protected BaseDbContext(ISqlitePlatform sqLitePlatform)
+    protected DbContextBase(ISqlitePlatform sqLitePlatform)
     {
         _sqLitePlatform = sqLitePlatform;
     }

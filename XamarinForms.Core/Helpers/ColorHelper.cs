@@ -45,27 +45,17 @@ public static class ColorHelper
 
         if (alpha == 255)
         {
-            if (backgroundColor.IsLight())
-            {
-                endColor = Color.FromRgb(red - koef, green - koef, blue - koef);
-            }
-            else
-            {
-                endColor = Color.FromRgb(red + koef, green + koef, blue + koef);
-            }
+            endColor = backgroundColor.IsLight()
+                           ? Color.FromRgb(red - koef, green - koef, blue - koef)
+                           : Color.FromRgb(red + koef, green + koef, blue + koef);
         }
         else
         {
             var color = new Color(red, green, blue);
-            
-            if (color.IsLight())
-            {
-                endColor = Color.FromRgba(red, green, blue, alpha - koef);
-            }
-            else
-            {
-                endColor = Color.FromRgba(red, green, blue, alpha + koef);
-            }
+
+            endColor = color.IsLight()
+                           ? Color.FromRgba(red, green, blue, alpha - koef)
+                           : Color.FromRgba(red, green, blue, alpha + koef);
         }
 
         return endColor;

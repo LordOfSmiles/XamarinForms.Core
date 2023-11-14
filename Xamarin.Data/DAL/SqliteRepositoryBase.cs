@@ -151,11 +151,11 @@ public abstract class SqliteRepositoryBase<TDb, TDto> : ISqliteRepositoryBase<TD
 
     #region Fields
 
-    protected BaseDbContext DbContext { get; }
+    protected DbContextBase DbContext { get; }
 
     #endregion
 
-    protected SqliteRepositoryBase(BaseDbContext dbContext)
+    protected SqliteRepositoryBase(DbContextBase dbContext)
     {
         DbContext = dbContext;
     }

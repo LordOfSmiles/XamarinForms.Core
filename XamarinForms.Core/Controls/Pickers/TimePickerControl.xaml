@@ -4,11 +4,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:pickers="clr-namespace:XamarinForms.Core.Controls.Pickers;assembly=XamarinForms.Core"
                     xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
+                    xmlns:renderers="clr-namespace:XamarinForms.Core.Controls.Renderers;assembly=XamarinForms.Core"
                     x:Class="XamarinForms.Core.Controls.Pickers.TimePickerControl"
                     x:Name="ctrlRoot"
                     VerticalOptions="Center">
     <Grid>
-        <controls:ExtendedTimePicker x:Name="timePicker"
+        <renderers:ExtendedTimePicker x:Name="timePicker"
                                      IsVisible="False"
                                      Format="HH:mm" />
 

@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using Xamarin.Forms.Platform.iOS;
 using XamarinForms.Core.Controls;
+using XamarinForms.Core.Controls.Renderers;
 using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.iOS.Renderers;

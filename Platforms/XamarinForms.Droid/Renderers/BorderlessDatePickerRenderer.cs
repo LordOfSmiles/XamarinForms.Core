@@ -2,6 +2,7 @@ using Android.App;
 using Android.Content;
 using Xamarin.Forms.Platform.Android;
 using XamarinForms.Core.Controls;
+using XamarinForms.Core.Controls.Renderers;
 
 namespace XamarinForms.Droid.Renderers;
 

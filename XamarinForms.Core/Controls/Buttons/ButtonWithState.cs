@@ -1,15 +1,13 @@
-using XamarinForms.Core.Controls.Buttons;
+namespace XamarinForms.Core.Controls.Buttons;
 
-namespace XamarinForms.Core.Controls;
-
-public sealed class ButtonWithValidation : CustomButtonBase
+public sealed class ButtonWithState : CustomButtonBase
 {
-    public ButtonWithValidation()
+    public ButtonWithState()
     {
-        CornerRadius = 12;
+        CornerRadius = new CornerRadius(12);
 
         Padding = new Thickness(16, 10);
-        
+
         NormalColor = ValidColor;
         TextColor = ValidTextColor;
     }
@@ -20,7 +18,7 @@ public sealed class ButtonWithValidation : CustomButtonBase
 
     public static readonly BindableProperty IsValidProperty = BindableProperty.Create(nameof(IsValid),
                                                                                       typeof(bool),
-                                                                                      typeof(ButtonWithValidation),
+                                                                                      typeof(ButtonWithState),
                                                                                       true);
 
     public bool IsValid
@@ -35,7 +33,7 @@ public sealed class ButtonWithValidation : CustomButtonBase
 
     public static readonly BindableProperty ValidColorProperty = BindableProperty.Create(nameof(ValidColor),
                                                                                          typeof(Color),
-                                                                                         typeof(ButtonWithValidation));
+                                                                                         typeof(ButtonWithState));
 
     public Color ValidColor
     {
@@ -48,8 +46,8 @@ public sealed class ButtonWithValidation : CustomButtonBase
     #region NormalTextColor
 
     public static readonly BindableProperty ValidTextColorProperty = BindableProperty.Create(nameof(ValidTextColor),
-                                                                                              typeof(Color),
-                                                                                              typeof(ButtonWithValidation));
+                                                                                             typeof(Color),
+                                                                                             typeof(ButtonWithState));
 
     public Color ValidTextColor
     {
@@ -63,7 +61,7 @@ public sealed class ButtonWithValidation : CustomButtonBase
 
     public static readonly BindableProperty InvalidColorProperty = BindableProperty.Create(nameof(InvalidColor),
                                                                                            typeof(Color),
-                                                                                           typeof(ButtonWithValidation));
+                                                                                           typeof(ButtonWithState));
 
     public Color InvalidColor
     {
@@ -77,7 +75,7 @@ public sealed class ButtonWithValidation : CustomButtonBase
 
     public static readonly BindableProperty InvalidTextColorProperty = BindableProperty.Create(nameof(InvalidTextColor),
                                                                                                typeof(Color),
-                                                                                               typeof(ButtonWithValidation));
+                                                                                               typeof(ButtonWithState));
 
     public Color InvalidTextColor
     {
@@ -104,7 +102,7 @@ public sealed class ButtonWithValidation : CustomButtonBase
                 TextColor = InvalidTextColor;
             }
         }
-        
+
         base.OnPropertyChanged(propertyName);
     }
 }

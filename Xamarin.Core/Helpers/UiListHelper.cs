@@ -10,28 +10,36 @@ public static class UiListHelper
         for (var i = 0; i < items.Count; i++)
         {
             var item = items[i];
-            
-            item.Index = i;
-            item.IsFirst = i == 0;
-            item.IsLast = i == items.Count - 1;
+
+            FillProperties(item, i, items.Count);
         }
     }
 
     public static void SetFirstAndLast<T>(IEnumerable<T> items)
         where T : IUiListItem
     {
-        if (items.Any())
-        {
-            var count = items.Count();
+        var count = items.Count();
 
-            for (var i = 0; i < count; i++)
-            {
-                var item = items.ElementAt(i);
-                
-                item.Index = i;
-                item.IsFirst = i == 0;
-                item.IsLast = i == count - 1;
-            }
+        for (var i = 0; i < count; i++)
+        {
+            var item = items.ElementAt(i);
+
+            FillProperties(item, i, count);
         }
     }
+
+    #region private Methods
+
+    private static void FillProperties<T>(T item, int index, int total)
+        where T : IUiListItem
+    {
+        item.Index = index;
+
+        item.IsFirst = index == 0;
+        item.IsLast = index == total - 1;
+
+        item.IsSingle = index == 0 && total == 1;
+    }
+
+    #endregion
 }

@@ -4,6 +4,7 @@ using Android.Graphics.Drawables;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XamarinForms.Core.Controls;
+using XamarinForms.Core.Controls.Renderers;
 using FrameRenderer = Xamarin.Forms.Platform.Android.FastRenderers.FrameRenderer;
 
 namespace XamarinForms.Droid.Renderers;

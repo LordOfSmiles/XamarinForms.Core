@@ -1,4 +1,4 @@
-namespace XamarinForms.Core.Controls;
+namespace XamarinForms.Core.Controls.Renderers;
 
 public class CustomFrame : Frame
 {

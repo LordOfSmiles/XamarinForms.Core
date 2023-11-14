@@ -1,3 +1,5 @@
+using XamarinForms.Core.Controls.Renderers;
+
 namespace XamarinForms.Core.Controls;
 
 public class Border : CustomFrame

@@ -3,7 +3,7 @@ using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Buttons;
 
-public abstract class SettingsButtonBase : FrameWithTap
+public abstract class FlatButtonBase : FrameWithTap
 {
     #region Fields
 
@@ -11,7 +11,7 @@ public abstract class SettingsButtonBase : FrameWithTap
     
     #endregion
     
-    protected SettingsButtonBase()
+    protected FlatButtonBase()
     {
         Grd = new Grid();
 
@@ -24,7 +24,7 @@ public abstract class SettingsButtonBase : FrameWithTap
 
     public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text),
                                                                                    typeof(string),
-                                                                                   typeof(SettingsButtonBase));
+                                                                                   typeof(FlatButtonBase));
 
     public string Text
     {
@@ -38,7 +38,7 @@ public abstract class SettingsButtonBase : FrameWithTap
 
     public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType),
                                                                                          typeof(SettingsButtonTypeEnum),
-                                                                                         typeof(SettingsButtonBase),
+                                                                                         typeof(FlatButtonBase),
                                                                                          SettingsButtonTypeEnum.Default);
 
     public SettingsButtonTypeEnum ButtonType

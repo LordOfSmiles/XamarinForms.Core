@@ -4,10 +4,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:pickers="clr-namespace:XamarinForms.Core.Controls.Pickers;assembly=XamarinForms.Core"
                     xmlns:controls="clr-namespace:XamarinForms.Core.Controls;assembly=XamarinForms.Core"
+                    xmlns:renderers="clr-namespace:XamarinForms.Core.Controls.Renderers;assembly=XamarinForms.Core"
                     x:Class="XamarinForms.Core.Controls.Pickers.DatePickerControl"
                     x:Name="ctrlRoot">
     <Grid>
-        <controls:ExtendedDatePicker x:Name="datePicker"
+        <renderers:ExtendedDatePicker x:Name="datePicker"
                                      IsVisible="False"
                                      Format="dd.MM.yyyy" />
 
