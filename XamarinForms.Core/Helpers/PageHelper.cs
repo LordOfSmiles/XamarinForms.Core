@@ -13,7 +13,7 @@ public static class PageHelper
         var bottom = 16;
 
         if (DeviceHelper.IsIos
-            && DependencyService.Get<IExtendedDevicePlatformService>().IsDeviceWithSafeArea)
+            && DependencyService.Get<IIosDependencyService>().IsDeviceWithSafeArea)
         {
             page ??= Application.Current.MainPage switch
             {

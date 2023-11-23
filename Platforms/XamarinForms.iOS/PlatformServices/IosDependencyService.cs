@@ -3,10 +3,9 @@ using XamarinForms.Core.Helpers;
 using XamarinForms.iOS.PlatformServices;
 using XamarinForms.Core.PlatformServices;
 
-
 namespace XamarinForms.iOS.PlatformServices;
 
-public sealed class ExtendedDevicePlatformService:IExtendedDevicePlatformService
+public sealed class IosDependencyService:IIosDependencyService
 {
     public bool IsDeviceWithSafeArea
     {
@@ -14,7 +13,15 @@ public sealed class ExtendedDevicePlatformService:IExtendedDevicePlatformService
         {
             var result = false;
 
-            if (VersionHelper.IsEqualOrGreater(13))
+            if (VersionHelper.IsEqualOrGreater(15))
+            {
+                var window = UIApplication.SharedApplication.ConnectedScenes.ToArray().FirstOrDefault();
+                if (window is UIWindowScene scene)
+                {
+                    result = CheckSafeArea(scene.Windows.FirstOrDefault(), scene.InterfaceOrientation == UIInterfaceOrientation.Portrait);
+                }
+            }
+            else if (VersionHelper.IsEqualOrGreater(13))
             {
                 var window = UIApplication.SharedApplication.Windows.FirstOrDefault();
                 var scene = window?.WindowScene;
@@ -35,14 +42,7 @@ public sealed class ExtendedDevicePlatformService:IExtendedDevicePlatformService
             return result;
         }
     }
-
-    public void GoToPowerSettings()
-    {
-        
-    }
-
-    public bool IsIgnoredPowerOptimizations => false;
-
+    
     #region Private Methods
 
     private bool CheckSafeArea(UIView window, bool isPortrait)

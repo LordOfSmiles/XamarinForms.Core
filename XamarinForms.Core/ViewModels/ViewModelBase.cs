@@ -142,7 +142,7 @@ public abstract class ViewModelBase : NotifyObject
             double bottom = 72;
 
             if (DeviceHelper.IsIos
-                && DependencyService.Get<IExtendedDevicePlatformService>().IsDeviceWithSafeArea)
+                && DependencyService.Get<IIosDependencyService>().IsDeviceWithSafeArea)
             {
                 bottom = 96;
             }

@@ -4,6 +4,7 @@ using Android.Appwidget;
 using Android.Content;
 using Android.OS;
 using AndroidX.Core.App;
+using Google.Android.Material.Dialog;
 using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Droid.Helpers;
@@ -13,21 +14,36 @@ public static class AlarmManagerHelper
     public static void FireIntent(Context context, Type receiverType, int intervalInMs)
     {
         var alarmManager = context.GetSystemService(Context.AlarmService) as AlarmManager;
+        if (alarmManager != null)
+        {
+            var intent = GetAlarmPendingIntent(context, receiverType);
+            var interval = SystemClock.ElapsedRealtime() + intervalInMs;
 
-        var intent = GetAlarmPendingIntent(context, receiverType);
-        var interval = SystemClock.ElapsedRealtime() + intervalInMs;
+            bool canSchedule;
+            if (VersionHelper.IsEqualOrGreater(12))
+            {
+                canSchedule = alarmManager.CanScheduleExactAlarms();
+            }
+            else
+            {
+                canSchedule = true;
+            }
 
-        if (VersionHelper.IsEqualOrGreater(6))
-        {
-            alarmManager?.SetExactAndAllowWhileIdle(AlarmType.ElapsedRealtimeWakeup, interval, intent);
-        }
-        else if (VersionHelper.IsEqualOrGreater(5))
-        {
-            alarmManager?.SetExact(AlarmType.ElapsedRealtimeWakeup, interval, intent);
-        }
-        else
-        {
-            alarmManager?.Set(AlarmType.ElapsedRealtimeWakeup, interval, intent);
+            if (canSchedule)
+            {
+                if (VersionHelper.IsEqualOrGreater(6))
+                {
+                    alarmManager.SetExactAndAllowWhileIdle(AlarmType.ElapsedRealtimeWakeup, interval, intent);
+                }
+                else if (VersionHelper.IsEqualOrGreater(5))
+                {
+                    alarmManager.SetExact(AlarmType.ElapsedRealtimeWakeup, interval, intent);
+                }
+                else
+                {
+                    alarmManager.Set(AlarmType.ElapsedRealtimeWakeup, interval, intent);
+                }
+            }
         }
     }
 

@@ -13,42 +13,40 @@ public partial class LightDarkIndicator
     #region Bindable Properties
 
     public static readonly BindableProperty LightDarkColorProperty = BindableProperty.Create(nameof(LightDarkColor),
-                                                                                             typeof(LightDarkIndicatorModel),
-                                                                                             typeof(LightDarkIndicator),
-                                                                                             propertyChanged: OnLightDarkIndicatorChanged);
+                                                                                             typeof(LightDarkModel),
+                                                                                             typeof(LightDarkIndicator));
 
-    public LightDarkIndicatorModel LightDarkColor
+    public LightDarkModel LightDarkColor
     {
-        get => (LightDarkIndicatorModel)GetValue(LightDarkColorProperty);
+        get => (LightDarkModel)GetValue(LightDarkColorProperty);
         set => SetValue(LightDarkColorProperty, value);
     }
-
-    private static void OnLightDarkIndicatorChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var ctrl = (LightDarkIndicator)bindable;
-
-        var value = (LightDarkIndicatorModel)newValue;
-        if (!string.IsNullOrEmpty(value.LightColorString)
-            && !string.IsNullOrEmpty(value.DarkColorString))
-        {
-            var lightColor = Color.FromHex(value.LightColorString);
-            var darkColor = Color.FromHex(value.DarkColorString);
-
-            ctrl.SetAppThemeColor(BackgroundColorProperty, lightColor, darkColor);
-        }
-    }
-
+    
     #endregion
+
+    protected override void OnPropertyChanged(string propertyName = null)
+    {
+        if (propertyName == nameof(LightDarkColor))
+        {
+            this.SetAppThemeColor(BackgroundColorProperty, LightDarkColor.LightColor, LightDarkColor.DarkColor);
+        }
+        
+        base.OnPropertyChanged(propertyName);
+    }
 }
 
-public struct LightDarkIndicatorModel
+public struct LightDarkModel
 {
-    public LightDarkIndicatorModel(string light, string dark)
+    public LightDarkModel(string light, string dark)
+        : this(Color.FromHex(light), Color.FromHex(dark))
+    { }
+
+    public LightDarkModel(Color light, Color dark)
     {
-        LightColorString = light;
-        DarkColorString = dark;
+        LightColor = light;
+        DarkColor = dark;
     }
 
-    public string LightColorString { get;  }
-    public string DarkColorString { get;  }
+    public Color LightColor { get; }
+    public Color DarkColor { get; }
 }

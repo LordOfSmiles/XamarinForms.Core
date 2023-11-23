@@ -1,11 +1,13 @@
+using XamarinForms.Core.Controls.Renderers;
+
 namespace XamarinForms.Core.Controls.Selectors;
 
-public sealed class SelectorLabel : Label
+public sealed class SelectorLabel : CustomLabel
 {
     public SelectorLabel()
     {
         LineBreakMode = LineBreakMode.NoWrap;
-        
+
         SetColors();
     }
 
