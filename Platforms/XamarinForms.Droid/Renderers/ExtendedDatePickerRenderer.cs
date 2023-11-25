@@ -1,3 +1,4 @@
+using System;
 using Android.App;
 using Android.Content;
 using Xamarin.Forms.Platform.Android;
@@ -6,7 +7,7 @@ using XamarinForms.Core.Controls.Renderers;
 
 namespace XamarinForms.Droid.Renderers;
 
-public sealed class BorderlessDatePickerRenderer : DatePickerRenderer
+public sealed class ExtendedDatePickerRenderer : DatePickerRenderer
 {
     protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.DatePicker> e)
     {
@@ -28,26 +29,36 @@ public sealed class BorderlessDatePickerRenderer : DatePickerRenderer
     protected override DatePickerDialog CreateDatePickerDialog(int year, int month, int day)
     {
         var dialog = base.CreateDatePickerDialog(year, month, day);
+
         if (Element is ExtendedDatePicker extendedDatePicker)
         {
+            var confirmText = ExtendedDatePicker.ConfirmText ?? "Ok";
+
             dialog.SetButton((int)DialogButtonType.Positive,
-                             "Ok",
+                             confirmText,
                              (_, _) =>
                              {
                                  extendedDatePicker.Date = dialog.DatePicker.DateTime;
                                  extendedDatePicker.RaiseDoneEvent();
                              });
+
+            if (extendedDatePicker.WithClear)
+            {
+                var clearText = ExtendedDatePicker.ClearText ?? "Clear";
+
+                dialog.SetButton3(clearText, (_, _) => extendedDatePicker.RaiseClearEvent());
+            }
         }
 
         return dialog;
     }
 
-    public BorderlessDatePickerRenderer(Context context)
+    public ExtendedDatePickerRenderer(Context context)
         : base(context)
     { }
 }
 
-public sealed class BorderlessTimePickerRenderer : TimePickerRenderer
+public sealed class ExtendedTimePickerRenderer : TimePickerRenderer
 {
     protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.TimePicker> e)
     {
@@ -86,7 +97,7 @@ public sealed class BorderlessTimePickerRenderer : TimePickerRenderer
         return dialog;
     }
 
-    public BorderlessTimePickerRenderer(Context context)
+    public ExtendedTimePickerRenderer(Context context)
         : base(context)
     { }
 }

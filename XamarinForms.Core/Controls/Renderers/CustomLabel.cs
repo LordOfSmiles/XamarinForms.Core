@@ -2,7 +2,16 @@ namespace XamarinForms.Core.Controls.Renderers;
 
 public class CustomLabel : Label
 {
-    public FontWeightTypeEnum FontWeight { get; set; } = FontWeightTypeEnum.Regular;
+    public static readonly BindableProperty FontWeightProperty = BindableProperty.Create(nameof(FontWeight),
+                                                                                         typeof(FontWeightTypeEnum),
+                                                                                         typeof(CustomLabel),
+                                                                                         FontWeightTypeEnum.Regular);
+
+    public FontWeightTypeEnum FontWeight
+    {
+        get => (FontWeightTypeEnum)GetValue(FontWeightProperty);
+        set => SetValue(FontWeightProperty, value);
+    }
 }
 
 public enum FontWeightTypeEnum
@@ -10,5 +19,4 @@ public enum FontWeightTypeEnum
     Regular,
     Light,
     Medium,
-    Bold
 }

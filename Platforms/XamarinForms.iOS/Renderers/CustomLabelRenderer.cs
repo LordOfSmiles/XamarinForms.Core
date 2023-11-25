@@ -18,7 +18,6 @@ public sealed class CustomLabelRenderer : LabelRenderer
                 FontWeightTypeEnum.Light   => UIFont.SystemFontOfSize((nfloat)Element.FontSize, UIFontWeight.Light),
                 FontWeightTypeEnum.Regular => UIFont.SystemFontOfSize((nfloat)Element.FontSize, UIFontWeight.Regular),
                 FontWeightTypeEnum.Medium  => UIFont.SystemFontOfSize((nfloat)Element.FontSize, UIFontWeight.Medium),
-                FontWeightTypeEnum.Bold    => UIFont.SystemFontOfSize((nfloat)Element.FontSize, UIFontWeight.Bold),
                 _                      => throw new ArgumentOutOfRangeException()
             };
 

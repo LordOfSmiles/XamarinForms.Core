@@ -1,5 +1,6 @@
 using XamarinForms.Core.Controls.Layouts;
 using XamarinForms.Core.Controls.Renderers;
+using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Core.Controls.Buttons;
 
@@ -15,7 +16,7 @@ public abstract class CustomButtonBase : FrameWithTap
     {
         Lbl = new CustomLabel()
         {
-            FontSize = 16,
+            FontSize = FontHelper.ButtonTextSize,
             HorizontalOptions = LayoutOptions.Center,
             VerticalOptions = LayoutOptions.Center,
             HorizontalTextAlignment = TextAlignment.Center,

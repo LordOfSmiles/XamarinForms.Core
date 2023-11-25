@@ -20,7 +20,8 @@ public partial class DatePickerControl
     {
         DateTime initialDate;
 
-        if (!SelectedDate.HasValue && DefaultDate.HasValue)
+        if (!SelectedDate.HasValue
+            && DefaultDate.HasValue)
         {
             initialDate = DefaultDate.Value;
         }
@@ -42,11 +43,13 @@ public partial class DatePickerControl
         datePicker.DoneEvent -= OnDone;
         datePicker.DoneEvent += OnDone;
 
+        datePicker.ClearEvent -= OnClear;
+        datePicker.ClearEvent += OnClear;
+
         InvokeFocusedEvent();
         datePicker.Focus();
     }
 
-   
     #endregion
 
     #region Bindable Properties
@@ -54,11 +57,11 @@ public partial class DatePickerControl
     #region SelectedDate
 
     public static readonly BindableProperty SelectedDateProperty = BindableProperty.Create(nameof(SelectedDate),
-        typeof(DateTime?),
-        typeof(DatePickerControl),
-        null,
-        BindingMode.TwoWay,
-        propertyChanged: OnSelectedDateChanged);
+                                                                                           typeof(DateTime?),
+                                                                                           typeof(DatePickerControl),
+                                                                                           null,
+                                                                                           BindingMode.TwoWay,
+                                                                                           propertyChanged: OnSelectedDateChanged);
 
     public DateTime? SelectedDate
     {
@@ -79,10 +82,10 @@ public partial class DatePickerControl
     #region MinimumDate
 
     public static readonly BindableProperty MinimumDateProperty = BindableProperty.Create(nameof(MinimumDate),
-        typeof(DateTime?),
-        typeof(DatePickerControl),
-        null,
-        propertyChanged: OnMinimumDateChanged);
+                                                                                          typeof(DateTime?),
+                                                                                          typeof(DatePickerControl),
+                                                                                          null,
+                                                                                          propertyChanged: OnMinimumDateChanged);
 
     public DateTime? MinimumDate
     {
@@ -103,10 +106,10 @@ public partial class DatePickerControl
     #region MaximumDate
 
     public static readonly BindableProperty MaximumDateProperty = BindableProperty.Create(nameof(MaximumDate),
-        typeof(DateTime?),
-        typeof(DatePickerControl),
-        null,
-        propertyChanged: OnMaximumDateChanged);
+                                                                                          typeof(DateTime?),
+                                                                                          typeof(DatePickerControl),
+                                                                                          null,
+                                                                                          propertyChanged: OnMaximumDateChanged);
 
     public DateTime? MaximumDate
     {
@@ -127,9 +130,9 @@ public partial class DatePickerControl
     #region DefaultDate
 
     public static readonly BindableProperty DefaultDateProperty = BindableProperty.Create(nameof(DefaultDate),
-        typeof(DateTime?),
-        typeof(DatePickerControl),
-        DateTime.Today);
+                                                                                          typeof(DateTime?),
+                                                                                          typeof(DatePickerControl),
+                                                                                          DateTime.Today);
 
     public DateTime? DefaultDate
     {
@@ -138,6 +141,16 @@ public partial class DatePickerControl
     }
 
     #endregion
+
+    #endregion
+
+    #region Properties
+
+    public bool WithClear
+    {
+        get => datePicker.WithClear;
+        set => datePicker.WithClear = value;
+    }
 
     #endregion
 
@@ -151,11 +164,15 @@ public partial class DatePickerControl
             AcceptCommand?.Execute(null);
         }
 
-        datePicker.DoneEvent -= OnDone;
-        InvokeUnfocusedEvent();
-        datePicker.Unfocus();
+        Unsubscribe();
     }
 
+    private void OnClear(object sender, EventArgs e)
+    {
+        SelectedDate = null;
+
+        Unsubscribe();
+    }
 
     #endregion
 
@@ -175,6 +192,15 @@ public partial class DatePickerControl
         {
             return date;
         }
+    }
+
+    private void Unsubscribe()
+    {
+        datePicker.DoneEvent -= OnDone;
+        datePicker.ClearEvent -= OnClear;
+
+        InvokeUnfocusedEvent();
+        datePicker.Unfocus();
     }
 
     #endregion
