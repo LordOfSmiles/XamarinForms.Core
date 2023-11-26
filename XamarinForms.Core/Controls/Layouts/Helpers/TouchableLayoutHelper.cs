@@ -18,31 +18,38 @@ public static class TouchableLayoutHelper
 
         layout.IsBusy = true;
 
-        if (layout.Command.CanExecute(layout.CommandParameter))
+        try
         {
-            var view = (View)layout;
-
-            var startColor = layout.NormalColor.IsTransparent()
-                                 ? ColorHelper.FindParentRealColor(view)
-                                 : layout.NormalColor;
-
-            var endColor = ColorHelper.CalculatePressedColor(startColor);
-            await view.ColorTo(endColor, 150);
-
-            await Task.Delay(25);
-
-            await view.ColorTo(startColor, 50);
-
-            if (layout.NormalColor.IsTransparent())
+            if (layout.Command.CanExecute(layout.CommandParameter))
             {
-                layout.BackgroundColor = Color.Transparent;
+                var view = (View)layout;
+
+                var startColor = layout.NormalColor.IsTransparent()
+                                     ? ColorHelper.FindParentRealColor(view)
+                                     : layout.NormalColor;
+
+                var endColor = ColorHelper.CalculatePressedColor(startColor);
+                await view.ColorTo(endColor, 150);
+
+                await Task.Delay(25);
+
+                await view.ColorTo(startColor, 50);
+
+                if (layout.NormalColor.IsTransparent())
+                {
+                    layout.BackgroundColor = Color.Transparent;
+                }
+
+                layout.Command.Execute(layout.CommandParameter);
             }
 
-            layout.Command.Execute(layout.CommandParameter);
+            //для избежания повторных нажатий
+            await Task.Delay(100);
         }
-
-        //для избежания повторных нажатий
-        await Task.Delay(100);
+        catch (Exception e)
+        {
+            //   
+        }
 
         layout.IsBusy = false;
     }
