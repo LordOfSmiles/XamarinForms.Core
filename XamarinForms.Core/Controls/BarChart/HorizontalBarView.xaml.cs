@@ -1,8 +1,8 @@
 namespace XamarinForms.Core.Controls.BarChart;
 
-public partial class BarView
+public partial class HorizontalBarView
 {
-    public BarView()
+    public HorizontalBarView()
     {
         InitializeComponent();
     }
@@ -17,8 +17,8 @@ public partial class BarView
         {
             var progress = GetProgress();
 
-            rowValue.Height = new GridLength(progress.filled, GridUnitType.Star);
-            rowEmpty.Height = new GridLength(progress.empty, GridUnitType.Star);
+            columnFilled.Width = new GridLength(progress.filled, GridUnitType.Star);
+            columnEmpty.Width = new GridLength(progress.empty, GridUnitType.Star);
         }
 
         base.OnPropertyChanged(propertyName);

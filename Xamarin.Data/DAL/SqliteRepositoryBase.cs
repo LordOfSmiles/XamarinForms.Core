@@ -15,6 +15,19 @@ public abstract class SqliteRepositoryBase<TDb, TDto> : ISqliteRepositoryBase<TD
 
     public abstract TDb ToDb(TDto dto);
 
+    public DbResult<TDto> GetByCriteria(DbCriteriaBase<TDb> dbCriteria)
+    {
+        var total = DbContext.Connection.Table<TDb>().Count();
+
+        var items = DbContext.Connection.Table<TDb>()
+                             .Skip(dbCriteria.Page * dbCriteria.ItemsPerPage)
+                             .Take(dbCriteria.ItemsPerPage)
+                             .Select(x => ToDto(x))
+                             .ToArray();
+
+        return new DbResult<TDto>(items, total);
+    }
+
     public void AddOrUpdate(IEnumerable<TDto> items)
     {
         if (items == null)
@@ -30,9 +43,9 @@ public abstract class SqliteRepositoryBase<TDb, TDto> : ISqliteRepositoryBase<TD
     {
         if (item == null)
             return;
-    
+
         var dbItem = ToDb(item);
-    
+
         try
         {
             if (dbItem.DbId == 0)
@@ -170,6 +183,8 @@ public interface ISqliteRepositoryBase<TDb, TDto>
     TDto ToDto(TDb db);
 
     TDb ToDb(TDto dto);
+
+    DbResult<TDto> GetByCriteria(DbCriteriaBase<TDb> dbCriteria);
 
     void AddOrUpdate(TDto item);
 

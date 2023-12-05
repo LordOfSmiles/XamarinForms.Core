@@ -27,6 +27,9 @@
     <ConsolePause>false</ConsolePause>
     <MtouchLink>SdkOnly</MtouchLink>
     <LangVersion>default</LangVersion>
+    <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
+    <MtouchFastDev>false</MtouchFastDev>
+    <MtouchDebug>true</MtouchDebug>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>

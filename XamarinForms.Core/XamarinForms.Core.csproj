@@ -31,6 +31,10 @@
       <DependentUpon>TimePickerControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\BarChart\HorizontalBarView.xaml.cs">
+      <DependentUpon>HorizontalBarView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\Interfaces\" />
