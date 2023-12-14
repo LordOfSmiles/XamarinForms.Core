@@ -11,7 +11,6 @@ namespace XamarinForms.Core.Pages;
 public abstract class CustomTabbedPage : TabbedPage
 {
     protected CustomTabbedPage()
-        : base()
     {
         Shell.SetNavBarHasShadow(this, false);
         On<iOS>().SetTranslucencyMode(TranslucencyMode.Opaque);
@@ -24,25 +23,25 @@ public abstract class CustomTabbedPage : TabbedPage
     protected override void OnCurrentPageChanged()
     {
         var pages = Children.ToArray();
+        
         foreach (var page in pages)
         {
-            var tabbedViewModel = page.BindingContext as TabbedViewModelBase;
-            if (tabbedViewModel != null)
+            if (page.BindingContext is TabbedViewModelBase tabbedViewModel)
             {
-                tabbedViewModel.IsTabActive = page == CurrentPage;
+                tabbedViewModel.IsActive = page == CurrentPage;
                 
-                if (tabbedViewModel.IsTabActive)
-                {
-                    try
-                    {
-                        var parameters = NavigationHelper.Get(page.GetType().Name);
-                        tabbedViewModel.OnAppearingAsync(parameters).FireAndForget();
-                    }
-                    catch
-                    {
-                        //
-                    }
-                }
+                // if (tabbedViewModel.IsTabActive)
+                // {
+                //     try
+                //     {
+                //         var parameters = NavigationHelper.Get(page.GetType().Name);
+                //         //tabbedViewModel.OnAppearingAsync(parameters).FireAndForget();
+                //     }
+                //     catch
+                //     {
+                //         //
+                //     }
+                // }
             }
         }
         

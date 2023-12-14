@@ -2,10 +2,10 @@ namespace XamarinForms.Core.ViewModels;
 
 public abstract class TabbedViewModelBase:ViewModelBase
 {
-    public bool IsTabActive
+    public bool IsActive
     {
-        get => _isTabActive;
-        set => SetProperty(ref _isTabActive, value);
+        get => _isActive;
+        set => SetProperty(ref _isActive, value);
     }
-    private bool _isTabActive;
+    private bool _isActive;
 }

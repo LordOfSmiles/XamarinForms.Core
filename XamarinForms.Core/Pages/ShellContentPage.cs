@@ -16,7 +16,7 @@ public abstract class ShellContentPage : ContentPage
     {
         if (BindingContext is ViewModelBase vm)
         {
-            if (vm is TabbedViewModelBase { IsTabActive: false })
+            if (vm is TabbedViewModelBase { IsActive: false })
             {
                 return;
             }

@@ -67,7 +67,7 @@ public abstract class ViewModelBase : NotifyObject
 
     #region Fields
 
-    protected bool IsInitCompleted;
+   
 
     #endregion
     
@@ -95,6 +95,13 @@ public abstract class ViewModelBase : NotifyObject
     #endregion
 
     #region Properties
+
+    public bool IsInitCompleted
+    {
+        get => _isInitCompleted;
+        protected set => SetProperty(ref _isInitCompleted, value);
+    }
+    private bool _isInitCompleted;
 
     public bool InputTransparent
     {
