@@ -2,6 +2,7 @@ using Xamarin.Core.Extensions;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using XamarinForms.Core.Helpers;
 using XamarinForms.Core.Infrastructure.Navigation;
 using XamarinForms.Core.ViewModels;
 using TabbedPage = Xamarin.Forms.TabbedPage;
@@ -30,18 +31,18 @@ public abstract class CustomTabbedPage : TabbedPage
             {
                 tabbedViewModel.IsActive = page == CurrentPage;
                 
-                // if (tabbedViewModel.IsTabActive)
-                // {
-                //     try
-                //     {
-                //         var parameters = NavigationHelper.Get(page.GetType().Name);
-                //         //tabbedViewModel.OnAppearingAsync(parameters).FireAndForget();
-                //     }
-                //     catch
-                //     {
-                //         //
-                //     }
-                // }
+                if (DeviceHelper.IsAndroid && tabbedViewModel.IsActive)
+                {
+                    try
+                    {
+                        var parameters = NavigationHelper.Get(page.GetType().Name);
+                        tabbedViewModel.OnAppearingAsync(parameters).FireAndForget();
+                    }
+                    catch
+                    {
+                        //
+                    }
+                }
             }
         }
         
