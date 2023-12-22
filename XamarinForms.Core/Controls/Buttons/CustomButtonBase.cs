@@ -21,7 +21,7 @@ public abstract class CustomButtonBase : FrameWithTap
             VerticalOptions = LayoutOptions.Center,
             HorizontalTextAlignment = TextAlignment.Center,
             VerticalTextAlignment = TextAlignment.Center,
-            FontWeight = FontWeightTypeEnum.Medium,
+            FontWeight = FontWeight,
             TextColor = TextColor
         };
 
@@ -57,6 +57,21 @@ public abstract class CustomButtonBase : FrameWithTap
     }
 
     #endregion
+    
+    #region FontWeight
+
+    public static readonly BindableProperty FontWeightProperty = BindableProperty.Create(nameof(FontWeight),
+                                                                                         typeof(FontWeightTypeEnum),
+                                                                                         typeof(CustomButtonBase),
+                                                                                         FontWeightTypeEnum.Medium);
+
+    public FontWeightTypeEnum FontWeight
+    {
+        get => (FontWeightTypeEnum)GetValue(FontWeightProperty);
+        set => SetValue(FontWeightProperty, value);
+    }
+    
+    #endregion
 
     #endregion
 
@@ -69,6 +84,10 @@ public abstract class CustomButtonBase : FrameWithTap
         else if (propertyName == nameof(TextColor))
         {
             Lbl.TextColor = TextColor;
+        }
+        else if (propertyName == nameof(FontWeight))
+        {
+            Lbl.FontWeight = FontWeight;
         }
 
         base.OnPropertyChanged(propertyName);
