@@ -64,7 +64,7 @@ public abstract class DbContextBase
 
     public string DbFileName { get; set; }
     protected abstract int DbVersion { get; }
-    protected DbMigrationBase[] Migrations { get; set; } = Array.Empty<DbMigrationBase>();
+    protected SQliteMigrationBase[] Migrations { get; set; } = Array.Empty<SQliteMigrationBase>();
 
     /// <summary>
     /// миграция "на лету". Например, изменеие схемы

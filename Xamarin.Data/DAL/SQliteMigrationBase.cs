@@ -1,6 +1,6 @@
 namespace Xamarin.Data.DAL;
 
-public abstract class DbMigrationBase
+public abstract class SQliteMigrationBase
 {
     public abstract int DbVersion { get; }
 
