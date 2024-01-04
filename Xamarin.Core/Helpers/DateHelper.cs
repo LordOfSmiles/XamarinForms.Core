@@ -38,11 +38,6 @@ public static class DateHelper
         return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, 0);
     }
 
-    public static string ParseToTimeString(DateTime date)
-    {
-        return TimeSpanHelper.ToString(date.TimeOfDay);
-    }
-
     public static bool IsEqualsByDate(DateTime date1, DateTime date2)
     {
         return date1.Date == date2.Date;

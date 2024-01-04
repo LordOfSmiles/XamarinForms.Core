@@ -1,7 +1,7 @@
 namespace Xamarin.Data.Models;
 
 [Obsolete]
-public abstract class DbEntity_Old : ISqliteEntity
+public abstract class DbEntity_Old
 {
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }
@@ -10,13 +10,8 @@ public abstract class DbEntity_Old : ISqliteEntity
     public int DbId => Id;
 }
 
-public abstract class DbEntity : ISqliteEntity
+public abstract class DbEntity
 {
     [PrimaryKey, AutoIncrement]
     public int DbId { get; set; }
-}
-
-public interface ISqliteEntity
-{
-    public int DbId { get; }
 }

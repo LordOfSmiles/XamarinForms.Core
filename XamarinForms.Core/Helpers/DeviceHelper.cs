@@ -1,5 +1,4 @@
-﻿
-using Xamarin.Essentials;
+﻿using Xamarin.Essentials;
 
 namespace XamarinForms.Core.Helpers;
 
@@ -23,6 +22,7 @@ public static class DeviceHelper
             android.Invoke();
         }
     }
+
     public static T OnIdiom<T>(T phone, T tablet) => IsPhone
                                                          ? phone
                                                          : tablet;
@@ -31,24 +31,24 @@ public static class DeviceHelper
     public static bool IsTablet => DeviceInfo.Idiom == DeviceIdiom.Tablet;
 
     public static bool IsPortrait => DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait;
-    
+
     public static double ScreenDensity => DeviceDisplay.MainDisplayInfo.Density;
-    
+
     /// <summary>
     /// виртуальная ширина экрана
     /// </summary>
     public static double ScreenWidthInDp => ScreenWidthInPx / ScreenDensity;
-    
+
     /// <summary>
     /// вирутальная высота экрана
     /// </summary>
     public static double ScreenHeightInDp => ScreenHeightInPx / ScreenDensity;
-    
+
     /// <summary>
     /// абсолютная ширина экрана в пикселях
     /// </summary>
     public static double ScreenWidthInPx => DeviceDisplay.MainDisplayInfo.Width;
-    
+
     /// <summary>
     /// абсолютная высота экрана в пикселях
     /// </summary>

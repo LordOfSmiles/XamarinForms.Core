@@ -47,9 +47,13 @@ public static class TimeSpanHelper
         return TimeSpan.FromMinutes(hours * 60 + minutes);
     }
 
-    public static string ToString(TimeSpan time)
+    public static string ToSumString(TimeSpan time, string placeholder = "00:00")
     {
-        if (!time.IsZero())
+        if (time.IsZero())
+        {
+            return placeholder;
+        }
+        else
         {
             var hours = (int)time.TotalHours;
             var minutes = time.Minutes;
@@ -62,9 +66,17 @@ public static class TimeSpanHelper
 
             return $"{hours:D2}:{minutes:D2}";
         }
+    }
+
+    public static string ToTimeString(TimeSpan time, string placeholder = "00:00")
+    {
+        if (time.IsZero())
+        {
+            return placeholder;
+        }
         else
         {
-            return "00:00";
+            return $"{time.Hours:D2}:{time.Minutes:D2}";
         }
     }
 
