@@ -5,6 +5,7 @@ using Android.Content;
 using Android.OS;
 using AndroidX.Core.App;
 using Google.Android.Material.Dialog;
+using Xamarin.Forms;
 using XamarinForms.Core.Helpers;
 
 namespace XamarinForms.Droid.Helpers;
@@ -18,7 +19,7 @@ public static class AlarmManagerHelper
         {
             var intent = GetAlarmPendingIntent(context, receiverType);
             var interval = SystemClock.ElapsedRealtime() + intervalInMs;
-
+            
             bool canSchedule;
             if (VersionHelper.IsEqualOrGreater(12))
             {

@@ -5,7 +5,7 @@ using XamarinForms.Core.PlatformServices;
 
 namespace XamarinForms.Droid.PlatformServices;
 
-public sealed class DroidToastService : IToastService
+public sealed class ToastService : IToastService
 {
     public void ShowToast(ToastConfig config)
     {

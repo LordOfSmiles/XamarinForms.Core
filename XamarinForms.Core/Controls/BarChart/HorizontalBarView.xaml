@@ -1,6 +1,6 @@
 <?xml version="1.0"
       encoding="utf-8"?>
-<barChart:BarViewBase xmlns="http://xamarin.com/schemas/2014/forms"
+<barChart:BarWidgetBase xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:barChart="clr-namespace:XamarinForms.Core.Controls.BarChart;assembly=XamarinForms.Core"
                       x:Class="XamarinForms.Core.Controls.BarChart.HorizontalBarView">
@@ -13,4 +13,4 @@
         <BoxView x:Name="bxValue"
                  Grid.Column="0" />
     </Grid>
-</barChart:BarViewBase>
+</barChart:BarWidgetBase>

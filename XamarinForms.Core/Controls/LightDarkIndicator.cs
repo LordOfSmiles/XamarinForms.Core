@@ -1,15 +1,7 @@
-using Xamarin.Forms.Xaml;
-
 namespace XamarinForms.Core.Controls;
 
-[XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class LightDarkIndicator
+public class LightDarkIndicator : BorderOld
 {
-    public LightDarkIndicator()
-    {
-        InitializeComponent();
-    }
-
     #region Bindable Properties
 
     public static readonly BindableProperty LightDarkColorProperty = BindableProperty.Create(nameof(LightDarkColor),
@@ -21,7 +13,7 @@ public partial class LightDarkIndicator
         get => (LightDarkModel)GetValue(LightDarkColorProperty);
         set => SetValue(LightDarkColorProperty, value);
     }
-    
+
     #endregion
 
     protected override void OnPropertyChanged(string propertyName = null)
@@ -30,7 +22,7 @@ public partial class LightDarkIndicator
         {
             this.SetAppThemeColor(BackgroundColorProperty, LightDarkColor.LightColor, LightDarkColor.DarkColor);
         }
-        
+
         base.OnPropertyChanged(propertyName);
     }
 }

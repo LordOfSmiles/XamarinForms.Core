@@ -1,12 +1,12 @@
 namespace XamarinForms.Core.Controls.BarChart;
 
-public abstract class BarViewBase : BorderOld
+public abstract class BarWidgetBase : BorderOld
 {
     #region Value
 
     public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value),
                                                                                     typeof(BarViewDataModel),
-                                                                                    typeof(BarViewBase));
+                                                                                    typeof(BarWidgetBase));
 
     public BarViewDataModel Value
     {
@@ -20,7 +20,7 @@ public abstract class BarViewBase : BorderOld
 
     public static readonly BindableProperty ValueColorProperty = BindableProperty.Create(nameof(ValueColor),
                                                                                          typeof(Color),
-                                                                                         typeof(BarViewBase));
+                                                                                         typeof(BarWidgetBase));
 
     public Color ValueColor
     {

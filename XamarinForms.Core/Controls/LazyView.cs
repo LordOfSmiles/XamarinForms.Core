@@ -1,3 +1,4 @@
+using XamarinForms.Core.Helpers;
 using XamarinForms.Core.Helpers.TaskMonitor;
 
 namespace XamarinForms.Core.Controls;
@@ -158,7 +159,8 @@ public class DelayedView<TView> : LazyView<TView>
         TaskMonitor.Create(async () =>
         {
             View? view = null;
-            if (Device.RuntimePlatform == Device.Android)
+            
+            if (DeviceHelper.IsAndroid)
             {
                 await Task.Run(() =>
                 {
