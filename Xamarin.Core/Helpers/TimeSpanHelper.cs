@@ -84,12 +84,15 @@ public static class TimeSpanHelper
     {
         var hours = Math.Abs(time.Hours);
         var minutes = Math.Abs(time.Minutes);
-
-        var result = time.IsLessThanZero()
-                         ? "-"
-                         : "+";
-
-        return $"{time.Hours:D2}:{time.Minutes:D2}";
+        
+        if (time.IsLessThanZero())
+        {
+            return $"-{hours:D2}:{minutes:D2}";
+        }
+        else
+        {
+            return $"{hours:D2}:{minutes:D2}";
+        }
     }
 
 
