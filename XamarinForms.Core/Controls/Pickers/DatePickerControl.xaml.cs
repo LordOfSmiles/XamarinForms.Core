@@ -122,6 +122,7 @@ public partial class DatePickerControl
         var ctrl = (DatePickerControl)bindable;
 
         var maxDate = (DateTime?)newValue;
+        
         ctrl.datePicker.MaximumDate = maxDate ?? DateTime.MaxValue;
     }
 

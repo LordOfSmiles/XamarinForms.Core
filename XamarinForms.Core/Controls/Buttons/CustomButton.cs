@@ -1,6 +1,6 @@
 namespace XamarinForms.Core.Controls.Buttons;
 
-public sealed class CustomButton:CustomButtonBase
+public sealed class CustomButton : CustomButtonBase
 {
     public CustomButton()
     {

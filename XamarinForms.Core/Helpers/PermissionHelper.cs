@@ -5,7 +5,7 @@ namespace XamarinForms.Core.Helpers;
 
 public static class PermissionHelper
 {
-    public static async Task<bool> CheckNotificationsPermissionAsync(bool withRequest = true)
+    public static async Task<bool> CheckAndRequestNotificationsAsync()
     {
         bool hasPermission;
 
@@ -13,8 +13,9 @@ public static class PermissionHelper
             || (DeviceHelper.IsAndroid && VersionHelper.IsEqualOrGreater(13)))
         {
             var permission = DependencyService.Get<IAllowNotificationsPermission>();
+
             var status = await permission.CheckStatusAsync();
-            if (withRequest && status != PermissionStatus.Granted)
+            if (status != PermissionStatus.Granted)
             {
                 status = await permission.RequestAsync();
                 hasPermission = status == PermissionStatus.Granted;
@@ -32,7 +33,26 @@ public static class PermissionHelper
         return hasPermission;
     }
 
-    public static async Task<bool> CanReadStorageAsync()
+    public static async Task<bool> CheckNotificationsAsync(IAllowNotificationsPermission permission)
+    {
+        bool hasPermission;
+
+        if (DeviceHelper.IsIos
+            || (DeviceHelper.IsAndroid && VersionHelper.IsEqualOrGreater(13)))
+        {
+            var status = await permission.CheckStatusAsync();
+            
+            hasPermission = status == PermissionStatus.Granted;
+        }
+        else
+        {
+            hasPermission = true;
+        }
+
+        return hasPermission;
+    }
+
+    public static async Task<bool> CheckAndRequestReadStorageAsync()
     {
         bool hasPermission;
 
@@ -43,15 +63,16 @@ public static class PermissionHelper
         }
         else
         {
-            hasPermission = await CheckAndRequestPermission(new Permissions.StorageRead());
+            hasPermission = await CheckAndRequestAsync(new Permissions.StorageRead());
         }
 
         return hasPermission;
     }
 
-    public static async Task<bool> CanWriteStorageAsync()
+    public static async Task<bool> CheckAndRequestWriteStorageAsync()
     {
         bool hasPermission;
+
         if (DeviceHelper.IsAndroid
             && VersionHelper.IsEqualOrGreater(11))
         {
@@ -59,13 +80,13 @@ public static class PermissionHelper
         }
         else
         {
-            hasPermission = await CheckAndRequestPermission(new Permissions.StorageWrite());
+            hasPermission = await CheckAndRequestAsync(new Permissions.StorageWrite());
         }
 
         return hasPermission;
     }
 
-    public static async Task<bool> CheckAndRequestPermission<T>(T permission)
+    public static async Task<bool> CheckAndRequestAsync<T>(T permission)
         where T : Permissions.BasePermission
     {
         bool result;
