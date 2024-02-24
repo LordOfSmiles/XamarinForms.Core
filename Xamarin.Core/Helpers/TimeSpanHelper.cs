@@ -41,10 +41,24 @@ public static class TimeSpanHelper
     /// <returns></returns>
     public static TimeSpan FromString(string timeString)
     {
-        var hours = int.Parse(timeString.Substring(0, 2));
-        var minutes = int.Parse(timeString.Substring(3, 2));
+        TimeSpan result;
+        
+        if (timeString[0] == '-')
+        {
+            var hours = int.Parse(timeString.Substring(1, 2));
+            var minutes = int.Parse(timeString.Substring(4, 2));
 
-        return TimeSpan.FromMinutes(hours * 60 + minutes);
+            result = TimeSpan.FromMinutes(hours * 60 + minutes).Negate();
+        }
+        else
+        {
+            var hours = int.Parse(timeString.Substring(0, 2));
+            var minutes = int.Parse(timeString.Substring(3, 2));
+
+            result = TimeSpan.FromMinutes(hours * 60 + minutes);
+        }
+
+        return result;
     }
 
     public static string ToSumString(TimeSpan time, string placeholder = "")
@@ -80,26 +94,25 @@ public static class TimeSpanHelper
         }
     }
 
-    public static string ToString(TimeSpan time)
+    public static string ToString(TimeSpan time, bool withPlus = false)
     {
         var hours = Math.Abs(time.Hours);
         var minutes = Math.Abs(time.Minutes);
+
+        var result = time.IsLessThanZero()
+                         ? "-"
+                         : string.Empty;
         
-        if (time.IsLessThanZero())
-        {
-            return $"-{hours:D2}:{minutes:D2}";
-        }
-        else
-        {
-            return $"{hours:D2}:{minutes:D2}";
-        }
+        result += $"{hours:D2}:{minutes:D2}";
+
+        return result;
     }
 
 
     public static TimeSpan GetDuration(DateTime start, DateTime? end)
     {
         var roundedStart = DateHelper.RoundDate(start);
-        var roundedEnd = DateHelper.RoundDate(end ?? DateTime.Now);
+        var roundedEnd = DateHelper.RoundDate(end ?? NodaTimeHelper.Now);
 
         var result = roundedEnd - roundedStart;
         return result;

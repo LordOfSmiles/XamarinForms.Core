@@ -15,9 +15,9 @@ public abstract class DbContextBase
             _connection = null;
         }
     }
-    
+
     #endregion
-    
+
     #region Dependencies
 
     private readonly ISqlitePlatform _sqLitePlatform;
@@ -89,7 +89,10 @@ public abstract class DbContextBase
         for (var i = currentDbVersion + 1; i <= newDbVersion; i++)
         {
             var existMigration = Migrations.FirstOrDefault(x => x.DbVersion == i);
-            existMigration?.Execute(db, currentDbVersion, newDbVersion);
+            if (existMigration != null)
+            {
+                existMigration.Execute(db, currentDbVersion, newDbVersion);
+            }
         }
     }
 

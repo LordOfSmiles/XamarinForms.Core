@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using Xamarin.Core.Helpers;
 using Xamarin.Forms.Platform.iOS;
 using XamarinForms.Core.Controls;
 using XamarinForms.Core.Controls.Renderers;
@@ -90,7 +91,7 @@ public sealed class ExtendedDatePickerRenderer : DatePickerRenderer
                                                   {
                                                       var baseDatePicker = this.Element as ExtendedDatePicker;
                                                       baseDatePicker?.RaiseClearEvent();
-                                                      this.Element.Date = DateTime.Now;
+                                                      this.Element.Date = NodaTimeHelper.Now;
                                                   });
 
             buttons.Insert(0, clearButton);

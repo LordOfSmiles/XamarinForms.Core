@@ -51,7 +51,7 @@ public partial class TimePickerControl
         }
         else
         {
-            initialTime = DateTime.Now.TimeOfDay;
+            initialTime = NodaTimeHelper.Now.TimeOfDay;
         }
 
         if (initialTime.Days > 0)
@@ -121,7 +121,7 @@ public partial class TimePickerControl
     public static readonly BindableProperty DefaultTimeProperty = BindableProperty.Create(nameof(DefaultTime),
                                                                                           typeof(TimeSpan?),
                                                                                           typeof(TimePickerControl),
-                                                                                          DateTime.Now.TimeOfDay);
+                                                                                          NodaTimeHelper.Now.TimeOfDay);
 
     public TimeSpan? DefaultTime
     {
