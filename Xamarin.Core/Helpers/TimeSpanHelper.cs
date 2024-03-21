@@ -41,21 +41,39 @@ public static class TimeSpanHelper
     /// <returns></returns>
     public static TimeSpan FromString(string timeString)
     {
-        TimeSpan result;
-        
-        if (timeString[0] == '-')
-        {
-            var hours = int.Parse(timeString.Substring(1, 2));
-            var minutes = int.Parse(timeString.Substring(4, 2));
+        var result = TimeSpan.Zero;
 
-            result = TimeSpan.FromMinutes(hours * 60 + minutes).Negate();
-        }
-        else
+        if (!string.IsNullOrWhiteSpace(timeString))
         {
-            var hours = int.Parse(timeString.Substring(0, 2));
-            var minutes = int.Parse(timeString.Substring(3, 2));
+            string hoursString;
+            string minutesString;
 
-            result = TimeSpan.FromMinutes(hours * 60 + minutes);
+            var isNegative = false;
+
+            if (timeString.Length == 6
+                && timeString[0] == '-')
+            {
+                isNegative = true;
+
+                hoursString = timeString.Substring(1, 2);
+                minutesString = timeString.Substring(4, 2);
+            }
+            else
+            {
+                hoursString = timeString.Substring(0, 2);
+                minutesString = timeString.Substring(3, 2);
+            }
+
+            if (int.TryParse(hoursString, out var hours)
+                && int.TryParse(minutesString, out var minutes))
+            {
+                result = TimeSpan.FromMinutes(hours * 60 + minutes);
+
+                if (isNegative)
+                {
+                    result = result.Negate();
+                }
+            }
         }
 
         return result;
@@ -102,7 +120,7 @@ public static class TimeSpanHelper
         var result = time.IsLessThanZero()
                          ? "-"
                          : string.Empty;
-        
+
         result += $"{hours:D2}:{minutes:D2}";
 
         return result;

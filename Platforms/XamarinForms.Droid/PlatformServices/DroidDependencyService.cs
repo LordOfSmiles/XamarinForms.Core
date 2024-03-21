@@ -5,7 +5,6 @@ using Android.Content;
 using Android.Net;
 using Android.OS;
 using Android.Provider;
-using AndroidX.Core.App;
 using Java.IO;
 using Xamarin.Essentials;
 using XamarinForms.Core.Helpers;
@@ -81,17 +80,32 @@ public sealed class DroidDependencyService : IDroidDependencyService
         }
     }
 
-    public async Task<bool> SaveToDownloadsAsync(string filePath)
+    public async Task<bool> SaveToDownloadsAsync(string pathToData)
+    {
+        var isSuccess = false;
+
+        if (System.IO.File.Exists(pathToData))
+        {
+            var data = await System.IO.File.ReadAllBytesAsync(pathToData);
+            var fileName = Path.GetFileName(pathToData);
+
+            isSuccess = await SaveToDownloadsAsync(data, fileName);
+        }
+
+        return isSuccess;
+    }
+
+    public async Task<bool> SaveToDownloadsAsync(byte[] data, string fileName)
     {
         bool isSuccess;
 
         if (VersionHelper.IsEqualOrGreater(10))
         {
-            isSuccess = await Api29ImplementationAsync(filePath);
+            isSuccess = await Api29ImplementationAsync(data, fileName);
         }
         else
         {
-            isSuccess = await OldImplementationAsync(filePath);
+            isSuccess = await OldImplementationAsync(data, fileName);
         }
 
         return isSuccess;
@@ -99,21 +113,18 @@ public sealed class DroidDependencyService : IDroidDependencyService
 
     #region Private Methods
 
-    private static async Task<bool> Api29ImplementationAsync(string filePath)
+    private static async Task<bool> Api29ImplementationAsync(byte[] data, string fileName)
     {
         var isSuccess = false;
 
-        if (System.IO.File.Exists(filePath))
+        if (data != null
+            && data.Length > 0)
         {
-            var fileName = Path.GetFileName(filePath);
-
             var contentValues = new ContentValues();
             contentValues.Put(MediaStore.IMediaColumns.Title, fileName);
             contentValues.Put(MediaStore.Downloads.InterfaceConsts.DisplayName, fileName);
             contentValues.Put(MediaStore.IMediaColumns.MimeType, "application/octet-stream");
-
-            var length = new System.IO.FileInfo(filePath).Length;
-            contentValues.Put(MediaStore.IMediaColumns.Size, length);
+            contentValues.Put(MediaStore.IMediaColumns.Size, data.Length);
 
             // If you downloaded to a specific folder inside "Downloads" folder
             contentValues.Put(MediaStore.IMediaColumns.RelativePath, Environment.DirectoryDownloads);
@@ -124,11 +135,10 @@ public sealed class DroidDependencyService : IDroidDependencyService
                 var newUri = contentResolver?.Insert(MediaStore.Downloads.ExternalContentUri, contentValues);
                 if (newUri != null)
                 {
-                    var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
                     var saveStream = contentResolver.OpenOutputStream(newUri);
                     if (saveStream != null)
                     {
-                        await saveStream.WriteAsync(bytes);
+                        await saveStream.WriteAsync(data);
                         saveStream.Close();
 
                         isSuccess = true;
@@ -144,22 +154,66 @@ public sealed class DroidDependencyService : IDroidDependencyService
         return isSuccess;
     }
 
-    private static async Task<bool> OldImplementationAsync(string filePath)
+    // private static async Task<bool> Api29ImplementationAsync(string filePath)
+    // {
+    //     var isSuccess = false;
+    //
+    //     if (System.IO.File.Exists(filePath))
+    //     {
+    //         var fileName = Path.GetFileName(filePath);
+    //
+    //         var contentValues = new ContentValues();
+    //         contentValues.Put(MediaStore.IMediaColumns.Title, fileName);
+    //         contentValues.Put(MediaStore.Downloads.InterfaceConsts.DisplayName, fileName);
+    //         contentValues.Put(MediaStore.IMediaColumns.MimeType, "application/octet-stream");
+    //
+    //         var length = new System.IO.FileInfo(filePath).Length;
+    //         contentValues.Put(MediaStore.IMediaColumns.Size, length);
+    //
+    //         // If you downloaded to a specific folder inside "Downloads" folder
+    //         contentValues.Put(MediaStore.IMediaColumns.RelativePath, Environment.DirectoryDownloads);
+    //
+    //         try
+    //         {
+    //             var contentResolver = Platform.AppContext.ContentResolver;
+    //             var newUri = contentResolver?.Insert(MediaStore.Downloads.ExternalContentUri, contentValues);
+    //             if (newUri != null)
+    //             {
+    //                 var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
+    //                 var saveStream = contentResolver.OpenOutputStream(newUri);
+    //                 if (saveStream != null)
+    //                 {
+    //                     await saveStream.WriteAsync(bytes);
+    //                     saveStream.Close();
+    //
+    //                     isSuccess = true;
+    //                 }
+    //             }
+    //         }
+    //         catch
+    //         {
+    //             //
+    //         }
+    //     }
+    //
+    //     return isSuccess;
+    // }
+
+    private static async Task<bool> OldImplementationAsync(byte[] data, string fileName)
     {
         var isSuccess = false;
-        
+
         try
         {
-            if (System.IO.File.Exists(filePath))
+            if (data is { Length: > 0 })
             {
                 var downloadsFolder = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads);
                 if (downloadsFolder != null)
                 {
-                    var pathToSave = Path.Combine(downloadsFolder.AbsolutePath, Path.GetFileName(filePath));
-                    var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
+                    var pathToSave = Path.Combine(downloadsFolder.AbsolutePath, fileName);
 
                     using var fileOutputStream = new FileOutputStream(new File(pathToSave));
-                    await fileOutputStream.WriteAsync(bytes);
+                    await fileOutputStream.WriteAsync(data);
                     fileOutputStream.Close();
 
                     isSuccess = true;
@@ -173,6 +227,36 @@ public sealed class DroidDependencyService : IDroidDependencyService
 
         return isSuccess;
     }
+
+    // private static async Task<bool> OldImplementationAsync(string filePath)
+    // {
+    //     var isSuccess = false;
+    //
+    //     try
+    //     {
+    //         if (System.IO.File.Exists(filePath))
+    //         {
+    //             var downloadsFolder = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads);
+    //             if (downloadsFolder != null)
+    //             {
+    //                 var pathToSave = Path.Combine(downloadsFolder.AbsolutePath, Path.GetFileName(filePath));
+    //                 var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
+    //
+    //                 using var fileOutputStream = new FileOutputStream(new File(pathToSave));
+    //                 await fileOutputStream.WriteAsync(bytes);
+    //                 fileOutputStream.Close();
+    //
+    //                 isSuccess = true;
+    //             }
+    //         }
+    //     }
+    //     catch
+    //     {
+    //         //
+    //     }
+    //
+    //     return isSuccess;
+    // }
 
     #endregion
 }

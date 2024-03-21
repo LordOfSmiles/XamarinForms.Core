@@ -85,6 +85,23 @@ public static class PermissionHelper
 
         return hasPermission;
     }
+    
+    public static async Task<bool> CheckWriteStorageAsync()
+    {
+        bool hasPermission;
+
+        if (DeviceHelper.IsAndroid
+            && VersionHelper.IsEqualOrGreater(11))
+        {
+            hasPermission = true;
+        }
+        else
+        {
+            hasPermission = await CheckAsync(new Permissions.StorageWrite());
+        }
+
+        return hasPermission;
+    }
 
     public static async Task<bool> CheckAndRequestAsync<T>(T permission)
         where T : Permissions.BasePermission
@@ -107,6 +124,16 @@ public static class PermissionHelper
         {
             result = true;
         }
+
+        return result;
+    }
+    
+    public static async Task<bool> CheckAsync<T>(T permission)
+        where T : Permissions.BasePermission
+    {
+        var status = await permission.CheckStatusAsync();
+
+        var result = status == PermissionStatus.Granted;
 
         return result;
     }

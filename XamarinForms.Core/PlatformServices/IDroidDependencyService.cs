@@ -6,5 +6,7 @@ public interface IDroidDependencyService
     void GoToPowerSettings();
     bool IsInPowerWhiteList { get; }
     
-    Task<bool> SaveToDownloadsAsync(string filePath);
+    Task<bool> SaveToDownloadsAsync(string pathToData);
+
+    Task<bool> SaveToDownloadsAsync(byte[] data, string fileName);
 }
