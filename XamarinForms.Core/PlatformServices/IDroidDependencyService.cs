@@ -3,8 +3,10 @@ namespace XamarinForms.Core.PlatformServices;
 public interface IDroidDependencyService
 {
     bool CanUseExactsAlarms { get; }
-    void GoToPowerSettings();
+    void GoToExactAlarmSettings();
+    
     bool IsInPowerWhiteList { get; }
+    void GoToPowerSettings();
     
     Task<bool> SaveToDownloadsAsync(string pathToData);
 

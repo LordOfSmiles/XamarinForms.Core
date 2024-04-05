@@ -6,3 +6,8 @@ public interface ITimerUpdatable
         
     DateTime LastDate { get; set; }
 }
+
+public interface IUpdatable
+{
+    void ForceRefresh();
+}

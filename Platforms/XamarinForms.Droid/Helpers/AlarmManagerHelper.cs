@@ -39,6 +39,10 @@ public static class AlarmManagerHelper
                     alarmManager.Set(AlarmType.ElapsedRealtimeWakeup, interval, intent);
                 }
             }
+            else
+            {
+                alarmManager.Set(AlarmType.ElapsedRealtimeWakeup, interval, intent);
+            }
         }
     }
 

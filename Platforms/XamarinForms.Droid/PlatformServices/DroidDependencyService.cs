@@ -35,6 +35,25 @@ public sealed class DroidDependencyService : IDroidDependencyService
         }
     }
 
+    public void GoToExactAlarmSettings()
+    {
+        if (VersionHelper.IsEqualOrGreater(12))
+        {
+            var intent = new Intent();
+            intent.SetAction(Settings.ActionRequestScheduleExactAlarm);
+            intent.SetData(Uri.Parse("package:" + AppInfo.PackageName));
+          
+            try
+            {
+                Platform.CurrentActivity.StartActivity(intent);
+            }
+            catch
+            {
+                //
+            }
+        }
+    }
+
     public void GoToPowerSettings()
     {
         if (VersionHelper.IsEqualOrGreater(6))
