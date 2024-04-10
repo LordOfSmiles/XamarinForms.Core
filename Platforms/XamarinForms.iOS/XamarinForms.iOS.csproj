@@ -71,6 +71,7 @@
     <Compile Include="Helpers\TouchGestureCollector.cs" />
     <Compile Include="Helpers\TouchGestureRecognizer.cs" />
     <Compile Include="PlatformServices\AllowNotificationsPermission.cs" />
+    <Compile Include="PlatformServices\CommonDependencyService.cs" />
     <Compile Include="PlatformServices\IosDependencyService.cs" />
     <Compile Include="PlatformServices\ToastService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

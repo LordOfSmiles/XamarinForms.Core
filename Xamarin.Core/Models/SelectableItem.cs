@@ -18,6 +18,8 @@ public class SelectableItem : NotifyObject, ISelectable
     #region ISelectable
 
     public string Text { get; }
+    
+    public object Tag { get; set; }
 
     public virtual bool IsSelected
     {

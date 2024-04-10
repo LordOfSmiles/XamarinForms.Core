@@ -59,6 +59,7 @@
         <Compile Include="Helpers\TouchCollector.cs" />
         <Compile Include="Helpers\WidgetHelper.cs" />
         <Compile Include="PlatformServices\AllowNotificationsPermission.cs" />
+        <Compile Include="PlatformServices\CommonDependencyService.cs" />
         <Compile Include="PlatformServices\CountryService.cs" />
         <Compile Include="PlatformServices\DroidDependencyService.cs" />
         <Compile Include="PlatformServices\DroidDialogDependencyService.cs" />
